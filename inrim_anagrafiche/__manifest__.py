@@ -1,0 +1,25 @@
+{
+    'name': 'Inrim Anagrafiche',
+    'version': '17.0.1.0.0',
+    'summary': 'Account Extension for OSA',
+    'category': 'Accounting/Accounting',
+    'description': "Inrim Anagrafiche",
+    'depends': [
+        'contacts',
+    ],
+    'data': [
+        'security/ir.model.access.csv',
+        'data/ca_tipo_persona_data.xml',
+        'data/ca_tipo_doc_ident_data.xml',
+        'data/ca_ente_azienda_data.xml',
+        'data/ir.cron.xml',
+        'views/ca_persona_views.xml',
+        'views/ca_tipo_persona_views.xml',
+        'views/ca_documento.xml',
+        'views/ca_ente_azienda_views.xml',
+        'views/menus.xml',
+    ],
+    'demo': [],
+    'installable': True,
+    'application': True,
+}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="ca_persona_menu"
+        name="Inrim Partner"
+        action="ca_persona_action"
+        parent="contacts.menu_contacts"
+        sequence="1"
+    />
+
+    <menuitem
+        id="ca_tipo_persona_menu"
+        name="Person Type"
+        action="ca_tipo_persona_action"
+        parent="contacts.res_partner_menu_config"
+        sequence="10"
+    />
+
+    <menuitem
+        id="ca_tipo_doc_ident_menu"
+        name="Document Type"
+        action="ca_tipo_doc_ident_action"
+        parent="contacts.res_partner_menu_config"
+        sequence="15"
+    />
+
+    <menuitem
+        id="ca_codice_documento_menu"
+        name="Document Code"
+        action="ca_codice_documento_action"
+        parent="contacts.res_partner_menu_config"
+        sequence="20"
+    />
+
+    <menuitem
+        id="ca_ente_azienda_menu"
+        name="Ref Associated Institution/Company"
+        action="ca_ente_azienda_action"
+        parent="contacts.res_partner_menu_config"
+        sequence="25"
+    />
+</odoo>

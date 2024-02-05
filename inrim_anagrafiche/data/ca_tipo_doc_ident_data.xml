@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="tipo_doc_ident_carta_identita" model="ca.tipo_doc_ident">
+        <field name="name">Carta D’identita</field>
+    </record>
+
+    <record id="tipo_doc_ident_codice_fiscale" model="ca.tipo_doc_ident">
+        <field name="name">Codice Fiscale</field>
+    </record>
+
+    <record id="tipo_doc_ident_passaporto" model="ca.tipo_doc_ident">
+        <field name="name">Passaporto</field>
+    </record>
+</odoo>
