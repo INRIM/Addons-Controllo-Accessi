@@ -1,0 +1,515 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* inrim_anagrafiche
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-02-05 14:05+0000\n"
+"PO-Revision-Date: 2024-02-05 14:05+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: inrim_anagrafiche
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
+msgid ""
+"<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
+"                                        <b>Address</b>\n"
+"                                    </span>"
+msgstr ""
+"<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
+"                                        <b>Address</b>\n"
+"                                    </span>"
+
+#. module: inrim_anagrafiche
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
+msgid ""
+"<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
+"                                <b>Address</b>\n"
+"                            </span>"
+msgstr ""
+"<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
+"                                <b>Indirizzo</b>\n"
+"                            </span>"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__active
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__active
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__active
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__active
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__active
+msgid "Active"
+msgstr "Attivo"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__associated_user_id
+msgid "Associated User"
+msgstr "Utente Gestionale Associato"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__birth_date
+msgid "Birth Date"
+msgstr "Data di Nascita"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__birth_place
+msgid "Birth Place"
+msgstr "Luogo di Nascita"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__ca_documento_ids
+msgid "Ca Documento"
+msgstr "Documento"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__ca_ente_azienda_ids
+msgid "Ca Ente Azienda"
+msgstr "Rif. Ente/Azienda Associata"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__ca_persona_id
+msgid "Ca Persona"
+msgstr "Persona"
+
+#. module: inrim_anagrafiche
+#: model:ir.actions.server,name:inrim_anagrafiche.ir_cron_check_document_availability_ir_actions_server
+msgid "Check Document Availability"
+msgstr "INRIM: Controllo Validità Documenti"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__city
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
+msgid "City"
+msgstr "Città"
+
+#. module: inrim_anagrafiche
+#: model:ir.model,name:inrim_anagrafiche.model_ca_codice_documento
+msgid "Codice Documento"
+msgstr ""
+
+#. module: inrim_anagrafiche
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
+msgid "Company Name..."
+msgstr "Nome Azienda..."
+
+#. module: inrim_anagrafiche
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
+msgid "Complete"
+msgstr "Completa"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_persona__state__completed
+msgid "Completed"
+msgstr "Completata"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__child_ids
+msgid "Contact"
+msgstr "Contatti"
+
+#. module: inrim_anagrafiche
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
+msgid "Contacts"
+msgstr "Contatti"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__country_id
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
+msgid "Country"
+msgstr "Provincia"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__create_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__create_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__create_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__create_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__create_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__create_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__create_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__create_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__create_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__create_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__date_end
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__date_end
+msgid "Date End"
+msgstr "Data Fine"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__date_start
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__date_start
+msgid "Date Start"
+msgstr "Data Inizio"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__description
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__description
+msgid "Description"
+msgstr "Descrizione"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__display_name
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__display_name
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__display_name
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__display_name
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__display_name
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__display_name
+msgid "Display Name"
+msgstr "Nome"
+
+#. module: inrim_anagrafiche
+#: model:ir.actions.act_window,name:inrim_anagrafiche.ca_codice_documento_action
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__document_code_id
+#: model:ir.ui.menu,name:inrim_anagrafiche.ca_codice_documento_menu
+msgid "Document Code"
+msgstr "Codice Documento"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__document_status
+msgid "Document Status"
+msgstr "Stato Documenti"
+
+#. module: inrim_anagrafiche
+#: model:ir.actions.act_window,name:inrim_anagrafiche.ca_tipo_doc_ident_action
+#: model:ir.ui.menu,name:inrim_anagrafiche.ca_tipo_doc_ident_menu
+msgid "Document Type"
+msgstr "Tipo Documento"
+
+#. module: inrim_anagrafiche
+#: model:ir.model,name:inrim_anagrafiche.model_ca_documento
+msgid "Documenti"
+msgstr ""
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__domicile_city
+msgid "Domicile City"
+msgstr "Città Domicilio"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__domicile_country_id
+msgid "Domicile Country"
+msgstr "Provincia Domicilio"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__domicile_other_than_residence
+msgid "Domicile Other Than Residence"
+msgstr "Domicilio Diverso Da Residenza"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__domicile_state_id
+msgid "Domicile State"
+msgstr "Nazione Domicilio"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__domicile_street
+msgid "Domicile Street"
+msgstr "Indirizzo Domicilio"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__domicile_street2
+msgid "Domicile Street2"
+msgstr "Indirizzo2 Domicilio"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__domicile_zip
+msgid "Domicile Zip"
+msgstr "CAP Domicile"
+
+#. module: inrim_anagrafiche
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
+msgid "Domicile and Residence Data"
+msgstr "Dati di Domicilio e Residenza"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_persona__state__draft
+msgid "Draft"
+msgstr "Bozza"
+
+#. module: inrim_anagrafiche
+#: model:ir.model,name:inrim_anagrafiche.model_ca_ente_azienda
+msgid "Ente Azienda"
+msgstr ""
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_documento__document_status__expired
+msgid "Expired"
+msgstr "Scaduto"
+
+#. module: inrim_anagrafiche
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_view_search
+msgid "Expired Document"
+msgstr "Documenti Scaduti"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_documento__document_status__expiring
+msgid "Expiring"
+msgstr "In scadenza"
+
+#. module: inrim_anagrafiche
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_view_search
+msgid "Expiring Document"
+msgstr "Documenti In Scadenza"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__fiscalcode
+msgid "Fiscalcode"
+msgstr "Codice Fiscale"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__freshman
+msgid "Freshman"
+msgstr "Matricola"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__id
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__id
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__id
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__id
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__id
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__id
+msgid "ID"
+msgstr ""
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__image_ids
+msgid "Image"
+msgstr "Immagini"
+
+#. module: inrim_anagrafiche
+#: model:ir.actions.act_window,name:inrim_anagrafiche.ca_persona_action
+#: model:ir.ui.menu,name:inrim_anagrafiche.ca_persona_menu
+msgid "Inrim Partner"
+msgstr "Anagrafica Persona"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__is_external
+msgid "Is External"
+msgstr "E' esterno"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__is_internal
+msgid "Is Internal"
+msgstr "E' interno"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__istat_code
+msgid "Istat Code"
+msgstr "Codice ISTAT"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__write_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__write_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__write_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__write_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__write_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__write_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__write_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__write_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__write_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__write_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__lastname
+msgid "Lastname"
+msgstr "Cognome"
+
+#. module: inrim_anagrafiche
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
+msgid "List of Identity Documents"
+msgstr "Elenco Documenti di Identità"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__name
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__name
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__name
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__name
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__name
+msgid "Name"
+msgstr "Nome"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__nationality
+msgid "Nationality"
+msgstr "Nazionalità"
+
+#. module: inrim_anagrafiche
+#: model:ir.actions.act_window,name:inrim_anagrafiche.ca_tipo_persona_action
+#: model:ir.ui.menu,name:inrim_anagrafiche.ca_tipo_persona_menu
+msgid "Person Type"
+msgstr "Tipo"
+
+#. module: inrim_anagrafiche
+#: model:ir.model,name:inrim_anagrafiche.model_ca_persona
+msgid "Persona"
+msgstr "Anagrafica Persona"
+
+#. module: inrim_anagrafiche
+#: model:ir.actions.act_window,name:inrim_anagrafiche.ca_ente_azienda_action
+#: model:ir.ui.menu,name:inrim_anagrafiche.ca_ente_azienda_menu
+msgid "Ref Associated Institution/Company"
+msgstr "Rif. Ente/Azienda Associata"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__parent_id
+msgid "Related Company"
+msgstr "Azienda Collegata"
+
+#. module: inrim_anagrafiche
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
+msgid "Reset To Draft"
+msgstr "Reimposta a bozza"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__residence_city
+msgid "Residence City"
+msgstr "Città Residenza"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__residence_country_id
+msgid "Residence Country"
+msgstr "Provincia Residenza"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__residence_state_id
+msgid "Residence State"
+msgstr "Nazione Residenza"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__residence_street
+msgid "Residence Street"
+msgstr "Indirzzo Residenza"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__residence_street2
+msgid "Residence Street2"
+msgstr "Indirizzo2 Residenza"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__residence_zip
+msgid "Residence Zip"
+msgstr "CAP Residenza"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__state
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__state_id
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
+msgid "State"
+msgstr "Nazione"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__street
+msgid "Street"
+msgstr "Indirizzo"
+
+#. module: inrim_anagrafiche
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
+msgid "Street 2..."
+msgstr "Indirizzo 2..."
+
+#. module: inrim_anagrafiche
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
+msgid "Street..."
+msgstr "Indirizzo..."
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__street2
+msgid "Street2"
+msgstr "Indirizzo2"
+
+#. module: inrim_anagrafiche
+#: model:ir.model,name:inrim_anagrafiche.model_ca_tipo_doc_ident
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__tipo_documento_id
+msgid "Tipo Documento"
+msgstr ""
+
+#. module: inrim_anagrafiche
+#: model:ir.model,name:inrim_anagrafiche.model_ca_tipo_persona
+msgid "Tipo Persona"
+msgstr ""
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__token
+msgid "Token"
+msgstr "CU"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__type_ids
+msgid "Type"
+msgstr "Tipo"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_documento__document_status__valid
+msgid "Valid"
+msgstr "Valido"
+
+#. module: inrim_anagrafiche
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_view_search
+msgid "Valid Document"
+msgstr "Documenti Validi"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__validity_end_date
+msgid "Validity End Date"
+msgstr "Data Fine Validità"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__validity_start_date
+msgid "Validity Start Date"
+msgstr "Data Inizio Validità"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__vat
+msgid "Vat"
+msgstr "Partita IVA"
+
+#. module: inrim_anagrafiche
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
+msgid "Waiting For Documents"
+msgstr "In attesa documenti"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_persona__state__documents
+msgid "Waiting for documents"
+msgstr "In attesa documenti"
+
+#. module: inrim_anagrafiche
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
+msgid "ZIP"
+msgstr "CAP"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__zip
+msgid "Zip"
+msgstr "Cap"
+
+#. module: inrim_anagrafiche
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
+msgid "domicile"
+msgstr "Domicilio"
+
+#. module: inrim_anagrafiche
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
+msgid "residence"
+msgstr "Residenza"
