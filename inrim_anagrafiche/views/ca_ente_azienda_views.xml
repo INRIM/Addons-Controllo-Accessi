@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_ente_azienda_view_tree" model="ir.ui.view">
+        <field name="name">ca.ente.azienda.view.tree</field>
+        <field name="model">ca.ente_azienda</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ca_ente_azienda_form" model="ir.ui.view">
+        <field name="name">ca.ente.azienda.form</field>
+        <field name="model">ca.ente_azienda</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ca_ente_azienda_action" model="ir.actions.act_window">
+        <field name="name">Ref Associated Institution/Company</field>
+        <field name="res_model">ca.ente_azienda</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

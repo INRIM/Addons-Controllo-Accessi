@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ente_azienda_sede" model="ca.ente_azienda">
+        <field name="name">Sede</field>
+    </record>
+
+    <record id="ente_azienda_pubblica_amministrazione" model="ca.ente_azienda">
+        <field name="name">Pubblica Amministrazione</field>
+    </record>
+    
+    <record id="ente_azienda_universita" model="ca.ente_azienda">
+        <field name="name">Universita’</field>
+    </record>
+
+    <record id="ente_azienda_azienda" model="ca.ente_azienda">
+        <field name="name">Azienda</field>
+    </record>
+
+    <record id="ente_azienda_professionista" model="ca.ente_azienda">
+        <field name="name">Professionista</field>
+    </record>
+
+    <record id="ente_azienda_lavoratore_autonomo" model="ca.ente_azienda">
+        <field name="name">Lavoratore Autonomo</field>
+    </record>
+
+    <record id="ente_azienda_societa_semplice" model="ca.ente_azienda">
+        <field name="name">Societa’ Semplice</field>
+    </record>
+
+    <record id="ente_azienda_laboratorio_taratura" model="ca.ente_azienda">
+        <field name="name">Laboratorio di Taratura</field>
+    </record>
+</odoo>

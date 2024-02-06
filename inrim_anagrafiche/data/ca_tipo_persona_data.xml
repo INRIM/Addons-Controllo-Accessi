@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="tipo_persona_interno" model="ca.tipo_persona">
+        <field name="name">Interno</field>
+    </record>
+
+    <record id="tipo_persona_esterno" model="ca.tipo_persona">
+        <field name="name">Esterno</field>
+    </record>
+
+    <record id="tipo_persona_ospite" model="ca.tipo_persona">
+        <field name="name">Ospite</field>
+    </record>
+    
+    <record id="tipo_persona_tirocinio" model="ca.tipo_persona">
+        <field name="name">Tirocinio</field>
+    </record>
+
+    <record id="tipo_persona_servizi_igiene" model="ca.tipo_persona">
+        <field name="name">Servizi Igiene</field>
+    </record>
+
+    <record id="tipo_persona_servizi" model="ca.tipo_persona">
+        <field name="name">Servizi</field>
+    </record>
+
+    <record id="tipo_persona_servizi_mensa_ristorazione" model="ca.tipo_persona">
+        <field name="name">Servizi Mensa Ristorazione</field>
+    </record>
+
+    <record id="tipo_persona_assegno" model="ca.tipo_persona">
+        <field name="name">Assegno</field>
+    </record>
+
+    <record id="tipo_persona_dottorando" model="ca.tipo_persona">
+        <field name="name">Dottorando</field>
+    </record>
+
+    <record id="tipo_persona_ricercatore" model="ca.tipo_persona">
+        <field name="name">Ricercatore</field>
+    </record>
+
+    <record id="tipo_persona_dipendente_ti" model="ca.tipo_persona">
+        <field name="name">Dipendente TI</field>
+    </record>
+
+    <record id="tipo_persona_dipendente_td" model="ca.tipo_persona">
+        <field name="name">Dipendente TD</field>
+    </record>
+</odoo>
