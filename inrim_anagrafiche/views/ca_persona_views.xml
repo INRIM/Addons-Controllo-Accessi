@@ -5,9 +5,8 @@
         <field name="model">ca.persona</field>
         <field name="arch" type="xml">
             <search>
-                <filter string="Valid Document" name="document_status_valid" domain="[('ca_documento_ids.document_status', '=', 'valid')]"/>
-                <filter string="Expiring Document" name="document_status_expiring" domain="[('ca_documento_ids.document_status', '=', 'expiring')]"/>
-                <filter string="Expired Document" name="document_status_expired" domain="[('ca_documento_ids.document_status', '=', 'expired')]"/>
+                <filter string="Internal Staff" name="internal_staff" domain="[('type_ids', 'ilike', 'interno')]"/>
+                <filter string="External" name="external" domain="[('type_ids', 'ilike', 'esterno')]"/>
             </search>
         </field>
     </record>
@@ -118,7 +117,12 @@
                         </page>
                         <page name="identity_documents" string="List of Identity Documents" invisible="not is_external">
                             <field name="ca_documento_ids">
-                                <tree editable="bottom" decoration-success="document_status == 'valid'" decoration-danger="document_status == 'expired'" decoration-primary="document_status == 'expiring'">
+                                <tree 
+                                    editable="bottom" 
+                                    decoration-success="document_status == 'valid'"
+                                    decoration-danger="document_status == 'expired'"
+                                    decoration-primary="document_status == 'expiring'"
+                                >
                                     <field name="tipo_documento_id"/>
                                     <field name="validity_start_date"/>
                                     <field name="validity_end_date"/>
@@ -145,7 +149,7 @@
     </record>
 
     <record id="ca_persona_action" model="ir.actions.act_window">
-        <field name="name">Inrim Partner</field>
+        <field name="name">People</field>
         <field name="res_model">ca.persona</field>
         <field name="view_mode">tree,form</field>
     </record>
