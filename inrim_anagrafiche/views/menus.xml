@@ -1,42 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <menuitem
-        id="ca_persona_menu"
-        name="Inrim Partner"
-        action="ca_persona_action"
-        parent="contacts.menu_contacts"
-        sequence="1"
+        id="ca_persona_menu_root"
+        name="Partner"
+        web_icon="inrim_anagrafiche,static/src/img/anagrafiche.png"
     />
 
     <menuitem
-        id="ca_tipo_persona_menu"
-        name="Person Type"
-        action="ca_tipo_persona_action"
-        parent="contacts.res_partner_menu_config"
+        id="ca_ente_azienda_menu"
+        name="Institution/Company"
+        action="ca_ente_azienda_action"
+        parent="ca_persona_menu_root"
+        sequence="5"
+    />
+
+    <menuitem
+        id="ca_persona_menu"
+        name="People"
+        action="ca_persona_action"
+        parent="ca_persona_menu_root"
         sequence="10"
+    />
+
+    <menuitem
+        id="ca_documento_menu"
+        name="Documents"
+        action="ca_documento_action"
+        parent="ca_persona_menu_root"
+        sequence="15"
+    />
+
+    <menuitem
+        id="inrim_configuration_menu"
+        name="Configuration"
+        parent="ca_persona_menu_root"
+        sequence="50"
+    />
+
+    <menuitem
+        id="ca_tipo_ente_azienda_menu"
+        name="Company Entity Type"
+        action="ca_tipo_ente_azienda_action"
+        parent="inrim_configuration_menu"
+        sequence="5"
     />
 
     <menuitem
         id="ca_tipo_doc_ident_menu"
         name="Document Type"
         action="ca_tipo_doc_ident_action"
-        parent="contacts.res_partner_menu_config"
-        sequence="15"
+        parent="inrim_configuration_menu"
+        sequence="10"
     />
 
     <menuitem
         id="ca_codice_documento_menu"
         name="Document Code"
         action="ca_codice_documento_action"
-        parent="contacts.res_partner_menu_config"
-        sequence="20"
+        parent="inrim_configuration_menu"
+        sequence="15"
     />
 
     <menuitem
-        id="ca_ente_azienda_menu"
-        name="Ref Associated Institution/Company"
-        action="ca_ente_azienda_action"
-        parent="contacts.res_partner_menu_config"
-        sequence="25"
+        id="ca_tipo_persona_menu"
+        name="Person Type"
+        action="ca_tipo_persona_action"
+        parent="inrim_configuration_menu"
+        sequence="20"
     />
 </odoo>
