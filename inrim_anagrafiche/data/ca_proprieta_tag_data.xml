@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="proprieta_tag_temporaneo" model="ca.proprieta_tag">
+        <field name="name">Temporaneo</field>
+    </record>
+
+    <record id="proprieta_tag_definitivo" model="ca.proprieta_tag">
+        <field name="name">Definitivo</field>
+    </record>
+
+    <record id="proprieta_tag_valido" model="ca.proprieta_tag">
+        <field name="name">Valido</field>
+    </record>
+
+    <record id="proprieta_tag_revocato" model="ca.proprieta_tag">
+        <field name="name">Revocato</field>
+    </record>
+
+    <record id="proprieta_tag_visitatore" model="ca.proprieta_tag">
+        <field name="name">Visitatore</field>
+    </record>
+
+    <record id="proprieta_tag_jolly" model="ca.proprieta_tag">
+        <field name="name">Jolly</field>
+    </record>
+</odoo>

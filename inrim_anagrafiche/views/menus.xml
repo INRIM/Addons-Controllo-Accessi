@@ -76,4 +76,20 @@
         parent="inrim_configuration_menu"
         sequence="25"
     />
+
+    <menuitem
+        id="ca_proprieta_tag_menu"
+        name="Property Tag"
+        action="ca_proprieta_tag_action"
+        parent="inrim_configuration_menu"
+        sequence="30"
+    />
+
+    <menuitem
+        id="ca_tag_menu"
+        name="Tag"
+        action="ca_tag_action"
+        parent="inrim_configuration_menu"
+        sequence="35"
+    />
 </odoo>
