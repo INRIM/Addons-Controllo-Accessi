@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_tag_view_tree" model="ir.ui.view">
+        <field name="name">ca.tag.view.tree</field>
+        <field name="model">ca.tag</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+                <field name="tag_code"/>
+                <field name="ca_proprieta_tag_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                <field name="in_use"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ca_proprieta_tag_view_tree" model="ir.ui.view">
+        <field name="name">ca.proprieta_tag.view.tree</field>
+        <field name="model">ca.proprieta_tag</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ca_proprieta_tag_action" model="ir.actions.act_window">
+        <field name="name">Property Tag</field>
+        <field name="res_model">ca.proprieta_tag</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="ca_tag_action" model="ir.actions.act_window">
+        <field name="name">Tag</field>
+        <field name="res_model">ca.tag</field>
+        <field name="view_mode">tree</field>
+    </record>
+</odoo>

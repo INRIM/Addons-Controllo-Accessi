@@ -7,3 +7,5 @@ access_ca_codice_documento,access_ca_codice_documento,model_ca_codice_documento,
 access_ca_ente_azienda,access_ca_ente_azienda,model_ca_ente_azienda,base.group_user,1,1,1,1
 access_ca_tipo_ente_azienda,access_ca_tipo_ente_azienda,model_ca_tipo_ente_azienda,base.group_user,1,1,1,1
 access_ca_lettore,access_ca_lettore,model_ca_lettore,base.group_user,1,1,1,1
+access_ca_tag,access_ca_tag,model_ca_tag,base.group_user,1,1,1,1
+access_ca_proprieta_tag,access_ca_proprieta_tag,model_ca_proprieta_tag,base.group_user,1,1,1,1
