@@ -144,6 +144,9 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="display_name"/>
+                <field name="city"/>
+                <field name="country_id"/>
+                <field name="token"/>
             </tree>
         </field>
     </record>
