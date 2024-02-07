@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_lettore_view_tree" model="ir.ui.view">
+        <field name="name">ca.lettore.view.tree</field>
+        <field name="model">ca.lettore</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="reader_ip"/>
+                <field name="direction"/>
+                <field name="device_id"/>
+                <field name="system_error"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="ca_lettore_view_form" model="ir.ui.view">
+        <field name="name">ca.lettore.view.form</field>
+        <field name="model">ca.lettore</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="reader_ip"/>
+                            <field name="direction"/>
+                            <field name="device_id"/>
+                            <field name="type"/>
+                            <field name="mode"/>
+                        </group>
+                        <group>
+                            <field name="mode_type"/>
+                            <field name="reader_status"/>
+                            <field name="available_events"/>
+                            <field name="system_error"/>
+                            <field name="error_code"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ca_lettore_action" model="ir.actions.act_window">
+        <field name="name">Readers</field>
+        <field name="res_model">ca.lettore</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

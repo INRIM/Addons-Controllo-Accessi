@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-06 14:29+0000\n"
-"PO-Revision-Date: 2024-02-06 14:29+0000\n"
+"POT-Creation-Date: 2024-02-06 15:12+0000\n"
+"PO-Revision-Date: 2024-02-06 15:12+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -41,6 +41,7 @@ msgstr ""
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__active
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__active
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__active
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__active
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__active
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__active
@@ -57,6 +58,11 @@ msgstr "Tutti Figli"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__associated_user_id
 msgid "Associated User"
 msgstr "Utente Gestionale Associato"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__available_events
+msgid "Available Events"
+msgstr "Numero eventi disponibili"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__birth_date
@@ -160,6 +166,7 @@ msgstr "Provincia"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__create_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__create_uid
@@ -171,6 +178,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__create_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__create_date
@@ -200,9 +208,20 @@ msgid "Description"
 msgstr "Descrizione"
 
 #. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__device_id
+msgid "Device"
+msgstr "ID dispositivo"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__direction
+msgid "Direction"
+msgstr "Direzione"
+
+#. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__display_name
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__display_name
@@ -295,6 +314,11 @@ msgid "Ente Azienda"
 msgstr ""
 
 #. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__error_code
+msgid "Error Code"
+msgstr "Codice errore"
+
+#. module: inrim_anagrafiche
 #: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_documento__document_status__expired
 msgid "Expired"
 msgstr "Scaduto"
@@ -338,6 +362,7 @@ msgstr "Informazioni Generali"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__id
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__id
@@ -349,6 +374,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__image_ids
 msgid "Image"
 msgstr "Immagini"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_lettore__direction__in
+msgid "In"
+msgstr ""
 
 #. module: inrim_anagrafiche
 #: model:ir.actions.act_window,name:inrim_anagrafiche.ca_ente_azienda_action
@@ -380,6 +410,7 @@ msgstr "Codice ISTAT"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__write_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__write_uid
@@ -391,6 +422,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__write_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__write_date
@@ -404,6 +436,11 @@ msgid "Lastname"
 msgstr "Cognome"
 
 #. module: inrim_anagrafiche
+#: model:ir.model,name:inrim_anagrafiche.model_ca_lettore
+msgid "Lettore"
+msgstr ""
+
+#. module: inrim_anagrafiche
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
 msgid "List of Identity Documents"
 msgstr "Elenco Documenti di Identità"
@@ -414,8 +451,19 @@ msgid "Mobile"
 msgstr "Cellulare"
 
 #. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__mode
+msgid "Mode"
+msgstr "Modalità"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__mode_type
+msgid "Mode Type"
+msgstr "Tipo modalità"
+
+#. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__name
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__name
@@ -431,6 +479,11 @@ msgstr "Nazionalità"
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__note
 msgid "Note"
+msgstr ""
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_lettore__direction__out
+msgid "Out"
 msgstr ""
 
 #. module: inrim_anagrafiche
@@ -475,6 +528,22 @@ msgstr "Anagrafica Persona"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__phone
 msgid "Phone"
 msgstr "Telefono"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__reader_ip
+msgid "Reader Ip"
+msgstr "IP del lettore"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__reader_status
+msgid "Reader Status"
+msgstr "Stato Lettore"
+
+#. module: inrim_anagrafiche
+#: model:ir.actions.act_window,name:inrim_anagrafiche.ca_lettore_action
+#: model:ir.ui.menu,name:inrim_anagrafiche.ca_lettore_menu
+msgid "Readers"
+msgstr "Lettori"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__parent_id
@@ -555,6 +624,11 @@ msgid "Street2"
 msgstr "Indirizzo2"
 
 #. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__system_error
+msgid "System Error"
+msgstr "Errore di Sistema"
+
+#. module: inrim_anagrafiche
 #: model:ir.model,name:inrim_anagrafiche.model_ca_tipo_doc_ident
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__tipo_documento_id
 msgid "Tipo Documento"
@@ -577,6 +651,7 @@ msgid "Token"
 msgstr "CU"
 
 #. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__type
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__type_ids
 msgid "Type"
 msgstr "Tipo"

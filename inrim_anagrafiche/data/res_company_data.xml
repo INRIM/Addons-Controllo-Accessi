@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="res_company_inrim" model="res.company">
+            <field name="name">Istituto Nazionale di Ricerca Metrologica</field>
+            <field name="street">Strada delle Cacce, 91</field>
+            <field name="city">Torino</field>
+            <field name="state_id" ref="base.state_it_to"/>
+            <field name="zip">10135</field>
+            <field name="country_id" ref="base.it"/>
+            <field name="vat">09261710017</field>
+            <field name="email">inrim@pec.it</field>
+            <field name="phone">+39 011 3919 1</field>
+            <field name="website">https://www.inrim.it/it</field>
+            <field name="currency_id" ref="base.EUR"/>
+        </record>
+    </data>
+</odoo>
