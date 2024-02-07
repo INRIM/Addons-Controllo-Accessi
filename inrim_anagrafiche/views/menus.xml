@@ -68,4 +68,12 @@
         parent="inrim_configuration_menu"
         sequence="20"
     />
+
+    <menuitem
+        id="ca_lettore_menu"
+        name="Readers"
+        action="ca_lettore_action"
+        parent="inrim_configuration_menu"
+        sequence="25"
+    />
 </odoo>

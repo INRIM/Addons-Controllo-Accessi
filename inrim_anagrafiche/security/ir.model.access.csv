@@ -6,3 +6,4 @@ access_ca_tipo_doc_ident,access_ca_tipo_doc_ident,model_ca_tipo_doc_ident,base.g
 access_ca_codice_documento,access_ca_codice_documento,model_ca_codice_documento,base.group_user,1,1,1,1
 access_ca_ente_azienda,access_ca_ente_azienda,model_ca_ente_azienda,base.group_user,1,1,1,1
 access_ca_tipo_ente_azienda,access_ca_tipo_ente_azienda,model_ca_tipo_ente_azienda,base.group_user,1,1,1,1
+access_ca_lettore,access_ca_lettore,model_ca_lettore,base.group_user,1,1,1,1
