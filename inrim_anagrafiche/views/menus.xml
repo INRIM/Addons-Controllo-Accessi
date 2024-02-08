@@ -92,4 +92,12 @@
         parent="inrim_configuration_menu"
         sequence="35"
     />
+
+    <menuitem
+        id="ca_tag_persona_menu"
+        name="Associate Tag with Person"
+        action="ca_tag_persona_action"
+        parent="inrim_configuration_menu"
+        sequence="40"
+    />
 </odoo>

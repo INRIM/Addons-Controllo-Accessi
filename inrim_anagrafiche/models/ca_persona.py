@@ -48,6 +48,7 @@ class CaPersona(models.Model):
     ], required=True, default='draft')
     ca_ente_azienda_ids = fields.Many2many('ca.ente_azienda')
     token = fields.Char(required=True, readonly=True, default=lambda self:self.get_token())
+    ca_tag_persona_ids = fields.One2many('ca.tag_persona', 'ca_persona_id')
     is_external = fields.Boolean(compute="_compute_bool")
     is_internal = fields.Boolean(compute="_compute_bool")
     active = fields.Boolean(default=True)
