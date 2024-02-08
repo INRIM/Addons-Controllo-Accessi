@@ -20,6 +20,7 @@
         'views/ca_tipo_ente_azienda_views.xml',
         'views/ca_lettore_views.xml',
         'views/ca_tag_views.xml',
+        'views/ca_tag_persona_views.xml',
         'views/menus.xml',
     ],
     'demo': [],
