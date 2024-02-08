@@ -132,6 +132,18 @@
                                 </tree>
                             </field>
                         </page>
+                        <page name="tag_person" string="Tag Person">
+                            <field name="ca_tag_persona_ids">
+                                <tree editable="bottom">
+                                    <field name="token"/>
+                                    <field name="ca_persona_id" options="{'no_create': True}"/>
+                                    <field name="ca_tag_id" options="{'no_create': True}"/>
+                                    <field name="date_start"/>
+                                    <field name="date_end"/>
+                                    <field name="temp"/>
+                                </tree>
+                            </field>
+                        </page>
                     </notebook>
                 </sheet>
             </form>

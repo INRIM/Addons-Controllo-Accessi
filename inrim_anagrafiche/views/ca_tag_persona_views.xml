@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_tag_persona_view_search" model="ir.ui.view">
+        <field name="name">ca.tag.persona.view.search</field>
+        <field name="model">ca.tag_persona</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter string="Internal" name="internal" domain="[('ca_persona_id.type_ids', 'ilike', 'interno')]"/>
+                <filter string="External" name="external" domain="[('ca_persona_id.type_ids', 'ilike', 'esterno')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="ca_tag_persona_view_tree" model="ir.ui.view">
+        <field name="name">ca.tag.persona.view.tree</field>
+        <field name="model">ca.tag_persona</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="token"/>
+                <field name="ca_persona_id"/>
+                <field name="ca_tag_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="temp"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ca_tag_persona_view_form" model="ir.ui.view">
+        <field name="name">ca.tag.persona.view.form</field>
+        <field name="model">ca.tag_persona</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="token"/>
+                            <field name="ca_persona_id" options="{'no_create': True}"/>
+                            <field name="ca_tag_id" options="{'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="temp"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ca_tag_persona_action" model="ir.actions.act_window">
+        <field name="name">Associate Tag with Person</field>
+        <field name="res_model">ca.tag_persona</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

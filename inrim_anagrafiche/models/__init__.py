@@ -4,3 +4,4 @@ from . import ca_documento
 from . import ca_ente_azienda
 from . import ca_lettore
 from . import ca_tag
+from . import ca_tag_persona
