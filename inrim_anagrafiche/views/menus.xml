@@ -70,11 +70,35 @@
     />
 
     <menuitem
+        id="ca_tipo_spazio_menu"
+        name="Space Typology"
+        action="ca_tipo_spazio_action"
+        parent="inrim_configuration_menu"
+        sequence="25"
+    />
+
+    <menuitem
+        id="ca_spazio_menu"
+        name="Space"
+        action="ca_spazio_action"
+        parent="inrim_configuration_menu"
+        sequence="30"
+    />
+
+    <menuitem
+        id="ca_codice_locale_menu"
+        name="Local Code"
+        action="ca_codice_locale_action"
+        parent="inrim_configuration_menu"
+        sequence="35"
+    />
+
+    <menuitem
         id="ca_lettore_menu"
         name="Readers"
         action="ca_lettore_action"
         parent="inrim_configuration_menu"
-        sequence="25"
+        sequence="40"
     />
 
     <menuitem
@@ -82,7 +106,7 @@
         name="Property Tag"
         action="ca_proprieta_tag_action"
         parent="inrim_configuration_menu"
-        sequence="30"
+        sequence="45"
     />
 
     <menuitem
@@ -90,7 +114,7 @@
         name="Tag"
         action="ca_tag_action"
         parent="inrim_configuration_menu"
-        sequence="35"
+        sequence="50"
     />
 
     <menuitem
@@ -98,6 +122,6 @@
         name="Associate Tag with Person"
         action="ca_tag_persona_action"
         parent="inrim_configuration_menu"
-        sequence="40"
+        sequence="55"
     />
 </odoo>

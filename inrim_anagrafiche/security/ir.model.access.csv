@@ -10,3 +10,7 @@ access_ca_lettore,access_ca_lettore,model_ca_lettore,base.group_user,1,1,1,1
 access_ca_tag,access_ca_tag,model_ca_tag,base.group_user,1,1,1,1
 access_ca_proprieta_tag,access_ca_proprieta_tag,model_ca_proprieta_tag,base.group_user,1,1,1,1
 access_ca_tag_persona,access_ca_tag_persona,model_ca_tag_persona,base.group_user,1,1,1,1
+access_ca_spazio,access_ca_spazio,model_ca_spazio,base.group_user,1,1,1,1
+access_ca_tipo_spazio,access_ca_tipo_spazio,model_ca_tipo_spazio,base.group_user,1,1,1,1
+access_ca_codice_locale,access_ca_codice_locale,model_ca_codice_locale,base.group_user,1,1,1,1
+access_ca_righe_persona,access_ca_righe_persona,model_ca_righe_persona,base.group_user,1,1,1,1

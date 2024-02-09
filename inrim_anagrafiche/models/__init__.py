@@ -5,3 +5,6 @@ from . import ca_ente_azienda
 from . import ca_lettore
 from . import ca_tag
 from . import ca_tag_persona
+from . import ca_spazio
+from . import ca_codice_locale
+from . import ca_righe_persona
