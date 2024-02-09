@@ -21,6 +21,8 @@
         'views/ca_lettore_views.xml',
         'views/ca_tag_views.xml',
         'views/ca_tag_persona_views.xml',
+        'views/ca_spazio_views.xml',
+        'views/ca_codice_locale_views.xml',
         'views/menus.xml',
     ],
     'demo': [],

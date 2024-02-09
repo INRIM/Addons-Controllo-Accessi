@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_codice_locale_view_tree" model="ir.ui.view">
+        <field name="name">ca.codice.locale.view.tree</field>
+        <field name="model">ca.codice_locale</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ca_codice_locale_action" model="ir.actions.act_window">
+        <field name="name">Local Code</field>
+        <field name="res_model">ca.codice_locale</field>
+        <field name="view_mode">tree</field>
+    </record>
+</odoo>

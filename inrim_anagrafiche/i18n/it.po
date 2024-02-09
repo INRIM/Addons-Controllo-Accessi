@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-07 15:50+0000\n"
-"PO-Revision-Date: 2024-02-07 15:50+0000\n"
+"POT-Creation-Date: 2024-02-09 14:17+0000\n"
+"PO-Revision-Date: 2024-02-09 14:17+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -40,15 +40,18 @@ msgstr ""
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__active
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__active
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__active
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__active
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__active
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_proprieta_tag__active
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__active
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag__active
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag_persona__active
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__active
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__active
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__active
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_spazio__active
 msgid "Active"
 msgstr "Attivo"
 
@@ -144,6 +147,12 @@ msgid "Codice Documento"
 msgstr ""
 
 #. module: inrim_anagrafiche
+#: model:ir.model,name:inrim_anagrafiche.model_ca_codice_locale
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__codice_locale_id
+msgid "Codice Locale"
+msgstr ""
+
+#. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__company_id
 msgid "Company"
 msgstr "Azienda"
@@ -194,57 +203,73 @@ msgstr "Provincia"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__create_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_proprieta_tag__create_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__create_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag_persona__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__create_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_spazio__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__create_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_proprieta_tag__create_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__create_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag_persona__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__create_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_spazio__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__date_end
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_proprieta_tag__date_end
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__date_end
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag_persona__date_end
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__date_end
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__date_end
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__date_end
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_spazio__date_end
 msgid "Date End"
 msgstr "Data Fine"
 
 #. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__date_start
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_proprieta_tag__date_start
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__date_start
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag_persona__date_start
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__date_start
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__date_start
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__date_start
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_spazio__date_start
 msgid "Date Start"
 msgstr "Data Inizio"
 
 #. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__description
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_proprieta_tag__description
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__description
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__description
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__description
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_spazio__description
 msgid "Description"
 msgstr "Descrizione"
 
@@ -260,16 +285,20 @@ msgstr "Direzione"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__display_name
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_proprieta_tag__display_name
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__display_name
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag_persona__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__display_name
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_spazio__display_name
 msgid "Display Name"
 msgstr "Nome"
 
@@ -354,6 +383,7 @@ msgstr ""
 
 #. module: inrim_anagrafiche
 #: model:ir.model,name:inrim_anagrafiche.model_ca_ente_azienda
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__ente_azienda_id
 msgid "Ente Azienda"
 msgstr ""
 
@@ -412,16 +442,20 @@ msgstr "Informazioni Generali"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__id
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_proprieta_tag__id
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__id
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag_persona__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__id
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_spazio__id
 msgid "ID"
 msgstr ""
 
@@ -473,31 +507,39 @@ msgstr "Codice ISTAT"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__write_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_proprieta_tag__write_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__write_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag_persona__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__write_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_spazio__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__write_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_proprieta_tag__write_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__write_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag_persona__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__write_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_spazio__write_date
 msgid "Last Updated on"
 msgstr ""
 
@@ -508,6 +550,7 @@ msgstr "Cognome"
 
 #. module: inrim_anagrafiche
 #: model:ir.model,name:inrim_anagrafiche.model_ca_lettore
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__lettore_id
 msgid "Lettore"
 msgstr ""
 
@@ -515,6 +558,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
 msgid "List of Identity Documents"
 msgstr "Elenco Documenti di Identità"
+
+#. module: inrim_anagrafiche
+#: model:ir.actions.act_window,name:inrim_anagrafiche.ca_codice_locale_action
+#: model:ir.ui.menu,name:inrim_anagrafiche.ca_codice_locale_menu
+msgid "Local Code"
+msgstr "Codice Locale"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__mobile
@@ -533,6 +582,7 @@ msgstr "Tipo modalità"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_documento__name
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__name
@@ -541,6 +591,7 @@ msgstr "Tipo modalità"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_doc_ident__name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__name
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_spazio__name
 msgid "Name"
 msgstr "Nome"
 
@@ -670,9 +721,38 @@ msgid "Residence Zip"
 msgstr "CAP Residenza"
 
 #. module: inrim_anagrafiche
+#: model:ir.model,name:inrim_anagrafiche.model_ca_righe_persona
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__righe_persona_ids
+msgid "Righe Persona"
+msgstr ""
+
+#. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__sequence
 msgid "Sequence"
 msgstr "Sequenza"
+
+#. module: inrim_anagrafiche
+#: model:ir.actions.act_window,name:inrim_anagrafiche.ca_spazio_action
+#: model:ir.ui.menu,name:inrim_anagrafiche.ca_spazio_menu
+msgid "Space"
+msgstr "Spazio"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__name
+msgid "Space Name"
+msgstr "Nome Spazio"
+
+#. module: inrim_anagrafiche
+#: model:ir.actions.act_window,name:inrim_anagrafiche.ca_tipo_spazio_action
+#: model:ir.ui.menu,name:inrim_anagrafiche.ca_tipo_spazio_menu
+msgid "Space Typology"
+msgstr "Tipologia Spazio"
+
+#. module: inrim_anagrafiche
+#: model:ir.model,name:inrim_anagrafiche.model_ca_spazio
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__spazio_id
+msgid "Spazio"
+msgstr ""
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__state_id
@@ -708,6 +788,11 @@ msgid "Street2"
 msgstr "Indirizzo2"
 
 #. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__suspended
+msgid "Suspended"
+msgstr "Sospeso"
+
+#. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__system_error
 msgid "System Error"
 msgstr "Errore di Sistema"
@@ -731,6 +816,7 @@ msgstr "Tag Persona"
 
 #. module: inrim_anagrafiche
 #: model:ir.model,name:inrim_anagrafiche.model_ca_tag_persona
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__tag_persona_id
 msgid "Tag Persona"
 msgstr ""
 
@@ -757,6 +843,12 @@ msgid "Tipo Persona"
 msgstr ""
 
 #. module: inrim_anagrafiche
+#: model:ir.model,name:inrim_anagrafiche.model_ca_tipo_spazio
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__tipo_spazio_id
+msgid "Tipo Spazio"
+msgstr ""
+
+#. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__token
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag_persona__token
 msgid "Token"
@@ -772,6 +864,16 @@ msgstr "Tipo"
 #: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_documento__document_status__valid
 msgid "Valid"
 msgstr "Valido"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__date_start
+msgid "Valid Access From"
+msgstr "Accesso Valido Dal"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__date_end
+msgid "Valid Access To"
+msgstr "Accesso Valido Al"
 
 #. module: inrim_anagrafiche
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_documento_search
