@@ -124,4 +124,12 @@
         parent="inrim_configuration_menu"
         sequence="55"
     />
+
+    <menuitem
+        id="ca_registro_accesso_menu"
+        name="Access Log"
+        action="ca_registro_accesso_action"
+        parent="inrim_configuration_menu"
+        sequence="60"
+    />
 </odoo>

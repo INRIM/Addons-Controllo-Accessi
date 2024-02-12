@@ -6,6 +6,7 @@ class CaPersona(models.Model):
     _name = 'ca.persona'
     _description = 'Persona'
     _rec_name = "display_name"
+    _rec_names_search = ['display_name', 'token']
    
     name = fields.Char(required=True) 
     lastname = fields.Char(required=True)
