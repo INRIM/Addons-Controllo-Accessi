@@ -14,3 +14,5 @@ access_ca_spazio,access_ca_spazio,model_ca_spazio,base.group_user,1,1,1,1
 access_ca_tipo_spazio,access_ca_tipo_spazio,model_ca_tipo_spazio,base.group_user,1,1,1,1
 access_ca_codice_locale,access_ca_codice_locale,model_ca_codice_locale,base.group_user,1,1,1,1
 access_ca_righe_persona,access_ca_righe_persona,model_ca_righe_persona,base.group_user,1,1,1,1
+access_ca_registro_accesso,access_ca_registro_accesso,model_ca_registro_accesso,base.group_user,1,1,1,1
+access_ca_righe_accesso,access_ca_righe_accesso,model_ca_righe_accesso,base.group_user,1,1,1,1
