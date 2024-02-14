@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-12 10:29+0000\n"
-"PO-Revision-Date: 2024-02-12 10:29+0000\n"
+"POT-Creation-Date: 2024-02-14 14:22+0000\n"
+"PO-Revision-Date: 2024-02-14 14:22+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -186,6 +186,7 @@ msgid "Completed"
 msgstr "Completata"
 
 #. module: inrim_anagrafiche
+#: model:ir.ui.menu,name:inrim_anagrafiche.inrim_ca_configuration_menu
 #: model:ir.ui.menu,name:inrim_anagrafiche.inrim_configuration_menu
 msgid "Configuration"
 msgstr "Configurazioni"
@@ -199,6 +200,11 @@ msgstr "Contatti"
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
 msgid "Contacts"
 msgstr "Contatti"
+
+#. module: inrim_anagrafiche
+#: model:ir.ui.menu,name:inrim_anagrafiche.ca_controllo_accessi_root
+msgid "Controllo Accessi"
+msgstr ""
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__country_id
@@ -584,6 +590,11 @@ msgid "List of Identity Documents"
 msgstr "Elenco Documenti di Identità"
 
 #. module: inrim_anagrafiche
+#: model:ir.ui.menu,name:inrim_anagrafiche.ca_tag_persona_lista_associazioni_menu
+msgid "Lista associazioni"
+msgstr ""
+
+#. module: inrim_anagrafiche
 #: model:ir.actions.act_window,name:inrim_anagrafiche.ca_codice_locale_action
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_codice_locale_menu
 msgid "Local Code"
@@ -769,6 +780,11 @@ msgid "Righe Persona"
 msgstr ""
 
 #. module: inrim_anagrafiche
+#: model:ir.ui.menu,name:inrim_anagrafiche.ca_ente_azienda_sedi_ente_menu
+msgid "Sedi Ente"
+msgstr ""
+
+#. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__sequence
 msgid "Sequence"
 msgstr "Sequenza"
@@ -871,6 +887,11 @@ msgid "Temp"
 msgstr "Temporaneo"
 
 #. module: inrim_anagrafiche
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_tag_view_search
+msgid "Temporanei"
+msgstr ""
+
+#. module: inrim_anagrafiche
 #: model:ir.model,name:inrim_anagrafiche.model_ca_tipo_doc_ident
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__tipo_documento_id
 msgid "Tipo Documento"
@@ -899,6 +920,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag_persona__token
 msgid "Token"
 msgstr "CU"
+
+#. module: inrim_anagrafiche
+#: model:ir.ui.menu,name:inrim_anagrafiche.ca_persona_tutte_menu
+msgid "Tutte"
+msgstr ""
+
+#. module: inrim_anagrafiche
+#: model:ir.ui.menu,name:inrim_anagrafiche.ca_tag_tutti_menu
+msgid "Tutti"
+msgstr ""
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__type
