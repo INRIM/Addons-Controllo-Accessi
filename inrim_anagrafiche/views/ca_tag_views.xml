@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="ca_tag_view_search" model="ir.ui.view">
+        <field name="name">ca.tag.view.search</field>
+        <field name="model">ca.tag</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter name="is_temp" string="Temporanei" domain="[('ca_proprieta_tag_ids.name', 'ilike', 'temporaneo')]"/>
+            </search>
+        </field>
+    </record>
+
     <record id="ca_tag_view_tree" model="ir.ui.view">
         <field name="name">ca.tag.view.tree</field>
         <field name="model">ca.tag</field>

@@ -9,17 +9,35 @@
     <menuitem
         id="ca_ente_azienda_menu"
         name="Institution/Company"
-        action="ca_ente_azienda_action"
         parent="ca_persona_menu_root"
         sequence="5"
+        groups="inrim_controllo_accessi_base.ca_utente"
+    />
+
+    <menuitem
+        id="ca_ente_azienda_sedi_ente_menu"
+        name="Sedi Ente"
+        action="ca_ente_azienda_action"
+        parent="ca_ente_azienda_menu"
+        sequence="5"
+        groups="inrim_controllo_accessi_base.ca_utente"
     />
 
     <menuitem
         id="ca_persona_menu"
         name="People"
-        action="ca_persona_action"
         parent="ca_persona_menu_root"
         sequence="10"
+        groups="inrim_controllo_accessi_base.ca_utente"
+    />
+
+    <menuitem
+        id="ca_persona_tutte_menu"
+        name="Tutte"
+        action="ca_persona_action"
+        parent="ca_persona_menu"
+        sequence="5"
+        groups="inrim_controllo_accessi_base.ca_utente"
     />
 
     <menuitem
@@ -28,6 +46,7 @@
         action="ca_documento_action"
         parent="ca_persona_menu_root"
         sequence="15"
+        groups="inrim_controllo_accessi_base.ca_utente"
     />
 
     <menuitem
@@ -35,6 +54,7 @@
         name="Configuration"
         parent="ca_persona_menu_root"
         sequence="50"
+        groups="inrim_controllo_accessi_base.ca_config"
     />
 
     <menuitem
@@ -43,6 +63,7 @@
         action="ca_tipo_ente_azienda_action"
         parent="inrim_configuration_menu"
         sequence="5"
+        groups="inrim_controllo_accessi_base.ca_config"
     />
 
     <menuitem
@@ -51,6 +72,7 @@
         action="ca_tipo_doc_ident_action"
         parent="inrim_configuration_menu"
         sequence="10"
+        groups="inrim_controllo_accessi_base.ca_config"
     />
 
     <menuitem
@@ -59,6 +81,7 @@
         action="ca_codice_documento_action"
         parent="inrim_configuration_menu"
         sequence="15"
+        groups="inrim_controllo_accessi_base.ca_config"
     />
 
     <menuitem
@@ -67,6 +90,7 @@
         action="ca_tipo_persona_action"
         parent="inrim_configuration_menu"
         sequence="20"
+        groups="inrim_controllo_accessi_base.ca_config"
     />
 
     <menuitem
@@ -75,6 +99,7 @@
         action="ca_tipo_spazio_action"
         parent="inrim_configuration_menu"
         sequence="25"
+        groups="inrim_controllo_accessi_base.ca_config"
     />
 
     <menuitem
@@ -83,6 +108,7 @@
         action="ca_spazio_action"
         parent="inrim_configuration_menu"
         sequence="30"
+        groups="inrim_controllo_accessi_base.ca_config"
     />
 
     <menuitem
@@ -91,38 +117,7 @@
         action="ca_codice_locale_action"
         parent="inrim_configuration_menu"
         sequence="35"
-    />
-
-    <menuitem
-        id="ca_lettore_menu"
-        name="Readers"
-        action="ca_lettore_action"
-        parent="inrim_configuration_menu"
-        sequence="40"
-    />
-
-    <menuitem
-        id="ca_proprieta_tag_menu"
-        name="Property Tag"
-        action="ca_proprieta_tag_action"
-        parent="inrim_configuration_menu"
-        sequence="45"
-    />
-
-    <menuitem
-        id="ca_tag_menu"
-        name="Tag"
-        action="ca_tag_action"
-        parent="inrim_configuration_menu"
-        sequence="50"
-    />
-
-    <menuitem
-        id="ca_tag_persona_menu"
-        name="Associate Tag with Person"
-        action="ca_tag_persona_action"
-        parent="inrim_configuration_menu"
-        sequence="55"
+        groups="inrim_controllo_accessi_base.ca_config"
     />
 
     <menuitem
@@ -131,5 +126,72 @@
         action="ca_registro_accesso_action"
         parent="inrim_configuration_menu"
         sequence="60"
+        groups="inrim_controllo_accessi_base.ca_config"
+    />
+
+    <menuitem
+        id="ca_controllo_accessi_root"
+        name="Controllo Accessi"
+        groups="inrim_controllo_accessi_base.ca_ca"
+    />
+
+    <menuitem
+        id="ca_tag_persona_menu"
+        name="Associate Tag with Person"
+        parent="ca_controllo_accessi_root"
+        sequence="5"
+        groups="inrim_controllo_accessi_base.ca_ca,inrim_controllo_accessi_base.ca_portineria"
+    />
+
+    <menuitem
+        id="ca_tag_persona_lista_associazioni_menu"
+        name="Lista associazioni"
+        action="ca_tag_persona_action"
+        parent="ca_tag_persona_menu"
+        sequence="5"
+        groups="inrim_controllo_accessi_base.ca_ca,inrim_controllo_accessi_base.ca_portineria"
+    />
+
+    <menuitem
+        id="ca_tag_menu"
+        name="Tag"
+        parent="ca_controllo_accessi_root"
+        sequence="10"
+        groups="inrim_controllo_accessi_base.ca_ca"
+    />
+
+    <menuitem
+        id="ca_tag_tutti_menu"
+        name="Tutti"
+        action="ca_tag_action"
+        parent="ca_tag_menu"
+        sequence="5"
+        groups="inrim_controllo_accessi_base.ca_ca"
+    />
+
+    <menuitem
+        id="inrim_ca_configuration_menu"
+        name="Configuration"
+        parent="ca_controllo_accessi_root"
+        sequence="15"
+        groups="inrim_controllo_accessi_base.ca_config"
+    />
+
+    <menuitem
+        id="ca_proprieta_tag_menu"
+        name="Property Tag"
+        action="ca_proprieta_tag_action"
+        parent="inrim_ca_configuration_menu"
+        sequence="5"
+        groups="inrim_controllo_accessi_base.ca_config"
+    />
+
+    <menuitem
+        id="ca_lettore_menu"
+        name="Readers"
+        action="ca_lettore_action"
+        parent="inrim_ca_configuration_menu"
+        sequence="10"
+        groups="inrim_controllo_accessi_base.ca_config_tech"
     />
 </odoo>
