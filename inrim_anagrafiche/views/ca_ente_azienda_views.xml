@@ -7,6 +7,7 @@
             <tree>
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
+                <field name="parent_id"/>
                 <field name="child_ids" widget="many2many_tags"/>
             </tree>
         </field>
@@ -28,7 +29,7 @@
                         <page name="general_info" string="General Information">
                             <group>
                                 <group>
-                                    <field name="parent_id" options="{'no_create': True}"/>
+                                    <field name="parent_id" options="{'no_create': True}" domain="[('id', '!=', id)]"/>
                                     <field name="all_child_ids" options="{'no_create': True}" invisible="1"/>
                                     <field name="parent_path"/>
                                     <span class="o_form_label o_td_label" name="address_name">
@@ -72,6 +73,5 @@
         <field name="name">Institution/Company</field>
         <field name="res_model">ca.ente_azienda</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('parent_id', '=', False)]</field>
     </record>
 </odoo>

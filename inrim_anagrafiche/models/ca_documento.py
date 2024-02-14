@@ -59,3 +59,20 @@ class CaDocumento(models.Model):
                         record.document_status = 'expiring'
                     else:
                         record.document_status = 'expired'
+
+    @api.model
+    def create(self, values):
+        res = super(CaDocumento, self).create(values)
+        for record in res:
+            for attach in record.image_ids:
+                attach.res_id = record.id
+                attach.res_name = str(record)
+        return res
+    
+    def write(self, values):
+        res = super(CaDocumento, self).write(values)
+        for record in self:
+            for attach in record.image_ids:
+                attach.res_id = record.id
+                attach.res_name = str(record)
+        return res

@@ -20,4 +20,3 @@ class CaTag(models.Model):
     ca_proprieta_tag_ids = fields.Many2many('ca.proprieta_tag')
     in_use = fields.Boolean(readonly=True)
     active = fields.Boolean(default=True)
-    
