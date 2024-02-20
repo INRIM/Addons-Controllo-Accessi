@@ -33,6 +33,19 @@ class CaTagPersona(models.Model):
                 ])
                 if tag_persona_id:
                     raise UserError(_("Esiste già un'altro tag persona per questa persona in questo periodo"))
+                
+    @api.constrains('ca_persona_id', 'temp')
+    def _check_temp_tag_persona(self):
+        for record in self:
+            if record.ca_persona_id:
+                if record.ca_persona_id.is_external and not record.temp:
+                    raise UserError(_('Ad un esterno possono essere assegnati solo tag di tipo temporaneo'))
+
+    @api.constrains('ca_tag_id', 'ca_tag_id.ca_proprieta_tag_ids')
+    def _check_tag_revocato(self):
+        for record in self:
+            if self.env.ref('inrim_anagrafiche.proprieta_tag_revocato') in record.ca_tag_id.ca_proprieta_tag_ids:
+                raise UserError(_('Il tag ' + str(record.ca_tag_id.name) + ' risulta revocato'))
 
     @api.onchange('date_start', 'date_end', 'ca_tag_id')
     def _onchange_date(self):

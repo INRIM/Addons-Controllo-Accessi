@@ -22,8 +22,7 @@
                             name="action_draft"
                             type="object"
                             class="btn-secondary"
-                            string="Reset To Draft"
-                            invisible="state == 'draft'"
+                            string="Draft"
                             groups="inrim_controllo_accessi_base.ca_ru"
                         />
                         <button
@@ -31,7 +30,6 @@
                             type="object"
                             class="btn-secondary"
                             string="Waiting For Documents"
-                            invisible="state != 'draft'"
                             groups="inrim_controllo_accessi_base.ca_ru"
                         />
                         <button
@@ -39,10 +37,9 @@
                             type="object"
                             string="Complete"
                             class="btn-primary"
-                            invisible="state != 'documents'"
                             groups="inrim_controllo_accessi_base.ca_ru"
                         />
-                        <field name="state" widget="statusbar" statusbar_visible="draft,documents,completed"/>
+                        <field name="ca_stato_anag_id" widget="statusbar"/>
                     </header>
                     <group>
                         <group>
@@ -120,18 +117,21 @@
                         </page>
                         <page name="identity_documents" string="List of Identity Documents" invisible="not is_external" groups="inrim_controllo_accessi_base.ca_gdpr">
                             <field name="ca_documento_ids">
-                                <tree 
-                                    editable="bottom" 
-                                    decoration-success="document_status == 'valid'"
-                                    decoration-danger="document_status == 'expired'"
-                                    decoration-primary="document_status == 'expiring'"
-                                >
+                                <tree>
                                     <field name="tipo_documento_id"/>
                                     <field name="validity_start_date"/>
                                     <field name="validity_end_date"/>
-                                    <field name="image_ids" widget="many2many_binary"/>
+                                    <field name="image_ids" widget="many2many_tags">
+                                        <tree editable="bottom">
+                                            <field name="name"/>
+                                            <field name="description"/>
+                                            <field name="ca_tipo_documento_id"/>
+                                            <field name="side"/>
+                                            <field name="image"/>
+                                        </tree>
+                                    </field>
                                     <field name="document_code_id"/>
-                                    <field name="document_status" force_save="1"/>
+                                    <field name="ca_stato_documento_id" force_save="1"/>
                                 </tree>
                             </field>
                         </page>

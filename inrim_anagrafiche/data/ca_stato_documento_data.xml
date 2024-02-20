@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_stato_documento_valido" model="ca.stato_documento">
+        <field name="name">Valido</field>
+    </record>
+
+    <record id="ca_stato_documento_in_scadenza" model="ca.stato_documento">
+        <field name="name">In scadenza</field>
+    </record>
+
+    <record id="ca_stato_documento_scaduto" model="ca.stato_documento">
+        <field name="name">Scaduto</field>
+    </record>
+</odoo>

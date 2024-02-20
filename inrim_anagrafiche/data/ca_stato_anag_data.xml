@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_stato_anag_bozza" model="ca.stato_anag">
+        <field name="name">Bozza</field>
+    </record>
+
+    <record id="ca_stato_anag_in_attesa_documenti" model="ca.stato_anag">
+        <field name="name">In Attesa Documenti</field>
+    </record>
+
+    <record id="ca_stato_anag_completata" model="ca.stato_anag">
+        <field name="name">Completata</field>
+    </record>
+</odoo>
