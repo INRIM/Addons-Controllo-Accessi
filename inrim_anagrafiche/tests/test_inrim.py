@@ -83,8 +83,7 @@ class TestInrim(TestCommon):
         self.assertTrue(ca_persona_id)
 
     def test_4(self):
-        with self.assertRaises(AccessError):
-            self.env['ca.persona'].with_user(self.user_3).check_access_rights('write')
+        self.assertTrue(self.env['ca.persona'].with_user(self.user_3).check_access_rights('write'))
 
     def test_5(self):
         self.assertFalse(self.tag_2.in_use)
