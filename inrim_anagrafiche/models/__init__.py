@@ -10,3 +10,6 @@ from . import ca_codice_locale
 from . import ca_righe_persona
 from . import ca_registro_accesso
 from . import ca_righe_accesso
+from . import ca_stato_anag
+from . import ca_categoria_richiesta
+from . import ca_categoria_tipo_richiesta

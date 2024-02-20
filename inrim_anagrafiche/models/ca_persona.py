@@ -8,7 +8,7 @@ class CaPersona(models.Model):
     _rec_name = "display_name"
     _rec_names_search = ['display_name', 'token']
    
-    name = fields.Char(required=True) 
+    name = fields.Char(required=True)
     lastname = fields.Char(required=True)
     display_name = fields.Char(compute="_compute_display_name", store=True)
     associated_user_id = fields.Many2one('res.users')
@@ -42,11 +42,7 @@ class CaPersona(models.Model):
     domicile_country_id = fields.Many2one('res.country')
     domicile_other_than_residence = fields.Boolean()
     ca_documento_ids = fields.One2many('ca.documento', 'ca_persona_id')
-    state = fields.Selection([
-        ('draft', 'Draft'),
-        ('documents', 'Waiting for documents'),
-        ('completed', 'Completed')
-    ], required=True, default='draft')
+    ca_stato_anag_id = fields.Many2one('ca.stato_anag', default=lambda self:self.default_ca_stato_anag_id(), required=True)
     ca_ente_azienda_ids = fields.Many2many('ca.ente_azienda')
     token = fields.Char(required=True, readonly=True, default=lambda self:self.get_token())
     ca_tag_persona_ids = fields.One2many('ca.tag_persona', 'ca_persona_id')
@@ -59,11 +55,10 @@ class CaPersona(models.Model):
         for record in self:
             record.is_external = False
             record.is_internal = False
-            for tag in record.type_ids:
-                if tag.name == 'Esterno' or tag.name == 'esterno':
-                    record.is_external = True
-                if tag.name == 'Interno' or tag.name == 'interno':
-                    record.is_internal = True
+            if self.env.ref('inrim_anagrafiche.tipo_persona_interno') in record.type_ids:
+                record.is_internal = True
+            if self.env.ref('inrim_anagrafiche.tipo_persona_esterno') in record.type_ids:
+                record.is_external = True
 
     @api.depends('name', 'lastname')
     def _compute_display_name(self):
@@ -72,17 +67,20 @@ class CaPersona(models.Model):
             if record.name and record.lastname:
                 record.display_name = record.name + ' ' + record.lastname
 
+    def default_ca_stato_anag_id(self):
+        return self.env.ref('inrim_anagrafiche.ca_stato_anag_bozza').id
+
     def action_draft(self):
         for record in self:
-            record.state = 'draft'
+            record.ca_stato_anag_id = self.env.ref('inrim_anagrafiche.ca_stato_anag_bozza').id
 
     def action_documents(self):
         for record in self:
-            record.state = 'documents'
+            record.ca_stato_anag_id = self.env.ref('inrim_anagrafiche.ca_stato_anag_in_attesa_documenti').id
 
     def action_completed(self):
         for record in self:
-            record.state = 'completed'
+            record.ca_stato_anag_id = self.env.ref('inrim_anagrafiche.ca_stato_anag_completata').id
 
     def get_token(self):
         characters = string.ascii_letters + string.digits
