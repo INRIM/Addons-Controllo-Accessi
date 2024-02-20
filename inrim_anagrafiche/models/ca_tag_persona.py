@@ -41,7 +41,7 @@ class CaTagPersona(models.Model):
                 if record.ca_persona_id.is_external and not record.temp:
                     raise UserError(_('Ad un esterno possono essere assegnati solo tag di tipo temporaneo'))
 
-    @api.constrains('ca_tag_id', 'ca_tag_id.ca_proprieta_tag_ids')
+    @api.constrains('ca_tag_id')
     def _check_tag_revocato(self):
         for record in self:
             if self.env.ref('inrim_anagrafiche.proprieta_tag_revocato') in record.ca_tag_id.ca_proprieta_tag_ids:
