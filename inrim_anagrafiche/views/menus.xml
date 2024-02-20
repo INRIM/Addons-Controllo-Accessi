@@ -24,6 +24,15 @@
     />
 
     <menuitem
+        id="ca_spazio_menu"
+        name="Gestione Spazi"
+        action="ca_spazio_action"
+        parent="ca_ente_azienda_menu"
+        sequence="10"
+        groups="inrim_controllo_accessi_base.ca_config"
+    />
+
+    <menuitem
         id="ca_persona_menu"
         name="People"
         parent="ca_persona_menu_root"
@@ -41,11 +50,19 @@
     />
 
     <menuitem
-        id="ca_documento_menu"
+        id="ca_documento_root_menu"
         name="Documents"
-        action="ca_documento_action"
         parent="ca_persona_menu_root"
         sequence="15"
+        groups="inrim_controllo_accessi_base.ca_utente"
+    />
+
+    <menuitem
+        id="ca_documento_menu"
+        name="All"
+        action="ca_documento_action"
+        parent="ca_documento_root_menu"
+        sequence="5"
         groups="inrim_controllo_accessi_base.ca_utente"
     />
 
@@ -76,11 +93,20 @@
     />
 
     <menuitem
+        id="ca_stato_documento_menu"
+        name="Stato Documento"
+        action="ca_stato_documento_action"
+        parent="inrim_configuration_menu"
+        sequence="15"
+        groups="inrim_controllo_accessi_base.ca_config"
+    />
+
+    <menuitem
         id="ca_codice_documento_menu"
         name="Document Code"
         action="ca_codice_documento_action"
         parent="inrim_configuration_menu"
-        sequence="15"
+        sequence="20"
         groups="inrim_controllo_accessi_base.ca_config"
     />
 
@@ -89,7 +115,7 @@
         name="Person Type"
         action="ca_tipo_persona_action"
         parent="inrim_configuration_menu"
-        sequence="20"
+        sequence="25"
         groups="inrim_controllo_accessi_base.ca_config"
     />
 
@@ -98,16 +124,16 @@
         name="Space Typology"
         action="ca_tipo_spazio_action"
         parent="inrim_configuration_menu"
-        sequence="25"
+        sequence="30"
         groups="inrim_controllo_accessi_base.ca_config"
     />
 
     <menuitem
-        id="ca_spazio_menu"
-        name="Space"
-        action="ca_spazio_action"
+        id="ca_stato_anag_menu"
+        name="Stati caricamento Anagrafica"
+        action="ca_stato_anag_action"
         parent="inrim_configuration_menu"
-        sequence="30"
+        sequence="35"
         groups="inrim_controllo_accessi_base.ca_config"
     />
 
@@ -116,7 +142,7 @@
         name="Local Code"
         action="ca_codice_locale_action"
         parent="inrim_configuration_menu"
-        sequence="35"
+        sequence="45"
         groups="inrim_controllo_accessi_base.ca_config"
     />
 
@@ -125,7 +151,7 @@
         name="Access Log"
         action="ca_registro_accesso_action"
         parent="inrim_configuration_menu"
-        sequence="60"
+        sequence="50"
         groups="inrim_controllo_accessi_base.ca_config"
     />
 
@@ -193,5 +219,23 @@
         parent="inrim_ca_configuration_menu"
         sequence="10"
         groups="inrim_controllo_accessi_base.ca_config_tech"
+    />
+
+    <menuitem
+        id="ca_categoria_richiesta_menu"
+        name="Categorie Richieste Accesso"
+        action="ca_categoria_richiesta_action"
+        parent="inrim_ca_configuration_menu"
+        sequence="15"
+        groups="inrim_controllo_accessi_base.ca_config"
+    />
+
+    <menuitem
+        id="ca_categoria_tipo_richiesta_menu"
+        name="Tipologia Richiesta Accesso"
+        action="ca_categoria_tipo_richiesta_action"
+        parent="inrim_ca_configuration_menu"
+        sequence="20"
+        groups="inrim_controllo_accessi_base.ca_config"
     />
 </odoo>
