@@ -23,21 +23,21 @@
                             type="object"
                             class="btn-secondary"
                             string="Draft"
-                            groups="inrim_controllo_accessi_base.ca_ru"
+                            groups="inrim_controllo_accessi_base.ca_utente"
                         />
                         <button
                             name="action_documents"
                             type="object"
                             class="btn-secondary"
                             string="Waiting For Documents"
-                            groups="inrim_controllo_accessi_base.ca_ru"
+                            groups="inrim_controllo_accessi_base.ca_utente"
                         />
                         <button
                             name="action_completed"
                             type="object"
                             string="Complete"
                             class="btn-primary"
-                            groups="inrim_controllo_accessi_base.ca_ru"
+                            groups="inrim_controllo_accessi_base.ca_utente"
                         />
                         <field name="ca_stato_anag_id" widget="statusbar"/>
                     </header>
@@ -62,17 +62,17 @@
                                     <field name="country_id" placeholder="Country" class="o_address_country"/>
                                 </div>
                             </div>
-                            <field name="fiscalcode" groups="inrim_controllo_accessi_base.ca_gdpr"/>
+                            <field name="fiscalcode"/>
                             <field name="vat"/>
                             <field name="type_ids" widget="many2many_tags" options="{'no_create': True}"/>
-                            <field name="freshman" required="is_internal" groups="inrim_controllo_accessi_base.ca_gdpr"/>
+                            <field name="freshman" required="is_internal"/>
                             <field name="ca_ente_azienda_ids" widget="many2many_tags" options="{'no_create': True}"/>
                         </group>
                         <group>
-                            <field name="nationality" required="is_external" groups="inrim_controllo_accessi_base.ca_gdpr"/>
-                            <field name="birth_date" required="is_external" groups="inrim_controllo_accessi_base.ca_gdpr"/>
-                            <field name="birth_place" required="is_external" groups="inrim_controllo_accessi_base.ca_gdpr"/>
-                            <field name="istat_code" required="is_external" groups="inrim_controllo_accessi_base.ca_gdpr"/>
+                            <field name="nationality" required="is_external"/>
+                            <field name="birth_date" required="is_external"/>
+                            <field name="birth_place" required="is_external"/>
+                            <field name="istat_code" required="is_external"/>
                             <field name="token"/>
                         </group>
                     </group>
