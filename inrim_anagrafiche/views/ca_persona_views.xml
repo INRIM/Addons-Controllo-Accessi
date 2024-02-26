@@ -11,148 +11,6 @@
         </field>
     </record>
 
-    <record id="ca_persona_form" model="ir.ui.view">
-        <field name="name">ca.persona.form</field>
-        <field name="model">ca.persona</field>
-        <field name="arch" type="xml">
-            <form>
-                <sheet>
-                    <header>
-                        <button
-                            name="action_draft"
-                            type="object"
-                            class="btn-secondary"
-                            string="Draft"
-                            groups="inrim_controllo_accessi_base.ca_utente"
-                        />
-                        <button
-                            name="action_documents"
-                            type="object"
-                            class="btn-secondary"
-                            string="Waiting For Documents"
-                            groups="inrim_controllo_accessi_base.ca_utente"
-                        />
-                        <button
-                            name="action_completed"
-                            type="object"
-                            string="Complete"
-                            class="btn-primary"
-                            groups="inrim_controllo_accessi_base.ca_utente"
-                        />
-                        <field name="ca_stato_anag_id" widget="statusbar"/>
-                    </header>
-                    <group>
-                        <group>
-                            <field name="is_external" invisible="1"/>
-                            <field name="is_internal" invisible="1"/>
-                            <field name="name"/>
-                            <field name="lastname"/>
-                            <field name="parent_id" widget="res_partner_many2one" placeholder="Company Name..." readonly="1"/>
-                            <field name="associated_user_id" options="{'no_create': True}"/>
-                            <span class="o_form_label o_td_label" name="address_name">
-                                <b>Address</b>
-                            </span>
-                            <div class="o_address_format">
-                                <field name="street" placeholder="Street..." class="o_address_street"/>
-                                <field name="street2" placeholder="Street 2..." class="o_address_street"/>
-                                <field name="city" placeholder="City" class="o_address_city"/>
-                                <field name="state_id" class="o_address_state" placeholder="State"/>
-                                <field name="zip" placeholder="ZIP" class="o_address_zip"/>
-                                <div name="partner_address_country" class="d-flex justify-content-between">
-                                    <field name="country_id" placeholder="Country" class="o_address_country"/>
-                                </div>
-                            </div>
-                            <field name="fiscalcode"/>
-                            <field name="vat"/>
-                            <field name="type_ids" widget="many2many_tags" options="{'no_create': True}"/>
-                            <field name="freshman" required="is_internal"/>
-                            <field name="ca_ente_azienda_ids" widget="many2many_tags" options="{'no_create': True}"/>
-                        </group>
-                        <group>
-                            <field name="nationality" required="is_external"/>
-                            <field name="birth_date" required="is_external"/>
-                            <field name="birth_place" required="is_external"/>
-                            <field name="istat_code" required="is_external"/>
-                            <field name="token"/>
-                        </group>
-                    </group>
-                    <notebook>
-                        <page string="Contacts" name="contact">
-                            <field name="child_ids"/>
-                        </page>
-                        <page string="Domicile and Residence Data" name="domicile_residence" invisible="not is_external" groups="inrim_controllo_accessi_base.ca_gdpr">
-                            <group>
-                                <group name="Domicile" string="domicile">
-                                    <span class="o_form_label o_td_label" name="address_name">
-                                        <b>Address</b>
-                                    </span>
-                                    <div class="o_address_format">
-                                        <field name="domicile_street" placeholder="Street..." class="o_address_street" required="is_external"/>
-                                        <field name="domicile_street2" placeholder="Street 2..." class="o_address_street"/>
-                                        <field name="domicile_city" placeholder="City" class="o_address_city" required="is_external"/>
-                                        <field name="domicile_state_id" class="o_address_state" placeholder="State" required="is_external"/>
-                                        <field name="domicile_zip" placeholder="ZIP" class="o_address_zip" required="is_external"/>
-                                        <div name="partner_address_country" class="d-flex justify-content-between">
-                                            <field name="domicile_country_id" placeholder="Country" class="o_address_country" required="is_external"/>
-                                        </div>
-                                    </div>
-                                    <field name="domicile_other_than_residence"/>
-                                </group>
-                                <group name="Residence" string="residence" invisible="not domicile_other_than_residence">
-                                    <span class="o_form_label o_td_label" name="address_name">
-                                        <b>Address</b>
-                                    </span>
-                                    <div class="o_address_format">
-                                        <field name="residence_street" placeholder="Street..." class="o_address_street" required="domicile_other_than_residence" invisible="not domicile_other_than_residence"/>
-                                        <field name="residence_street2" placeholder="Street 2..." class="o_address_street" invisible="not domicile_other_than_residence"/>
-                                        <field name="residence_city" placeholder="City" class="o_address_city" required="domicile_other_than_residence" invisible="not domicile_other_than_residence"/>
-                                        <field name="residence_state_id" class="o_address_state" placeholder="State" required="domicile_other_than_residence" invisible="not domicile_other_than_residence"/>
-                                        <field name="residence_zip" placeholder="ZIP" class="o_address_zip" required="domicile_other_than_residence" invisible="not domicile_other_than_residence"/>
-                                        <div name="partner_address_country" class="d-flex justify-content-between">
-                                            <field name="residence_country_id" placeholder="Country" class="o_address_country" required="domicile_other_than_residence" invisible="not domicile_other_than_residence"/>
-                                        </div>
-                                    </div>
-                                </group>
-                            </group>
-                        </page>
-                        <page name="identity_documents" string="List of Identity Documents" invisible="not is_external" groups="inrim_controllo_accessi_base.ca_gdpr">
-                            <field name="ca_documento_ids">
-                                <tree>
-                                    <field name="tipo_documento_id"/>
-                                    <field name="validity_start_date"/>
-                                    <field name="validity_end_date"/>
-                                    <field name="image_ids" widget="many2many_tags">
-                                        <tree editable="bottom">
-                                            <field name="name"/>
-                                            <field name="description"/>
-                                            <field name="ca_tipo_documento_id"/>
-                                            <field name="side"/>
-                                            <field name="image"/>
-                                        </tree>
-                                    </field>
-                                    <field name="document_code_id"/>
-                                    <field name="ca_stato_documento_id" force_save="1"/>
-                                </tree>
-                            </field>
-                        </page>
-                        <page name="tag_person" string="Tag Person">
-                            <field name="ca_tag_persona_ids">
-                                <tree editable="bottom">
-                                    <field name="token"/>
-                                    <field name="ca_persona_id" options="{'no_create': True}"/>
-                                    <field name="ca_tag_id" options="{'no_create': True}"/>
-                                    <field name="date_start"/>
-                                    <field name="date_end"/>
-                                    <field name="temp"/>
-                                </tree>
-                            </field>
-                        </page>
-                    </notebook>
-                </sheet>
-            </form>
-        </field>
-    </record>
-
     <record id="ca_persona_tree" model="ir.ui.view">
         <field name="name">ca.persona.tree</field>
         <field name="model">ca.persona</field>
@@ -165,6 +23,300 @@
             </tree>
         </field>
     </record>
+
+    <record id="ca_persona_form" model="ir.ui.view">
+        <field name="name">ca.persona.form</field>
+        <field name="model">ca.persona</field>
+        <field name="arch" type="xml">
+            <form>
+                <t groups="inrim_controllo_accessi_base.ca_utente, !inrim_controllo_accessi_base.ca_ca">
+                    <sheet>
+                        <header>
+                            <field name="ca_stato_anag_id" widget="statusbar"/>
+                        </header>
+                        <group>
+                            <group>
+                                <field name="is_external" invisible="1"/>
+                                <field name="is_internal" invisible="1"/>
+                                <field name="name" readonly="True"/>
+                                <field name="lastname" readonly="True"/>
+                                <field name="parent_id" widget="res_partner_many2one" placeholder="Company Name..." readonly="1"/>
+                                <field name="associated_user_id" options="{'no_create': True}" readonly="True"/>
+                                <span class="o_form_label o_td_label" name="address_name">
+                                    <b>Address</b>
+                                </span>
+                                <div class="o_address_format">
+                                    <field name="street" placeholder="Street..." class="o_address_street" readonly="True"/>
+                                    <field name="street2" placeholder="Street 2..." class="o_address_street" readonly="True"/>
+                                    <field name="city" placeholder="City" class="o_address_city" readonly="True"/>
+                                    <field name="state_id" class="o_address_state" placeholder="State" readonly="True"/>
+                                    <field name="zip" placeholder="ZIP" class="o_address_zip" readonly="True"/>
+                                    <div name="partner_address_country" class="d-flex justify-content-between" readonly="True">
+                                        <field name="country_id" placeholder="Country" class="o_address_country" readonly="True"/>
+                                    </div>
+                                </div>
+                                <field name="fiscalcode" readonly="True"/>
+                                <field name="vat" readonly="True"/>
+                                <field name="type_ids" widget="many2many_tags" options="{'no_create': True}" readonly="True"/>
+                                <field name="freshman" required="is_internal" readonly="True"/>
+                                <field name="ca_ente_azienda_ids" widget="many2many_tags" options="{'no_create': True}" readonly="True"/>
+                            </group>
+                            <group>
+                                <field name="nationality" required="is_external" readonly="True"/>
+                                <field name="birth_date" required="is_external" readonly="True"/>
+                                <field name="birth_place" required="is_external" readonly="True"/>
+                                <field name="istat_code" required="is_external" readonly="True"/>
+                                <field name="token"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Contacts" name="contact">
+                                <field name="child_ids" readonly="True"/>
+                            </page>
+                            <page string="Domicile and Residence Data" name="domicile_residence" invisible="not is_external" groups="inrim_controllo_accessi_base.ca_gdpr">
+                                <group>
+                                    <group name="Domicile" string="domicile">
+                                        <span class="o_form_label o_td_label" name="address_name">
+                                            <b>Address</b>
+                                        </span>
+                                        <div class="o_address_format">
+                                            <field name="domicile_street" placeholder="Street..." class="o_address_street" required="is_external" readonly="True"/>
+                                            <field name="domicile_street2" placeholder="Street 2..." class="o_address_street" readonly="True"/>
+                                            <field name="domicile_city" placeholder="City" class="o_address_city" required="is_external" readonly="True"/>
+                                            <field name="domicile_state_id" class="o_address_state" placeholder="State" required="is_external" readonly="True"/>
+                                            <field name="domicile_zip" placeholder="ZIP" class="o_address_zip" required="is_external" readonly="True"/>
+                                            <div name="partner_address_country" class="d-flex justify-content-between" readonly="True">
+                                                <field name="domicile_country_id" placeholder="Country" class="o_address_country" required="is_external" readonly="True"/>
+                                            </div>
+                                        </div>
+                                        <field name="domicile_other_than_residence" readonly="True"/>
+                                    </group>
+                                    <group name="Residence" string="residence" invisible="not domicile_other_than_residence">
+                                        <span class="o_form_label o_td_label" name="address_name">
+                                            <b>Address</b>
+                                        </span>
+                                        <div class="o_address_format">
+                                            <field name="residence_street" placeholder="Street..." class="o_address_street" required="domicile_other_than_residence" invisible="not domicile_other_than_residence" readonly="True"/>
+                                            <field name="residence_street2" placeholder="Street 2..." class="o_address_street" invisible="not domicile_other_than_residence" readonly="True"/>
+                                            <field name="residence_city" placeholder="City" class="o_address_city" required="domicile_other_than_residence" invisible="not domicile_other_than_residence" readonly="True"/>
+                                            <field name="residence_state_id" class="o_address_state" placeholder="State" required="domicile_other_than_residence" invisible="not domicile_other_than_residence" readonly="True"/>
+                                            <field name="residence_zip" placeholder="ZIP" class="o_address_zip" required="domicile_other_than_residence" invisible="not domicile_other_than_residence" readonly="True"/>
+                                            <div name="partner_address_country" class="d-flex justify-content-between">
+                                                <field name="residence_country_id" placeholder="Country" class="o_address_country" required="domicile_other_than_residence" invisible="not domicile_other_than_residence" readonly="True"/>
+                                            </div>
+                                        </div>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="identity_documents" string="List of Identity Documents" invisible="not is_external" groups="inrim_controllo_accessi_base.ca_gdpr">
+                                <field name="ca_documento_ids" readonly="True">
+                                    <tree>
+                                        <field name="tipo_documento_id"/>
+                                        <field name="validity_start_date"/>
+                                        <field name="validity_end_date"/>
+                                        <field name="image_ids" widget="many2many_tags">
+                                            <tree editable="bottom">
+                                                <field name="name"/>
+                                                <field name="description"/>
+                                                <field name="ca_tipo_documento_id"/>
+                                                <field name="side"/>
+                                                <field name="image"/>
+                                            </tree>
+                                        </field>
+                                        <field name="document_code_id"/>
+                                        <field name="ca_stato_documento_id" force_save="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="tag_person" string="Tag Person">
+                                <field name="ca_tag_persona_ids" readonly="True">
+                                    <tree editable="bottom">
+                                        <field name="token"/>
+                                        <field name="ca_persona_id" options="{'no_create': True}"/>
+                                        <field name="ca_tag_id" options="{'no_create': True}"/>
+                                        <field name="date_start"/>
+                                        <field name="date_end"/>
+                                        <field name="temp"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </t>
+                <t groups="inrim_controllo_accessi_base.ca_ca">
+                    <sheet>
+                        <header>
+                            <button
+                                name="action_draft"
+                                type="object"
+                                class="btn-secondary"
+                                string="Draft"
+                                groups="inrim_controllo_accessi_base.ca_ca"
+                            />
+                            <button
+                                name="action_documents"
+                                type="object"
+                                class="btn-secondary"
+                                string="Waiting For Documents"
+                                groups="inrim_controllo_accessi_base.ca_ca"
+                            />
+                            <button
+                                name="action_completed"
+                                type="object"
+                                string="Complete"
+                                class="btn-primary"
+                                groups="inrim_controllo_accessi_base.ca_ca"
+                            />
+                            <field name="ca_stato_anag_id" widget="statusbar"/>
+                        </header>
+                        <group>
+                            <group>
+                                <field name="is_external" invisible="1"/>
+                                <field name="is_internal" invisible="1"/>
+                                <field name="name"/>
+                                <field name="lastname"/>
+                                <field name="parent_id" widget="res_partner_many2one" placeholder="Company Name..." readonly="1"/>
+                                <field name="associated_user_id" options="{'no_create': True}"/>
+                                <span class="o_form_label o_td_label" name="address_name">
+                                    <b>Address</b>
+                                </span>
+                                <div class="o_address_format">
+                                    <field name="street" placeholder="Street..." class="o_address_street"/>
+                                    <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                    <field name="city" placeholder="City" class="o_address_city"/>
+                                    <field name="state_id" class="o_address_state" placeholder="State"/>
+                                    <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                    <div name="partner_address_country" class="d-flex justify-content-between">
+                                        <field name="country_id" placeholder="Country" class="o_address_country"/>
+                                    </div>
+                                </div>
+                                <field name="fiscalcode"/>
+                                <field name="vat"/>
+                                <field name="type_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                                <field name="freshman" required="is_internal"/>
+                                <field name="ca_ente_azienda_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            </group>
+                            <group>
+                                <field name="nationality" required="is_external"/>
+                                <field name="birth_date" required="is_external"/>
+                                <field name="birth_place" required="is_external"/>
+                                <field name="istat_code" required="is_external"/>
+                                <field name="token"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Contacts" name="contact">
+                                <field name="child_ids"/>
+                            </page>
+                            <page string="Domicile and Residence Data" name="domicile_residence" invisible="not is_external" groups="inrim_controllo_accessi_base.ca_gdpr">
+                                <group>
+                                    <group name="Domicile" string="domicile">
+                                        <span class="o_form_label o_td_label" name="address_name">
+                                            <b>Address</b>
+                                        </span>
+                                        <div class="o_address_format">
+                                            <field name="domicile_street" placeholder="Street..." class="o_address_street" required="is_external"/>
+                                            <field name="domicile_street2" placeholder="Street 2..." class="o_address_street"/>
+                                            <field name="domicile_city" placeholder="City" class="o_address_city" required="is_external"/>
+                                            <field name="domicile_state_id" class="o_address_state" placeholder="State" required="is_external"/>
+                                            <field name="domicile_zip" placeholder="ZIP" class="o_address_zip" required="is_external"/>
+                                            <div name="partner_address_country" class="d-flex justify-content-between">
+                                                <field name="domicile_country_id" placeholder="Country" class="o_address_country" required="is_external"/>
+                                            </div>
+                                        </div>
+                                        <field name="domicile_other_than_residence"/>
+                                    </group>
+                                    <group name="Residence" string="residence" invisible="not domicile_other_than_residence">
+                                        <span class="o_form_label o_td_label" name="address_name">
+                                            <b>Address</b>
+                                        </span>
+                                        <div class="o_address_format">
+                                            <field name="residence_street" placeholder="Street..." class="o_address_street" required="domicile_other_than_residence" invisible="not domicile_other_than_residence"/>
+                                            <field name="residence_street2" placeholder="Street 2..." class="o_address_street" invisible="not domicile_other_than_residence"/>
+                                            <field name="residence_city" placeholder="City" class="o_address_city" required="domicile_other_than_residence" invisible="not domicile_other_than_residence"/>
+                                            <field name="residence_state_id" class="o_address_state" placeholder="State" required="domicile_other_than_residence" invisible="not domicile_other_than_residence"/>
+                                            <field name="residence_zip" placeholder="ZIP" class="o_address_zip" required="domicile_other_than_residence" invisible="not domicile_other_than_residence"/>
+                                            <div name="partner_address_country" class="d-flex justify-content-between">
+                                                <field name="residence_country_id" placeholder="Country" class="o_address_country" required="domicile_other_than_residence" invisible="not domicile_other_than_residence"/>
+                                            </div>
+                                        </div>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="identity_documents" string="List of Identity Documents" invisible="not is_external" groups="inrim_controllo_accessi_base.ca_gdpr">
+                                <field name="ca_documento_ids">
+                                    <tree>
+                                        <field name="tipo_documento_id"/>
+                                        <field name="validity_start_date"/>
+                                        <field name="validity_end_date"/>
+                                        <field name="image_ids" widget="many2many_tags">
+                                            <tree editable="bottom">
+                                                <field name="name"/>
+                                                <field name="description"/>
+                                                <field name="ca_tipo_documento_id"/>
+                                                <field name="side"/>
+                                                <field name="image"/>
+                                            </tree>
+                                        </field>
+                                        <field name="document_code_id"/>
+                                        <field name="ca_stato_documento_id" force_save="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="tag_person" string="Tag Person">
+                                <field name="ca_tag_persona_ids">
+                                    <tree editable="bottom">
+                                        <field name="token"/>
+                                        <field name="ca_persona_id" options="{'no_create': True}"/>
+                                        <field name="ca_tag_id" options="{'no_create': True}"/>
+                                        <field name="date_start"/>
+                                        <field name="date_end"/>
+                                        <field name="temp"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </t>
+            </form>
+        </field>
+    </record>
+
+    <!-- <record id="ca_persona_view_form_inherit_utente" model="ir.ui.view">
+        <field name="name">ca.persona.view.form.inherit.utente</field>
+        <field name="model">ca.persona</field>
+        <field name="inherit_id" ref="inrim_anagrafiche.ca_persona_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <t groups="inrim_controllo_accessi_base.ca_utente">
+                    <attribute name="create">0</attribute>
+                </t>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="attributes">
+                <t groups="inrim_controllo_accessi_base.ca_utente">
+                    <attribute name="readonly">True</attribute>
+                </t>
+            </xpath>
+            <xpath expr="//field[@name='lastname']" position="attributes">
+                <t groups="inrim_controllo_accessi_base.ca_utente">
+                    <attribute name="readonly">True</attribute>
+                </t>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="ca_persona_view_tree_inherit_utente" model="ir.ui.view">
+        <field name="name">ca.persona.view.tree.inherit.utente</field>
+        <field name="model">ca.persona</field>
+        <field name="inherit_id" ref="inrim_anagrafiche.ca_persona_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <t groups="inrim_controllo_accessi_base.ca_utente">
+                    <attribute name="create">0</attribute>
+                </t>
+            </xpath>
+        </field>
+    </record> -->
 
     <record id="ca_persona_action" model="ir.actions.act_window">
         <field name="name">People</field>

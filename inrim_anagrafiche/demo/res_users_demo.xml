@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inrim_demo_user" model="res.users">
+        <field name="name">User</field>
+        <field name="login">User</field>
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('inrim_controllo_accessi_base.ca_base')])]"/>
+    </record>
+
+    <record id="inrim_demo_user_1" model="res.users">
+        <field name="name">User 1</field>
+        <field name="login">User 1</field>
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('inrim_controllo_accessi_base.ca_ca')])]"/>
+    </record>
+
+    <record id="inrim_demo_user_2" model="res.users">
+        <field name="name">User 2</field>
+        <field name="login">User 2</field>
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('inrim_controllo_accessi_base.ca_ru')])]"/>
+    </record>
+
+    <record id="inrim_demo_user_3" model="res.users">
+        <field name="name">User 3</field>
+        <field name="login">User 3</field>
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('inrim_controllo_accessi_base.ca_spp')])]"/>
+    </record>
+
+    <record id="inrim_demo_user_4" model="res.users">
+        <field name="name">User 4</field>
+        <field name="login">User 4</field>
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('inrim_controllo_accessi_base.ca_portineria')])]"/>
+    </record>
+
+    <record id="inrim_demo_user_5" model="res.users">
+        <field name="name">User 5</field>
+        <field name="login">User 5</field>
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('inrim_controllo_accessi_base.ca_tech')])]"/>
+    </record>
+</odoo>

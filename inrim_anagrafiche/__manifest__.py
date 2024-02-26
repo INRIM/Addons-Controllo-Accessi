@@ -29,7 +29,13 @@
         'views/ca_categoria_tipo_richiesta_views.xml',
         'views/menus.xml',
     ],
-    'demo': [],
+    'demo': [
+        'demo/res_users_demo.xml',
+        'demo/ca_ente_azienza_demo.xml',
+        'demo/ca_lettore_demo.xml',
+        'demo/ca_tag_demo.xml',
+        'demo/ca_persona_demo.xml',
+    ],
     'installable': True,
     'application': True,
 }

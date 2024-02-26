@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inrim_demo_ca_tag_1" model="ca.tag">
+        <field name="name">Tag 1</field>
+        <field name="tag_code">E0010150AD255C11</field>
+        <field name="ca_proprieta_tag_ids" eval="[(6, 0, [
+            ref('inrim_anagrafiche.proprieta_tag_temporaneo'), 
+            ref('inrim_anagrafiche.proprieta_tag_visitatore'), 
+            ref('inrim_anagrafiche.proprieta_tag_valido')
+        ])]"/>
+    </record>
+
+    <record id="inrim_demo_ca_tag_2" model="ca.tag">
+        <field name="name">Tag 2</field>
+        <field name="tag_code">E0010150AD255C12</field>
+        <field name="ca_proprieta_tag_ids" eval="[(6, 0, [
+            ref('inrim_anagrafiche.proprieta_tag_temporaneo'), 
+            ref('inrim_anagrafiche.proprieta_tag_jolly'), 
+            ref('inrim_anagrafiche.proprieta_tag_valido')
+        ])]"/>
+    </record>
+
+    <record id="inrim_demo_ca_tag_3" model="ca.tag">
+        <field name="name">Tag 3</field>
+        <field name="tag_code">E0010150AD255C13</field>
+        <field name="ca_proprieta_tag_ids" eval="[(6, 0, [
+            ref('inrim_anagrafiche.proprieta_tag_definitivo'), 
+            ref('inrim_anagrafiche.proprieta_tag_valido')
+        ])]"/>
+    </record>
+
+    <record id="inrim_demo_ca_tag_4" model="ca.tag">
+        <field name="name">Tag 4</field>
+        <field name="tag_code">E0010150AD255C14</field>
+        <field name="ca_proprieta_tag_ids" eval="[(6, 0, [
+            ref('inrim_anagrafiche.proprieta_tag_definitivo'),
+            ref('inrim_anagrafiche.proprieta_tag_valido')
+        ])]"/>
+    </record>
+
+    <record id="inrim_demo_ca_tag_5" model="ca.tag">
+        <field name="name">Tag 5</field>
+        <field name="tag_code">E0010150AD255C15</field>
+        <field name="ca_proprieta_tag_ids" eval="[(6, 0, [
+            ref('inrim_anagrafiche.proprieta_tag_definitivo'),
+            ref('inrim_anagrafiche.proprieta_tag_valido')
+        ])]"/>
+    </record>
+
+    <record id="inrim_demo_ca_tag_6" model="ca.tag">
+        <field name="name">Tag 6</field>
+        <field name="tag_code">E0010150AD255C16</field>
+        <field name="ca_proprieta_tag_ids" eval="[(6, 0, [
+            ref('inrim_anagrafiche.proprieta_tag_temporaneo'),
+            ref('inrim_anagrafiche.proprieta_tag_revocato')
+        ])]"/>
+    </record>
+</odoo>

@@ -46,9 +46,27 @@ class CaTagPersona(models.Model):
         for record in self:
             if self.env.ref('inrim_anagrafiche.proprieta_tag_revocato') in record.ca_tag_id.ca_proprieta_tag_ids:
                 raise UserError(_('Il tag ' + str(record.ca_tag_id.name) + ' risulta revocato'))
-
-    @api.onchange('date_start', 'date_end', 'ca_tag_id')
-    def _onchange_date(self):
+    
+    def create(self, vals):
+        if vals.get('ca_tag_id'):
+            ca_tag_id = self.env['ca.tag'].browse(vals.get('ca_tag_id'))
+            if ca_tag_id.temp:
+                vals['temp'] = ca_tag_id.temp
+        res = super(CaTagPersona, self).create(vals)
+        for record in res:
+            if record.ca_tag_id:
+                record.ca_tag_id.in_use = False
+                if record.date_start and record.date_end:
+                    today = fields.Date.today()
+                    if record.date_start <= today and record.date_end >= today:
+                        record.ca_tag_id.in_use = True
+        return res
+    
+    def write(self, vals_list):
+        if self.ca_tag_id:
+            if self.ca_tag_id.temp:
+                vals_list['temp'] = self.ca_tag_id.temp
+        res = super(CaTagPersona, self).write(vals_list)
         for record in self:
             if record.ca_tag_id:
                 record.ca_tag_id.in_use = False
@@ -56,15 +74,21 @@ class CaTagPersona(models.Model):
                     today = fields.Date.today()
                     if record.date_start <= today and record.date_end >= today:
                         record.ca_tag_id.in_use = True
-                
+        return res
+     
     def _cron_check_validity_tag(self):
-        for record in self.env['ca.tag_persona'].search([]):
-            if record.ca_tag_id:
-                record.ca_tag_id.in_use = False
-                if record.date_start and record.date_end:
-                    today = fields.Date.today()
-                    if record.date_start <= today and record.date_end >= today:
-                        record.ca_tag_id.in_use = True
+        ca_tag_persona_ids = self.env['ca.tag_persona'].search([])
+        if ca_tag_persona_ids:
+            for record in ca_tag_persona_ids:
+                if record.ca_tag_id:
+                    record.ca_tag_id.in_use = False
+                    if record.date_start and record.date_end:
+                        today = fields.Date.today()
+                        if record.date_start <= today and record.date_end >= today:
+                            record.ca_tag_id.in_use = True
+        else:
+            for tag in self.env['ca.tag'].search([]):
+                tag.in_use = False
 
     def get_token(self):
         characters = string.ascii_letters + string.digits
