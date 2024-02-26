@@ -44,7 +44,7 @@ class CaPersona(models.Model):
     ca_documento_ids = fields.One2many('ca.documento', 'ca_persona_id')
     ca_stato_anag_id = fields.Many2one('ca.stato_anag', default=lambda self:self.default_ca_stato_anag_id(), required=True)
     ca_ente_azienda_ids = fields.Many2many('ca.ente_azienda')
-    token = fields.Char(required=True, readonly=True, default=lambda self:self.get_token())
+    token = fields.Char(required=True, readonly=True, copy=False, default=lambda self:self.get_token())
     ca_tag_persona_ids = fields.One2many('ca.tag_persona', 'ca_persona_id')
     is_external = fields.Boolean(compute="_compute_bool")
     is_internal = fields.Boolean(compute="_compute_bool")

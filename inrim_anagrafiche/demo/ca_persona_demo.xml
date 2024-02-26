@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Persona 1 -->
+        <record id="inrim_demo_ca_codice_documento_1" model="ca.codice_documento">
+            <field name="name">Codice Doc Persona 1</field>
+        </record>
+    
+        <record id="inrim_demo_ca_persona_1" model="ca.persona">
+            <field name="name">Persona</field>
+            <field name="lastname">1</field>
+            <field name="fiscalcode">Fiscalcode 1</field>
+            <field name="type_ids" eval="[(6, 0, [
+                ref('inrim_anagrafiche.tipo_persona_esterno')
+            ])]"/>
+            <field name="ca_documento_ids" eval="[
+            Command.create({
+                'tipo_documento_id': ref('inrim_anagrafiche.tipo_doc_ident_carta_identita'),
+                'validity_start_date': str(datetime.now().year)+'-01-01',
+                'validity_end_date': str(datetime.now().year)+'-06-20',
+                'image_ids': [Command.create({
+                    'name': 'Fronte 1',
+                    'side': 'fronte',
+                    'image': b'RnJvbnRlIDE='
+                }),
+                Command.create({
+                    'name': 'Retro 1',
+                    'side': 'retro',
+                    'image': b'UmV0cm8gMQ=='
+                })],
+                'document_code_id': ref('inrim_anagrafiche.inrim_demo_ca_codice_documento_1')
+            })]"/>
+        </record>
+
+        <!-- Persona 2 -->
+
+        <record id="inrim_demo_ca_codice_documento_2" model="ca.codice_documento">
+            <field name="name">Codice Doc Persona 2</field>
+        </record>
+    
+        <record id="inrim_demo_ca_persona_2" model="ca.persona">
+            <field name="name">Persona</field>
+            <field name="lastname">2</field>
+            <field name="fiscalcode">Fiscalcode 2</field>
+            <field name="type_ids" eval="[(6, 0, [
+                ref('inrim_anagrafiche.tipo_persona_esterno'),
+                ref('inrim_anagrafiche.tipo_persona_servizi_mensa_ristorazione')
+            ])]"/>
+            <field name="ca_documento_ids" eval="[
+            Command.create({
+                'tipo_documento_id': ref('inrim_anagrafiche.tipo_doc_ident_carta_identita'),
+                'validity_start_date': str(datetime.now().year)+'-06-20',
+                'validity_end_date': str(datetime.now().year)+'-12-31',
+                'image_ids': [Command.create({
+                    'name': 'Fronte 2',
+                    'side': 'fronte',
+                    'image': b'RnJvbnRlIDI='
+                })],
+                'document_code_id': ref('inrim_anagrafiche.inrim_demo_ca_codice_documento_2')
+            })]"/>
+        </record>
+
+        <!-- Persona 3 -->
+
+        <record id="inrim_demo_ca_codice_documento_3" model="ca.codice_documento">
+            <field name="name">Codice Doc Persona 3</field>
+        </record>
+    
+        <record id="inrim_demo_ca_persona_3" model="ca.persona">
+            <field name="name">Persona</field>
+            <field name="lastname">3</field>
+            <field name="fiscalcode">Fiscalcode 3</field>
+            <field name="type_ids" eval="[(6, 0, [
+                ref('inrim_anagrafiche.tipo_persona_esterno'),
+                ref('inrim_anagrafiche.tipo_persona_servizi')
+            ])]"/>
+            <field name="ca_documento_ids" eval="[
+            Command.create({
+                'tipo_documento_id': ref('inrim_anagrafiche.tipo_doc_ident_carta_identita'),
+                'validity_start_date': str(datetime.now().year)+'-06-20',
+                'validity_end_date': str(datetime.now().year)+'-12-31',
+                'image_ids': [Command.create({
+                    'name': 'Fronte 3',
+                    'side': 'fronte',
+                    'image': b'RnJvbnRlIDM='
+                })],
+                'document_code_id': ref('inrim_anagrafiche.inrim_demo_ca_codice_documento_3')
+            })]"/>
+        </record>
+
+        <!-- Persona 4 -->
+
+        <record id="inrim_demo_ca_persona_4" model="ca.persona">
+            <field name="name">Persona</field>
+            <field name="lastname">4</field>
+            <field name="fiscalcode">Fiscalcode 4</field>
+            <field name="type_ids" eval="[(6, 0, [
+                ref('inrim_anagrafiche.tipo_persona_interno'),
+                ref('inrim_anagrafiche.tipo_persona_dipendente_ti')
+            ])]"/>
+        </record>
+
+        <!-- Persona 5 -->
+
+        <record id="inrim_demo_ca_persona_5" model="ca.persona">
+            <field name="name">Persona</field>
+            <field name="lastname">5</field>
+            <field name="fiscalcode">Fiscalcode 5</field>
+            <field name="type_ids" eval="[(6, 0, [
+                ref('inrim_anagrafiche.tipo_persona_interno'),
+                ref('inrim_anagrafiche.tipo_persona_dipendente_td')
+            ])]"/>
+        </record>
+
+        <!-- Persona 6 -->
+
+        <record id="inrim_demo_ca_codice_documento_6" model="ca.codice_documento">
+            <field name="name">Codice Doc Persona 6</field>
+        </record>
+
+        <record id="inrim_demo_ca_persona_6" model="ca.persona">
+            <field name="name">Persona</field>
+            <field name="lastname">6</field>
+            <field name="fiscalcode">Fiscalcode 6</field>
+            <field name="type_ids" eval="[(6, 0, [
+                ref('inrim_anagrafiche.tipo_persona_esterno'),
+                ref('inrim_anagrafiche.tipo_persona_servizi')
+            ])]"/>
+            <field name="ca_ente_azienda_ids" eval="[(6, 0, [
+                ref('inrim_anagrafiche.inrim_demo_ca_ente_azienda_3')
+            ])]"/>
+            <field name="ca_documento_ids" eval="[
+            Command.create({
+                'tipo_documento_id': ref('inrim_anagrafiche.tipo_doc_ident_carta_identita'),
+                'validity_start_date': str(datetime.now().year)+'-01-01',
+                'validity_end_date': str(datetime.now().year)+'-12-31',
+                'image_ids': [Command.create({
+                    'name': 'Fronte',
+                    'side': 'fronte',
+                    'image': b'RnJvbnRlIERvYyBJZGVudGl0YQ=='
+                }),
+                Command.create({
+                    'name': 'Retro',
+                    'side': 'retro',
+                    'image': b'RnJvbnRlIERvYyBJZGVudGl0YQ=='
+                })],
+                'document_code_id': ref('inrim_anagrafiche.inrim_demo_ca_codice_documento_6')
+            })]"/>
+        </record>
+
+        <function model="ca.codice_documento" name="_cron_check_ca_stato_documento_id">
+            <value eval="[ref('inrim_demo_ca_codice_documento_6')]"/>
+        </function>
+    </data>
+</odoo>

@@ -18,6 +18,19 @@ class CaCodiceDocumento(models.Model):
     name = fields.Char(required=True)
     active = fields.Boolean(default=True)
 
+    def _cron_check_ca_stato_documento_id(self):
+        today = fields.Date.today()
+        two_months_later = today + relativedelta(months = 2)
+        for record in self.env['ca.documento'].search([('validity_end_date', '!=', False)]):
+            record.ca_stato_documento_id = False
+            if record.validity_end_date:
+                if record.validity_end_date > two_months_later:
+                    record.ca_stato_documento_id = self.env.ref('inrim_anagrafiche.ca_stato_documento_valido').id
+                elif record.validity_end_date > today:
+                    record.ca_stato_documento_id = self.env.ref('inrim_anagrafiche.ca_stato_documento_in_scadenza').id
+                else:
+                    record.ca_stato_documento_id = self.env.ref('inrim_anagrafiche.ca_stato_documento_scaduto').id
+
 class CaStatoDocumento(models.Model):
     _name = 'ca.stato_documento'
     _description = 'Stato Documento'
@@ -81,20 +94,3 @@ class CaDocumento(models.Model):
                     record.ca_stato_documento_id = self.env.ref('inrim_anagrafiche.ca_stato_documento_in_scadenza').id
                 else:
                     record.ca_stato_documento_id = self.env.ref('inrim_anagrafiche.ca_stato_documento_scaduto').id
-
-    # @api.model
-    # def create(self, values):
-    #     res = super(CaDocumento, self).create(values)
-    #     for record in res:
-    #         for attach in record.image_ids:
-    #             attach.res_id = record.id
-    #             attach.res_name = str(record)
-    #     return res
-    
-    # def write(self, values):
-    #     res = super(CaDocumento, self).write(values)
-    #     for record in self:
-    #         for attach in record.image_ids:
-    #             attach.res_id = record.id
-    #             attach.res_name = str(record)
-    #     return res
