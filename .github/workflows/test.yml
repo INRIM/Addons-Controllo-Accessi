@@ -50,5 +50,5 @@ jobs:
       - name: Init Data
         run: ${PWD}/oqa/bin/init_repo.sh $REPO_NAME
       - name: Tests
-        run: docker run -v ${PWD}/oqa/bin/run_tests.sh:/mnt/tests/runtests.sh -v ${PWD}/:/mnt/$REPO_NAME -v ${PWD}/oqa/bin/odoo.conf:/etc/odoo/odoo.conf --network=host -e PGHOST=localhost -e ADDONS=${ADDONS} -e PGDATABASE=${PGDATABASE} -e TESTTAGS=inrim odoo:17.0 /mnt/tests/runtests.sh
+        run: docker run -v ${PWD}/oqa/bin/run_tests.sh:/mnt/tests/runtests.sh -v ${PWD}/:/mnt/$REPO_NAME -v ${PWD}/oqa/bin/odoo.conf:/etc/odoo/odoo.conf --network=host -e ADDONS=${ADDONS} -e TESTTAGS=inrim odoo:17.0 /mnt/tests/runtests.sh
 
