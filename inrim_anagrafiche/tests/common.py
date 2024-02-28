@@ -9,6 +9,7 @@ class TestCommon(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super(TestCommon, cls).setUpClass()
+        cls.failureException = True
         # Utenti
         cls.user = cls.env.ref('inrim_anagrafiche.inrim_demo_user')
         cls.user_1 = cls.env.ref('inrim_anagrafiche.inrim_demo_user_1')
