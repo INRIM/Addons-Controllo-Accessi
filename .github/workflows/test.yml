@@ -19,7 +19,7 @@ jobs:
     env:
       REPO_NAME: Addons-Controllo-Accessi
       ODOO_RC: odoo.cfg
-      ADDONS_PATH: /opt/odoo/addons,/mnt/${{ REPO_NAME }}
+      ADDONS_PATH: /opt/odoo/addons,/mnt/Addons-Controllo-Accessi
       TESTTAGS: inrim
       VERSION: "17.0"
     services:
