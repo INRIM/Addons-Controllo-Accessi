@@ -1,6 +1,11 @@
 name: tests
 env:
   REPO_NAME: Addons-Controllo-Accessi
+  ODOO_RC: odoo.cfg
+  ADDONS_PATH: /opt/odoo/addons,/mnt/Addons-Controllo-Accessi
+  TESTTAGS: inrim
+  VERSION: "17.0"
+
 on:
   pull_request:
     branches:
@@ -17,11 +22,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     name: Check Modules on ${{ github.event_name }}
-    env:
-      ODOO_RC: odoo.cfg
-      ADDONS_PATH: /opt/odoo/addons,/mnt/${{ env.REPO_NAME }}
-      TESTTAGS: inrim
-      VERSION: "17.0"
     services:
       postgres:
         image: postgres:16.2
