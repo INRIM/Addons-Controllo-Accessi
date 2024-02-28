@@ -49,6 +49,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install --upgrade manifestoo
           python -m pip install --upgrade coverage
+          tounch $ODOO_RC
       - name: Init Data
         run: ${PWD}/oqa/bin/init_repo.sh $REPO_NAME
       - name: Tests
