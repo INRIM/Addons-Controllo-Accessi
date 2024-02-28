@@ -19,8 +19,9 @@ jobs:
     env:
       REPO_NAME: Addons-Controllo-Accessi
       ODOO_RC: odoo.cfg
-      ADDONS_PATH: /opt/odoo/addons,/mnt/Addons-Controllo-Accessi
-      ADDONS: ''
+      ADDONS_PATH: /opt/odoo/addons,/mnt/${{ REPO_NAME }}
+      TESTTAGS: inrim
+      VERSION: "17.0"
     services:
       postgres:
         image: postgres:16.2
@@ -43,7 +44,7 @@ jobs:
         with:
           repository: INRIM/Odoo-Qa
           path: oqa
-          ref: '17.0'
+          ref: ${{ VERSION }}
           token: ${{ secrets.CA_TOKEN }}
       - name: Install dependencies
         run: |
@@ -52,10 +53,8 @@ jobs:
           python -m pip install --upgrade coverage
           touch $ODOO_RC
       - name: Init Data
-        run: |
-          ${PWD}/oqa/bin/init_repo.sh
-          $ADDONS
+        run: ${PWD}/oqa/bin/init_repo.sh
       - name: Tests
-        run:  docker run --rm  -v ${PWD}/oqa/bin/run_tests.sh:/mnt/tests/runtests.sh -v ${PWD}/:/mnt/Addons-Controllo-Accessi -v ${PWD}/${ODOO_RC}:/etc/odoo/odoo.conf --network=host  odoo:17.0 /mnt/tests/runtests.sh "-d odoo -i $ADDONS --test-enable  --test-tags=inrim --stop-after-init"
+        run: docker run --rm  -v ${PWD}/run_tests.sh:/mnt/tests/runtests.sh -v ${PWD}/:/mnt/${{ REPO_NAME }} -v ${PWD}/${ODOO_RC}:/etc/odoo/odoo.conf --network=host  odoo:17.0 /mnt/tests/runtests.sh
           
 
