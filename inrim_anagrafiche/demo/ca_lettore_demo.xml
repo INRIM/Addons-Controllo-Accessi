@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inrim_demo_ca_lettore_1" model="ca.lettore">
+        <field name="name">Lettore 1</field>
+        <field name="reader_ip">10.10.10.1</field>
+        <field name="direction">in</field>
+    </record>
+
+    <record id="inrim_demo_ca_lettore_2" model="ca.lettore">
+        <field name="name">Lettore 2</field>
+        <field name="reader_ip">10.10.10.3</field>
+        <field name="direction">out</field>
+    </record>
+</odoo>

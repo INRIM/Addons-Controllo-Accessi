@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_partner_ca_user_0" model="res.partner">
+        <field name="name">User 0</field>
+        <field name="street">Via Roma, 1</field>
+        <field name="city">Torino</field>
+        <field name="zip"> 10135 </field>
+        <field name="country_id" ref="base.it"/>
+        <field name="company_name">Istituto Nazionale di Ricerca Metrologica</field>
+    </record>
+
+    <record id="inrim_demo_user" model="res.users">
+        <field name="partner_id"
+               ref="inrim_anagrafiche.res_partner_ca_user_0"/>
+        <field name="login">User</field>
+        <field name="password">demo</field>
+        <field name="groups_id" 
+            eval="[(6, 0, [ref('base.group_user'), ref('inrim_controllo_accessi_base.ca_base')])]"/>
+    </record>
+
+    <record id="res_partner_ca_user_1" model="res.partner">
+        <field name="name">User 1</field>
+        <field name="street">Via Roma, 1</field>
+        <field name="city">Torino</field>
+        <field name="zip"> 10135 </field>
+        <field name="country_id" ref="base.it"/>
+        <field name="company_name">Istituto Nazionale di Ricerca Metrologica</field>
+    </record>
+
+    <record id="inrim_demo_user_1" model="res.users">
+        <field name="partner_id"
+               ref="inrim_anagrafiche.res_partner_ca_user_1"/>
+        <field name="login">User 1</field>
+        <field name="password">demo1</field>
+        <field name="groups_id" 
+            eval="[(6, 0, [ref('base.group_user'), ref('inrim_controllo_accessi_base.ca_ca')])]"/>
+    </record>
+
+    <record id="res_partner_ca_user_2" model="res.partner">
+        <field name="name">User 2</field>
+        <field name="street">Via Roma, 1</field>
+        <field name="city">Torino</field>
+        <field name="zip"> 10135 </field>
+        <field name="country_id" ref="base.it"/>
+        <field name="company_name">Istituto Nazionale di Ricerca Metrologica</field>
+    </record>
+
+    <record id="inrim_demo_user_2" model="res.users">
+        <field name="partner_id"
+            ref="inrim_anagrafiche.res_partner_ca_user_2"/>
+        <field name="login">User 2</field>
+        <field name="password">demo2</field>
+        <field name="groups_id" 
+            eval="[(6, 0, [ref('base.group_user'), ref('inrim_controllo_accessi_base.ca_ru')])]"/>
+    </record>
+
+    <record id="res_partner_ca_user_3" model="res.partner">
+        <field name="name">User 3</field>
+        <field name="street">Via Roma, 1</field>
+        <field name="city">Torino</field>
+        <field name="zip"> 10135 </field>
+        <field name="country_id" ref="base.it"/>
+        <field name="company_name">Istituto Nazionale di Ricerca Metrologica</field>
+    </record>
+
+    <record id="inrim_demo_user_3" model="res.users">
+        <field name="partner_id"
+            ref="inrim_anagrafiche.res_partner_ca_user_3"/>
+        <field name="login">User 3</field>
+        <field name="password">demo3</field>
+        <field name="groups_id" 
+            eval="[(6, 0, [ref('base.group_user'), ref('inrim_controllo_accessi_base.ca_spp')])]"/>
+    </record>
+
+    <record id="res_partner_ca_user_4" model="res.partner">
+        <field name="name">User 4</field>
+        <field name="street">Via Roma, 1</field>
+        <field name="city">Torino</field>
+        <field name="zip"> 10135 </field>
+        <field name="country_id" ref="base.it"/>
+        <field name="company_name">Istituto Nazionale di Ricerca Metrologica</field>
+    </record>
+
+    <record id="inrim_demo_user_4" model="res.users">
+        <field name="partner_id"
+            ref="inrim_anagrafiche.res_partner_ca_user_4"/>
+        <field name="login">User 4</field>
+        <field name="password">demo4</field>
+        <field name="groups_id" 
+            eval="[(6, 0, [ref('base.group_user'), ref('inrim_controllo_accessi_base.ca_portineria')])]"/>
+    </record>
+
+    <record id="res_partner_ca_user_5" model="res.partner">
+        <field name="name">User 5</field>
+        <field name="street">Via Roma, 1</field>
+        <field name="city">Torino</field>
+        <field name="zip"> 10135 </field>
+        <field name="country_id" ref="base.it"/>
+        <field name="company_name">Istituto Nazionale di Ricerca Metrologica</field>
+    </record>
+
+    <record id="inrim_demo_user_5" model="res.users">
+        <field name="partner_id"
+            ref="inrim_anagrafiche.res_partner_ca_user_5"/>
+        <field name="login">User 5</field>
+        <field name="password">demo5</field>
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('inrim_controllo_accessi_base.ca_tech')])]"/>
+    </record>
+</odoo>

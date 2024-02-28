@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
 class CaProprietaTag(models.Model):
     _name = 'ca.proprieta_tag'
@@ -20,3 +20,12 @@ class CaTag(models.Model):
     ca_proprieta_tag_ids = fields.Many2many('ca.proprieta_tag')
     in_use = fields.Boolean(readonly=True)
     active = fields.Boolean(default=True)
+    temp = fields.Boolean(compute="_compute_temp", store=True)
+
+    @api.depends('ca_proprieta_tag_ids')
+    def _compute_temp(self):
+        for record in self:
+            record.temp = False
+            if record.ca_proprieta_tag_ids:
+                if self.env.ref('inrim_anagrafiche.proprieta_tag_temporaneo') in record.ca_proprieta_tag_ids:
+                    record.temp = True
