@@ -53,5 +53,7 @@ jobs:
       - name: Init Data
         run: ${PWD}/oqa/bin/init_repo.sh
       - name: Tests
-        run: docker run -v ${PWD}/oqa/bin/run_tests.sh:/mnt/tests/runtests.sh -v ${PWD}/:/mnt/${REPO_NAME} -v ${PWD}/${ODOO_RC}:/etc/odoo/odoo.conf --network=host  odoo:17.0 /mnt/tests/runtests.sh odoo ${ADDONS} inrim
+        run: docker run --rm  -v ${PWD}/oqa/bin/run_tests.sh:/mnt/tests/runtests.sh \ 
+          -v ${PWD}/:/mnt/${REPO_NAME} -v ${PWD}/${ODOO_RC}:/etc/odoo/odoo.conf --network=host  odoo:17.0 \
+          /mnt/tests/runtests.sh -d odoo -i ${ADDONS} --test-enable  --test-tags=inrim --stop-after-init
 
