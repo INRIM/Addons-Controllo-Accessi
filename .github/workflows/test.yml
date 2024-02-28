@@ -40,7 +40,7 @@ jobs:
         with:
           repository: INRIM/Odoo-Qa
           path: oqa
-          ref: 17.0
+          ref: '17.0'
           token: ${{ secrets.CA_TOKEN }}
       - name: Install dependencies
         run: |
