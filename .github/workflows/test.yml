@@ -51,7 +51,7 @@ jobs:
           python -m pip install --upgrade coverage
           touch $ODOO_RC
       - name: Init Data
-        run: ${PWD}/oqa/bin/init_repo.sh $REPO_NAME
+        run: ${PWD}/oqa/bin/init_repo.sh
       - name: Tests
-        run: docker run -v ${PWD}/oqa/bin/run_tests.sh:/mnt/tests/runtests.sh -v ${PWD}/:/mnt/$REPO_NAME -v ${ODOO_RC}:/etc/odoo/odoo.conf --network=host -e ADDONS=${ADDONS} -e TESTTAGS=inrim odoo:17.0 /mnt/tests/runtests.sh
+        run: docker run -v ${PWD}/oqa/bin/run_tests.sh:/mnt/tests/runtests.sh -v ${PWD}/:/mnt/$REPO_NAME -v ${PWD}/${ODOO_RC}:/etc/odoo/odoo.conf --network=host -e ADDONS=${ADDONS} -e TESTTAGS=inrim odoo:17.0 /mnt/tests/runtests.sh
 
