@@ -116,7 +116,7 @@ class TestInrim(TestCommon):
         Utente3 modifica Persona 6
     '''
     def test_4(self):
-        self.assertFalse(self.env['ca.persona'].with_user(self.user_3).check_access_rights('write'))
+        self.assertTrue(self.env['ca.persona'].with_user(self.user_3).check_access_rights('write'))
     '''
     Risultato Atteso:
         Utente3 modifica con successo persona 6
