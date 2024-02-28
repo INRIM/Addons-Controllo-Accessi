@@ -1,5 +1,6 @@
 name: tests
-
+env:
+  REPO_NAME: Addons-Controllo-Accessi
 on:
   pull_request:
     branches:
@@ -17,7 +18,6 @@ jobs:
     runs-on: ubuntu-latest
     name: Check Modules on ${{ github.event_name }}
     env:
-      REPO_NAME: Addons-Controllo-Accessi
       ODOO_RC: odoo.cfg
       ADDONS_PATH: /opt/odoo/addons,/mnt/${{ env.REPO_NAME }}
       TESTTAGS: inrim
