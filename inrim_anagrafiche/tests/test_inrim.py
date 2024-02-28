@@ -11,7 +11,6 @@ from odoo.tests import tagged
 class TestInrim(TestCommon):
 
     # Test 1
-
     def test_1(self):
         """
         Descrizione:
@@ -46,11 +45,6 @@ class TestInrim(TestCommon):
         self.assertTrue(self.lettore_2)
 
     # Test 2
-    '''
-    Descrizione:
-       
-    '''
-
     def test_2(self):
         """
          Utente1 crea una Sede 2
@@ -68,11 +62,6 @@ class TestInrim(TestCommon):
         self.assertTrue(ca_ente_azienda_id)
 
     # Test 3
-    '''
-    Descrizione:
-        
-    '''
-
     def test_3(self):
         """
         Utente1 crea un record Persona 6 di tipo:
@@ -120,11 +109,6 @@ class TestInrim(TestCommon):
         self.assertTrue(ca_persona_id)
 
     # Test 4
-    '''
-    Descrizione:
-        
-    '''
-
     def test_4(self):
         """
          Utente3 modifica Persona 6
@@ -144,11 +128,6 @@ class TestInrim(TestCommon):
         self.assertFalse(self.tag_2.in_use)
 
     # Test 6
-    '''
-    Descrizione:
-
-    '''
-
     def test_6(self):
         """
         Utente1 crea un record Tag Persona collegando Persona
@@ -168,12 +147,6 @@ class TestInrim(TestCommon):
             ca_tag_persona_id and ca_tag_persona_id.ca_tag_id.in_use)
 
     # Test 7
-    '''
-    Descrizione:
-        Utente1 crea un record Tag Persona collegando Persona
-        6 a Tag 2 , inizio oggi fine oggi +2
-    '''
-
     def test_7(self):
         """
         Utente1 crea un record Tag Persona collegando Persona
@@ -216,11 +189,6 @@ class TestInrim(TestCommon):
             })
 
     # Test 9
-    '''
-    Descrizione:
-        
-    '''
-
     def test_9(self):
         """
         Utente1 crea un record Tag Persona collegando Persona
