@@ -15,9 +15,9 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-latest
+    name: Check Modules on ${github.event_name}
     env:
-      REPO_NAME: ${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}
-    name: Check $REPO_NAME
+      REPO_NAME: Addons-Controllo-Accessi
     services:
       postgres:
         image: postgres:16.2
