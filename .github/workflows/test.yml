@@ -14,9 +14,10 @@ concurrency:
 
 jobs:
   test:
+    runs-on: ubuntu-latest
     env:
       REPO_NAME: ${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}
-    runs-on: ubuntu-latest
+    name: Check $REPO_NAME
     services:
       postgres:
         image: postgres:16.2
