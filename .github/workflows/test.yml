@@ -18,6 +18,8 @@ jobs:
     name: Check Modules on ${{ github.event_name }}
     env:
       REPO_NAME: Addons-Controllo-Accessi
+      ODOO_RC: ${PWD}/odoo.cfg
+      ADDONS: ''
     services:
       postgres:
         image: postgres:16.2
