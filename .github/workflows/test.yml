@@ -19,7 +19,7 @@ jobs:
     env:
       REPO_NAME: Addons-Controllo-Accessi
       ODOO_RC: ${PWD}/odoo.cfg
-      ADDONS: ''
+      ADDONS_PATH: /opt/odoo/addons,/mnt/$REPO_NAME
     services:
       postgres:
         image: postgres:16.2
