@@ -18,7 +18,7 @@ jobs:
     name: Check Modules on ${{ github.event_name }}
     env:
       REPO_NAME: Addons-Controllo-Accessi
-      ODOO_RC: ${PWD}/odoo.cfg
+      ODOO_RC: odoo.cfg
       ADDONS_PATH: /opt/odoo/addons,/mnt/$REPO_NAME
     services:
       postgres:
