@@ -4,15 +4,15 @@ env:
   ODOO_RC: odoo.cfg
   ADDONS_PATH: /opt/odoo/addons,/mnt/Addons-Controllo-Accessi
   TESTTAGS: inrim
-  VERSION: "17.0"
+  OE_VER: "17.0"
 
 on:
   pull_request:
     branches:
-      - "add_workflow"
+      - ${{ env.OE_VER }}
   push:
     branches:
-      - "add_workflow"
+      - ${{ env.OE_VER }}
 
 concurrency:
   group: ${{ github.ref }}
@@ -44,7 +44,7 @@ jobs:
         with:
           repository: INRIM/Odoo-Qa
           path: oqa
-          ref: ${{ env.VERSION }}
+          ref: ${{ env.OE_VER }}
           token: ${{ secrets.CA_TOKEN }}
       - name: Install dependencies
         run: |
