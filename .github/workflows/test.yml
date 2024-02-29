@@ -29,14 +29,15 @@ jobs:
           POSTGRES_USER: odoo
           POSTGRES_PASSWORD: odoo
           POSTGRES_DB: odoo
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
         ports:
           - 5432:5432
     steps:
       - uses: docker-practice/actions-setup-docker@master
-        timeout-minutes: 12
-      - run: |
-          set -x
-          docker version
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
@@ -55,4 +56,4 @@ jobs:
       - name: Init Data
         run: ${PWD}/oqa/bin/init_repo.sh
       - name: Tests
-        run: docker run --rm  -v ${PWD}/run_tests.sh:/mnt/tests/runtests.sh -v ${PWD}/:/mnt/${{ env.REPO_NAME }} -v ${PWD}/${ODOO_RC}:/etc/odoo/odoo.conf  odoo:17.0 /mnt/tests/runtests.sh
+        run: docker run --rm  -v ${PWD}/run_tests.sh:/mnt/tests/runtests.sh -v ${PWD}/:/mnt/${{ env.REPO_NAME }} -v ${PWD}/${ODOO_RC}:/etc/odoo/odoo.conf --network=host odoo:17.0 /mnt/tests/runtests.sh
