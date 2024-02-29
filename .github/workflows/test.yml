@@ -47,12 +47,8 @@ jobs:
           ref: ${{ env.OE_VER }}
           token: ${{ secrets.CA_TOKEN }}
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install --upgrade manifestoo
-          python -m pip install --upgrade coverage
-          touch $ODOO_RC
+        run: ${PWD}/oqa/bin/install_deps.sh
       - name: Init Data
         run: ${PWD}/oqa/bin/init_repo.sh
       - name: Tests
-        run: docker run --rm  -v ${PWD}/run_tests.sh:/mnt/tests/runtests.sh -v ${PWD}/:/mnt/${{ env.REPO_NAME }} -v ${PWD}/${ODOO_RC}:/etc/odoo/odoo.conf --network=host odoo:17.0 /mnt/tests/runtests.sh
+        run: docker run --rm  -v ${PWD}/run_tests.sh:/mnt/tests/runtests.sh -v ${PWD}/:/mnt/${{ env.REPO_NAME }} -v ${PWD}/${ODOO_RC}:/etc/odoo/odoo.conf --network=host odoo:${{ env.OE_VER }} /mnt/tests/runtests.sh
