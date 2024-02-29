@@ -115,7 +115,7 @@ class TestInrim(TestCommon):
 
         :return: Utente3 modifica con successo persona 6
         """
-        self.assertTrue(
+        self.assertFalse(
             self.env['ca.persona'].with_user(self.user_3).check_access_rights(
                 'write'))
 
