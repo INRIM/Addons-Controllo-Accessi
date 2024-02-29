@@ -9,10 +9,10 @@ env:
 on:
   pull_request:
     branches:
-      - ${{ env.OE_VER }}
+      - "17.0*"
   push:
     branches:
-      - ${{ env.OE_VER }}
+      - "17.0"
 
 concurrency:
   group: ${{ github.ref }}
