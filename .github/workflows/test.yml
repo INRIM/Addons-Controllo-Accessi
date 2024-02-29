@@ -52,7 +52,6 @@ jobs:
           python -m pip install --upgrade manifestoo
           python -m pip install --upgrade coverage
           touch $ODOO_RC
-          docker -v
       - name: Init Data
         run: ${PWD}/oqa/bin/init_repo.sh
       - name: Tests
