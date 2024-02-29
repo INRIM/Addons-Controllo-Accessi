@@ -1,0 +1,59 @@
+name: tests
+env:
+  REPO_NAME: Addons-Controllo-Accessi
+  ODOO_RC: odoo.cfg
+  ADDONS_PATH: /opt/odoo/addons,/mnt/Addons-Controllo-Accessi
+  TESTTAGS: inrim
+  OE_VER: "17.0"
+
+on:
+  pull_request:
+    branches:
+      - ${{ env.OE_VER }}
+  push:
+    branches:
+      - ${{ env.OE_VER }}
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Check Modules on ${{ github.event_name }}
+    services:
+      postgres:
+        image: postgres:16.2
+        env:
+          POSTGRES_USER: odoo
+          POSTGRES_PASSWORD: odoo
+          POSTGRES_DB: odoo
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: INRIM/Odoo-Qa
+          path: oqa
+          ref: ${{ env.OE_VER }}
+          token: ${{ secrets.CA_TOKEN }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade manifestoo
+          python -m pip install --upgrade coverage
+          touch $ODOO_RC
+          docker -v
+      - name: Init Data
+        run: ${PWD}/oqa/bin/init_repo.sh
+      - name: Tests
+        run: docker run --rm  -v ${PWD}/run_tests.sh:/mnt/tests/runtests.sh -v ${PWD}/:/mnt/${{ env.REPO_NAME }} -v ${PWD}/${ODOO_RC}:/etc/odoo/odoo.conf --network=host odoo:17.0 /mnt/tests/runtests.sh
