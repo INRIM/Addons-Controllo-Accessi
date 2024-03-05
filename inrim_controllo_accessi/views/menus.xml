@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="ca_richiesta_accesso_root"
+        name="Richiesta Accesso"
+        groups="inrim_controllo_accessi_base.ca_config"
+    />
+
+    <menuitem
+        id="ca_richiesta_accesso_configuration_menu"
+        name="Configuration"
+        groups="inrim_controllo_accessi_base.ca_config"
+        parent="ca_richiesta_accesso_root"
+        sequence="10"
+    />
+
+    <menuitem
+        id="ca_anag_servizi_menu"
+        name="Services"
+        groups="inrim_controllo_accessi_base.ca_config"
+        action="ca_anag_servizi_action"
+        parent="ca_richiesta_accesso_configuration_menu"
+        sequence="5"
+    />
+
+    <menuitem
+        id="ca_settore_ente_menu"
+        name="Sector"
+        groups="inrim_controllo_accessi_base.ca_config"
+        action="ca_settore_ente_action"
+        parent="ca_richiesta_accesso_configuration_menu"
+        sequence="10"
+    />
+
+    <menuitem
+        id="ca_punto_accesso_menu"
+        name="Access Points"
+        groups="inrim_controllo_accessi_base.ca_ca"
+        action="ca_punto_accesso_action"
+        parent="inrim_anagrafiche.ca_controllo_accessi_root"
+        sequence="1"
+    />
+
+    <menuitem
+        id="access_data_management_menu"
+        name="Access Data Management"
+        groups="inrim_controllo_accessi_base.ca_ca"
+        parent="inrim_anagrafiche.ca_controllo_accessi_root"
+        sequence="2"
+    />
+
+    <menuitem
+        id="ca_tag_lettore_menu"
+        name="Reader Tag"
+        action="ca_tag_lettore_action"
+        groups="inrim_controllo_accessi_base.ca_ca"
+        parent="access_data_management_menu"
+        sequence="5"
+    />
+
+    <menuitem
+        id="ca_punto_accesso_persona_menu"
+        name="Reader Person"
+        action="ca_punto_accesso_persona_action"
+        groups="inrim_controllo_accessi_base.ca_ca"
+        parent="access_data_management_menu"
+        sequence="10"
+    />
+
+    <menuitem
+        id="ca_anag_registro_accesso_menu"
+        name="Access Register"
+        action="ca_anag_registro_accesso_action"
+        groups="inrim_controllo_accessi_base.ca_ca"
+        parent="access_data_management_menu"
+        sequence="15"
+    />
+
+    <menuitem
+        id="ca_log_integrazione_lettori_menu"
+        name="Reader Integration Log"
+        action="ca_log_integrazione_lettori_action"
+        groups="inrim_controllo_accessi_base.ca_tech"
+        parent="access_data_management_menu"
+        sequence="20"
+    />
+</odoo>

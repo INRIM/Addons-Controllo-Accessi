@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_sposta_punto_accesso_view_form" model="ir.ui.view">
+        <field name="name">ca.sposta.punto.accesso.view.form</field>
+        <field name="model">ca.sposta_punto_accesso</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="old_ca_spazio_id"/>
+                        <field name="new_ca_spazio_id" options="{'no_create': True}"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button
+                        name="sposta_punto_accesso"
+                        string="Move"
+                        class="btn-primary" 
+                        type="object"
+                    />
+                    <button 
+                        string="Cancel" 
+                        class="btn-secondary" 
+                        special="cancel"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
