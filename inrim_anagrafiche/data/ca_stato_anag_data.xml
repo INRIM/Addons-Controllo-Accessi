@@ -7,6 +7,18 @@
     <record id="ca_stato_anag_in_attesa_documenti" model="ca.stato_anag">
         <field name="name">In Attesa Documenti</field>
     </record>
+    
+    <record id="ca_stato_anag_scaduto" model="ca.stato_anag">
+        <field name="name">Scaduto</field>
+    </record>
+
+    <record id="ca_stato_anag_in_aggiornamento" model="ca.stato_anag">
+        <field name="name">In Aggiornamento</field>
+    </record>
+
+    <record id="ca_stato_anag_verifiche_in_corso" model="ca.stato_anag">
+        <field name="name">Verifiche in Corso</field>
+    </record>
 
     <record id="ca_stato_anag_completata" model="ca.stato_anag">
         <field name="name">Completata</field>

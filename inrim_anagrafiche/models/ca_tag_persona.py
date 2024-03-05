@@ -86,7 +86,8 @@ class CaTagPersona(models.Model):
     def _cron_check_validity_tag(self):
         ca_tag_persona_ids = self.env['ca.tag_persona'].search([])
         if ca_tag_persona_ids:
-            self.check_update_record_by_date_valididty(record)
+            for tag in ca_tag_persona_ids:
+                self.check_update_record_by_date_valididty(tag)
         else:
             for tag in self.env['ca.tag'].search([]):
                 tag.in_use = False

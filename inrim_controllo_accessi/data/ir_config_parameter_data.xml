@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Default data fine TI -->
+        <record id="inrim_ir_config_parameter_forever" model="ir.config_parameter">
+            <field name="key">date_end.forever</field>
+            <field name="value">2222-02-02 00:00:00</field>
+        </record>
+        <!-- Delta gg scadenza accesso -->
+        <record id="inrim_ir_config_parameter_delta_days" model="ir.config_parameter">
+            <field name="key">date_end.delta_days</field>
+            <field name="value">0</field>
+        </record>
+        <!-- Scadenza gg soglia -->
+        <record id="inrim_ir_config_parameter_expiredays" model="ir.config_parameter">
+            <field name="key">date_end.expiredays</field>
+            <field name="value">10</field>
+        </record>
+    </data>
+</odoo>

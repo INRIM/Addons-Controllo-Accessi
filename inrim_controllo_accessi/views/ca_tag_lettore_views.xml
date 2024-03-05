@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_tag_lettore_view_tree" model="ir.ui.view">
+        <field name="name">ca.tag.lettore.view.tree</field>
+        <field name="model">ca.tag_lettore</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="ca_lettore_id"/>
+                <field name="ca_tag_id"/>
+                <field name="tag_in_use"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="temp"/>
+                <field name="expired"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ca_tag_lettore_view_form" model="ir.ui.view">
+        <field name="name">ca.tag.lettore.view.form</field>
+        <field name="model">ca.tag_lettore</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="True"/>
+                            <field name="ca_lettore_id" options="{'no_create': True}"/>
+                            <field name="ca_tag_id" options="{'no_create': True}"/>
+                            <field name="tag_in_use"/>
+                        </group>
+                        <group>
+                            <field name="date_start" readonly="True"/>
+                            <field name="date_end" readonly="True"/>
+                            <field name="temp"/>
+                            <field name="expired"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ca_tag_lettore_view_kanban" model="ir.ui.view">
+        <field name="name">ca.tag.lettore.view.kanban</field>
+        <field name="model">ca.tag_lettore</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <strong>
+                                <field name="name"/><br/>
+                            </strong>
+                            <span name="ca_lettore_id">
+                                Reader: <field name="ca_lettore_id"/><br/>
+                            </span>
+                            <span name="ca_tag_id">
+                                Tag: <field name="ca_tag_id"/><br/>
+                            </span>
+                            <span name="tag_in_use">
+                                Tag In Use: <field name="tag_in_use"/><br/>
+                            </span>
+                            <span name="date_start">
+                                Date Start: <field name="date_start"/><br/>
+                            </span>
+                            <span name="date_end">
+                                Date End: <field name="date_end"/><br/>
+                            </span>
+                            <span name="temp">
+                                Temp: <field name="temp"/><br/>
+                            </span>
+                            <span name="expired">
+                                Expired: <field name="expired"/><br/>
+                            </span>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="ca_tag_lettore_action" model="ir.actions.act_window">
+        <field name="name">Reader Tag</field>
+        <field name="res_model">ca.tag_lettore</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+</odoo>

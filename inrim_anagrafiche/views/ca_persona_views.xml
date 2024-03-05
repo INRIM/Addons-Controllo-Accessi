@@ -161,6 +161,27 @@
                                 groups="inrim_controllo_accessi_base.ca_ca"
                             />
                             <button
+                                name="action_expired"
+                                type="object"
+                                class="btn-secondary"
+                                string="Expired"
+                                groups="inrim_controllo_accessi_base.ca_ca"
+                            />
+                            <button
+                                name="action_in_update"
+                                type="object"
+                                class="btn-secondary"
+                                string="In Update"
+                                groups="inrim_controllo_accessi_base.ca_ca"
+                            />
+                            <button
+                                name="action_checks_in_progress"
+                                type="object"
+                                class="btn-secondary"
+                                string="Checks In Progress"
+                                groups="inrim_controllo_accessi_base.ca_ca"
+                            />
+                            <button
                                 name="action_completed"
                                 type="object"
                                 string="Complete"

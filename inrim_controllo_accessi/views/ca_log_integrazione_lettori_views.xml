@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_log_integrazione_lettori_view_search" model="ir.ui.view">
+        <field name="name">ca.log.integrazione.lettori.view.search</field>
+        <field name="model">ca.log_integrazione_lettori</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter string="In Error" name="in_error" domain="[('error_code', '!=', '0000')]"/>
+                <filter string="Activity Code" name="activity_code" context="{'group_by':'activity_code'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="ca_log_integrazione_lettori_view_tree" model="ir.ui.view">
+        <field name="name">ca.log.integrazione.lettori.view.tree</field>
+        <field name="model">ca.log_integrazione_lettori</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="activity_code"/>
+                <field name="datetime"/>
+                <field name="ca_lettore_id"/>
+                <field name="expected_events_num"/>
+                <field name="events_read_num"/>
+                <field name="operation_status"/>
+                <field name="error_code"/>
+                <field name="log_error"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ca_log_integrazione_lettori_view_form" model="ir.ui.view">
+        <field name="name">ca.log.integrazione.lettori.view.form</field>
+        <field name="model">ca.log_integrazione_lettori</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="activity_code"/>
+                            <field name="datetime"/>
+                            <field name="ca_lettore_id"/>
+                            <field name="expected_events_num"/>
+                        </group>
+                        <group>
+                            <field name="events_read_num"/>
+                            <field name="operation_status"/>
+                            <field name="error_code"/>
+                            <field name="log_error"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ca_log_integrazione_lettori_action" model="ir.actions.act_window">
+        <field name="name">Reader Integration Log</field>
+        <field name="res_model">ca.log_integrazione_lettori</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_activity_code': True}</field>
+    </record>
+</odoo>

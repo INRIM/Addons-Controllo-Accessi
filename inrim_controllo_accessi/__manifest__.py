@@ -1,0 +1,22 @@
+{
+    'name': 'Inrim Controllo Accessi',
+    'version': '17.0.1.0.0',
+    'description': "Inrim Controllo Accessi",
+    'depends': ['inrim_anagrafiche'],
+    'data': [
+        'security/ir.model.access.csv',
+        'data/ir_config_parameter_data.xml',
+        'views/ca_tag_lettore_views.xml',
+        'views/ca_punto_accesso_persona_views.xml',
+        'views/ca_punto_accesso_views.xml',
+        'views/ca_anag_registro_accesso_views.xml',
+        'views/ca_log_integrazione_lettori_views.xml',
+        'views/ca_settore_ente_views.xml',
+        'views/ca_anag_servizi_views.xml',
+        'wizard/ca_sposta_punto_accesso_views.xml',
+        'views/menus.xml',
+    ],
+    'demo': [],
+    'installable': True,
+    'application': True,
+}
