@@ -1,0 +1,642 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* inrim_controllo_accessi
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-05 16:47+0000\n"
+"PO-Revision-Date: 2024-03-05 16:47+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__abbreviation
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_settore_ente__abbreviation
+msgid "Abbreviation"
+msgstr "Sigla"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
+msgid "Abilita"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__access_allowed
+msgid "Access Allowed"
+msgstr "Accesso Consentito"
+
+#. module: inrim_controllo_accessi
+#: model:ir.ui.menu,name:inrim_controllo_accessi.access_data_management_menu
+msgid "Access Data Management"
+msgstr "Gestione Dati Accesso"
+
+#. module: inrim_controllo_accessi
+#: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_punto_accesso_action
+msgid "Access Point"
+msgstr "Punto Accesso"
+
+#. module: inrim_controllo_accessi
+#: model:ir.ui.menu,name:inrim_controllo_accessi.ca_punto_accesso_menu
+msgid "Access Points"
+msgstr "Punti Accesso"
+
+#. module: inrim_controllo_accessi
+#: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_anag_registro_accesso_action
+#: model:ir.ui.menu,name:inrim_controllo_accessi.ca_anag_registro_accesso_menu
+msgid "Access Register"
+msgstr "Registro Accesso"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__active
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__active
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__active
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_punto_accesso_persona__state__active
+msgid "Active"
+msgstr "Attivo"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__activity_code
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_log_integrazione_lettori_view_search
+msgid "Activity Code"
+msgstr "Codice attività"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model,name:inrim_controllo_accessi.model_ca_anag_registro_accesso
+msgid "Anagrafica Registro Accesso"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.model,name:inrim_controllo_accessi.model_ca_anag_servizi
+msgid "Anagrafica Servizi"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
+msgid "Are you sure you want to disable this record?"
+msgstr "Sei sicuro di voler disabilitare questo record?"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
+msgid "Are you sure you want to enable this record?"
+msgstr "Sei sicuro di voler abilitare questo record?"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__ca_lettore_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__ca_lettore_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__ca_lettore_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__ca_lettore_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__ca_lettore_id
+msgid "Ca Lettore"
+msgstr "Lettore"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__ca_punto_accesso_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__ca_punto_accesso_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__ca_punto_accesso_id
+msgid "Ca Punto Accesso"
+msgstr "Punto Accesso"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__ca_settore_ente_id
+msgid "Ca Settore Ente"
+msgstr "Settore"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__ca_tag_id
+msgid "Ca Tag"
+msgstr "Tag"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__ca_tag_lettore_ids
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__ca_tag_lettore_id
+msgid "Ca Tag Lettore"
+msgstr "Tag Lettore"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__ca_tag_persona
+msgid "Ca Tag Persona"
+msgstr "Tag Persona"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_sposta_punto_accesso_view_form
+msgid "Cancel"
+msgstr "Chiudi"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__cod_ref
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_settore_ente__cod_ref
+msgid "CodRef"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.ui.menu,name:inrim_controllo_accessi.ca_richiesta_accesso_configuration_menu
+msgid "Configuration"
+msgstr "Configurazioni"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__typology
+msgid "Configuration Type"
+msgstr "Tipo Configurazione"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__create_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__create_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__create_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__create_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__create_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_settore_ente__create_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__create_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__create_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__create_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__create_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__create_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__create_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_settore_ente__create_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__create_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__date
+msgid "Date"
+msgstr "Data"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__date_end
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__date_end
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_settore_ente__date_end
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__date_end
+msgid "Date End"
+msgstr "Data Fine"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_kanban
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_tag_lettore_view_kanban
+msgid "Date End:"
+msgstr "Data Fine:"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__date_start
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__date_start
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_settore_ente__date_start
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__date_start
+msgid "Date Start"
+msgstr "Data Inizio"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_kanban
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_tag_lettore_view_kanban
+msgid "Date Start:"
+msgstr "Data Inizio:"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__datetime
+msgid "Datetime"
+msgstr "Data/Ora"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__datetime_event
+msgid "Datetime Event"
+msgstr "Data/Ora Evento"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__description
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_settore_ente__description
+msgid "Description"
+msgstr "Descrizione"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__direction
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__direction
+msgid "Direction"
+msgstr "Direzione"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
+msgid "Disabilita"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_search
+msgid "Disabled"
+msgstr "Disabilitati"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__display_name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__display_name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__display_name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__display_name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__display_name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_settore_ente__display_name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__display_name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,help:inrim_controllo_accessi.field_ca_punto_accesso__enable_sync
+msgid "Enable/Disable remote player synchronization"
+msgstr "Abilita/Disabilita la sincronizzazione remota del lettore"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__enable_sync
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_search
+msgid "Enabled"
+msgstr "Abilitato"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_kanban
+msgid "Enabled:"
+msgstr "Abilitato:"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__error_code
+msgid "Error Code"
+msgstr "Codice Errore"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__events_read_num
+msgid "Events Read Num"
+msgstr "Numero Eventi Letti"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__expected_events_num
+msgid "Expected Events Num"
+msgstr "Numero Eventi Attesi"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__expired
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_punto_accesso_persona__state__expired
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_settore_ente_view_search
+msgid "Expired"
+msgstr "Scaduto"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_tag_lettore_view_kanban
+msgid "Expired:"
+msgstr "Scaduto:"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__generic
+msgid "Generic"
+msgstr "Generico"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__ca_ente_azienda_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__ente_azienda_id
+msgid "Headquarters Location"
+msgstr "Posizione Sede"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_kanban
+msgid "Headquarters Location:"
+msgstr "Posizione Sede:"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_settore_ente__id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__id
+msgid "ID"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_log_integrazione_lettori_view_search
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_search
+msgid "In Error"
+msgstr "In Errore"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_settore_ente_view_search
+msgid "In Progress"
+msgstr "In Corso"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__tag_in_use
+msgid "In Use"
+msgstr "In Uso"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_log_integrazione_lettori__operation_status__ko
+msgid "Ko"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__last_reading_events
+msgid "Last Reading Events"
+msgstr "Ultima Lettura Eventi"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__last_update_reader
+msgid "Last Update Reader"
+msgstr "Ultimo Agg. Lettore"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__write_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__write_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__write_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__write_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__write_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_settore_ente__write_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__write_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__write_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__write_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__write_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__write_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__write_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_settore_ente__write_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__write_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_punto_accesso__typology__local_access
+msgid "Local Access"
+msgstr "Accesso Locale"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__log_error
+msgid "Log Error"
+msgstr "Log Errore"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model,name:inrim_controllo_accessi.model_ca_log_integrazione_lettori
+msgid "Log Integrazione Lettori"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_sposta_punto_accesso_view_form
+msgid "Move"
+msgstr "Sposta"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_settore_ente__name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__name
+msgid "Name"
+msgstr "Nome"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__new_ca_spazio_id
+msgid "New Position"
+msgstr "Nuova Posizione"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__events_read_num
+msgid "Number of Events Read"
+msgstr "Numero Eventi Letti"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_kanban
+msgid "Number of Events Read:"
+msgstr "Numero Eventi Letti:"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__events_to_read_num
+msgid "Number of Events To Read"
+msgstr "Numero Eventi Da Leggere"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_kanban
+msgid "Number of Events To Read:"
+msgstr "Numero Eventi Da Leggere:"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_log_integrazione_lettori__operation_status__ok
+msgid "Ok"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__old_ca_spazio_id
+msgid "Old Position"
+msgstr "Vecchia Posizione"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__operation_status
+msgid "Operation Status"
+msgstr "Stato Operazione"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
+msgid "Persone Abilitate"
+msgstr "Persona Abilitate"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__ca_spazio_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__ca_spazio_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__ca_spazio_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_settore_ente__ca_spazio_id
+msgid "Position"
+msgstr "Posizione"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__ca_tipo_spazio_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__tipo_spazio_id
+msgid "Position Type"
+msgstr "Posizione Tipo"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_kanban
+msgid "Position:"
+msgstr "Posizione:"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model,name:inrim_controllo_accessi.model_ca_punto_accesso
+msgid "Punto Accesso"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.model,name:inrim_controllo_accessi.model_ca_punto_accesso_persona
+msgid "Punto Accesso Persona"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
+#, python-format
+msgid "Qualified People"
+msgstr "Pesone Abilitate"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__system_error
+msgid "Reader Error"
+msgstr "Lettore Errore"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_kanban
+msgid "Reader Error:"
+msgstr "Lettore Errore:"
+
+#. module: inrim_controllo_accessi
+#: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_log_integrazione_lettori_action
+#: model:ir.ui.menu,name:inrim_controllo_accessi.ca_log_integrazione_lettori_menu
+msgid "Reader Integration Log"
+msgstr "Log Integrazione Lettori"
+
+#. module: inrim_controllo_accessi
+#: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_punto_accesso_persona_action
+#: model:ir.ui.menu,name:inrim_controllo_accessi.ca_punto_accesso_persona_menu
+msgid "Reader Person"
+msgstr "Lettore Persona"
+
+#. module: inrim_controllo_accessi
+#: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_tag_lettore_action
+#: model:ir.ui.menu,name:inrim_controllo_accessi.ca_tag_lettore_menu
+msgid "Reader Tag"
+msgstr "Tag Lettore"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
+#, python-format
+msgid "Reader already in use in another location"
+msgstr "Lettore già in uso in un altra posizione"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_kanban
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_tag_lettore_view_kanban
+msgid "Reader:"
+msgstr "Lettore:"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__ca_persona_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__ca_persona_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_settore_ente__ca_persona_id
+msgid "Referent"
+msgstr "Referente"
+
+#. module: inrim_controllo_accessi
+#: model:ir.ui.menu,name:inrim_controllo_accessi.ca_richiesta_accesso_root
+msgid "Richiesta Accesso"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_settore_ente_action
+#: model:ir.ui.menu,name:inrim_controllo_accessi.ca_settore_ente_menu
+msgid "Sector"
+msgstr "Settori"
+
+#. module: inrim_controllo_accessi
+#: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_anag_servizi_action
+#: model:ir.ui.menu,name:inrim_controllo_accessi.ca_anag_servizi_menu
+msgid "Services"
+msgstr "Servizi"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model,name:inrim_controllo_accessi.model_ca_settore_ente
+msgid "Settore Ente"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__spazio_id
+msgid "Spazio"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
+#: model:ir.model,name:inrim_controllo_accessi.model_ca_sposta_punto_accesso
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
+#, python-format
+msgid "Sposta Punto Accesso"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_punto_accesso__typology__stamping
+msgid "Stamping"
+msgstr "Timbratura"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__state
+msgid "State"
+msgstr "Stato"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__system_error
+msgid "System Error"
+msgstr "Error"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_tag_lettore_view_kanban
+msgid "Tag In Use:"
+msgstr "Tag In Uso:"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model,name:inrim_controllo_accessi.model_ca_tag_lettore
+msgid "Tag Lettore"
+msgstr "Lettore"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_tag_lettore_view_kanban
+msgid "Tag:"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
+msgid "Tags"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__temp
+msgid "Temp"
+msgstr "Temporaneo"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_tag_lettore_view_kanban
+msgid "Temp:"
+msgstr "Temporaneo:"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__tipo_spazio_id
+msgid "Tipo Spazio"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_anag_registro_accesso_view_search
+msgid "Two Days Ago"
+msgstr "Due giorni fa"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__type_ids
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__type_ids
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_settore_ente__type_ids
+msgid "Type"
+msgstr "Tipo"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__typology
+msgid "Typology"
+msgstr "Tipologia"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__virtual
+msgid "Virtual"
+msgstr "Virtuale"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_anag_registro_accesso_view_search
+msgid "Yesterday"
+msgstr "Ieri"

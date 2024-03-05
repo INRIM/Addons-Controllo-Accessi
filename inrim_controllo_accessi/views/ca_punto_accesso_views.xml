@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_punto_accesso_view_search" model="ir.ui.view">
+        <field name="name">ca.punto.accesso.view.search</field>
+        <field name="model">ca.punto_accesso</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter string="Enabled" name="enabled" domain="[('enable_sync', '=', True)]"/>
+                <filter string="Disabled" name="disabled" domain="[('enable_sync', '=', False)]"/>
+                <filter string="In Error" name="in_error" domain="[('system_error', '=', True)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="ca_punto_accesso_view_tree" model="ir.ui.view">
+        <field name="name">ca.punto.accesso.view.tree</field>
+        <field name="model">ca.punto_accesso</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="ca_spazio_id"/>
+                <field name="ente_azienda_id"/>
+                <field name="ca_lettore_id"/>
+                <field name="system_error"/>
+                <field name="direction"/>
+                <field name="typology"/>
+                <field name="ca_persona_id"/>
+                <field name="last_update_reader"/>
+                <field name="last_reading_events"/>
+                <field name="events_to_read_num"/>
+                <field name="events_read_num"/>
+                <field name="enable_sync"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ca_punto_accesso_view_form" model="ir.ui.view">
+        <field name="name">ca.punto.accesso.view.form</field>
+        <field name="model">ca.punto_accesso</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="action_sposta_punto_accesso"
+                        string="Sposta Punto Accesso"
+                        type="object"
+                        invisible="not enable_sync"
+                    />
+                    <button
+                        name="commuta_abilitazione"
+                        string="Abilita"
+                        type="object"
+                        icon="fa-play-circle-o"
+                        invisible="enable_sync"
+                        confirm="Are you sure you want to enable this record?"
+                        groups="inrim_controllo_accessi_base.ca_tech"
+                    />
+                    <button
+                        name="commuta_abilitazione"
+                        string="Disabilita"
+                        type="object"
+                        icon="fa-stop-circle-o"
+                        invisible="not enable_sync"
+                        confirm="Are you sure you want to disable this record?"
+                        groups="inrim_controllo_accessi_base.ca_tech"
+                    />
+                    <button
+                        name="persone_abilitate"
+                        string="Persone Abilitate"
+                        type="object"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="True"/>
+                            <field name="ca_spazio_id" options="{'no_create': True}" readonly="enable_sync"/>
+                            <field name="tipo_spazio_id"/>
+                            <field name="ente_azienda_id"/>
+                            <field name="ca_lettore_id" options="{'no_create': True}" readonly="enable_sync"/>
+                            <field name="system_error"/>
+                            <field name="direction"/>
+                            <field name="typology" readonly="True"/>
+                            <field name="type_ids" invisible="True"/>
+                        </group>
+                        <group>
+                            <field name="ca_persona_id" readonly="True" domain="[('type_ids', 'in', type_ids)]"/>
+                            <field name="last_update_reader" readonly="True"/>
+                            <field name="last_reading_events" readonly="True"/>
+                            <field name="events_to_read_num" readonly="True"/>
+                            <field name="events_read_num" readonly="True"/>
+                            <field name="enable_sync" readonly="True"/>
+                            <field name="date_start" readonly="True"/>
+                            <field name="date_end" readonly="True"/>
+                        </group>
+                        <separator string="Tags"/>
+                        <field name="ca_tag_lettore_ids"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ca_punto_accesso_view_kanban" model="ir.ui.view">
+        <field name="name">ca.punto.accesso.view.kanban</field>
+        <field name="model">ca.punto_accesso</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <strong>
+                                <field name="name"/><br/>
+                            </strong>
+                            <span name="ca_spazio_id">
+                                Position: <field name="ca_spazio_id"/><br/>
+                            </span>
+                            <span name="ente_azienda_id">
+                                Headquarters Location: <field name="ente_azienda_id"/><br/>
+                            </span>
+                            <span name="ca_lettore_id">
+                                Reader: <field name="ca_lettore_id"/><br/>
+                            </span>
+                            <span name="system_error">
+                                Reader Error: <field name="system_error"/><br/>
+                            </span>
+                            <span name="events_to_read_num">
+                                Number of Events To Read: <field name="events_to_read_num"/><br/>
+                            </span>
+                            <span name="events_read_num">
+                                Number of Events Read: <field name="events_read_num"/><br/>
+                            </span>
+                            <span name="enable_sync">
+                                Enabled: <field name="enable_sync"/><br/>
+                            </span>
+                            <span name="date_start">
+                                Date Start: <field name="date_start"/><br/>
+                            </span>
+                            <span name="date_end">
+                                Date End: <field name="date_end"/><br/>
+                            </span>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="ca_punto_accesso_action" model="ir.actions.act_window">
+        <field name="name">Access Point</field>
+        <field name="res_model">ca.punto_accesso</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+</odoo>

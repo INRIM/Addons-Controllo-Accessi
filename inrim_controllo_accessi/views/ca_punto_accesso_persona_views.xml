@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_punto_accesso_persona_view_tree" model="ir.ui.view">
+        <field name="name">ca.punto.accesso.persona.view.tree</field>
+        <field name="model">ca.punto_accesso_persona</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="ca_lettore_id"/>
+                <field name="ca_tag_lettore_id"/>
+                <field name="ca_tag_persona"/>
+                <field name="state"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ca_punto_accesso_persona_view_form" model="ir.ui.view">
+        <field name="name">ca.punto.accesso.persona.view.form</field>
+        <field name="model">ca.punto_accesso_persona</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="ca_lettore_id"/>
+                            <field name="ca_tag_lettore_id"/>
+                            <field name="ca_tag_persona"/>
+                        </group>
+                        <group>
+                            <field name="state"/>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ca_punto_accesso_persona_action" model="ir.actions.act_window">
+        <field name="name">Reader Person</field>
+        <field name="res_model">ca.punto_accesso_persona</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

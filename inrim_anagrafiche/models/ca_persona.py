@@ -78,6 +78,18 @@ class CaPersona(models.Model):
         for record in self:
             record.ca_stato_anag_id = self.env.ref('inrim_anagrafiche.ca_stato_anag_in_attesa_documenti').id
 
+    def action_expired(self):
+        for record in self:
+            record.ca_stato_anag_id = self.env.ref('inrim_anagrafiche.ca_stato_anag_scaduto').id
+
+    def action_in_update(self):
+        for record in self:
+            record.ca_stato_anag_id = self.env.ref('inrim_anagrafiche.ca_stato_anag_in_aggiornamento').id
+
+    def action_checks_in_progress(self):
+        for record in self:
+            record.ca_stato_anag_id = self.env.ref('inrim_anagrafiche.ca_stato_anag_verifiche_in_corso').id
+
     def action_completed(self):
         for record in self:
             record.ca_stato_anag_id = self.env.ref('inrim_anagrafiche.ca_stato_anag_completata').id
