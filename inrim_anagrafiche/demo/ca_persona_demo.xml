@@ -2,9 +2,6 @@
 <odoo>
     <data noupdate="1">
         <!-- Persona 1 -->
-        <record id="inrim_demo_ca_codice_documento_1" model="ca.codice_documento">
-            <field name="name">Codice Doc Persona 1</field>
-        </record>
     
         <record id="inrim_demo_ca_persona_1" model="ca.persona">
             <field name="name">Persona</field>
@@ -28,15 +25,12 @@
                     'side': 'retro',
                     'image': b'UmV0cm8gMQ=='
                 })],
-                'document_code_id': ref('inrim_anagrafiche.inrim_demo_ca_codice_documento_1')
+                'document_code': 'Codice Doc Persona 1',
+                'issued_by': 'Comune'
             })]"/>
         </record>
 
         <!-- Persona 2 -->
-
-        <record id="inrim_demo_ca_codice_documento_2" model="ca.codice_documento">
-            <field name="name">Codice Doc Persona 2</field>
-        </record>
     
         <record id="inrim_demo_ca_persona_2" model="ca.persona">
             <field name="name">Persona</field>
@@ -56,15 +50,12 @@
                     'side': 'fronte',
                     'image': b'RnJvbnRlIDI='
                 })],
-                'document_code_id': ref('inrim_anagrafiche.inrim_demo_ca_codice_documento_2')
+                'document_code': 'Codice Doc Persona 2',
+                'issued_by': 'Comune'
             })]"/>
         </record>
 
         <!-- Persona 3 -->
-
-        <record id="inrim_demo_ca_codice_documento_3" model="ca.codice_documento">
-            <field name="name">Codice Doc Persona 3</field>
-        </record>
     
         <record id="inrim_demo_ca_persona_3" model="ca.persona">
             <field name="name">Persona</field>
@@ -84,7 +75,8 @@
                     'side': 'fronte',
                     'image': b'RnJvbnRlIDM='
                 })],
-                'document_code_id': ref('inrim_anagrafiche.inrim_demo_ca_codice_documento_3')
+                'document_code': 'Codice Doc Persona 3',
+                'issued_by': 'Comune'
             })]"/>
         </record>
 
@@ -114,10 +106,6 @@
 
         <!-- Persona 6 -->
 
-        <record id="inrim_demo_ca_codice_documento_6" model="ca.codice_documento">
-            <field name="name">Codice Doc Persona 6</field>
-        </record>
-
         <record id="inrim_demo_ca_persona_6" model="ca.persona">
             <field name="name">Persona</field>
             <field name="lastname">6</field>
@@ -144,12 +132,9 @@
                     'side': 'retro',
                     'image': b'RnJvbnRlIERvYyBJZGVudGl0YQ=='
                 })],
-                'document_code_id': ref('inrim_anagrafiche.inrim_demo_ca_codice_documento_6')
+                'document_code': 'Codice Doc Persona 6',
+                'issued_by': 'Comune'
             })]"/>
         </record>
-
-        <function model="ca.codice_documento" name="_cron_check_ca_stato_documento_id">
-            <value eval="[ref('inrim_demo_ca_codice_documento_6')]"/>
-        </function>
     </data>
 </odoo>

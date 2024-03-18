@@ -55,4 +55,34 @@
             ref('inrim_anagrafiche.proprieta_tag_revocato')
         ])]"/>
     </record>
+
+    <record id="inrim_demo_ca_tag_7" model="ca.tag">
+        <field name="name">Tag 7</field>
+        <field name="tag_code">E0010150AD255C17</field>
+        <field name="ca_proprieta_tag_ids" eval="[(6, 0, [
+            ref('inrim_anagrafiche.proprieta_tag_temporaneo'),
+            ref('inrim_anagrafiche.proprieta_tag_visitatore'),
+            ref('inrim_anagrafiche.proprieta_tag_valido')
+        ])]"/>
+    </record>
+
+    <record id="inrim_demo_ca_tag_8" model="ca.tag">
+        <field name="name">Tag 8</field>
+        <field name="tag_code">E0010150AD255C18</field>
+        <field name="ca_proprieta_tag_ids" eval="[(6, 0, [
+            ref('inrim_anagrafiche.proprieta_tag_temporaneo'),
+            ref('inrim_anagrafiche.proprieta_tag_visitatore'),
+            ref('inrim_anagrafiche.proprieta_tag_valido')
+        ])]"/>
+    </record>
+
+    <record id="inrim_demo_ca_tag_9" model="ca.tag">
+        <field name="name">Tag 9</field>
+        <field name="tag_code">E0010150AD255C19</field>
+        <field name="ca_proprieta_tag_ids" eval="[(6, 0, [
+            ref('inrim_anagrafiche.proprieta_tag_temporaneo'),
+            ref('inrim_anagrafiche.proprieta_tag_visitatore'),
+            ref('inrim_anagrafiche.proprieta_tag_valido')
+        ])]"/>
+    </record>
 </odoo>

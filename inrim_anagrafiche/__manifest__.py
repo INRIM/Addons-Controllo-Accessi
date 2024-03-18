@@ -32,6 +32,8 @@
     'demo': [
         'demo/res_users_demo.xml',
         'demo/ca_ente_azienza_demo.xml',
+        'demo/ca_tipo_spazio_demo.xml',
+        'demo/ca_spazio_demo.xml',
         'demo/ca_lettore_demo.xml',
         'demo/ca_tag_demo.xml',
         'demo/ca_persona_demo.xml',

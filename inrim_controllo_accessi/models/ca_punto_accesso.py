@@ -1,5 +1,6 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
+from datetime import timedelta
 
 class CaPuntoAccesso(models.Model):
     _name = 'ca.punto_accesso'
@@ -31,6 +32,54 @@ class CaPuntoAccesso(models.Model):
     ca_tag_lettore_ids = fields.One2many('ca.tag_lettore', 'ca_punto_accesso_id')
     active = fields.Boolean(default=True)
 
+    def accessi_rifiutati_oggi(self):
+        registro_accesso_ids = self.env['ca.anag_registro_accesso'].search([
+            ('datetime_event', '>=', fields.datetime.now().strftime('%Y-%m-%d 00:00:00')),
+            ('datetime_event', '<=', fields.datetime.now().strftime('%Y-%m-%d 23:59:59')),
+            ('ca_lettore_id', '=', self.ca_lettore_id.id),
+            ('access_allowed', '=', False)
+        ], order="person_lastname, datetime_event asc")
+        return {
+            'name': _('Accessi Rifiutati Oggi'),
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'tree,form',
+            'res_model': 'ca.anag_registro_accesso',
+            'domain': [('id', 'in', registro_accesso_ids.ids)],
+        }
+
+    def accessi_oggi(self):
+        registro_accesso_ids = self.env['ca.anag_registro_accesso'].search([
+            ('datetime_event', '>=', fields.datetime.now().strftime('%Y-%m-%d 00:00:00')),
+            ('datetime_event', '<=', fields.datetime.now().strftime('%Y-%m-%d 23:59:59')),
+            ('ca_lettore_id', '=', self.ca_lettore_id.id)
+        ], order="person_lastname, datetime_event asc")
+        return {
+            'name': _('Accessi Oggi'),
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'tree,form',
+            'res_model': 'ca.anag_registro_accesso',
+            'domain': [('id', 'in', registro_accesso_ids.ids)],
+        }
+
+    def elabora_persone_abilitate(self):
+        for record in self.env['ca.punto_accesso'].search([]):
+            self.env[
+                'ca.punto_accesso_persona'
+            ].elabora_persone_lettore(record.ca_lettore_id.name)
+
+    def elabora_persone_abilitate_view(self):
+        self.elabora_persone_abilitate()
+        return {
+            'name': _('Lettore Persona'),
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'tree,form',
+            'res_model': 'ca.punto_accesso_persona',
+            'domain': [('date', '=', fields.date.today())],
+        }
+
     def _compute_type_ids(self):
         for record in self:
             record.type_ids = [(6, 0, [
@@ -61,21 +110,26 @@ class CaPuntoAccesso(models.Model):
                 record.enable_sync = False
             else:
                 record.enable_sync = True
-            
-    def action_sposta_punto_accesso(self):
-        self.ensure_one()
-        return {
-            'name': _('Sposta Punto Accesso'),
-            'type': 'ir.actions.act_window',
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': 'ca.sposta_punto_accesso',
-            'target': 'new',
-            'context': {
-                'default_old_ca_spazio_id': self.ca_spazio_id.id,
-                'default_ca_punto_accesso_id': self.id
-            }
+                
+    def sposta_punto_accesso(self, ca_spazio_id):
+        self.active = False
+        vals = {
+            'ca_spazio_id': ca_spazio_id.id,
+            'ca_lettore_id': self.ca_lettore_id.id,
+            'typology': self.typology,
+            'ca_persona_id': self.ca_persona_id.id 
+                if self.ca_persona_id else False,
+            'last_update_reader': self.last_update_reader,
+            'last_reading_events': self.last_reading_events,
+            'events_to_read_num': self.events_to_read_num,
+            'events_read_num': self.events_read_num,
+            'enable_sync': self.enable_sync,
+            'date_start': self.date_start,
+            'date_end': self.date_end,
+            'ca_tag_lettore_ids': self.ca_tag_lettore_ids
         }
+        new_ca_punto_accesso_id = self.env['ca.punto_accesso'].create(vals)
+        return new_ca_punto_accesso_id
     
     def persone_abilitate(self):
         return {

@@ -15,10 +15,14 @@
         <field name="name">ca.persona.tree</field>
         <field name="model">ca.persona</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree
+                decoration-danger="present == 'no'"
+                decoration-success="present == 'yes'"
+            >
                 <field name="display_name"/>
                 <field name="city"/>
                 <field name="country_id"/>
+                <field name="present"/>
                 <field name="token"/>
             </tree>
         </field>
@@ -66,6 +70,7 @@
                                 <field name="birth_date" required="is_external" readonly="True"/>
                                 <field name="birth_place" required="is_external" readonly="True"/>
                                 <field name="istat_code" required="is_external" readonly="True"/>
+                                <field name="present"/>
                                 <field name="token"/>
                             </group>
                         </group>
@@ -123,7 +128,8 @@
                                                 <field name="image"/>
                                             </tree>
                                         </field>
-                                        <field name="document_code_id"/>
+                                        <field name="issued_by"/>
+                                        <field name="document_code"/>
                                         <field name="ca_stato_documento_id" force_save="1"/>
                                     </tree>
                                 </field>
@@ -192,8 +198,8 @@
                         </header>
                         <group>
                             <group>
-                                <field name="is_external" invisible="1"/>
-                                <field name="is_internal" invisible="1"/>
+                                <field name="is_external" invisible="0" force_save="1"/>
+                                <field name="is_internal" invisible="0" force_save="1"/>
                                 <field name="name"/>
                                 <field name="lastname"/>
                                 <field name="parent_id" widget="res_partner_many2one" placeholder="Company Name..." readonly="1"/>
@@ -222,6 +228,8 @@
                                 <field name="birth_date" required="is_external"/>
                                 <field name="birth_place" required="is_external"/>
                                 <field name="istat_code" required="is_external"/>
+                                <field name="uid"/>
+                                <field name="present"/>
                                 <field name="token"/>
                             </group>
                         </group>
@@ -279,7 +287,8 @@
                                                 <field name="image"/>
                                             </tree>
                                         </field>
-                                        <field name="document_code_id"/>
+                                        <field name="issued_by"/>
+                                        <field name="document_code"/>
                                         <field name="ca_stato_documento_id" force_save="1"/>
                                     </tree>
                                 </field>

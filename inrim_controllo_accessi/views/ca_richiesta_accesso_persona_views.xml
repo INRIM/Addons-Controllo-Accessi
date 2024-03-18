@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_richiesta_accesso_persona_view_search" model="ir.ui.view">
+        <field name="name">ca.richiesta.accesso.persona.view.search</field>
+        <field name="model">ca.richiesta_accesso_persona</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter name="in_progress" string="In Progress" domain="[('date_end', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter name="expired" string="Expired" domain="[('date_end', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter name="expiring" string="Expiring" domain="[('expiring', '=', True)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="ca_richiesta_accesso_persona_view_tree" model="ir.ui.view">
+        <field name="name">ca.richiesta.accesso.persona.view.tree</field>
+        <field name="model">ca.richiesta_accesso_persona</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="ca_persona_id"/>
+                <field name="persona_id"/>
+                <field name="anag_tipologie_istanze_id"/>
+                <field name="ca_categoria_richiesta_id"/>
+                <field name="ca_categoria_tipo_richiesta_id"/>
+                <field name="categoria_richiesta_id"/>
+                <field name="date_start"/>
+                <field name="state"/>
+                <field name="ca_anag_avanzamento_rich_id"/>
+                <field name="expiring"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ca_richiesta_accesso_persona_view_form" model="ir.ui.view">
+        <field name="name">ca.richiesta.accesso.persona.view.form</field>
+        <field name="model">ca.richiesta_accesso_persona</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="token"/>
+                            <field name="type_ids" invisible="1"/>
+                            <field 
+                                name="ca_persona_id" 
+                                options="{'no_create': True}" 
+                                domain="[('type_ids', 'in', type_ids)]"
+                            />
+                            <field name="persona_id" options="{'no_create': True}"/>
+                            <field name="freshman"/>
+                            <field 
+                                name="anag_tipologie_istanze_id" 
+                                options="{'no_create': True}"
+                            />
+                            <field name="act_application_code"/>
+                            <field 
+                                name="ca_categoria_richiesta_id"
+                                options="{'no_create': True}"
+                            />
+                            <field 
+                                name="ca_categoria_tipo_richiesta_id"
+                                options="{'no_create': True}"
+                            />
+                        </group>
+                        <group>
+                            <field 
+                                name="categoria_richiesta_id"
+                                options="{'no_create': True}"
+                            />
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="state"/>
+                            <field 
+                                name="ca_anag_avanzamento_rich_id"
+                                options="{'no_create': True}"
+                            />
+                            <field name="expiring"/>
+                            <field name="note"/>
+                        </group>
+                    </group>
+                    <separator string="Services Rows"/>
+                    <field name="ca_richieta_servizi_persona_ids"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ca_richiesta_accesso_persona_action" model="ir.actions.act_window">
+        <field name="name">Person Access Request</field>
+        <field name="res_model">ca.richiesta_accesso_persona</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

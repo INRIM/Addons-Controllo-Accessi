@@ -40,5 +40,6 @@
         <field name="name">Reader Person</field>
         <field name="res_model">ca.punto_accesso_persona</field>
         <field name="view_mode">tree,form</field>
+        <field name="context">{'default_date': context_today()}</field>
     </record>
 </odoo>

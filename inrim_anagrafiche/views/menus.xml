@@ -102,20 +102,11 @@
     />
 
     <menuitem
-        id="ca_codice_documento_menu"
-        name="Document Code"
-        action="ca_codice_documento_action"
-        parent="inrim_configuration_menu"
-        sequence="20"
-        groups="inrim_controllo_accessi_base.ca_config"
-    />
-
-    <menuitem
         id="ca_tipo_persona_menu"
         name="Person Type"
         action="ca_tipo_persona_action"
         parent="inrim_configuration_menu"
-        sequence="25"
+        sequence="20"
         groups="inrim_controllo_accessi_base.ca_config"
     />
 
@@ -124,7 +115,7 @@
         name="Space Typology"
         action="ca_tipo_spazio_action"
         parent="inrim_configuration_menu"
-        sequence="30"
+        sequence="25"
         groups="inrim_controllo_accessi_base.ca_config"
     />
 
@@ -133,7 +124,7 @@
         name="Stati caricamento Anagrafica"
         action="ca_stato_anag_action"
         parent="inrim_configuration_menu"
-        sequence="35"
+        sequence="30"
         groups="inrim_controllo_accessi_base.ca_config"
     />
 
@@ -142,7 +133,7 @@
         name="Local Code"
         action="ca_codice_locale_action"
         parent="inrim_configuration_menu"
-        sequence="45"
+        sequence="35"
         groups="inrim_controllo_accessi_base.ca_config"
     />
 
@@ -151,7 +142,7 @@
         name="Access Log"
         action="ca_registro_accesso_action"
         parent="inrim_configuration_menu"
-        sequence="50"
+        sequence="40"
         groups="inrim_controllo_accessi_base.ca_config"
     />
 
@@ -159,6 +150,7 @@
         id="ca_controllo_accessi_root"
         name="Controllo Accessi"
         groups="inrim_controllo_accessi_base.ca_ca"
+        web_icon="inrim_anagrafiche,static/src/img/controllo_accessi.png"
     />
 
     <menuitem

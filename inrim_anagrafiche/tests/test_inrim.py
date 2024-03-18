@@ -18,7 +18,6 @@ class TestInrim(TestCommon):
 
         :return:  Corrispondenza dei dati per numero di record alla search
         """
-
         self.assertTrue(self.user)
         self.assertTrue(self.user_1)
         self.assertTrue(self.user_2)
@@ -35,6 +34,7 @@ class TestInrim(TestCommon):
         self.assertTrue(self.persona_3)
         self.assertTrue(self.persona_4)
         self.assertTrue(self.persona_5)
+        self.assertTrue(self.persona_6)
         self.assertTrue(self.tag_1)
         self.assertTrue(self.tag_2)
         self.assertTrue(self.tag_3)
@@ -101,9 +101,8 @@ class TestInrim(TestCommon):
                         'image': base64.b64encode(b'Retro Doc Identita')
                     }).id
                 ])],
-                'document_code_id': self.env['ca.codice_documento'].create({
-                    'name': 'Codice Doc Persona'
-                }).id
+                'document_code': 'Codice Doc Persona',
+                'issued_by': 'Comune'
             })
         })
         self.assertTrue(ca_persona_id)
