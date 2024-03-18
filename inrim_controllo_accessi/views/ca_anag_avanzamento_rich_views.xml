@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_anag_avanzamento_rich_view_tree" model="ir.ui.view">
+        <field name="name">ca.anag.avanzamento.rich.view.tree</field>
+        <field name="model">ca.anag_avanzamento_rich</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="state"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ca_anag_avanzamento_rich_view_form" model="ir.ui.view">
+        <field name="name">ca.anag.avanzamento.rich.view.form</field>
+        <field name="model">ca.anag_avanzamento_rich</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="state"/>
+                        <field name="code"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ca_anag_avanzamento_rich_action" model="ir.actions.act_window">
+        <field name="name">Progress Request</field>
+        <field name="res_model">ca.anag_avanzamento_rich</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

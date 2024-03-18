@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_anag_servizi_vpn" model="ca.anag_servizi">
+        <field name="name">Vpn</field>
+        <field name="abbreviation">SIR</field>
+        <field name="virtual">True</field>
+        <field name="generic">False</field>
+        <field name="spazio_id" eval="ref('inrim_anagrafiche.ca_spazio_1p005')"/>
+    </record>
+
+    <record id="ca_anag_servizi_sala_tecnica" model="ca.anag_servizi">
+        <field name="name">Sala tecnica</field>
+        <field name="abbreviation">LMA</field>
+        <field name="virtual">False</field>
+        <field name="generic">False</field>
+        <field name="ca_ente_azienda_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_ente_azienda_1')"/>
+        <field name="spazio_id" eval="ref('inrim_anagrafiche.ca_spazio_1p006')"/>
+    </record>
+</odoo>

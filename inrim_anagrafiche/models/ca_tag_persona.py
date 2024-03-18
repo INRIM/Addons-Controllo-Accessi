@@ -9,18 +9,19 @@ from odoo import models, fields, api, _
 class CaTagPersona(models.Model):
     _name = 'ca.tag_persona'
     _description = 'Tag Persona'
-    _rec_name = 'token'
+    _rec_name = 'tag_name'
 
     token = fields.Char(required=True, readonly=True,
                         default=lambda self: self.get_token())
     ca_persona_id = fields.Many2one('ca.persona', required=True)
     ca_tag_id = fields.Many2one('ca.tag', required=True)
+    tag_name = fields.Char(related="ca_tag_id.name", store=True)
     date_start = fields.Date(required=True)
     date_end = fields.Date(required=True)
     temp = fields.Boolean()
     active = fields.Boolean(default=True)
 
-    @api.constrains('ca_persona_id', 'ca_tag_id', 'date_start', 'date_end')
+    @api.constrains('ca_persona_id', 'ca_tag_id', 'date_start', 'date_end', 'active')
     def _check_duplicate(self):
         for record in self:
             if (
@@ -39,7 +40,7 @@ class CaTagPersona(models.Model):
                     raise UserError(
                         _("Esiste già un'altro tag persona per questa persona in questo periodo"))
 
-    @api.constrains('ca_persona_id', 'temp')
+    @api.constrains('ca_persona_id', 'temp', 'active')
     def _check_temp_tag_persona(self):
         for record in self:
             if record.ca_persona_id:
@@ -47,7 +48,7 @@ class CaTagPersona(models.Model):
                     raise UserError(
                         _('Ad un esterno possono essere assegnati solo tag di tipo temporaneo'))
 
-    @api.constrains('ca_tag_id')
+    @api.constrains('ca_tag_id', 'active')
     def _check_tag_revocato(self):
         for record in self:
             if self.env.ref(
@@ -95,7 +96,7 @@ class CaTagPersona(models.Model):
     def get_token(self):
         characters = string.ascii_letters + string.digits
         token = ''.join(random.choice(characters) for i in range(10))
-        persona_id = self.env['ca.tag_persona'].search([('token', '=', token)])
-        if persona_id:
+        tag_persona_id = self.env['ca.tag_persona'].search([('token', '=', token)])
+        if tag_persona_id:
             self.get_token()
         return token

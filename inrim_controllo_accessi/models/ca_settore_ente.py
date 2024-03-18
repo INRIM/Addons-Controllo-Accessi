@@ -6,14 +6,31 @@ class CaSettoreEnte(models.Model):
     _description = 'Settore Ente'
 
     name = fields.Char(required=True)
-    abbreviation = fields.Char()
+    abbreviation = fields.Char(compute="_compute_abbreviation", store=True)
     ca_persona_id = fields.Many2one('ca.persona', string="Referent")
     description = fields.Text()
     cod_ref = fields.Char(string="CodRef")
-    ca_spazio_id = fields.Many2one('ca.spazio', string="Position", required=True)
+    ca_ente_azienda_id = fields.Many2one('ca.ente_azienda', string="Position", required=True)
     date_start = fields.Date()
     date_end = fields.Date()
     type_ids = fields.Many2many('ca.tipo_persona', compute="_compute_type_ids")
+    tipo_ente_azienda_ids = fields.Many2many('ca.tipo_ente_azienda', 
+                        compute="_compute_tipo_ente_azienda_ids")
+
+    def _compute_tipo_ente_azienda_ids(self):
+        for record in self:
+            record.tipo_ente_azienda_ids = [(6, 0, [
+                    self.env.ref('inrim_anagrafiche.tipo_ente_azienda_sede').id, 
+                    self.env.ref('inrim_anagrafiche.tipo_ente_azienda_sede_distaccata').id
+                ])]
+
+    @api.depends('name')
+    def _compute_abbreviation(self):
+        for record in self:
+            record.abbreviation = False
+            if record.name:
+                words = record.name.split()
+                record.abbreviation = ''.join([word[0] for word in words if word[0].isupper()])
 
     def _compute_type_ids(self):
         for record in self:

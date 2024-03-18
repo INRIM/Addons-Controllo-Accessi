@@ -31,8 +31,8 @@
                             <field name="tag_in_use"/>
                         </group>
                         <group>
-                            <field name="date_start" readonly="True"/>
-                            <field name="date_end" readonly="True"/>
+                            <field name="date_start" readonly="False"/>
+                            <field name="date_end" readonly="False"/>
                             <field name="temp"/>
                             <field name="expired"/>
                         </group>

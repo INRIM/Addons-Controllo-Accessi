@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_spazio_1" model="ca.spazio">
+        <field name="name">1</field>
+        <field name="ente_azienda_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_ente_azienda_1')"/>
+        <field name="tipo_spazio_id" eval="ref('inrim_anagrafiche.tipo_spazio_edificio')"/>
+        <field name="active">True</field>
+    </record>
+
+    <record id="ca_spazio_p0" model="ca.spazio">
+        <field name="name">p0</field>
+        <field name="ente_azienda_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_ente_azienda_1')"/>
+        <field name="tipo_spazio_id" eval="ref('inrim_anagrafiche.tipo_spazio_piano')"/>
+        <field name="active">True</field>
+    </record>
+
+    <record id="ca_spazio_1p001" model="ca.spazio">
+        <field name="name">1p001</field>
+        <field name="ente_azienda_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_ente_azienda_1')"/>
+        <field name="tipo_spazio_id" eval="ref('inrim_anagrafiche.tipo_spazio_locale')"/>
+        <field name="active">True</field>
+    </record>
+
+    <record id="ca_spazio_1p002" model="ca.spazio">
+        <field name="name">1p002</field>
+        <field name="ente_azienda_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_ente_azienda_1')"/>
+        <field name="tipo_spazio_id" eval="ref('inrim_anagrafiche.tipo_spazio_locale')"/>
+        <field name="active">True</field>
+    </record>
+
+    <record id="ca_spazio_1p003" model="ca.spazio">
+        <field name="name">1p003</field>
+        <field name="ente_azienda_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_ente_azienda_1')"/>
+        <field name="tipo_spazio_id" eval="ref('inrim_anagrafiche.tipo_spazio_locale')"/>
+        <field name="active">True</field>
+    </record>
+
+    <record id="ca_spazio_1p004" model="ca.spazio">
+        <field name="name">1p004</field>
+        <field name="ente_azienda_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_ente_azienda_1')"/>
+        <field name="tipo_spazio_id" eval="ref('inrim_anagrafiche.tipo_spazio_locale')"/>
+        <field name="active">True</field>
+    </record>
+
+    <record id="ca_spazio_1p005" model="ca.spazio">
+        <field name="name">1p005</field>
+        <field name="ente_azienda_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_ente_azienda_1')"/>
+        <field name="tipo_spazio_id" eval="ref('inrim_anagrafiche.tipo_spazio_laboratorio')"/>
+        <field name="active">True</field>
+    </record>
+
+    <record id="ca_spazio_1p006" model="ca.spazio">
+        <field name="name">1p006</field>
+        <field name="ente_azienda_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_ente_azienda_1')"/>
+        <field name="tipo_spazio_id" eval="ref('inrim_anagrafiche.tipo_spazio_locale')"/>
+        <field name="active">False</field>
+    </record>
+</odoo>

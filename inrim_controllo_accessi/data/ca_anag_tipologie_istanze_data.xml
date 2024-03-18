@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_anag_tipologie_istanze_ordine_contratto" model="ca.anag_tipologie_istanze">
+        <field name="name">Ordine/Contratto</field>
+    </record>
+
+    <record id="ca_anag_tipologie_istanze_accordi" model="ca.anag_tipologie_istanze">
+        <field name="name">Accordi</field>
+    </record>
+
+    <record id="ca_anag_tipologie_istanze_bandi" model="ca.anag_tipologie_istanze">
+        <field name="name">Bandi</field>
+    </record>
+
+    <record id="ca_anag_tipologie_istanze_concorsi" model="ca.anag_tipologie_istanze">
+        <field name="name">Concorsi</field>
+    </record>
+    
+    <record id="ca_anag_tipologie_istanze_inviti_convocazioni" model="ca.anag_tipologie_istanze">
+        <field name="name">Inviti/Convocazioni</field>
+    </record>
+    
+    <record id="ca_anag_tipologie_istanze_conferimento" model="ca.anag_tipologie_istanze">
+        <field name="name">Conferimento</field>
+    </record>
+
+    <record id="ca_anag_tipologie_istanze_assunzione" model="ca.anag_tipologie_istanze">
+        <field name="name">Assunzione</field>
+    </record>
+
+    <record id="ca_anag_tipologie_istanze_visita" model="ca.anag_tipologie_istanze">
+        <field name="name">Visita</field>
+    </record>
+</odoo>

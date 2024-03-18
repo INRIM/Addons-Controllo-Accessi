@@ -1,7 +1,5 @@
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
-from datetime import date
-import base64
 
 @tagged("post_install", "-at_install")
 class TestCommon(TransactionCase):

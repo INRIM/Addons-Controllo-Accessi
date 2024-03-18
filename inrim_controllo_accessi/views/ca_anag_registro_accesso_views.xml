@@ -41,18 +41,37 @@
         <field name="model">ca.anag_registro_accesso</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button 
+                        name="%(inrim_controllo_accessi.ca_aggiungi_movimento_accesso_action)d" 
+                        type="action" 
+                        string="Aggiungi Movimento Accesso"
+                        groups="inrim_controllo_accessi_base.ca_ru,
+                        inrim_controllo_accessi_base.ca_portineria"
+                        context="{'default_anag_registro_accesso_id': id}"
+                    />
+                </header>
                 <sheet>
                     <group>
-                        <field name="ca_punto_accesso_id" readonly="True"/>
-                        <field name="ca_lettore_id"/>
-                        <field name="ca_spazio_id"/>
-                        <field name="ca_tipo_spazio_id"/>
-                        <field name="ca_ente_azienda_id"/>
-                        <field name="datetime_event" readonly="True"/>
-                        <field name="typology"/>
-                        <field name="direction"/>
-                        <field name="access_allowed" readonly="True"/>
-                        <field name="system_error"/>
+                        <group>
+                            <field name="ca_punto_accesso_id" readonly="True"/>
+                            <field name="ca_tag_persona_id"/>
+                            <field name="person_lastname"/>
+                            <field name="person_name"/>
+                            <field name="ca_ente_azienda_ids" widget="many2many_tags"/>
+                            <field name="person_freshman"/>
+                            <field name="ca_lettore_id"/>
+                            <field name="ca_spazio_id"/>
+                        </group>
+                        <group>
+                            <field name="ca_tipo_spazio_id"/>
+                            <field name="ca_ente_azienda_id"/>
+                            <field name="datetime_event" readonly="True"/>
+                            <field name="typology"/>
+                            <field name="direction"/>
+                            <field name="access_allowed" readonly="True"/>
+                            <field name="system_error"/>
+                        </group>
                     </group>
                 </sheet>
             </form>

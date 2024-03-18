@@ -13,7 +13,7 @@
                 </sheet>
                 <footer>
                     <button
-                        name="sposta_punto_accesso"
+                        name="action_confirm"
                         string="Move"
                         class="btn-primary" 
                         type="object"
@@ -26,5 +26,12 @@
                 </footer>
             </form>
         </field>
+    </record>
+
+    <record id="ca_sposta_punto_accesso_action" model="ir.actions.act_window">
+        <field name="name">Sposta Punto Accesso</field>
+        <field name="res_model">ca.sposta_punto_accesso</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
     </record>
 </odoo>

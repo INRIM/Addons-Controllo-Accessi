@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_anag_avanzamento_rich_da_inviare" model="ca.anag_avanzamento_rich">
+        <field name="name">Da inviare</field>
+        <field name="state">new</field>
+    </record>
+
+    <record id="ca_anag_avanzamento_rich_verifica" model="ca.anag_avanzamento_rich">
+        <field name="name">Verifica</field>
+        <field name="state">in_progress</field>
+    </record>
+
+    <record id="ca_anag_avanzamento_rich_attesa_approvazione" model="ca.anag_avanzamento_rich">
+        <field name="name">Attesa Approvazione</field>
+        <field name="state">in_progress</field>
+    </record>
+
+    <record id="ca_anag_avanzamento_rich_attesa_da_aggiornare" model="ca.anag_avanzamento_rich">
+        <field name="name">Da Aggiornare</field>
+        <field name="state">in_progress</field>
+    </record>
+
+    <record id="ca_anag_avanzamento_rich_attesa_approvata" model="ca.anag_avanzamento_rich">
+        <field name="name">Approvata</field>
+        <field name="state">approved</field>
+    </record>
+
+    <record id="ca_anag_avanzamento_rich_attesa_in_attivazione" model="ca.anag_avanzamento_rich">
+        <field name="name">In Attivazione</field>
+        <field name="state">scheduled</field>
+    </record>
+
+    <record id="ca_anag_avanzamento_rich_attesa_attiva" model="ca.anag_avanzamento_rich">
+        <field name="name">Attiva</field>
+        <field name="state">valid</field>
+    </record>
+
+    <record id="ca_anag_avanzamento_rich_attesa_conclusa" model="ca.anag_avanzamento_rich">
+        <field name="name">Conclusa</field>
+        <field name="state">expired</field>
+    </record>
+
+    <record id="ca_anag_avanzamento_rich_attesa_respinta" model="ca.anag_avanzamento_rich">
+        <field name="name">Respinta</field>
+        <field name="state">canceled</field>
+    </record>
+</odoo>

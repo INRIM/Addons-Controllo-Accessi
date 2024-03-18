@@ -1,4 +1,6 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError
+from datetime import timedelta
 
 class CaTagLettore(models.Model):
     _name = 'ca.tag_lettore'
@@ -28,3 +30,38 @@ class CaTagLettore(models.Model):
             record.name = '/'
             if record.ca_lettore_id and record.ca_tag_id:
                 record.name = record.ca_lettore_id.name + ' ' + record.ca_tag_id.name
+
+    @api.constrains('ca_tag_id', 'ca_lettore_id', 'active')
+    def _check_unique(self):
+        for record in self:
+            tag_lettore_id = self.env['ca.tag_lettore'].search([
+                ('id', '!=', record.id),
+                ('ca_lettore_id', '=', record.ca_lettore_id.id),
+                ('ca_tag_id', '=', record.ca_tag_id.id)
+            ])
+            if tag_lettore_id:
+                raise UserError(_('Esiste già un tag lettore con stesso tag e lettore'))
+    
+    def collega_tag_lettore(self, nome_lettore, nome_tag, date_start, date_end):
+        if nome_lettore and nome_tag and date_start and date_end:
+            try:
+                lettore_id = self.env['ca.lettore'].search([
+                    ('name', '=', nome_lettore)
+                ])
+                tag_id = self.env['ca.tag'].search([
+                    ('name', '=', nome_tag)
+                ])
+                if lettore_id and tag_id:
+                    tag_lettore_id = self.env['ca.tag_lettore'].create({
+                        'ca_lettore_id': lettore_id.id,
+                        'ca_tag_id': tag_id.id,
+                        'date_start': date_start,
+                        'date_end': date_end
+                    })
+                    return tag_lettore_id
+                else:
+                    return None
+            except Exception as e:
+                raise UserError(e)
+        else:
+            return None
