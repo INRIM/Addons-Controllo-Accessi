@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_aggiungi_movimento_accesso_view_form" model="ir.ui.view">
+        <field name="name">ca.aggiungi.movimento.accesso.view.form</field>
+        <field name="model">ca.aggiungi_movimento_accesso</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="tipo_ente_azienda_ids" invisible="True"/>
+                        <field 
+                            name="ca_ente_azienda_id" 
+                            options="{'no_create': True}"
+                            domain="[
+                            ('tipo_ente_azienda_id', 'in', tipo_ente_azienda_ids)
+                            ]"
+                        />
+                        <field 
+                            name="ca_punto_accesso"
+                            invisible="not ca_ente_azienda_id"
+                            domain="[
+                                ('typology', '=', 'stamping'),
+                                ('enable_sync', '=', True),
+                                ('ente_azienda_id', '=', ca_ente_azienda_id)
+                            ]"
+                        />
+                        <field 
+                            name="ca_punto_accesso"
+                            invisible="ca_ente_azienda_id"
+                            domain="[
+                                ('typology', '=', 'stamping'),
+                                ('enable_sync', '=', True)
+                            ]"
+                        />
+                        <field 
+                            name="ca_tag_persona_id"
+                            domain="[('id', 'in', ca_tag_persona_ids)]"
+                            invisible="not ca_punto_accesso"
+                        />
+                        <field name="ca_tag_persona_ids" invisible="True"/>
+                        <field name="datetime"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button 
+                        name="action_done" 
+                        type="object" 
+                        string="Confirm"
+                        class="btn-primary"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="ca_aggiungi_movimento_accesso_action" model="ir.actions.act_window">
+        <field name="name">Aggiungi Movimento Accesso</field>
+        <field name="res_model">ca.aggiungi_movimento_accesso</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

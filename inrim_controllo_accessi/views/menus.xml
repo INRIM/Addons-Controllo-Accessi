@@ -3,7 +3,43 @@
     <menuitem
         id="ca_richiesta_accesso_root"
         name="Richiesta Accesso"
-        groups="inrim_controllo_accessi_base.ca_config"
+        groups="inrim_controllo_accessi_base.ca_ca,inrim_controllo_accessi_base.ca_base"
+        web_icon="inrim_controllo_accessi,static/src/img/richiesta_accesso.png"
+    />
+
+    <menuitem
+        id="ca_richiesta_accesso_root_menu"
+        name="Richiesta Accesso"
+        groups="inrim_controllo_accessi_base.ca_base"
+        parent="ca_richiesta_accesso_root"
+        sequence="5"
+    />
+
+    <menuitem
+        id="ca_richiesta_accesso_menu"
+        name="Login Required"
+        action="ca_richiesta_accesso_action"
+        groups="inrim_controllo_accessi_base.ca_base"
+        parent="ca_richiesta_accesso_root_menu"
+        sequence="5"
+    />
+
+    <menuitem
+        id="ca_richiesta_accesso_persona_menu"
+        name="Person Access Request"
+        action="ca_richiesta_accesso_persona_action"
+        groups="inrim_controllo_accessi_base.ca_base"
+        parent="ca_richiesta_accesso_root_menu"
+        sequence="10"
+    />
+
+    <menuitem
+        id="ca_richiesta_servizi_persona_menu"
+        name="Request Person Services"
+        action="ca_richiesta_servizi_persona_action"
+        groups="inrim_controllo_accessi_base.ca_base"
+        parent="ca_richiesta_accesso_root_menu"
+        sequence="15"
     />
 
     <menuitem
@@ -30,6 +66,24 @@
         action="ca_settore_ente_action"
         parent="ca_richiesta_accesso_configuration_menu"
         sequence="10"
+    />
+
+    <menuitem
+        id="ca_anag_tipologie_istanze_menu"
+        name="Instances"
+        groups="inrim_controllo_accessi_base.ca_config"
+        action="ca_anag_tipologie_istanze_action"
+        parent="ca_richiesta_accesso_configuration_menu"
+        sequence="15"
+    />
+
+    <menuitem
+        id="ca_anag_avanzamento_rich_menu"
+        name="Progress Request"
+        groups="inrim_controllo_accessi_base.ca_config"
+        action="ca_anag_avanzamento_rich_action"
+        parent="ca_richiesta_accesso_configuration_menu"
+        sequence="20"
     />
 
     <menuitem

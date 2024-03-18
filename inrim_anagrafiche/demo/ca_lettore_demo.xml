@@ -11,4 +11,10 @@
         <field name="reader_ip">10.10.10.3</field>
         <field name="direction">out</field>
     </record>
+
+    <record id="inrim_demo_ca_lettore_3" model="ca.lettore">
+        <field name="name">Lettore 3</field>
+        <field name="reader_ip">10.10.10.4</field>
+        <field name="direction">in</field>
+    </record>
 </odoo>

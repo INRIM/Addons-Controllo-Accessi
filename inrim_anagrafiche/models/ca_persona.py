@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 import random
 import string
 
@@ -46,18 +47,45 @@ class CaPersona(models.Model):
     ca_ente_azienda_ids = fields.Many2many('ca.ente_azienda')
     token = fields.Char(required=True, readonly=True, copy=False, default=lambda self:self.get_token())
     ca_tag_persona_ids = fields.One2many('ca.tag_persona', 'ca_persona_id')
-    is_external = fields.Boolean(compute="_compute_bool")
-    is_internal = fields.Boolean(compute="_compute_bool")
+    present = fields.Selection([
+        ('yes', 'Yes'),
+        ('no', 'No')
+    ], readonly=True)
+    uid = fields.Char()
+    is_external = fields.Boolean(compute="_compute_bool", store=True)
+    is_internal = fields.Boolean(compute="_compute_bool", store=True)
     active = fields.Boolean(default=True)
 
-    @api.onchange('type_ids')
+    @api.constrains('fiscalcode', 'active')
+    def _check_unique_fiscalcode(self):
+        for record in self:
+            if record.fiscalcode:
+                persona_id = self.env['ca.persona'].search([
+                    ('id', '!=', record.id),
+                    ('fiscalcode', '=', record.fiscalcode)
+                ])
+                if persona_id:
+                    raise UserError(_('Esiste già una persona con questo codice fiscale'))
+    
+    @api.constrains('freshman', 'active')
+    def _check_unique_freshman(self):
+        for record in self:
+            if record.freshman:
+                persona_id = self.env['ca.persona'].search([
+                    ('id', '!=', record.id),
+                    ('freshman', '=', record.freshman)
+                ])
+                if persona_id:
+                    raise UserError(_('Esiste già una persona con questa matricola'))
+
+    @api.depends('type_ids')
     def _compute_bool(self):
         for record in self:
             record.is_external = False
             record.is_internal = False
-            if self.env.ref('inrim_anagrafiche.tipo_persona_interno') in record.type_ids:
+            if self.env.ref('inrim_anagrafiche.tipo_persona_interno').id in record.type_ids.ids:
                 record.is_internal = True
-            if self.env.ref('inrim_anagrafiche.tipo_persona_esterno') in record.type_ids:
+            if self.env.ref('inrim_anagrafiche.tipo_persona_esterno').id in record.type_ids.ids:
                 record.is_external = True
 
     @api.depends('name', 'lastname')

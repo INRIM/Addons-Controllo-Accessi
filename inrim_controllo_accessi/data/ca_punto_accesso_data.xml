@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_punto_accesso_1p001" model="ca.punto_accesso">
+        <field name="ca_spazio_id" eval="ref('inrim_anagrafiche.ca_spazio_1p001')"/>
+        <field name="ca_lettore_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_lettore_1')"/>
+        <field name="direction">in</field>
+        <field name="typology">stamping</field>
+        <field name="enable_sync">True</field>
+        <field name="date_start" eval="datetime.today()"/>
+        <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
+    </record>
+
+    <record id="ca_punto_accesso_1p002" model="ca.punto_accesso">
+        <field name="ca_spazio_id" eval="ref('inrim_anagrafiche.ca_spazio_1p002')"/>
+        <field name="ca_lettore_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_lettore_2')"/>
+        <field name="direction">out</field>
+        <field name="typology">stamping</field>
+        <field name="enable_sync">True</field>
+        <field name="date_start" eval="datetime.today()"/>
+        <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
+    </record>
+</odoo>

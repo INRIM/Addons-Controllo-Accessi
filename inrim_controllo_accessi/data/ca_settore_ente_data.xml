@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_settore_ente_sistemi_informatici_reti" model="ca.settore_ente">
+        <field name="name">Sistemi Informatici e Reti</field>
+        <field name="ca_persona_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_persona_4')"/>
+        <field name="ca_ente_azienda_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_ente_azienda_3')"/>
+    </record>
+
+    <record id="ca_settore_ente_logistica_manutenzione" model="ca.settore_ente">
+        <field name="name">Logistica e Manutenzione</field>
+        <field name="ca_persona_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_persona_5')"/>
+        <field name="ca_ente_azienda_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_ente_azienda_3')"/>
+    </record>
+</odoo>

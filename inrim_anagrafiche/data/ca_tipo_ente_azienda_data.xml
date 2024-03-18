@@ -4,6 +4,10 @@
         <field name="name">Sede</field>
     </record>
 
+    <record id="tipo_ente_azienda_sede_distaccata" model="ca.tipo_ente_azienda">
+        <field name="name">Sede Distaccata</field>
+    </record>
+
     <record id="tipo_ente_azienda_pubblica_amministrazione" model="ca.tipo_ente_azienda">
         <field name="name">Pubblica Amministrazione</field>
     </record>

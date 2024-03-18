@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="ca_anag_servizi_view_search" model="ir.ui.view">
+        <field name="name">ca.anag.servizi.view.search</field>
+        <field name="model">ca.anag_servizi</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter name="in_progress" string="In Progress" domain="[('date_end', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter name="expired" string="Expired" domain="[('date_end', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+            </search>
+        </field>
+    </record>
+
     <record id="ca_anag_servizi_view_tree" model="ir.ui.view">
         <field name="name">ca.anag.servizi.view.tree</field>
         <field name="model">ca.anag_servizi</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="ca_persona_id"/>
-                <field name="ca_spazio_id"/>
+                <field name="ca_ente_azienda_id"/>
             </tree>
         </field>
     </record>
@@ -21,15 +32,28 @@
                         <group>
                             <field name="name"/>
                             <field name="ca_settore_ente_id"/>
-                            <field name="ca_persona_id"/>
+                            <field name="ca_persona_id" options="{'no_create': True}"/>
                             <field name="type_ids" invisible="True"/>
                             <field name="virtual"/>
-                            <field name="ca_spazio_id"/>
+                            <field name="tipo_ente_azienda_ids" invisible="True"/>
+                            <field 
+                                name="ca_ente_azienda_id" 
+                                options="{'no_create': True}"
+                                domain="[
+                                    ('tipo_ente_azienda_id', 'in', tipo_ente_azienda_ids)
+                                ]"
+                            />
                             <field name="generic"/>
-                            <field name="spazio_id"/>
+                            <field 
+                                name="spazio_id"
+                                required="not virtual and not generic"
+                            />
                         </group>
                         <group>
-                            <field name="tipo_spazio_id"/>
+                            <field 
+                                name="tipo_spazio_id"
+                                required="not virtual and not generic"
+                            />
                             <field name="abbreviation"/>
                             <field name="description"/>
                             <field name="cod_ref"/>

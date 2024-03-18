@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_richiesta_servizi_persona_view_search" model="ir.ui.view">
+        <field name="name">ca.richiesta.servizi.persona.view.search</field>
+        <field name="model">ca.richiesta_servizi_persona</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter name="in_progress" string="In Progress" domain="[('date_end', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter name="expired" string="Expired" domain="[('date_end', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="ca_richiesta_servizi_persona_view_tree" model="ir.ui.view">
+        <field name="name">ca.richiesta.servizi.persona.view.tree</field>
+        <field name="model">ca.richiesta_servizi_persona</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="token"/>
+                <field name="persona_id"/>
+                <field name="ca_anag_servizi_id"/>
+                <field name="ca_ente_azienda_id"/>
+                <field name="ca_settore_ente_id"/>
+                <field name="spazio_id"/>
+                <field name="ca_persona_id"/>
+                <field name="ca_categoria_richiesta_id"/>
+                <field name="ca_categoria_tipo_richiesta_id"/>
+                <field name="description"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="state"/>
+                <field name="ca_anag_avanzamento_rich_id"/>
+                <field name="expiring"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ca_richiesta_servizi_persona_view_form" model="ir.ui.view">
+        <field name="name">ca.richiesta.servizi.persona.view.form</field>
+        <field name="model">ca.richiesta_servizi_persona</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="token"/>
+                            <field name="ca_richiesta_accesso_persona_id"/>
+                            <field name="persona_id"/>
+                            <field name="ca_anag_servizi_id"/>
+                            <field name="ca_ente_azienda_id"/>
+                            <field name="ca_settore_ente_id"/>
+                            <field name="spazio_id"/>
+                            <field name="ca_persona_id"/>
+                            <field name="ca_categoria_richiesta_id"/>
+                            <field name="ca_categoria_tipo_richiesta_id"/>
+                        </group>
+                        <group>
+                            <field name="ca_anag_tipologie_istanze_id"/>
+                            <field name="act_application_code"/>
+                            <field name="act_date"/>
+                            <field name="description"/>
+                            <field name="cod_ref"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="state"/>
+                            <field name="ca_anag_avanzamento_rich_id"/>
+                            <field name="expiring"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ca_richiesta_servizi_persona_action" model="ir.actions.act_window">
+        <field name="name">Request Person Services</field>
+        <field name="res_model">ca.richiesta_servizi_persona</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

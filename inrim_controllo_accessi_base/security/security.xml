@@ -69,4 +69,8 @@
         <field name="implied_ids" eval="[(4, ref('inrim_controllo_accessi_base.ca_config_tech'))]"/>
         <field name="category_id" ref="inrim_controllo_accessi_base.category_inrim_2"/>
     </record>
+
+    <record id="base.user_admin" model="res.users">
+        <field name="groups_id" eval="[(4, ref('inrim_controllo_accessi_base.ca_tech'))]"/>
+    </record>
 </odoo>

@@ -13,16 +13,6 @@
         </field>
     </record>
 
-    <record id="ca_codice_documento_view_tree" model="ir.ui.view">
-        <field name="name">ca.codice.documento.view.tree</field>
-        <field name="model">ca.codice_documento</field>
-        <field name="arch" type="xml">
-            <tree editable="bottom">
-                <field name="name"/>
-            </tree>
-        </field>
-    </record>
-
     <record id="ca_documento_search" model="ir.ui.view">
         <field name="name">ca.documento.view.search</field>
         <field name="model">ca.documento</field>
@@ -45,7 +35,8 @@
                 <field name="validity_start_date"/>
                 <field name="validity_end_date"/>
                 <field name="image_ids" widget="many2many_tags"/>
-                <field name="document_code_id"/>
+                <field name="issued_by"/>
+                <field name="document_code"/>
                 <field name="ca_stato_documento_id" force_save="1"/>
             </tree>
         </field>
@@ -71,7 +62,8 @@
                                 <field name="image"/>
                             </tree>
                         </field>
-                        <field name="document_code_id"/>
+                        <field name="issued_by"/>
+                        <field name="document_code"/>
                         <field name="ca_stato_documento_id" force_save="1"/>
                     </group>
                 </sheet>
@@ -99,12 +91,6 @@
     <record id="ca_tipo_doc_ident_action" model="ir.actions.act_window">
         <field name="name">Document Type</field>
         <field name="res_model">ca.tipo_doc_ident</field>
-        <field name="view_mode">tree</field>
-    </record>
-
-    <record id="ca_codice_documento_action" model="ir.actions.act_window">
-        <field name="name">Document Code</field>
-        <field name="res_model">ca.codice_documento</field>
         <field name="view_mode">tree</field>
     </record>
 
