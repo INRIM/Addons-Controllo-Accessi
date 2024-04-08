@@ -44,15 +44,43 @@
                     <group>
                         <group>
                             <field name="token"/>
-                            <field name="ca_richiesta_accesso_persona_id"/>
-                            <field name="persona_id"/>
-                            <field name="ca_anag_servizi_id"/>
-                            <field name="ca_ente_azienda_id"/>
-                            <field name="ca_settore_ente_id"/>
-                            <field name="spazio_id"/>
-                            <field name="ca_persona_id"/>
-                            <field name="ca_categoria_richiesta_id"/>
-                            <field name="ca_categoria_tipo_richiesta_id"/>
+                            <field 
+                                name="ca_richiesta_accesso_persona_id" 
+                                options="{'no_create': True}"
+                            />
+                            <field 
+                                name="persona_id" 
+                                options="{'no_create': True}"
+                            />
+                            <field 
+                                name="ca_anag_servizi_id"
+                                options="{'no_create': True}"
+                            />
+                            <field 
+                                name="ca_ente_azienda_id"
+                                options="{'no_create': True}"
+                            />
+                            <field 
+                                name="ca_settore_ente_id" 
+                                options="{'no_create': True}"
+                            />
+                            <field 
+                                name="spazio_id" 
+                                options="{'no_create': True}"
+                            />
+                            <field 
+                                name="ca_persona_id" 
+                                options="{'no_create': True}"
+                            />
+                            <field 
+                                name="ca_categoria_richiesta_id" 
+                                options="{'no_create': True}"
+                            />
+                            <field 
+                                name="ca_categoria_tipo_richiesta_id" 
+                                domain="[('is_activity', '=', True)]"
+                                options="{'no_create': True}"
+                            />
                         </group>
                         <group>
                             <field name="ca_anag_tipologie_istanze_id"/>

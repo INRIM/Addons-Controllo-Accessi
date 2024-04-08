@@ -48,6 +48,8 @@
                             />
                             <field name="persona_id" options="{'no_create': True}"/>
                             <field name="freshman"/>
+                            <field name="external_companies" invisible="1"/>
+                            <field name="external_freshman" required="external_companies"/>
                             <field 
                                 name="anag_tipologie_istanze_id" 
                                 options="{'no_create': True}"
@@ -60,6 +62,7 @@
                             <field 
                                 name="ca_categoria_tipo_richiesta_id"
                                 options="{'no_create': True}"
+                                domain="[('is_activity', '=', True)]"
                             />
                         </group>
                         <group>

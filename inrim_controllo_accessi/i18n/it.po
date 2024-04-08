@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-14 10:38+0000\n"
-"PO-Revision-Date: 2024-03-14 10:38+0000\n"
+"POT-Creation-Date: 2024-04-08 14:05+0000\n"
+"PO-Revision-Date: 2024-04-08 14:05+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -448,6 +448,30 @@ msgstr "Codice Errore"
 
 #. module: inrim_controllo_accessi
 #. odoo-python
+#: code:addons/inrim_controllo_accessi/models/ca_anag_registro_accesso.py:0
+#, python-format
+msgid "Errore punto accesso non attivo"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/models/ca_anag_registro_accesso.py:0
+#, python-format
+msgid "Errore punto accesso non ha tipologia timbratura"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/models/ca_anag_registro_accesso.py:0
+#: code:addons/inrim_controllo_accessi/models/ca_richiesta_accesso.py:0
+#: code:addons/inrim_controllo_accessi/models/ca_richiesta_accesso_persona.py:0
+#: code:addons/inrim_controllo_accessi/models/ca_richiesta_servizi_persona.py:0
+#, python-format
+msgid "Errore utente non abilitato"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#. odoo-python
 #: code:addons/inrim_controllo_accessi/models/ca_anag_avanzamento_rich.py:0
 #, python-format
 msgid "Esiste già un altro record con stesso nome e stato"
@@ -520,6 +544,16 @@ msgstr "Scaduto:"
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_richiesta_accesso_view_search
 msgid "Expiring"
 msgstr "In Scadenza"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_accesso_persona__external_companies
+msgid "External Companies"
+msgstr "Ditte esterne"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_accesso_persona__external_freshman
+msgid "External Freshman"
+msgstr "Matricola Esterna"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_accesso_persona__freshman
