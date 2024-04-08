@@ -122,6 +122,16 @@ class CaPersona(models.Model):
         for record in self:
             record.ca_stato_anag_id = self.env.ref('inrim_anagrafiche.ca_stato_anag_completata').id
 
+    def action_attendance_today(self):
+        return {
+            'name': _('Access Log'),
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'tree,form',
+            'res_model': 'ca.registro_accesso',
+            'domain': [('ente_azienda_id', 'in', self.ca_ente_azienda_ids.ids)],
+        }
+
     def get_token(self):
         characters = string.ascii_letters + string.digits
         token = ''.join(random.choice(characters) for i in range(10))

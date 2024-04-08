@@ -15,6 +15,8 @@ class CaRichiestaAccessoPersona(models.Model):
     type_ids = fields.Many2many('ca.tipo_persona', compute="_compute_type_ids")
     persona_id = fields.Many2one('ca.persona')
     freshman = fields.Char(related='persona_id.freshman')
+    external_freshman = fields.Char()
+    external_companies = fields.Boolean(compute="_compute_external_companies", store=True)
     anag_tipologie_istanze_id = fields.Many2one('ca.anag_tipologie_istanze',
                                                 required=True, 
                                                 string="Application Act")
@@ -54,6 +56,16 @@ class CaRichiestaAccessoPersona(models.Model):
             ])
             if richiesta_accesso_persona_id:
                 raise UserError(_('Esiste già un record per questa persona in questo periodo di validità'))
+            
+    @api.depends('ca_categoria_tipo_richiesta_id')
+    def _compute_external_companies(self):
+        for record in self:
+            record.external_companies = False
+            if (
+                record.ca_categoria_tipo_richiesta_id == self.env.ref(
+                'inrim_anagrafiche.ca_categoria_tipo_richiesta_ditte_esterne')
+            ):
+                record.external_companies = True
 
     def _compute_type_ids(self):
         for record in self:
