@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_sync_ldap_users" model="ir.cron">
+        <field name="name">Update Users from LDAP</field>
+        <field name="model_id" ref="model_res_company_ldap"/>
+        <field name="type">ir.action.server</field>
+        <field name="code">model.sync_users()</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="priority">5</field>
+        <field name="doall">False</field>
+        <field name="active">True</field>
+        <field name="interval_number">1</field>
+    </record>
+
+</odoo>

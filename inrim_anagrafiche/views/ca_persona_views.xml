@@ -194,6 +194,13 @@
                                 class="btn-primary"
                                 groups="inrim_controllo_accessi_base.ca_ca"
                             />
+                            <button
+                                name="action_attendance_today"
+                                type="object"
+                                string="Attendance Today"
+                                class="btn-primary"
+                                groups="inrim_controllo_accessi_base.ca_ca"
+                            />
                             <field name="ca_stato_anag_id" widget="statusbar"/>
                         </header>
                         <group>

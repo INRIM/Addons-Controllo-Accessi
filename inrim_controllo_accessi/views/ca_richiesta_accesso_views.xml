@@ -43,6 +43,7 @@
                             <field 
                                 name="ca_categoria_tipo_richiesta_id"
                                 options="{'no_create': True}"
+                                domain="[('is_activity', '=', True)]"
                             />
                             <field 
                                 name="categoria_richiesta_id"

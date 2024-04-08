@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_categoria_richiesta_lavori_esterni" model="ca.categoria_richiesta">
+        <field name="name">Lavori da esterni</field>
+    </record>
+    
+    <record id="ca_categoria_richiesta_servizi_esterni" model="ca.categoria_richiesta">
+        <field name="name">Servizi ad esterni</field>
+    </record>
+
+    <record id="ca_categoria_richiesta_esterni" model="ca.categoria_richiesta">
+        <field name="name">Esterni</field>
+    </record>
+
+    <record id="ca_categoria_richiesta_eventi" model="ca.categoria_richiesta">
+        <field name="name">Eventi</field>
+    </record>
+
+    <record id="ca_categoria_richiesta_collaboratori_continuativi" model="ca.categoria_richiesta">
+        <field name="name">Collaboratori continuativi</field>
+    </record>
+
+    <record id="ca_categoria_richiesta_collaboratore" model="ca.categoria_richiesta">
+        <field name="name">Collaboratore</field>
+    </record>
+
+    <record id="ca_categoria_richiesta_ospiti" model="ca.categoria_richiesta">
+        <field name="name">Ospiti</field>
+    </record>
+
+    <record id="ca_categoria_richiesta_formazione" model="ca.categoria_richiesta">
+        <field name="name">Formazione</field>
+    </record>
+
+    <record id="ca_categoria_richiesta_lavoro" model="ca.categoria_richiesta">
+        <field name="name">Lavoro</field>
+    </record>
+
+    <record id="ca_categoria_richiesta_attivita" model="ca.categoria_richiesta">
+        <field name="name">Attività</field>
+    </record>
+</odoo>
