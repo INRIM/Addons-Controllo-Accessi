@@ -18,7 +18,7 @@
         <field name="model">ca.ente_azienda</field>
         <field name="arch" type="xml">
             <form>
-                <t groups="inrim_controllo_accessi_base.ca_utente, !inrim_controllo_accessi_base.ca_ca">
+                <t groups="inrim_controllo_accessi_base.ca_base, !inrim_controllo_accessi_base.ca_ca">
                     <sheet>
                         <div class="oe_title">
                             <label for="name"/>
@@ -32,7 +32,7 @@
                                     <group>
                                         <field name="parent_id" options="{'no_create': True}" domain="[('id', '!=', id)]" readonly="True"/>
                                         <field name="all_child_ids" options="{'no_create': True}" invisible="1" readonly="True"/>
-                                        <field name="parent_path" readonly="True"/>
+                                        <field name="parent_path" readonly="True" invisible="1"/>
                                         <span class="o_form_label o_td_label" name="address_name">
                                             <b>Address</b>
                                         </span>
@@ -81,7 +81,7 @@
                                     <group>
                                         <field name="parent_id" options="{'no_create': True}" domain="[('id', '!=', id)]"/>
                                         <field name="all_child_ids" options="{'no_create': True}" invisible="1"/>
-                                        <field name="parent_path"/>
+                                        <field name="parent_path" invisible="1"/>
                                         <span class="o_form_label o_td_label" name="address_name">
                                             <b>Address</b>
                                         </span>

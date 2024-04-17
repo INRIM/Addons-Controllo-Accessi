@@ -2,14 +2,14 @@
 <odoo>
     <menuitem
         id="ca_richiesta_accesso_root"
-        name="Richiesta Accesso"
+        name="Access Request"
         groups="inrim_controllo_accessi_base.ca_ca,inrim_controllo_accessi_base.ca_base"
         web_icon="inrim_controllo_accessi,static/src/img/richiesta_accesso.png"
     />
 
     <menuitem
         id="ca_richiesta_accesso_root_menu"
-        name="Richiesta Accesso"
+        name="Access Request"
         groups="inrim_controllo_accessi_base.ca_base"
         parent="ca_richiesta_accesso_root"
         sequence="5"

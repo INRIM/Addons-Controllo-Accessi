@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 
 class CaProprietaTag(models.Model):
     _name = 'ca.proprieta_tag'
@@ -9,6 +10,14 @@ class CaProprietaTag(models.Model):
     date_start = fields.Date()
     date_end = fields.Date()
     active = fields.Boolean(default=True)
+
+    @api.constrains('date_start', 'date_end')
+    def _check_date(self):
+        for record in self:
+            if record.date_end and record.date_start:
+                if record.date_end <= record.date_start:
+                    raise UserError(
+                        _('Data fine deve essere maggiore della data di inizio'))
 
 class CaTag(models.Model):
     _name = 'ca.tag'
@@ -21,6 +30,7 @@ class CaTag(models.Model):
     in_use = fields.Boolean(readonly=True)
     active = fields.Boolean(default=True)
     temp = fields.Boolean(compute="_compute_temp", store=True)
+    revoked = fields.Boolean(compute="_compute_revoked", store=True)
 
     @api.depends('ca_proprieta_tag_ids')
     def _compute_temp(self):
@@ -29,3 +39,11 @@ class CaTag(models.Model):
             if record.ca_proprieta_tag_ids:
                 if self.env.ref('inrim_anagrafiche.proprieta_tag_temporaneo') in record.ca_proprieta_tag_ids:
                     record.temp = True
+
+    @api.depends('ca_proprieta_tag_ids')
+    def _compute_revoked(self):
+        for record in self:
+            record.revoked = False
+            if record.ca_proprieta_tag_ids:
+                if self.env.ref('inrim_anagrafiche.proprieta_tag_revocato') in record.ca_proprieta_tag_ids:
+                    record.revoked = True

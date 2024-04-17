@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 
 class CaRighePersona(models.Model):
     _name = 'ca.righe_persona'
@@ -9,3 +10,11 @@ class CaRighePersona(models.Model):
     date_start = fields.Date(string='Valid Access From')
     date_end = fields.Date(string='Valid Access To')
     suspended = fields.Boolean()
+
+    @api.constrains('date_start', 'date_end')
+    def _check_date(self):
+        for record in self:
+            if record.date_end and record.date_start:
+                if record.date_end <= record.date_start:
+                    raise UserError(
+                        _('Data fine deve essere maggiore della data di inizio'))

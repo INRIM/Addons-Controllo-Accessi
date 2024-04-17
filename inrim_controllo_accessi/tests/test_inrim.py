@@ -142,20 +142,20 @@ class TestInrim(TestCommon):
         """
         self.env = self.env(user=self.user_1)
         self.cr = self.env.cr
-        tag_persona_1 = self.env['ca.tag_persona'].create({
+        tag_persona_2 = self.env['ca.tag_persona'].create({
             'ca_persona_id': self.persona_1.id,
             'ca_tag_id': self.tag_7.id,
             'date_start': date.today() - timedelta(days=1),
             'date_end': date.today() + relativedelta(days=3)
         })
-        self.assertTrue(tag_persona_1)
-        tag_persona_2 = self.env['ca.tag_persona'].create({
+        self.assertTrue(tag_persona_2)
+        tag_persona_3 = self.env['ca.tag_persona'].create({
             'ca_persona_id': self.persona_2.id,
             'ca_tag_id': self.tag_8.id,
             'date_start': date.today() - timedelta(days=1),
             'date_end': date.today() + relativedelta(days=3)
         })
-        self.assertTrue(tag_persona_2)
+        self.assertTrue(tag_persona_3)
 
     # Test 7
     def test_7(self):
@@ -178,13 +178,29 @@ class TestInrim(TestCommon):
         self.env = self.env(user=self.user_1)
         self.cr = self.env.cr
         # 1
+        ca_tag_lettore = self.env['ca.tag_lettore'].create({
+            'ca_lettore_id': self.lettore_3.id,
+            'ca_tag_id': self.tag_8.id,
+            'date_start': date.today() - timedelta(days=1),
+            'date_end': date.today() + relativedelta(days=3)
+        })
         punto_accesso_id = self.env['ca.punto_accesso'].create({
             'ca_spazio_id': self.spazio_3.id,
             'ca_lettore_id': self.lettore_3.id,
             'typology': 'stamping',
             'enable_sync': False,
             'date_start': date.today(),
-            'date_end': date.today() + relativedelta(days=30)
+            'date_end': date.today() + relativedelta(days=30),
+            'ca_tag_lettore_ids': [(6, 0, [ca_tag_lettore.id])]
+        })
+        tag_persona_id = self.env['ca.tag_persona'].search([
+            ('ca_tag_id', '=', ca_tag_lettore.ca_tag_id.id)
+        ])
+        self.env['ca.punto_accesso_persona'].create({
+            'ca_tag_lettore_id': ca_tag_lettore.id,
+            'ca_tag_persona': tag_persona_id.id,
+            'date': date.today(),
+            'state': 'active'
         })
         self.assertTrue(punto_accesso_id)
         # 2
@@ -203,8 +219,13 @@ class TestInrim(TestCommon):
         punto_accesso_id.commuta_abilitazione()
         self.assertTrue(punto_accesso_id.enable_sync)
         # 5
-        with self.assertRaises(Exception):
-            punto_accesso_id.elabora_persone_abilitate()
+        punto_accesso_persona = self.env['ca.punto_accesso_persona'].search([
+            ('ca_tag_lettore_id', '=', ca_tag_lettore.id),
+            ('ca_tag_persona', '=', tag_persona_id.id)
+        ])
+        self.assertEqual(punto_accesso_persona.state, 'active')
+        punto_accesso_id.elabora_persone_abilitate()
+        self.assertEqual(punto_accesso_persona.state, 'expired')
         # 6
         self.env = self.env(user=self.user_4)
         self.cr = self.env.cr

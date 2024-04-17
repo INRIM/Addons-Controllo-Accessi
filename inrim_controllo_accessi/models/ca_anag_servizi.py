@@ -30,6 +30,14 @@ class CaAnagServizi(models.Model):
          'This CodRef already exists.')
     ]
 
+    @api.constrains('date_start', 'date_end')
+    def _check_date(self):
+        for record in self:
+            if record.date_end and record.date_start:
+                if record.date_end <= record.date_start:
+                    raise UserError(
+                        _('Data fine deve essere maggiore della data di inizio'))
+
     def _compute_tipo_ente_azienda_ids(self):
         for record in self:
             record.tipo_ente_azienda_ids = [(6, 0, [

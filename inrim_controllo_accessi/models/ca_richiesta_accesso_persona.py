@@ -45,6 +45,14 @@ class CaRichiestaAccessoPersona(models.Model):
     ca_richiesta_accesso_id = fields.Many2one('ca.richiesta_accesso')
     active = fields.Boolean(default=True)
 
+    @api.constrains('date_start', 'date_end')
+    def _check_date(self):
+        for record in self:
+            if record.date_end and record.date_start:
+                if record.date_end <= record.date_start:
+                    raise UserError(
+                        _('Data fine deve essere maggiore della data di inizio'))
+
     @api.constrains('persona_id', 'date_start', 'date_end', 'active')
     def _check_unique(self):
         for record in self:

@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 
 class CaCategoriaTipoRichiesta(models.Model):
     _name = 'ca.categoria_tipo_richiesta'
@@ -21,3 +22,11 @@ class CaCategoriaTipoRichiesta(models.Model):
                     'inrim_anagrafiche.ca_categoria_richiesta_attivita')
             ):
                 record.is_activity = True
+
+    @api.constrains('date_start', 'date_end')
+    def _check_date(self):
+        for record in self:
+            if record.date_end and record.date_start:
+                if record.date_end <= record.date_start:
+                    raise UserError(
+                        _('Data fine deve essere maggiore della data di inizio'))

@@ -19,7 +19,7 @@ class CaPersona(models.Model):
     state_id = fields.Many2one('res.country.state', domain="[('country_id', '=?', country_id)]")
     zip = fields.Char()
     country_id = fields.Many2one('res.country')
-    fiscalcode = fields.Char(required=True, groups="inrim_controllo_accessi_base.ca_gdpr")
+    fiscalcode = fields.Char(groups="inrim_controllo_accessi_base.ca_gdpr")
     vat = fields.Char()
     type_ids = fields.Many2many('ca.tipo_persona')
     freshman = fields.Char(groups="inrim_controllo_accessi_base.ca_gdpr")
@@ -27,7 +27,7 @@ class CaPersona(models.Model):
     birth_date = fields.Date(groups="inrim_controllo_accessi_base.ca_gdpr")
     birth_place = fields.Char(groups="inrim_controllo_accessi_base.ca_gdpr")
     istat_code = fields.Char(groups="inrim_controllo_accessi_base.ca_gdpr")
-    parent_id = fields.Many2one('ca.persona', string='Related Company', index=True)
+    parent_id = fields.Many2one('ca.persona', string='Father Contact', index=True)
     child_ids = fields.One2many('ca.persona', 'parent_id', string='Contact', domain=[('active', '=', True)])
     residence_street = fields.Char()
     residence_street2 = fields.Char()
@@ -46,7 +46,6 @@ class CaPersona(models.Model):
     ca_stato_anag_id = fields.Many2one('ca.stato_anag', default=lambda self:self.default_ca_stato_anag_id(), required=True)
     ca_ente_azienda_ids = fields.Many2many('ca.ente_azienda')
     token = fields.Char(required=True, readonly=True, copy=False, default=lambda self:self.get_token())
-    ca_tag_persona_ids = fields.One2many('ca.tag_persona', 'ca_persona_id')
     present = fields.Selection([
         ('yes', 'Yes'),
         ('no', 'No')
@@ -77,6 +76,13 @@ class CaPersona(models.Model):
                 ])
                 if persona_id:
                     raise UserError(_('Esiste già una persona con questa matricola'))
+    
+    @api.constrains('ca_documento_ids')
+    def _check_external_documento_ids(self):
+        for record in self:
+            if len(record.ca_documento_ids) == 0 and record.is_external:
+                raise UserError(_(
+                    'Per una persona esterna è obbligatorio caricare i documenti'))
 
     @api.depends('type_ids')
     def _compute_bool(self):
@@ -131,6 +137,17 @@ class CaPersona(models.Model):
             'res_model': 'ca.registro_accesso',
             'domain': [('ente_azienda_id', 'in', self.ca_ente_azienda_ids.ids)],
         }
+
+    @api.model_create_multi
+    def create(self, vals):
+        res = super(CaPersona, self).create(vals)
+        self._check_external_documento_ids()
+        return res
+    
+    def write(self, vals_list):
+        res = super(CaPersona, self).write(vals_list)
+        self._check_external_documento_ids()
+        return res
 
     def get_token(self):
         characters = string.ascii_letters + string.digits
