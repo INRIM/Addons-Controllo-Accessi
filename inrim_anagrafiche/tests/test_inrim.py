@@ -74,7 +74,6 @@ class TestInrim(TestCommon):
         ca_persona_id = self.env['ca.persona'].create({
             'name': 'Persona',
             'lastname': '6',
-            'fiscalcode': 'Fiscalcode1',
             'type_ids': [(6, 0,
                           [
                               self.env.ref(

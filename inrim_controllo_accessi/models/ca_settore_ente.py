@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 from datetime import datetime
 
 class CaSettoreEnte(models.Model):
@@ -16,6 +17,14 @@ class CaSettoreEnte(models.Model):
     type_ids = fields.Many2many('ca.tipo_persona', compute="_compute_type_ids")
     tipo_ente_azienda_ids = fields.Many2many('ca.tipo_ente_azienda', 
                         compute="_compute_tipo_ente_azienda_ids")
+    
+    @api.constrains('date_start', 'date_end')
+    def _check_date(self):
+        for record in self:
+            if record.date_end and record.date_start:
+                if record.date_end <= record.date_start:
+                    raise UserError(
+                        _('Data fine deve essere maggiore della data di inizio'))
 
     def _compute_tipo_ente_azienda_ids(self):
         for record in self:

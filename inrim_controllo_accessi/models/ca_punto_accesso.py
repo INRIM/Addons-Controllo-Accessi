@@ -32,6 +32,14 @@ class CaPuntoAccesso(models.Model):
     ca_tag_lettore_ids = fields.One2many('ca.tag_lettore', 'ca_punto_accesso_id')
     active = fields.Boolean(default=True)
 
+    @api.constrains('date_start', 'date_end')
+    def _check_date(self):
+        for record in self:
+            if record.date_end and record.date_start:
+                if record.date_end <= record.date_start:
+                    raise UserError(
+                        _('Data fine deve essere maggiore della data di inizio'))
+
     def accessi_rifiutati_oggi(self):
         registro_accesso_ids = self.env['ca.anag_registro_accesso'].search([
             ('datetime_event', '>=', fields.datetime.now().strftime('%Y-%m-%d 00:00:00')),

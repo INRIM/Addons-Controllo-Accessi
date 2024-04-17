@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 from dateutil.relativedelta import relativedelta
 
 class CaTipoDocIdent(models.Model):
@@ -10,6 +11,14 @@ class CaTipoDocIdent(models.Model):
     date_start = fields.Date()
     date_end = fields.Date()
     active = fields.Boolean(default=True)
+
+    @api.constrains('date_start', 'date_end')
+    def _check_date(self):
+        for record in self:
+            if record.date_end and record.date_start:
+                if record.date_end <= record.date_start:
+                    raise UserError(
+                        _('Data fine deve essere maggiore della data di inizio'))
 
 class CaStatoDocumento(models.Model):
     _name = 'ca.stato_documento'
@@ -32,6 +41,7 @@ class CaImgDocumento(models.Model):
         ('pagina', 'Pagina')
     ], required=True)
     image = fields.Binary(required=True, string="Immagine")
+    filename = fields.Char()
     ca_documento_id = fields.Many2one('ca.documento')
 
 class CaDocumento(models.Model):
@@ -41,6 +51,7 @@ class CaDocumento(models.Model):
 
     ca_persona_id = fields.Many2one('ca.persona')
     tipo_documento_id = fields.Many2one('ca.tipo_doc_ident', required=True)
+    tipo_documento_name = fields.Char(related="tipo_documento_id.name")
     validity_start_date = fields.Date(required=True)
     validity_end_date = fields.Date(required=True)
     image_ids = fields.One2many('ca.img_documento', 'ca_documento_id', required=True)
@@ -48,6 +59,14 @@ class CaDocumento(models.Model):
     ca_stato_documento_id = fields.Many2one('ca.stato_documento', readonly=True)
     ca_stato_documento_name = fields.Char(related="ca_stato_documento_id.name")
     issued_by = fields.Char(required=True)
+
+    @api.constrains('validity_start_date', 'validity_end_date')
+    def _check_date(self):
+        for record in self:
+            if record.validity_end_date and record.validity_start_date:
+                if record.validity_end_date <= record.validity_start_date:
+                    raise UserError(
+                        _('Data fine deve essere maggiore della data di inizio'))
 
     def _cron_check_ca_stato_documento_id(self):
         today = fields.Date.today()

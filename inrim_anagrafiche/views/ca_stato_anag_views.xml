@@ -14,7 +14,7 @@
     </record>
 
     <record id="ca_stato_anag_action" model="ir.actions.act_window">
-        <field name="name">Stati caricamento Anagrafica</field>
+        <field name="name">Record Loading States</field>
         <field name="res_model">ca.stato_anag</field>
         <field name="view_mode">tree</field>
     </record>

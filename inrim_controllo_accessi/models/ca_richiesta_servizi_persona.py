@@ -38,6 +38,14 @@ class CaRichiestaServiziPersona(models.Model):
     expiring = fields.Boolean(readonly=True)
     active = fields.Boolean(default=True)
 
+    @api.constrains('date_start', 'date_end')
+    def _check_date(self):
+        for record in self:
+            if record.date_end and record.date_start:
+                if record.date_end <= record.date_start:
+                    raise UserError(
+                        _('Data fine deve essere maggiore della data di inizio'))
+
     def aggiorna_stato_richiesta(self, stato=None):
         for record in self:
             if (

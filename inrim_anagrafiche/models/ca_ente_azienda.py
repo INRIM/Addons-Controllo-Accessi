@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 
 class CaEnteAzienda(models.Model):
     _name = 'ca.ente_azienda'
@@ -26,7 +27,7 @@ class CaEnteAzienda(models.Model):
     vat = fields.Char()
     pec = fields.Char(required=True)
     tipo_ente_azienda_id = fields.Many2one('ca.tipo_ente_azienda', required=True)
-    note = fields.Text(required=True)
+    note = fields.Text()
     company_id = fields.Many2one('res.company')
     ca_persona_ids = fields.Many2many('ca.persona', string='People')
 
@@ -39,3 +40,11 @@ class CaTipoEnteAzienda(models.Model):
     date_start = fields.Date()
     date_end = fields.Date()
     active = fields.Boolean(default=True)
+
+    @api.constrains('date_start', 'date_end')
+    def _check_date(self):
+        for record in self:
+            if record.date_end and record.date_start:
+                if record.date_end <= record.date_start:
+                    raise UserError(
+                        _('Data fine deve essere maggiore della data di inizio'))

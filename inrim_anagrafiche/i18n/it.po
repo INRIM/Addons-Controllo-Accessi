@@ -187,8 +187,8 @@ msgstr ""
 #. module: inrim_anagrafiche
 #: model:ir.actions.act_window,name:inrim_anagrafiche.ca_categoria_richiesta_action
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_categoria_richiesta_menu
-msgid "Categorie Richieste Accesso"
-msgstr ""
+msgid "Categories Requests Access"
+msgstr "Categorie Richieste Accesso"
 
 #. module: inrim_anagrafiche
 #: model:ir.actions.server,name:inrim_anagrafiche.ir_cron_check_document_availability_ir_actions_server
@@ -258,8 +258,8 @@ msgstr "Contatti"
 
 #. module: inrim_anagrafiche
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_controllo_accessi_root
-msgid "Controllo Accessi"
-msgstr ""
+msgid "Access Control"
+msgstr "Controllo Accessi"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__country_id
@@ -553,8 +553,8 @@ msgstr "Informazioni Generali"
 #. module: inrim_anagrafiche
 #: model:ir.actions.act_window,name:inrim_anagrafiche.ca_spazio_action
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_spazio_menu
-msgid "Gestione Spazi"
-msgstr ""
+msgid "Space Management"
+msgstr "Gestione Spazi"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_richiesta__id
@@ -727,8 +727,8 @@ msgstr "Elenco Documenti di Identità"
 
 #. module: inrim_anagrafiche
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_tag_persona_lista_associazioni_menu
-msgid "Lista associazioni"
-msgstr ""
+msgid "List of associations"
+msgstr "Lista associazioni"
 
 #. module: inrim_anagrafiche
 #: model:ir.actions.act_window,name:inrim_anagrafiche.ca_codice_locale_action
@@ -814,7 +814,7 @@ msgstr "Percorso padre"
 
 #. module: inrim_anagrafiche
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_persona_menu_root
-msgid "Partner"
+msgid "Partners and Institutions"
 msgstr "Anagrafiche"
 
 #. module: inrim_anagrafiche
@@ -886,8 +886,8 @@ msgstr ""
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__parent_id
-msgid "Related Company"
-msgstr "Azienda Collegata"
+msgid "Father Contact"
+msgstr "Contatto Padre"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__residence_city
@@ -938,8 +938,8 @@ msgstr ""
 
 #. module: inrim_anagrafiche
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_ente_azienda_sedi_ente_menu
-msgid "Sedi Ente"
-msgstr ""
+msgid "Institution Locations"
+msgstr "Sedi Ente"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__sequence
@@ -981,8 +981,8 @@ msgstr "Nazione"
 #. module: inrim_anagrafiche
 #: model:ir.actions.act_window,name:inrim_anagrafiche.ca_stato_anag_action
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_stato_anag_menu
-msgid "Stati caricamento Anagrafica"
-msgstr ""
+msgid "Record Loading States"
+msgstr "Stati Caricamento Anagrafica"
 
 #. module: inrim_anagrafiche
 #: model:ir.model,name:inrim_anagrafiche.model_ca_stato_anag
@@ -990,15 +990,11 @@ msgid "Stato Anagrafica"
 msgstr ""
 
 #. module: inrim_anagrafiche
-#: model:ir.actions.act_window,name:inrim_anagrafiche.ca_stato_documento_action
-msgid "Stato Documenti"
-msgstr ""
-
-#. module: inrim_anagrafiche
 #: model:ir.model,name:inrim_anagrafiche.model_ca_stato_documento
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_stato_documento_menu
-msgid "Stato Documento"
-msgstr ""
+#: model:ir.actions.act_window,name:inrim_anagrafiche.ca_stato_documento_action
+msgid "Document Status"
+msgstr "Stato Documenti"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__street
@@ -1096,8 +1092,8 @@ msgstr ""
 #. module: inrim_anagrafiche
 #: model:ir.actions.act_window,name:inrim_anagrafiche.ca_categoria_tipo_richiesta_action
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_categoria_tipo_richiesta_menu
-msgid "Tipologia Richiesta Accesso"
-msgstr ""
+msgid "Type of Access Request"
+msgstr "Tipologia Richiesta Accesso"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__token
@@ -1107,13 +1103,13 @@ msgstr "CU"
 
 #. module: inrim_anagrafiche
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_persona_tutte_menu
-msgid "Tutte"
-msgstr ""
+msgid "All"
+msgstr "Tutte"
 
 #. module: inrim_anagrafiche
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_tag_tutti_menu
-msgid "Tutti"
-msgstr ""
+msgid "All"
+msgstr "Tutti"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__type

@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 
 class CaTipoSpazio(models.Model):
     _name = 'ca.tipo_spazio'
@@ -9,6 +10,14 @@ class CaTipoSpazio(models.Model):
     date_start = fields.Date()
     date_end = fields.Date()
     active = fields.Boolean(default=True)
+
+    @api.constrains('date_start', 'date_end')
+    def _check_date(self):
+        for record in self:
+            if record.date_end and record.date_start:
+                if record.date_end <= record.date_start:
+                    raise UserError(
+                        _('Data fine deve essere maggiore della data di inizio'))
 
 class CaSpazio(models.Model):
     _name = 'ca.spazio'
@@ -23,3 +32,11 @@ class CaSpazio(models.Model):
     date_end = fields.Date()
     righe_persona_ids = fields.One2many('ca.righe_persona', 'spazio_id')
     active = fields.Boolean(default=True)
+
+    @api.constrains('date_start', 'date_end')
+    def _check_date(self):
+        for record in self:
+            if record.date_end and record.date_start:
+                if record.date_end <= record.date_start:
+                    raise UserError(
+                        _('Data fine deve essere maggiore della data di inizio'))

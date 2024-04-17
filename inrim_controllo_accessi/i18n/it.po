@@ -932,8 +932,8 @@ msgstr "Tipo Richiesta"
 #: model:ir.model,name:inrim_controllo_accessi.model_ca_richiesta_accesso
 #: model:ir.ui.menu,name:inrim_controllo_accessi.ca_richiesta_accesso_root
 #: model:ir.ui.menu,name:inrim_controllo_accessi.ca_richiesta_accesso_root_menu
-msgid "Richiesta Accesso"
-msgstr ""
+msgid "Access Request"
+msgstr "Richiesta Accesso"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model,name:inrim_controllo_accessi.model_ca_richiesta_accesso_persona

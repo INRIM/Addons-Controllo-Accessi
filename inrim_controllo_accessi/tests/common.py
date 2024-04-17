@@ -47,7 +47,7 @@ class TestCommon(TransactionCase):
         cls.tag_7 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_tag_7')
         cls.tag_8 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_tag_8')
         cls.tag_9 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_tag_9')
-        # Tag Lettore
+        # Tag Persona
         cls.tag_persona_1 = cls.env['ca.tag_persona'].create({
             'ca_persona_id': cls.persona_6.id,
             'ca_tag_id': cls.tag_8.id,
