@@ -14,7 +14,7 @@
     </record>
 
     <record id="ca_categoria_richiesta_action" model="ir.actions.act_window">
-        <field name="name">Categorie Richieste Accesso</field>
+        <field name="name">Categories Requests Access</field>
         <field name="res_model">ca.categoria_richiesta</field>
         <field name="view_mode">tree</field>
     </record>

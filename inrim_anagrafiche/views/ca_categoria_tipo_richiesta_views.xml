@@ -6,16 +6,16 @@
         <field name="arch" type="xml">
             <tree editable="bottom">
                 <field name="name"/>
+                <field name="ca_categoria_richiesta"/>
                 <field name="description"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
-                <field name="ca_categoria_richiesta"/>
             </tree>
         </field>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_action" model="ir.actions.act_window">
-        <field name="name">Tipologia Richiesta Accesso</field>
+        <field name="name">Type of Access Request</field>
         <field name="res_model">ca.categoria_tipo_richiesta</field>
         <field name="view_mode">tree</field>
     </record>

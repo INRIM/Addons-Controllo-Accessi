@@ -18,7 +18,12 @@
             <tree editable="bottom">
                 <field name="token"/>
                 <field name="ca_persona_id" options="{'no_create': True}"/>
-                <field name="ca_tag_id" options="{'no_create': True}"/>
+                <field name="available_tags_ids" column_invisible="1"/>
+                <field 
+                    name="ca_tag_id" 
+                    options="{'no_create': True}" 
+                    domain="[('id', 'in', available_tags_ids)]"
+                />
                 <field name="date_start"/>
                 <field name="date_end"/>
                 <field name="temp"/>

@@ -33,7 +33,7 @@
         <field name="model">ca.persona</field>
         <field name="arch" type="xml">
             <form>
-                <t groups="inrim_controllo_accessi_base.ca_utente, !inrim_controllo_accessi_base.ca_ca">
+                <t groups="inrim_controllo_accessi_base.ca_base, !inrim_controllo_accessi_base.ca_ca">
                     <sheet>
                         <header>
                             <field name="ca_stato_anag_id" widget="statusbar"/>
@@ -119,30 +119,10 @@
                                         <field name="tipo_documento_id"/>
                                         <field name="validity_start_date"/>
                                         <field name="validity_end_date"/>
-                                        <field name="image_ids" widget="many2many_tags">
-                                            <tree editable="bottom">
-                                                <field name="name"/>
-                                                <field name="description"/>
-                                                <field name="ca_tipo_documento_id"/>
-                                                <field name="side"/>
-                                                <field name="image"/>
-                                            </tree>
-                                        </field>
+                                        <field name="image_ids" widget="many2many_tags"/>
                                         <field name="issued_by"/>
                                         <field name="document_code"/>
                                         <field name="ca_stato_documento_id" force_save="1"/>
-                                    </tree>
-                                </field>
-                            </page>
-                            <page name="tag_person" string="Tag Person">
-                                <field name="ca_tag_persona_ids" readonly="True">
-                                    <tree editable="bottom">
-                                        <field name="token"/>
-                                        <field name="ca_persona_id" options="{'no_create': True}"/>
-                                        <field name="ca_tag_id" options="{'no_create': True}"/>
-                                        <field name="date_start"/>
-                                        <field name="date_end"/>
-                                        <field name="temp"/>
                                     </tree>
                                 </field>
                             </page>
@@ -205,8 +185,8 @@
                         </header>
                         <group>
                             <group>
-                                <field name="is_external" invisible="0" force_save="1"/>
-                                <field name="is_internal" invisible="0" force_save="1"/>
+                                <field name="is_external" invisible="1" force_save="1"/>
+                                <field name="is_internal" invisible="1" force_save="1"/>
                                 <field name="name"/>
                                 <field name="lastname"/>
                                 <field name="parent_id" widget="res_partner_many2one" placeholder="Company Name..." readonly="1"/>
@@ -224,7 +204,7 @@
                                         <field name="country_id" placeholder="Country" class="o_address_country"/>
                                     </div>
                                 </div>
-                                <field name="fiscalcode"/>
+                                <field name="fiscalcode" required="True"/>
                                 <field name="vat"/>
                                 <field name="type_ids" widget="many2many_tags" options="{'no_create': True}"/>
                                 <field name="freshman" required="is_internal"/>
@@ -285,30 +265,10 @@
                                         <field name="tipo_documento_id"/>
                                         <field name="validity_start_date"/>
                                         <field name="validity_end_date"/>
-                                        <field name="image_ids" widget="many2many_tags">
-                                            <tree editable="bottom">
-                                                <field name="name"/>
-                                                <field name="description"/>
-                                                <field name="ca_tipo_documento_id"/>
-                                                <field name="side"/>
-                                                <field name="image"/>
-                                            </tree>
-                                        </field>
+                                        <field name="image_ids" widget="many2many_tags"/>
                                         <field name="issued_by"/>
                                         <field name="document_code"/>
                                         <field name="ca_stato_documento_id" force_save="1"/>
-                                    </tree>
-                                </field>
-                            </page>
-                            <page name="tag_person" string="Tag Person">
-                                <field name="ca_tag_persona_ids">
-                                    <tree editable="bottom">
-                                        <field name="token"/>
-                                        <field name="ca_persona_id" options="{'no_create': True}"/>
-                                        <field name="ca_tag_id" options="{'no_create': True}"/>
-                                        <field name="date_start"/>
-                                        <field name="date_end"/>
-                                        <field name="temp"/>
                                     </tree>
                                 </field>
                             </page>
@@ -318,42 +278,6 @@
             </form>
         </field>
     </record>
-
-    <!-- <record id="ca_persona_view_form_inherit_utente" model="ir.ui.view">
-        <field name="name">ca.persona.view.form.inherit.utente</field>
-        <field name="model">ca.persona</field>
-        <field name="inherit_id" ref="inrim_anagrafiche.ca_persona_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//form" position="attributes">
-                <t groups="inrim_controllo_accessi_base.ca_utente">
-                    <attribute name="create">0</attribute>
-                </t>
-            </xpath>
-            <xpath expr="//field[@name='name']" position="attributes">
-                <t groups="inrim_controllo_accessi_base.ca_utente">
-                    <attribute name="readonly">True</attribute>
-                </t>
-            </xpath>
-            <xpath expr="//field[@name='lastname']" position="attributes">
-                <t groups="inrim_controllo_accessi_base.ca_utente">
-                    <attribute name="readonly">True</attribute>
-                </t>
-            </xpath>
-        </field>
-    </record>
-
-    <record id="ca_persona_view_tree_inherit_utente" model="ir.ui.view">
-        <field name="name">ca.persona.view.tree.inherit.utente</field>
-        <field name="model">ca.persona</field>
-        <field name="inherit_id" ref="inrim_anagrafiche.ca_persona_tree"/>
-        <field name="arch" type="xml">
-            <xpath expr="//tree" position="attributes">
-                <t groups="inrim_controllo_accessi_base.ca_utente">
-                    <attribute name="create">0</attribute>
-                </t>
-            </xpath>
-        </field>
-    </record> -->
 
     <record id="ca_persona_action" model="ir.actions.act_window">
         <field name="name">People</field>

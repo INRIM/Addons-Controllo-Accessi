@@ -1,6 +1,5 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
-from datetime import timedelta
 
 class CaTagLettore(models.Model):
     _name = 'ca.tag_lettore'
@@ -16,6 +15,14 @@ class CaTagLettore(models.Model):
     expired = fields.Boolean(compute="_compute_expired")
     active = fields.Boolean(default=True)
     ca_punto_accesso_id = fields.Many2one('ca.punto_accesso')
+
+    @api.constrains('date_start', 'date_end')
+    def _check_date(self):
+        for record in self:
+            if record.date_end and record.date_start:
+                if record.date_end <= record.date_start:
+                    raise UserError(
+                        _('Data fine deve essere maggiore della data di inizio'))
 
     @api.onchange('date_end')
     def _compute_expired(self):

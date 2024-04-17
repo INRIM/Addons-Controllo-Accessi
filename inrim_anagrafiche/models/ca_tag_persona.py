@@ -19,7 +19,16 @@ class CaTagPersona(models.Model):
     date_start = fields.Date(required=True)
     date_end = fields.Date(required=True)
     temp = fields.Boolean()
+    available_tags_ids = fields.Many2many('ca.tag', compute="_compute_available_tags")
     active = fields.Boolean(default=True)
+
+    @api.constrains('date_start', 'date_end')
+    def _check_date(self):
+        for record in self:
+            if record.date_end and record.date_start:
+                if record.date_end <= record.date_start:
+                    raise UserError(
+                        _('Data fine deve essere maggiore della data di inizio'))
 
     @api.constrains('ca_persona_id', 'ca_tag_id', 'date_start', 'date_end', 'active')
     def _check_duplicate(self):
@@ -51,28 +60,47 @@ class CaTagPersona(models.Model):
     @api.constrains('ca_tag_id', 'active')
     def _check_tag_revocato(self):
         for record in self:
-            if self.env.ref(
-                    'inrim_anagrafiche.proprieta_tag_revocato') in record.ca_tag_id.ca_proprieta_tag_ids:
+            if record.ca_tag_id.revoked:
                 raise UserError(_('Il tag ' + str(
                     record.ca_tag_id.name) + ' risulta revocato'))
+            
+    @api.onchange('ca_persona_id')
+    def _compute_available_tags(self):
+        for record in self:
+            record.available_tags_ids = self.env['ca.tag'].search([
+                        ('in_use', '=', False),
+                        ('revoked', '=', False)
+                    ])
+            if record.ca_persona_id:
+                if record.ca_persona_id.is_external:
+                    record.available_tags_ids = self.env['ca.tag'].search([
+                        ('in_use', '=', False),
+                        ('revoked', '=', False),
+                        ('temp', '=', True)
+                    ])
 
-    def check_update_record_by_date_valididty(
-            self, record):
-        if record.ca_tag_id:
-            record.ca_tag_id.in_use = False
-            if record.date_start and record.date_end:
-                today = fields.Date.today()
-                if record.date_start <= today and record.date_end >= today:
-                    record.ca_tag_id.in_use = True
+    def check_update_record_by_date_valididty(self):
+        today = fields.Date.today()
+        for tag in self.env['ca.tag'].search([]):
+            tag_persona = self.env['ca.tag_persona'].search([('ca_tag_id', '=', tag.id)])
+            if tag_persona:
+                for tp in tag_persona:
+                    if tp.date_start <= today and tp.date_end >= today:
+                        tag.in_use = True
+                    else:
+                        tag.in_use = False
+            else:
+                tag.in_use = False
 
+    @api.model_create_multi
     def create(self, vals):
-        if vals.get('ca_tag_id'):
-            ca_tag_id = self.env['ca.tag'].browse(vals.get('ca_tag_id'))
-            if ca_tag_id.temp:
-                vals['temp'] = ca_tag_id.temp
+        for val in vals:
+            if val.get('ca_tag_id'):
+                ca_tag_id = self.env['ca.tag'].browse(val.get('ca_tag_id'))
+                if ca_tag_id.temp:
+                    val['temp'] = ca_tag_id.temp
         res = super(CaTagPersona, self).create(vals)
-        for record in res:
-            self.check_update_record_by_date_valididty(record)
+        self.check_update_record_by_date_valididty()
         return res
 
     def write(self, vals_list):
@@ -80,18 +108,19 @@ class CaTagPersona(models.Model):
             if self.ca_tag_id.temp:
                 vals_list['temp'] = self.ca_tag_id.temp
         res = super(CaTagPersona, self).write(vals_list)
+        self.check_update_record_by_date_valididty()
+        return res
+    
+    def unlink(self):
         for record in self:
-            self.check_update_record_by_date_valididty(record)
+            if record.ca_tag_id:
+                record.ca_tag_id.in_use = False
+        res = super(CaTagPersona, self).unlink()
+        self.check_update_record_by_date_valididty()
         return res
 
     def _cron_check_validity_tag(self):
-        ca_tag_persona_ids = self.env['ca.tag_persona'].search([])
-        if ca_tag_persona_ids:
-            for tag in ca_tag_persona_ids:
-                self.check_update_record_by_date_valididty(tag)
-        else:
-            for tag in self.env['ca.tag'].search([]):
-                tag.in_use = False
+        self.check_update_record_by_date_valididty()
 
     def get_token(self):
         characters = string.ascii_letters + string.digits

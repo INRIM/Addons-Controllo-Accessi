@@ -53,17 +53,26 @@
                         <field name="tipo_documento_id"/>
                         <field name="validity_start_date"/>
                         <field name="validity_end_date"/>
-                        <field name="image_ids">
+                        <field name="issued_by"/>
+                        <field name="document_code"/>
+                        <field name="tipo_documento_name" invisible="1"/>
+                        <field 
+                            name="image_ids" 
+                            context="{
+                                'default_ca_tipo_documento_id': tipo_documento_id,
+                                'default_name': tipo_documento_name,
+                                'default_description': tipo_documento_name
+                            }"
+                        >
                             <tree editable="bottom">
                                 <field name="name"/>
                                 <field name="description"/>
                                 <field name="ca_tipo_documento_id"/>
                                 <field name="side"/>
-                                <field name="image"/>
+                                <field name="image" widget="binary" filename="filename"/>
+                                <field name="filename" column_invisible="1"/>
                             </tree>
                         </field>
-                        <field name="issued_by"/>
-                        <field name="document_code"/>
                         <field name="ca_stato_documento_id" force_save="1"/>
                     </group>
                 </sheet>
@@ -83,7 +92,7 @@
     </record>
 
     <record id="ca_stato_documento_action" model="ir.actions.act_window">
-        <field name="name">Stato Documenti</field>
+        <field name="name">Document Status</field>
         <field name="res_model">ca.stato_documento</field>
         <field name="view_mode">tree</field>
     </record>

@@ -60,7 +60,7 @@
     </record>
 
     <record id="ca_spazio_action" model="ir.actions.act_window">
-        <field name="name">Gestione Spazi</field>
+        <field name="name">Space Management</field>
         <field name="res_model">ca.spazio</field>
         <field name="view_mode">tree,form</field>
     </record>

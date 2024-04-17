@@ -2,7 +2,7 @@
 <odoo>
     <menuitem
         id="ca_persona_menu_root"
-        name="Partner"
+        name="Partners and Institutions"
         web_icon="inrim_anagrafiche,static/src/img/anagrafiche.png"
     />
 
@@ -16,7 +16,7 @@
 
     <menuitem
         id="ca_ente_azienda_sedi_ente_menu"
-        name="Sedi Ente"
+        name="Institution Locations"
         action="ca_ente_azienda_action"
         parent="ca_ente_azienda_menu"
         sequence="5"
@@ -25,7 +25,7 @@
 
     <menuitem
         id="ca_spazio_menu"
-        name="Gestione Spazi"
+        name="Space Management"
         action="ca_spazio_action"
         parent="ca_ente_azienda_menu"
         sequence="10"
@@ -42,7 +42,7 @@
 
     <menuitem
         id="ca_persona_tutte_menu"
-        name="Tutte"
+        name="All"
         action="ca_persona_action"
         parent="ca_persona_menu"
         sequence="5"
@@ -94,7 +94,7 @@
 
     <menuitem
         id="ca_stato_documento_menu"
-        name="Stato Documento"
+        name="Document Status"
         action="ca_stato_documento_action"
         parent="inrim_configuration_menu"
         sequence="15"
@@ -121,7 +121,7 @@
 
     <menuitem
         id="ca_stato_anag_menu"
-        name="Stati caricamento Anagrafica"
+        name="Record Loading States"
         action="ca_stato_anag_action"
         parent="inrim_configuration_menu"
         sequence="30"
@@ -148,7 +148,7 @@
 
     <menuitem
         id="ca_controllo_accessi_root"
-        name="Controllo Accessi"
+        name="Access Control"
         groups="inrim_controllo_accessi_base.ca_ca"
         web_icon="inrim_anagrafiche,static/src/img/controllo_accessi.png"
     />
@@ -163,7 +163,7 @@
 
     <menuitem
         id="ca_tag_persona_lista_associazioni_menu"
-        name="Lista associazioni"
+        name="List of associations"
         action="ca_tag_persona_action"
         parent="ca_tag_persona_menu"
         sequence="5"
@@ -180,7 +180,7 @@
 
     <menuitem
         id="ca_tag_tutti_menu"
-        name="Tutti"
+        name="All"
         action="ca_tag_action"
         parent="ca_tag_menu"
         sequence="5"
@@ -215,7 +215,7 @@
 
     <menuitem
         id="ca_categoria_richiesta_menu"
-        name="Categorie Richieste Accesso"
+        name="Categories Requests Access"
         action="ca_categoria_richiesta_action"
         parent="inrim_ca_configuration_menu"
         sequence="15"
@@ -224,7 +224,7 @@
 
     <menuitem
         id="ca_categoria_tipo_richiesta_menu"
-        name="Tipologia Richiesta Accesso"
+        name="Type of Access Request"
         action="ca_categoria_tipo_richiesta_action"
         parent="inrim_ca_configuration_menu"
         sequence="20"
