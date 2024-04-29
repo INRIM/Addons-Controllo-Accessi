@@ -6,6 +6,7 @@
         <field name="date_start" eval="datetime.today()"/>
         <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
         <field name="temp">True</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p001')"/>
     </record>
 
     <record id="ca_tag_lettore_1_tag_2" model="ca.tag_lettore">
@@ -14,6 +15,7 @@
         <field name="date_start" eval="datetime.today()"/>
         <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
         <field name="temp">True</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p001')"/>
     </record>
 
     <record id="ca_tag_lettore_1_tag_3" model="ca.tag_lettore">
@@ -22,6 +24,7 @@
         <field name="date_start" eval="datetime.today()"/>
         <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
         <field name="temp">False</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p001')"/>
     </record>
 
     <record id="ca_tag_lettore_1_tag_7" model="ca.tag_lettore">
@@ -30,6 +33,7 @@
         <field name="date_start" eval="datetime.today()"/>
         <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
         <field name="temp">True</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p001')"/>
     </record>
 
     <record id="ca_tag_lettore_1_tag_8" model="ca.tag_lettore">
@@ -38,6 +42,7 @@
         <field name="date_start" eval="datetime.today()"/>
         <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
         <field name="temp">True</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p001')"/>
     </record>
 
     <record id="ca_tag_lettore_1_tag_9" model="ca.tag_lettore">
@@ -46,6 +51,7 @@
         <field name="date_start" eval="datetime.today()"/>
         <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
         <field name="temp">True</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p001')"/>
     </record>
 
     <record id="ca_tag_lettore_2_tag_1" model="ca.tag_lettore">
@@ -54,6 +60,7 @@
         <field name="date_start" eval="datetime.today()"/>
         <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
         <field name="temp">True</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p002')"/>
     </record>
 
     <record id="ca_tag_lettore_2_tag_2" model="ca.tag_lettore">
@@ -62,6 +69,7 @@
         <field name="date_start" eval="datetime.today()"/>
         <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
         <field name="temp">True</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p002')"/>
     </record>
 
     <record id="ca_tag_lettore_2_tag_3" model="ca.tag_lettore">
@@ -70,6 +78,7 @@
         <field name="date_start" eval="datetime.today()"/>
         <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
         <field name="temp">False</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p002')"/>
     </record>
 
     <record id="ca_tag_lettore_2_tag_7" model="ca.tag_lettore">
@@ -78,6 +87,7 @@
         <field name="date_start" eval="datetime.today()"/>
         <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
         <field name="temp">True</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p002')"/>
     </record>
 
     <record id="ca_tag_lettore_2_tag_8" model="ca.tag_lettore">
@@ -86,6 +96,7 @@
         <field name="date_start" eval="datetime.today()"/>
         <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
         <field name="temp">True</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p002')"/>
     </record>
 
     <record id="ca_tag_lettore_2_tag_9" model="ca.tag_lettore">
@@ -94,5 +105,6 @@
         <field name="date_start" eval="datetime.today()"/>
         <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
         <field name="temp">True</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p002')"/>
     </record>
 </odoo>

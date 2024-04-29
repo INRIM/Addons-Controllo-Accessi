@@ -273,6 +273,7 @@ class TestInrim(TestCommon):
             'ca.richiesta_accesso_persona'
         ].create({
             'anag_tipologie_istanze_id': self.anag_tipologie_istanze_1.id,
+            'ca_persona_id': self.persona_2.id,
             'act_application_code': 'Richiesta Accesso Persona',
             'date_start': (date.today() - relativedelta(months=1)),
             'date_end': date.today() + relativedelta(days=5),

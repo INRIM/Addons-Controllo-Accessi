@@ -8,13 +8,13 @@ class CaSettoreEnte(models.Model):
 
     name = fields.Char(required=True)
     abbreviation = fields.Char(compute="_compute_abbreviation", store=True)
-    ca_persona_id = fields.Many2one('ca.persona', string="Referent")
+    ca_persona_id = fields.Many2one('ca.persona', string="Referent", required=True)
     description = fields.Text()
     cod_ref = fields.Char(string="CodRef")
     ca_ente_azienda_id = fields.Many2one('ca.ente_azienda', string="Position", required=True)
     date_start = fields.Date()
     date_end = fields.Date()
-    type_ids = fields.Many2many('ca.tipo_persona', compute="_compute_type_ids")
+    type_ids = fields.Many2many('ca.tipo_persona', default=lambda self:self.default_type_ids())
     tipo_ente_azienda_ids = fields.Many2many('ca.tipo_ente_azienda', 
                         compute="_compute_tipo_ente_azienda_ids")
     
@@ -41,17 +41,22 @@ class CaSettoreEnte(models.Model):
                 words = record.name.split()
                 record.abbreviation = ''.join([word[0] for word in words if word[0].isupper()])
 
-    def _compute_type_ids(self):
-        for record in self:
+    def default_type_ids(self):
+        type_ids = [(6, 0, [
+            self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_ti').id,
+            self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_td').id
+        ])]
+        return type_ids
+
+    @api.model_create_multi
+    def create(self, vals):
+        res = super(CaSettoreEnte, self).create(vals)
+        for record in res:
             record.type_ids = [(6, 0, [
                 self.env.ref('inrim_anagrafiche.tipo_persona_interno').id, 
                 self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_ti').id,
                 self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_td').id
             ])]
-
-    def create(self, vals):
-        res = super(CaSettoreEnte, self).create(vals)
-        for record in res:
             if not record.date_start:
                 record.date_start = fields.date.today()
             if not record.date_end:
@@ -62,6 +67,11 @@ class CaSettoreEnte(models.Model):
     def write(self, vals):
         res = super(CaSettoreEnte, self).write(vals)
         for record in self:
+            vals['type_ids'] = [(6, 0, [
+                self.env.ref('inrim_anagrafiche.tipo_persona_interno').id, 
+                self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_ti').id,
+                self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_td').id
+            ])]
             if not record.date_start:
                 record.date_start = fields.date.today()
             if not record.date_end:

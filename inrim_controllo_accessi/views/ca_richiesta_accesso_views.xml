@@ -31,7 +31,7 @@
         <field name="name">ca.richiesta.accesso.view.form</field>
         <field name="model">ca.richiesta_accesso</field>
         <field name="arch" type="xml">
-            <form >
+            <form>
                 <sheet>
                     <group>
                         <group>
@@ -52,12 +52,12 @@
                             <field name="type_ids" invisible="1"/>
                             <field 
                                 name="ca_persona_id" 
-                                domain="[('type_ids', '=', type_ids)]"
+                                domain="[('type_ids', 'in', type_ids)]"
                                 options="{'no_create': True}"
                             />
-                            <field name="date_start"/>
                         </group>
                         <group>
+                            <field name="date_start"/>
                             <field name="date_end"/>
                             <field name="state"/>
                             <field name="ca_anag_avanzamento_rich_id"/>
@@ -66,14 +66,24 @@
                         </group>
                     </group>
                     <separator string="Person Data Rows"/>
-                    <field name="ca_richiesta_accesso_persona_ids"/>
+                    <field 
+                        name="ca_richiesta_accesso_persona_ids"
+                        context="{
+                            'default_ca_persona_id': ca_persona_id,
+                            'default_categoria_richiesta_id': categoria_richiesta_id,
+                            'default_ca_categoria_richiesta_id': ca_categoria_richiesta_id,
+                            'default_ca_categoria_tipo_richiesta_id': ca_categoria_tipo_richiesta_id,
+                            'default_date_start': date_start,
+                            'default_date_end': date_end
+                        }"
+                    />
                 </sheet>
             </form>
         </field>
     </record>
 
     <record id="ca_richiesta_accesso_action" model="ir.actions.act_window">
-        <field name="name">Login Required</field>
+        <field name="name">Access Request</field>
         <field name="res_model">ca.richiesta_accesso</field>
         <field name="view_mode">tree,form</field>
     </record>

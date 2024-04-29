@@ -6,8 +6,8 @@ class CaAnagRegistroAccesso(models.Model):
     _description = 'Anagrafica Registro Accesso'
     _rec_name = 'ca_punto_accesso_id'
 
-    ca_punto_accesso_id = fields.Many2one('ca.punto_accesso', string="Access")
-    ca_tag_persona_id = fields.Many2one('ca.tag_persona', string="Tag")
+    ca_punto_accesso_id = fields.Many2one('ca.punto_accesso', string="Access", required=True)
+    ca_tag_persona_id = fields.Many2one('ca.tag_persona', string="Tag", required=True)
     person_lastname = fields.Char(related="ca_tag_persona_id.ca_persona_id.lastname", string="Person Lastname")
     person_name = fields.Char(related="ca_tag_persona_id.ca_persona_id.name", string="Person Name")
     ca_ente_azienda_ids = fields.Many2many(related="ca_tag_persona_id.ca_persona_id.ca_ente_azienda_ids", string="Person Institution/Company")

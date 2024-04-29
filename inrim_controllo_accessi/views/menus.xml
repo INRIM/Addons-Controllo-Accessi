@@ -17,7 +17,7 @@
 
     <menuitem
         id="ca_richiesta_accesso_menu"
-        name="Login Required"
+        name="Access Request"
         action="ca_richiesta_accesso_action"
         groups="inrim_controllo_accessi_base.ca_base"
         parent="ca_richiesta_accesso_root_menu"

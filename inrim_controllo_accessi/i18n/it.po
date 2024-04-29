@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-08 14:05+0000\n"
-"PO-Revision-Date: 2024-04-08 14:05+0000\n"
+"POT-Creation-Date: 2024-04-24 09:35+0000\n"
+"PO-Revision-Date: 2024-04-24 09:35+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -56,6 +56,14 @@ msgstr "Punti Accesso"
 #: model:ir.ui.menu,name:inrim_controllo_accessi.ca_anag_registro_accesso_menu
 msgid "Access Register"
 msgstr "Registro Accesso"
+
+#. module: inrim_controllo_accessi
+#: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_richiesta_accesso_action
+#: model:ir.ui.menu,name:inrim_controllo_accessi.ca_richiesta_accesso_menu
+#: model:ir.ui.menu,name:inrim_controllo_accessi.ca_richiesta_accesso_root
+#: model:ir.ui.menu,name:inrim_controllo_accessi.ca_richiesta_accesso_root_menu
+msgid "Access Request"
+msgstr "Richiesto Accesso"
 
 #. module: inrim_controllo_accessi
 #. odoo-python
@@ -329,6 +337,19 @@ msgid "Created on"
 msgstr ""
 
 #. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/models/ca_anag_servizi.py:0
+#: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
+#: code:addons/inrim_controllo_accessi/models/ca_richiesta_accesso.py:0
+#: code:addons/inrim_controllo_accessi/models/ca_richiesta_accesso_persona.py:0
+#: code:addons/inrim_controllo_accessi/models/ca_richiesta_servizi_persona.py:0
+#: code:addons/inrim_controllo_accessi/models/ca_settore_ente.py:0
+#: code:addons/inrim_controllo_accessi/models/ca_tag_lettore.py:0
+#, python-format
+msgid "Data fine deve essere maggiore della data di inizio"
+msgstr ""
+
+#. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__date
 msgid "Date"
 msgstr "Data"
@@ -420,8 +441,7 @@ msgid "Display Name"
 msgstr ""
 
 #. module: inrim_controllo_accessi
-#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_kanban
-#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_tree
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
 msgid "Elabora Persone Abilitate"
 msgstr ""
 
@@ -697,12 +717,6 @@ msgid "Log Integrazione Lettori"
 msgstr ""
 
 #. module: inrim_controllo_accessi
-#: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_richiesta_accesso_action
-#: model:ir.ui.menu,name:inrim_controllo_accessi.ca_richiesta_accesso_menu
-msgid "Login Required"
-msgstr "Richiesto Accesso"
-
-#. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_sposta_punto_accesso_view_form
 msgid "Move"
 msgstr "Sposta"
@@ -930,10 +944,8 @@ msgstr "Tipo Richiesta"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model,name:inrim_controllo_accessi.model_ca_richiesta_accesso
-#: model:ir.ui.menu,name:inrim_controllo_accessi.ca_richiesta_accesso_root
-#: model:ir.ui.menu,name:inrim_controllo_accessi.ca_richiesta_accesso_root_menu
-msgid "Access Request"
-msgstr "Richiesta Accesso"
+msgid "Richiesta Accesso"
+msgstr ""
 
 #. module: inrim_controllo_accessi
 #: model:ir.model,name:inrim_controllo_accessi.model_ca_richiesta_accesso_persona
@@ -1098,6 +1110,11 @@ msgstr "Tipo"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__typology
 msgid "Typology"
 msgstr "Tipologia"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_richiesta_accesso_persona_view_form
+msgid "Update Request Status"
+msgstr "Aggiorna Stato Richiesta"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_anag_avanzamento_rich__state__valid

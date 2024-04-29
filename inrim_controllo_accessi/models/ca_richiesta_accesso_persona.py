@@ -11,8 +11,8 @@ class CaRichiestaAccessoPersona(models.Model):
 
     token = fields.Char(required=True, readonly=True, copy=False,
                         default=lambda self:self.get_token())
-    ca_persona_id = fields.Many2one('ca.persona', string="Referent")
-    type_ids = fields.Many2many('ca.tipo_persona', compute="_compute_type_ids")
+    ca_persona_id = fields.Many2one('ca.persona', string="Referent", required=True)
+    type_ids = fields.Many2many('ca.tipo_persona', default=lambda self:self.default_type_ids())
     persona_id = fields.Many2one('ca.persona')
     freshman = fields.Char(related='persona_id.freshman')
     external_freshman = fields.Char()
@@ -75,13 +75,33 @@ class CaRichiestaAccessoPersona(models.Model):
             ):
                 record.external_companies = True
 
-    def _compute_type_ids(self):
-        for record in self:
+    def default_type_ids(self):
+        type_ids = [(6, 0, [
+            self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_ti').id,
+            self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_td').id
+        ])]
+        return type_ids
+    
+    @api.model_create_multi
+    def create(self, vals):
+        res = super(CaRichiestaAccessoPersona, self).create(vals)
+        for record in res:
             record.type_ids = [(6, 0, [
                 self.env.ref('inrim_anagrafiche.tipo_persona_interno').id, 
                 self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_ti').id,
                 self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_td').id
             ])]
+        return res
+    
+    def write(self, vals_list):
+        res = super(CaRichiestaAccessoPersona, self).write(vals_list)
+        for record in self:
+            vals_list['type_ids'] = [(6, 0, [
+                self.env.ref('inrim_anagrafiche.tipo_persona_interno').id, 
+                self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_ti').id,
+                self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_td').id
+            ])]
+        return res
 
     def aggiorna_stato_richiesta(self, stato=None):
         for record in self:

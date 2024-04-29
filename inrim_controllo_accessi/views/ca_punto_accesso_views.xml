@@ -32,12 +32,6 @@
                 <field name="enable_sync"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
-                <button
-                    name="elabora_persone_abilitate_view"
-                    string="Elabora Persone Abilitate"
-                    type="object"
-                    class="btn-primary"
-                />
             </tree>
         </field>
     </record>
@@ -88,6 +82,12 @@
                         type="object"
                         class="btn-danger"
                     />
+                    <button
+                    name="elabora_persone_abilitate_view"
+                        string="Elabora Persone Abilitate"
+                        type="object"
+                        class="btn-primary"
+                    />
                 </header>
                 <sheet>
                     <group>
@@ -99,7 +99,7 @@
                             <field name="ca_lettore_id" options="{'no_create': True}" readonly="enable_sync"/>
                             <field name="system_error"/>
                             <field name="direction"/>
-                            <field name="typology" readonly="True"/>
+                            <field name="typology"/>
                             <field name="type_ids" invisible="True"/>
                         </group>
                         <group>
@@ -109,11 +109,28 @@
                             <field name="events_to_read_num" readonly="True"/>
                             <field name="events_read_num" readonly="True"/>
                             <field name="enable_sync" readonly="True"/>
-                            <field name="date_start" readonly="True"/>
-                            <field name="date_end" readonly="True"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
                         </group>
                         <separator string="Tags"/>
-                        <field name="ca_tag_lettore_ids"/>
+                        <field name="ca_tag_lettore_ids" context="{'default_ca_lettore_id': ca_lettore_id}" readonly="not ca_lettore_id">
+                            <form>
+                                <group>
+                                    <group>
+                                        <field name="name" readonly="True"/>
+                                        <field name="ca_lettore_id" options="{'no_create': True}" readonly="1"/>
+                                        <field name="ca_tag_id" options="{'no_create': True}"/>
+                                        <field name="tag_in_use"/>
+                                    </group>
+                                    <group>
+                                        <field name="date_start" readonly="False"/>
+                                        <field name="date_end" readonly="False"/>
+                                        <field name="temp"/>
+                                        <field name="expired"/>
+                                    </group>
+                                </group>
+                            </form>
+                        </field>
                     </group>
                 </sheet>
             </form>
@@ -158,12 +175,6 @@
                             <span name="date_end">
                                 Date End: <field name="date_end"/><br/>
                             </span>
-                            <button
-                                name="elabora_persone_abilitate_view"
-                                string="Elabora Persone Abilitate"
-                                type="object"
-                                class="btn-primary"
-                            />
                         </div>
                     </t>
                 </templates>
