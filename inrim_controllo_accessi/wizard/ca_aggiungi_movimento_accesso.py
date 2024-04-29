@@ -11,7 +11,7 @@ class CaAggiungiMovimentoAccesso(models.TransientModel):
     ca_tag_persona_ids = fields.Many2many('ca.tag_persona', 
                                         compute="_compute_ca_tag_persona_ids",
                                         store=True)
-    datetime = fields.Datetime(required=True)
+    datetime = fields.Datetime(required=True, default=lambda self:fields.datetime.now())
     tipo_ente_azienda_ids = fields.Many2many('ca.tipo_ente_azienda',
                     default=lambda self: self.default_tipo_ente_azienda_ids())
 

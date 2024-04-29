@@ -28,6 +28,13 @@
                             <field name="name" readonly="True"/>
                             <field name="ca_lettore_id" options="{'no_create': True}"/>
                             <field name="ca_tag_id" options="{'no_create': True}"/>
+                            <field 
+                                name="ca_punto_accesso_id" 
+                                options="{'no_create': True}" 
+                                required="True"
+                                domain="[('ca_lettore_id', '=', ca_lettore_id)]"
+                                readonly="not ca_lettore_id"
+                            />
                             <field name="tag_in_use"/>
                         </group>
                         <group>

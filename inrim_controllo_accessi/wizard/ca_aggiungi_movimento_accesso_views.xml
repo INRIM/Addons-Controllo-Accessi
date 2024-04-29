@@ -18,6 +18,7 @@
                         <field 
                             name="ca_punto_accesso"
                             invisible="not ca_ente_azienda_id"
+                            options="{'no_create': True}"
                             domain="[
                                 ('typology', '=', 'stamping'),
                                 ('enable_sync', '=', True),
@@ -27,6 +28,7 @@
                         <field 
                             name="ca_punto_accesso"
                             invisible="ca_ente_azienda_id"
+                            options="{'no_create': True}"
                             domain="[
                                 ('typology', '=', 'stamping'),
                                 ('enable_sync', '=', True)

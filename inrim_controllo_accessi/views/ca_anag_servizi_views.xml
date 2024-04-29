@@ -32,7 +32,19 @@
                         <group>
                             <field name="name"/>
                             <field name="ca_settore_ente_id"/>
-                            <field name="ca_persona_id" options="{'no_create': True}"/>
+                            <field name="ca_settore_persona_id" invisible="1"/>
+                            <field 
+                                name="ca_persona_id"
+                                options="{'no_create': True}"
+                                domain="[('type_ids', 'in', type_ids)]"
+                                invisible="ca_settore_persona_id"
+                            />
+                            <field 
+                                name="ca_persona_id"
+                                options="{'no_create': True}"
+                                domain="[('id', '=', ca_settore_persona_id)]"
+                                invisible="not ca_settore_persona_id"
+                            />
                             <field name="type_ids" invisible="True"/>
                             <field name="virtual"/>
                             <field name="tipo_ente_azienda_ids" invisible="True"/>

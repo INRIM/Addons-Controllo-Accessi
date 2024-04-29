@@ -13,8 +13,8 @@ class CaRichiestaAccesso(models.Model):
     ca_categoria_richiesta_id = fields.Many2one('ca.categoria_richiesta', string="Category Activity")
     ca_categoria_tipo_richiesta_id = fields.Many2one('ca.categoria_tipo_richiesta', string="Activity Type")
     categoria_richiesta_id = fields.Many2one('ca.categoria_richiesta', string="Activity Title")
-    ca_persona_id = fields.Many2one('ca.persona', string="Referent")
-    type_ids = fields.Many2many('ca.tipo_persona', compute="_compute_type_ids")
+    ca_persona_id = fields.Many2one('ca.persona', string="Referent", required=True)
+    type_ids = fields.Many2many('ca.tipo_persona', default=lambda self:self.default_type_ids())
     date_start = fields.Date(required=True)
     date_end = fields.Date(required=True)
     state = fields.Selection([
@@ -88,15 +88,34 @@ class CaRichiestaAccesso(models.Model):
                     break
             else:
                 raise UserError(_('Errore utente non abilitato'))
+            
+    def default_type_ids(self):
+        type_ids = [(6, 0, [
+            self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_ti').id,
+            self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_td').id
+        ])]
+        return type_ids
     
-
-    def _compute_type_ids(self):
-        for record in self:
+    @api.model_create_multi
+    def create(self, vals):
+        res = super(CaRichiestaAccesso, self).create(vals)
+        for record in res:
             record.type_ids = [(6, 0, [
                 self.env.ref('inrim_anagrafiche.tipo_persona_interno').id, 
                 self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_ti').id,
                 self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_td').id
             ])]
+        return res
+    
+    def write(self, vals_list):
+        res = super(CaRichiestaAccesso, self).write(vals_list)
+        for record in self:
+            vals_list['type_ids'] = [(6, 0, [
+                self.env.ref('inrim_anagrafiche.tipo_persona_interno').id, 
+                self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_ti').id,
+                self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_td').id
+            ])]
+        return res
 
     def get_token(self):
         characters = string.ascii_letters + string.digits

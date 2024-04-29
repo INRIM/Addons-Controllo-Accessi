@@ -8,9 +8,10 @@ class CaAnagServizi(models.Model):
 
     name = fields.Char(required=True)
     ca_settore_ente_id = fields.Many2one('ca.settore_ente')
+    ca_settore_persona_id = fields.Many2one(related="ca_settore_ente_id.ca_persona_id")
     settore_ente_name = fields.Char(related='ca_settore_ente_id.name', store=True)
-    ca_persona_id = fields.Many2one('ca.persona', string="Referent", domain="[('type_ids', '=', type_ids)]")
-    type_ids = fields.Many2many('ca.tipo_persona', compute="_compute_type_ids")
+    ca_persona_id = fields.Many2one('ca.persona', string="Referent", required=True)
+    type_ids = fields.Many2many('ca.tipo_persona', default=lambda self:self.default_type_ids())
     virtual = fields.Boolean()
     ca_ente_azienda_id = fields.Many2one('ca.ente_azienda', string="Position")
     generic = fields.Boolean()
@@ -56,6 +57,12 @@ class CaAnagServizi(models.Model):
             if anag_servizi_id:
                 raise UserError(_('Esiste già un altro servizio con stesso nome e settore'))
             
+    @api.onchange('ca_settore_ente_id')
+    def _onchange_ca_settore_ente_id(self):
+        for record in self:
+            if record.ca_settore_ente_id:
+                record.ca_persona_id = record.ca_settore_ente_id.ca_persona_id
+    
     def get_by_codref(self, cod_ref):
         anag_servizi_id = self.env['ca.anag_servizi'].search([
             ('cod_ref', '=', cod_ref)
@@ -82,17 +89,22 @@ class CaAnagServizi(models.Model):
             if record.name and record.ca_settore_ente_id:
                 record.cod_ref = (record.ca_settore_ente_id.name + '_' + record.name).lower()
 
-    def _compute_type_ids(self):
-        for record in self:
+    def default_type_ids(self):
+        type_ids = [(6, 0, [
+            self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_ti').id,
+            self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_td').id
+        ])]
+        return type_ids
+
+    @api.model_create_multi
+    def create(self, vals):
+        res = super(CaAnagServizi, self).create(vals)
+        for record in res:
             record.type_ids = [(6, 0, [
                 self.env.ref('inrim_anagrafiche.tipo_persona_interno').id, 
                 self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_ti').id,
                 self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_td').id
             ])]
-
-    def create(self, vals):
-        res = super(CaAnagServizi, self).create(vals)
-        for record in res:
             if not record.date_start:
                 record.date_start = fields.date.today()
             if not record.date_end:
@@ -103,6 +115,11 @@ class CaAnagServizi(models.Model):
     def write(self, vals):
         res = super(CaAnagServizi, self).write(vals)
         for record in self:
+            vals['type_ids']= [(6, 0, [
+                self.env.ref('inrim_anagrafiche.tipo_persona_interno').id, 
+                self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_ti').id,
+                self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_td').id
+            ])]
             if not record.date_start:
                 record.date_start = fields.date.today()
             if not record.date_end:
