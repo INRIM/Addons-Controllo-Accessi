@@ -33,7 +33,11 @@
                             <field name="type_ids" invisible="True"/>
                             <field name="name"/>
                             <field name="abbreviation"/>
-                            <field name="ca_persona_id" options="{'no_create': True}" domain="[('type_ids', 'in', type_ids)]"/>
+                            <field 
+                                name="ca_persona_id" 
+                                options="{'no_create': True}" 
+                                domain="[('type_ids', 'in', type_ids)]"
+                            />
                             <field name="description"/>
                         </group>
                         <group>

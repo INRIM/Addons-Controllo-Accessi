@@ -36,6 +36,13 @@
         <field name="model">ca.richiesta_accesso_persona</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button
+                        name="aggiorna_stato_richiesta"
+                        type="object"
+                        string="Update Request Status"
+                    />
+                </header>
                 <sheet>
                     <group>
                         <group>

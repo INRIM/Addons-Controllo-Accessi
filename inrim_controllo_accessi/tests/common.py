@@ -81,6 +81,7 @@ class TestCommon(TransactionCase):
             'ca.richiesta_accesso_persona'
         ].create({
             'anag_tipologie_istanze_id': cls.anag_tipologie_istanze_1.id,
+            'ca_persona_id': cls.persona_2.id,
             'act_application_code': 'Richiesta Accesso Persona',
             'date_start': date.today() - relativedelta(months=1),
             'date_end': date.today() + relativedelta(days=3),
@@ -90,10 +91,12 @@ class TestCommon(TransactionCase):
         cls.richiesta_accesso_1 = cls.env['ca.richiesta_accesso'].create({
             'date_start': datetime.now() - relativedelta(months=1),
             'date_end': datetime.now() + relativedelta(days=3),
+            'ca_persona_id': cls.persona_2.id,
             'ca_richiesta_accesso_persona_ids': cls.env[
                 'ca.richiesta_accesso_persona'
             ].create({
                 'anag_tipologie_istanze_id': cls.anag_tipologie_istanze_1.id,
+                'ca_persona_id': cls.persona_2.id,
                 'act_application_code': 'Richiesta Accesso Persona',
                 'date_start': datetime.now() - relativedelta(months=1),
                 'date_end': datetime.now() + relativedelta(days=3)

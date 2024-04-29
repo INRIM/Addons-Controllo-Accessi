@@ -23,6 +23,12 @@ class CaTagLettore(models.Model):
                 if record.date_end <= record.date_start:
                     raise UserError(
                         _('Data fine deve essere maggiore della data di inizio'))
+                
+    @api.onchange('ca_lettore_id')
+    def _onchange_ca_lettore_id(self):
+        for record in self:
+            if record.ca_punto_accesso_id.ca_lettore_id != record.ca_lettore_id:
+                record.ca_punto_accesso_id = False
 
     @api.onchange('date_end')
     def _compute_expired(self):

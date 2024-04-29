@@ -20,8 +20,6 @@
                 decoration-success="present == 'yes'"
             >
                 <field name="display_name"/>
-                <field name="city"/>
-                <field name="country_id"/>
                 <field name="present"/>
                 <field name="token"/>
             </tree>
@@ -46,19 +44,6 @@
                                 <field name="lastname" readonly="True"/>
                                 <field name="parent_id" widget="res_partner_many2one" placeholder="Company Name..." readonly="1"/>
                                 <field name="associated_user_id" options="{'no_create': True}" readonly="True"/>
-                                <span class="o_form_label o_td_label" name="address_name">
-                                    <b>Address</b>
-                                </span>
-                                <div class="o_address_format">
-                                    <field name="street" placeholder="Street..." class="o_address_street" readonly="True"/>
-                                    <field name="street2" placeholder="Street 2..." class="o_address_street" readonly="True"/>
-                                    <field name="city" placeholder="City" class="o_address_city" readonly="True"/>
-                                    <field name="state_id" class="o_address_state" placeholder="State" readonly="True"/>
-                                    <field name="zip" placeholder="ZIP" class="o_address_zip" readonly="True"/>
-                                    <div name="partner_address_country" class="d-flex justify-content-between" readonly="True">
-                                        <field name="country_id" placeholder="Country" class="o_address_country" readonly="True"/>
-                                    </div>
-                                </div>
                                 <field name="fiscalcode" readonly="True"/>
                                 <field name="vat" readonly="True"/>
                                 <field name="type_ids" widget="many2many_tags" options="{'no_create': True}" readonly="True"/>
@@ -115,6 +100,34 @@
                             </page>
                             <page name="identity_documents" string="List of Identity Documents" invisible="not is_external" groups="inrim_controllo_accessi_base.ca_gdpr">
                                 <field name="ca_documento_ids" readonly="True">
+                                    <form>
+                                        <group>
+                                            <field name="tipo_documento_id"/>
+                                            <field name="validity_start_date"/>
+                                            <field name="validity_end_date"/>
+                                            <field name="issued_by"/>
+                                            <field name="document_code"/>
+                                            <field name="tipo_documento_name" invisible="1"/>
+                                            <field 
+                                                name="image_ids" 
+                                                context="{
+                                                    'default_ca_tipo_documento_id': tipo_documento_id,
+                                                    'default_name': tipo_documento_name,
+                                                    'default_description': tipo_documento_name
+                                                }"
+                                            >
+                                                <tree editable="bottom">
+                                                    <field name="name"/>
+                                                    <field name="description"/>
+                                                    <field name="ca_tipo_documento_id"/>
+                                                    <field name="side"/>
+                                                    <field name="image" widget="binary" filename="filename"/>
+                                                    <field name="filename" column_invisible="1"/>
+                                                </tree>
+                                            </field>
+                                            <field name="ca_stato_documento_id" force_save="1"/>
+                                        </group>
+                                    </form>
                                     <tree>
                                         <field name="tipo_documento_id"/>
                                         <field name="validity_start_date"/>
@@ -191,19 +204,6 @@
                                 <field name="lastname"/>
                                 <field name="parent_id" widget="res_partner_many2one" placeholder="Company Name..." readonly="1"/>
                                 <field name="associated_user_id" options="{'no_create': True}"/>
-                                <span class="o_form_label o_td_label" name="address_name">
-                                    <b>Address</b>
-                                </span>
-                                <div class="o_address_format">
-                                    <field name="street" placeholder="Street..." class="o_address_street"/>
-                                    <field name="street2" placeholder="Street 2..." class="o_address_street"/>
-                                    <field name="city" placeholder="City" class="o_address_city"/>
-                                    <field name="state_id" class="o_address_state" placeholder="State"/>
-                                    <field name="zip" placeholder="ZIP" class="o_address_zip"/>
-                                    <div name="partner_address_country" class="d-flex justify-content-between">
-                                        <field name="country_id" placeholder="Country" class="o_address_country"/>
-                                    </div>
-                                </div>
                                 <field name="fiscalcode" required="True"/>
                                 <field name="vat"/>
                                 <field name="type_ids" widget="many2many_tags" options="{'no_create': True}"/>
@@ -261,6 +261,34 @@
                             </page>
                             <page name="identity_documents" string="List of Identity Documents" invisible="not is_external" groups="inrim_controllo_accessi_base.ca_gdpr">
                                 <field name="ca_documento_ids">
+                                    <form>
+                                        <group>
+                                            <field name="tipo_documento_id"/>
+                                            <field name="validity_start_date"/>
+                                            <field name="validity_end_date"/>
+                                            <field name="issued_by"/>
+                                            <field name="document_code"/>
+                                            <field name="tipo_documento_name" invisible="1"/>
+                                            <field 
+                                                name="image_ids" 
+                                                context="{
+                                                    'default_ca_tipo_documento_id': tipo_documento_id,
+                                                    'default_name': tipo_documento_name,
+                                                    'default_description': tipo_documento_name
+                                                }"
+                                            >
+                                                <tree editable="bottom">
+                                                    <field name="name"/>
+                                                    <field name="description"/>
+                                                    <field name="ca_tipo_documento_id"/>
+                                                    <field name="side"/>
+                                                    <field name="image" widget="binary" filename="filename"/>
+                                                    <field name="filename" column_invisible="1"/>
+                                                </tree>
+                                            </field>
+                                            <field name="ca_stato_documento_id" force_save="1"/>
+                                        </group>
+                                    </form>
                                     <tree>
                                         <field name="tipo_documento_id"/>
                                         <field name="validity_start_date"/>
