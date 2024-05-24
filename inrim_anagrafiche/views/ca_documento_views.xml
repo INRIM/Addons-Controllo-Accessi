@@ -49,7 +49,7 @@
             <form>
                 <sheet>
                     <group>
-                        <field name="ca_persona_id"/>
+                        <field name="ca_persona_id" required="True"/>
                         <field name="tipo_documento_id"/>
                         <field name="validity_start_date"/>
                         <field name="validity_end_date"/>

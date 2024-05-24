@@ -1,6 +1,6 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
-from datetime import timedelta
+from datetime import datetime
 
 class CaPuntoAccesso(models.Model):
     _name = 'ca.punto_accesso'
@@ -28,7 +28,7 @@ class CaPuntoAccesso(models.Model):
         help="Enable/Disable remote player synchronization"
     )
     date_start = fields.Date(required=True)
-    date_end = fields.Date(required=True)
+    date_end = fields.Date(required=True, default=lambda self:self.default_date_end())
     ca_tag_lettore_ids = fields.One2many('ca.tag_lettore', 'ca_punto_accesso_id')
     active = fields.Boolean(default=True)
 
@@ -39,6 +39,11 @@ class CaPuntoAccesso(models.Model):
                 if record.date_end <= record.date_start:
                     raise UserError(
                         _('Data fine deve essere maggiore della data di inizio'))
+    
+    def default_date_end(self):
+        date_end = self.env['ir.config_parameter'].sudo().get_param('date_end.forever')
+        date_end = datetime.strptime(date_end, '%Y-%m-%d %H:%M:%S').date()
+        return date_end
 
     def accessi_rifiutati_oggi(self):
         registro_accesso_ids = self.env['ca.anag_registro_accesso'].search([
@@ -85,7 +90,12 @@ class CaPuntoAccesso(models.Model):
             'view_type': 'form',
             'view_mode': 'tree,form',
             'res_model': 'ca.punto_accesso_persona',
-            'domain': [('date', '=', fields.date.today())],
+            'domain': [
+                ('date', '=', fields.date.today()),
+                ('ca_tag_lettore_id', 'in', self.ca_tag_lettore_ids.ids),
+                ('state', '=', 'active')
+                
+            ],
         }
 
     def _compute_type_ids(self):

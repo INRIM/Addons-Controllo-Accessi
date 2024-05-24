@@ -89,7 +89,16 @@
                         </group>
                     </group>
                     <separator string="Services Rows"/>
-                    <field name="ca_richieta_servizi_persona_ids"/>
+                    <field 
+                        name="ca_richiesta_servizi_persona_ids"
+                        context="{
+                            'default_ca_categoria_richiesta_id': ca_categoria_richiesta_id,
+                            'default_ca_categoria_tipo_richiesta_id': ca_categoria_tipo_richiesta_id,
+                            'default_act_application_code': act_application_code,
+                            'default_date_start': date_start,
+                            'default_date_end': date_end
+                        }"
+                    />
                 </sheet>
             </form>
         </field>

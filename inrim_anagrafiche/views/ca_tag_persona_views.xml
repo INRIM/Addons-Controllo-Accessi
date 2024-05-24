@@ -15,8 +15,8 @@
         <field name="name">ca.tag.persona.view.tree</field>
         <field name="model">ca.tag_persona</field>
         <field name="arch" type="xml">
-            <tree editable="bottom">
-                <field name="token"/>
+            <tree>
+                <field name="token" column_invisible="1"/>
                 <field name="ca_persona_id" options="{'no_create': True}"/>
                 <field name="available_tags_ids" column_invisible="1"/>
                 <field 
@@ -39,9 +39,14 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="token"/>
+                            <field name="token" invisible="1"/>
                             <field name="ca_persona_id" options="{'no_create': True}"/>
-                            <field name="ca_tag_id" options="{'no_create': True}"/>
+                            <field name="available_tags_ids" invisible="1"/>
+                            <field 
+                                name="ca_tag_id" 
+                                options="{'no_create': True}" 
+                                domain="[('id', 'in', available_tags_ids)]"
+                            />
                         </group>
                         <group>
                             <field name="date_start"/>
