@@ -5,6 +5,7 @@
     'depends': ['inrim_anagrafiche'],
     'data': [
         'security/ir.model.access.csv',
+        'security/security.xml',
         'data/ir_config_parameter_data.xml',
         'data/ca_anag_avanzamento_rich_data.xml',
         'data/ca_anag_tipologie_istanze_data.xml',

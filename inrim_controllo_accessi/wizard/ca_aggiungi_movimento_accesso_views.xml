@@ -37,9 +37,11 @@
                         <field 
                             name="ca_tag_persona_id"
                             domain="[('id', 'in', ca_tag_persona_ids)]"
+                            options="{'no_create': True}"
                             invisible="not ca_punto_accesso"
                         />
                         <field name="ca_tag_persona_ids" invisible="True"/>
+                        <field name="type"/>
                         <field name="datetime"/>
                     </group>
                 </sheet>

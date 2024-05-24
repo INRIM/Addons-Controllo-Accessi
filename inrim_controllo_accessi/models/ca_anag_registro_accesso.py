@@ -21,10 +21,15 @@ class CaAnagRegistroAccesso(models.Model):
     direction = fields.Selection(related="ca_punto_accesso_id.ca_lettore_id.direction")
     access_allowed = fields.Boolean()
     system_error = fields.Boolean(related="ca_punto_accesso_id.ca_lettore_id.system_error")
+    type = fields.Selection([
+        ('manual', 'Manual'),
+        ('auto', 'Auto')
+    ])
+    active = fields.Boolean(default=True)
 
     def aggiungi_riga_accesso(
         self, ca_punto_accesso_id, 
-        ca_tag_persona_id, datetime_event
+        ca_tag_persona_id, datetime_event, type
     ):
         if (
             self.env.user.has_group('inrim_controllo_accessi_base.ca_ru') or
@@ -36,7 +41,8 @@ class CaAnagRegistroAccesso(models.Model):
                     return self.env['ca.anag_registro_accesso'].create({
                         'ca_punto_accesso_id': ca_punto_accesso_id.id,
                         'ca_tag_persona_id': ca_tag_persona_id.id,
-                        'datetime_event': datetime_event
+                        'datetime_event': datetime_event,
+                        'type': type
                     })
                 else:
                     raise UserError(_('Errore punto accesso non attivo'))

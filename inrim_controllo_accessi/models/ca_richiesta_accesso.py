@@ -31,7 +31,11 @@ class CaRichiestaAccesso(models.Model):
                                                   string="Advancement")
     expiring = fields.Boolean(readonly=True)
     note = fields.Html()
-    ca_richiesta_accesso_persona_ids = fields.One2many('ca.richiesta_accesso_persona', 'ca_richiesta_accesso_id')
+    ca_richiesta_accesso_persona_ids = fields.One2many(
+        'ca.richiesta_accesso_persona', 'ca_richiesta_accesso_id')
+    anag_tipologie_istanze_id = fields.Many2one('ca.anag_tipologie_istanze',
+                                                string="Application Act")
+    act_application_code = fields.Text()
 
     @api.constrains('date_start', 'date_end')
     def _check_date(self):

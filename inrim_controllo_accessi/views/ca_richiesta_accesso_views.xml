@@ -21,6 +21,7 @@
                 <field name="ca_categoria_tipo_richiesta_id"/>
                 <field name="categoria_richiesta_id"/>
                 <field name="ca_persona_id"/>
+                <field name="anag_tipologie_istanze_id"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
             </tree>
@@ -35,7 +36,14 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="token"/>
+                            <field name="token" invisible="1"/>
+                            <field 
+                                name="ca_persona_id" 
+                                domain="[('type_ids', 'in', type_ids)]"
+                                options="{'no_create': True}"
+                            />
+                            <field name="date_start"/>
+                            <field name="date_end"/>
                             <field 
                                 name="ca_categoria_richiesta_id"
                                 options="{'no_create': True}"
@@ -51,18 +59,16 @@
                             />
                             <field name="type_ids" invisible="1"/>
                             <field 
-                                name="ca_persona_id" 
-                                domain="[('type_ids', 'in', type_ids)]"
+                                name="anag_tipologie_istanze_id"
                                 options="{'no_create': True}"
                             />
+                            <field name="act_application_code"/>
+                            <field name="note"/>
                         </group>
                         <group>
-                            <field name="date_start"/>
-                            <field name="date_end"/>
                             <field name="state"/>
                             <field name="ca_anag_avanzamento_rich_id"/>
                             <field name="expiring"/>
-                            <field name="note"/>
                         </group>
                     </group>
                     <separator string="Person Data Rows"/>
@@ -73,6 +79,8 @@
                             'default_categoria_richiesta_id': categoria_richiesta_id,
                             'default_ca_categoria_richiesta_id': ca_categoria_richiesta_id,
                             'default_ca_categoria_tipo_richiesta_id': ca_categoria_tipo_richiesta_id,
+                            'default_anag_tipologie_istanze_id': anag_tipologie_istanze_id,
+                            'default_act_application_code': act_application_code,
                             'default_date_start': date_start,
                             'default_date_end': date_end
                         }"

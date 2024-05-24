@@ -61,9 +61,6 @@
                                     </group>
                                 </group>
                             </page>
-                            <page name="branches" string="Branches">
-                                <field name="child_ids" nolabel="1" context="{'default_parent_id': id}" readonly="True"/>
-                            </page>
                         </notebook>
                     </sheet>
                 </t>
@@ -109,9 +106,6 @@
                                         <field name="ca_persona_ids" widget="many2many_tags" options="{'no_create': True}"/>
                                     </group>
                                 </group>
-                            </page>
-                            <page name="branches" string="Branches">
-                                <field name="child_ids" nolabel="1" context="{'default_parent_id': id}"/>
                             </page>
                         </notebook>
                     </sheet>

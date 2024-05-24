@@ -40,7 +40,7 @@ class CaRichiestaAccessoPersona(models.Model):
                                                   string="Advancement")
     expiring = fields.Boolean(readonly=True)
     note = fields.Html()
-    ca_richieta_servizi_persona_ids = fields.One2many(
+    ca_richiesta_servizi_persona_ids = fields.One2many(
         'ca.richiesta_servizi_persona', 'ca_richiesta_accesso_persona_id')
     ca_richiesta_accesso_id = fields.Many2one('ca.richiesta_accesso')
     active = fields.Boolean(default=True)
@@ -113,7 +113,7 @@ class CaRichiestaAccessoPersona(models.Model):
                 today = fields.datetime.now()
                 if stato:
                     record.state = stato
-                for line in record.ca_richieta_servizi_persona_ids:
+                for line in record.ca_richiesta_servizi_persona_ids:
                     line.aggiorna_stato_richiesta(stato)
                 if (
                     record.date_start > today

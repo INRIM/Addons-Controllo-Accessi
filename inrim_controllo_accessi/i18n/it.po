@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-24 09:35+0000\n"
-"PO-Revision-Date: 2024-04-24 09:35+0000\n"
+"POT-Creation-Date: 2024-05-09 13:10+0000\n"
+"PO-Revision-Date: 2024-05-09 13:10+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -82,6 +82,7 @@ msgid "Accessi Rifiutati Oggi"
 msgstr ""
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_accesso__act_application_code
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_accesso_persona__act_application_code
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_servizi_persona__act_application_code
 msgid "Act Application Code"
@@ -131,7 +132,7 @@ msgstr "Avanzamento"
 #. module: inrim_controllo_accessi
 #: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_aggiungi_movimento_accesso_action
 #: model:ir.model,name:inrim_controllo_accessi.model_ca_aggiungi_movimento_accesso
-#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_anag_registro_accesso_view_form
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_anag_registro_accesso_view_tree
 msgid "Aggiungi Movimento Accesso"
 msgstr ""
 
@@ -161,6 +162,7 @@ msgid "Anagrafica Tipologie Istanze"
 msgstr ""
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_accesso__anag_tipologie_istanze_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_accesso_persona__anag_tipologie_istanze_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_servizi_persona__ca_anag_tipologie_istanze_id
 msgid "Application Act"
@@ -217,7 +219,7 @@ msgstr "Richiesta Accesso Persona"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_accesso_persona__ca_richieta_servizi_persona_ids
-msgid "Ca Richieta Servizi Persona"
+msgid "Ca Richiesta Servizi Persona"
 msgstr ""
 
 #. module: inrim_controllo_accessi
@@ -922,6 +924,7 @@ msgstr "Lettore:"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__ca_persona_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__ca_settore_persona_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__ca_persona_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_accesso__ca_persona_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_accesso_persona__ca_persona_id

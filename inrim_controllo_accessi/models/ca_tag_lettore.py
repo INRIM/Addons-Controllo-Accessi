@@ -30,6 +30,19 @@ class CaTagLettore(models.Model):
             if record.ca_punto_accesso_id.ca_lettore_id != record.ca_lettore_id:
                 record.ca_punto_accesso_id = False
 
+    @api.onchange('ca_tag_id')
+    def _onchange_ca_tag_id(self):
+        for record in self:
+            record.date_start = False
+            record.date_end = False
+            if record.ca_tag_id and record.tag_in_use:
+                tag_persona_id = self.env['ca.tag_persona'].search([
+                    ('ca_tag_id', '=', record.ca_tag_id.id)
+                ])
+                if tag_persona_id:
+                    record.date_start = tag_persona_id.date_start
+                    record.date_end = tag_persona_id.date_end
+
     @api.onchange('date_end')
     def _compute_expired(self):
         for record in self:
