@@ -27,6 +27,7 @@
                             <field name="ca_tag_persona"/>
                         </group>
                         <group>
+                            <field name="ca_persona_id"/>
                             <field name="state"/>
                             <field name="date"/>
                         </group>

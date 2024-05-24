@@ -15,6 +15,7 @@ class CaPuntoAccessoPersona(models.Model):
         ('expired', 'Expired')
     ], readonly=True)
     date = fields.Date(readonly=True)
+    ca_persona_id = fields.Many2one(related="ca_tag_persona.ca_persona_id")
     active = fields.Boolean(default=True)
 
     @api.constrains('ca_tag_lettore_id', 'ca_tag_persona', 'date', 'state', 'active')
@@ -33,38 +34,45 @@ class CaPuntoAccessoPersona(models.Model):
                 raise UserError(_('Puo’ esistere solo una configurazione per tag lettore, tag persona, data, in stato attivo'))
 
     def elabora_persone(self, lettore_id):
-        # try:
         vals = []
         punto_accesso_id = self.env['ca.punto_accesso'].search([
             ('ca_lettore_id', '=', lettore_id.id)
         ])
-        for tag in punto_accesso_id.ca_tag_lettore_ids:
-            if tag.tag_in_use:
-                tag_persona_id = self.env['ca.tag_persona'].search([
-                    ('ca_tag_id', '=', tag.ca_tag_id.id)
-                ])
-                old_punto_accesso_persona_id = self.env[
-                    'ca.punto_accesso_persona'
-                ].search([
-                    ('ca_tag_lettore_id', '=', tag.id),
-                    ('ca_tag_persona', '=', tag_persona_id.id),
-                    ('date', '=', fields.date.today()),
-                    ('state', '=', 'active')
-                ])
-                if old_punto_accesso_persona_id and tag.temp:
-                    old_punto_accesso_persona_id.state = 'expired'
-                new_punto_accesso_persona_id = self.env[
-                    'ca.punto_accesso_persona'
-                ].create({
-                    'ca_tag_lettore_id': tag.id,
-                    'ca_tag_persona': tag_persona_id.id,
-                    'state': 'active',
-                    'date': fields.date.today()
-                })
-                vals.append(new_punto_accesso_persona_id)
+        if punto_accesso_id:
+            for tag in punto_accesso_id.ca_tag_lettore_ids:
+                if tag.tag_in_use:
+                    tag_persona_id = self.env['ca.tag_persona'].search([
+                        ('ca_tag_id', '=', tag.ca_tag_id.id)
+                    ])
+                    old_punto_accesso_persona_id = self.env[
+                        'ca.punto_accesso_persona'
+                    ].search([
+                        ('ca_tag_lettore_id', '=', tag.id),
+                        ('ca_tag_persona', '=', tag_persona_id.id),
+                        ('date', '<', fields.date.today()),
+                        ('state', '=', 'active')
+                    ])
+                    punto_accesso_persona_id = self.env[
+                        'ca.punto_accesso_persona'
+                    ].search([
+                        ('ca_tag_lettore_id', '=', tag.id),
+                        ('ca_tag_persona', '=', tag_persona_id.id),
+                        ('date', '=', fields.date.today()),
+                        ('state', '=', 'active')
+                    ])
+                    if old_punto_accesso_persona_id and tag.temp:
+                        old_punto_accesso_persona_id.state = 'expired'
+                    if not punto_accesso_persona_id:
+                        new_punto_accesso_persona_id = self.env[
+                            'ca.punto_accesso_persona'
+                        ].create({
+                            'ca_tag_lettore_id': tag.id,
+                            'ca_tag_persona': tag_persona_id.id,
+                            'date': fields.date.today(),
+                            'state': 'active'
+                        })
+                        vals.append(new_punto_accesso_persona_id)
         return vals
-        # except Exception as e:
-        #     return None
 
     def elabora_persone_lettore(self, nome_lettore):
         lettore_id = self.env['ca.lettore'].search([

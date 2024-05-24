@@ -12,6 +12,10 @@ class CaAggiungiMovimentoAccesso(models.TransientModel):
                                         compute="_compute_ca_tag_persona_ids",
                                         store=True)
     datetime = fields.Datetime(required=True, default=lambda self:fields.datetime.now())
+    type = fields.Selection([
+        ('manual', 'Manual'),
+        ('auto', 'Auto')
+    ], required=True, default='manual')
     tipo_ente_azienda_ids = fields.Many2many('ca.tipo_ente_azienda',
                     default=lambda self: self.default_tipo_ente_azienda_ids())
 
@@ -38,5 +42,6 @@ class CaAggiungiMovimentoAccesso(models.TransientModel):
 
     def action_done(self):
         return self.anag_registro_accesso_id.aggiungi_riga_accesso(
-            self.ca_punto_accesso, self.ca_tag_persona_id, self.datetime
+            self.ca_punto_accesso, self.ca_tag_persona_id, self.datetime,
+            self.type
         )

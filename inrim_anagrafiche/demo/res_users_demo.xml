@@ -12,7 +12,7 @@
     <record id="inrim_demo_user" model="res.users">
         <field name="partner_id"
                ref="inrim_anagrafiche.res_partner_ca_user_0"/>
-        <field name="login">User</field>
+        <field name="login">user</field>
         <field name="password">demo</field>
         <field name="groups_id" 
             eval="[(6, 0, [ref('base.group_user'), ref('inrim_controllo_accessi_base.ca_base')])]"/>
@@ -30,7 +30,7 @@
     <record id="inrim_demo_user_1" model="res.users">
         <field name="partner_id"
                ref="inrim_anagrafiche.res_partner_ca_user_1"/>
-        <field name="login">User 1</field>
+        <field name="login">user1</field>
         <field name="password">demo1</field>
         <field name="groups_id" 
             eval="[(6, 0, [
@@ -52,7 +52,7 @@
     <record id="inrim_demo_user_2" model="res.users">
         <field name="partner_id"
             ref="inrim_anagrafiche.res_partner_ca_user_2"/>
-        <field name="login">User 2</field>
+        <field name="login">user2</field>
         <field name="password">demo2</field>
         <field name="groups_id" 
             eval="[(6, 0, [ref('base.group_user'), ref('inrim_controllo_accessi_base.ca_ru')])]"/>
@@ -70,7 +70,7 @@
     <record id="inrim_demo_user_3" model="res.users">
         <field name="partner_id"
             ref="inrim_anagrafiche.res_partner_ca_user_3"/>
-        <field name="login">User 3</field>
+        <field name="login">user3</field>
         <field name="password">demo3</field>
         <field name="groups_id" 
             eval="[(6, 0, [ref('base.group_user'), ref('inrim_controllo_accessi_base.ca_spp')])]"/>
@@ -88,7 +88,7 @@
     <record id="inrim_demo_user_4" model="res.users">
         <field name="partner_id"
             ref="inrim_anagrafiche.res_partner_ca_user_4"/>
-        <field name="login">User 4</field>
+        <field name="login">user4</field>
         <field name="password">demo4</field>
         <field name="groups_id" 
             eval="[(6, 0, [ref('base.group_user'), ref('inrim_controllo_accessi_base.ca_portineria')])]"/>
@@ -106,7 +106,7 @@
     <record id="inrim_demo_user_5" model="res.users">
         <field name="partner_id"
             ref="inrim_anagrafiche.res_partner_ca_user_5"/>
-        <field name="login">User 5</field>
+        <field name="login">user5</field>
         <field name="password">demo5</field>
         <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('inrim_controllo_accessi_base.ca_tech')])]"/>
     </record>

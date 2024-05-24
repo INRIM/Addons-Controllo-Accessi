@@ -98,7 +98,7 @@
     <menuitem
         id="access_data_management_menu"
         name="Access Data Management"
-        groups="inrim_controllo_accessi_base.ca_ca"
+        groups="inrim_controllo_accessi_base.ca_utente"
         parent="inrim_anagrafiche.ca_controllo_accessi_root"
         sequence="2"
     />
@@ -125,7 +125,7 @@
         id="ca_anag_registro_accesso_menu"
         name="Access Register"
         action="ca_anag_registro_accesso_action"
-        groups="inrim_controllo_accessi_base.ca_ca"
+        groups="inrim_controllo_accessi_base.ca_utente"
         parent="access_data_management_menu"
         sequence="15"
     />

@@ -5,6 +5,7 @@
     'depends': ['inrim_controllo_accessi_base'],
     'data': [
         'security/ir.model.access.csv',
+        'security/security.xml',
         'data/res_company_data.xml',
         'data/ca_tipo_persona_data.xml',
         'data/ca_tipo_doc_ident_data.xml',
@@ -25,7 +26,6 @@
         'views/ca_tag_persona_views.xml',
         'views/ca_spazio_views.xml',
         'views/ca_codice_locale_views.xml',
-        'views/ca_registro_accesso_views.xml',
         'views/ca_stato_anag_views.xml',
         'views/ca_categoria_richiesta_views.xml',
         'views/ca_categoria_tipo_richiesta_views.xml',

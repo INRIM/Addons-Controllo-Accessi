@@ -138,18 +138,9 @@
     />
 
     <menuitem
-        id="ca_registro_accesso_menu"
-        name="Access Log"
-        action="ca_registro_accesso_action"
-        parent="inrim_configuration_menu"
-        sequence="40"
-        groups="inrim_controllo_accessi_base.ca_config"
-    />
-
-    <menuitem
         id="ca_controllo_accessi_root"
         name="Access Control"
-        groups="inrim_controllo_accessi_base.ca_ca"
+        groups="inrim_controllo_accessi_base.ca_utente"
         web_icon="inrim_anagrafiche,static/src/img/controllo_accessi.png"
     />
 
