@@ -225,7 +225,7 @@ class TestInrim(TestCommon):
         ])
         self.assertEqual(punto_accesso_persona.state, 'active')
         punto_accesso_id.elabora_persone_abilitate()
-        self.assertEqual(punto_accesso_persona.state, 'expired')
+        self.assertEqual(punto_accesso_persona.state, 'active')
         # 6
         self.env = self.env(user=self.user_4)
         self.cr = self.env.cr

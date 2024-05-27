@@ -29,7 +29,7 @@ class CaAnagRegistroAccesso(models.Model):
 
     def aggiungi_riga_accesso(
         self, ca_punto_accesso_id, 
-        ca_tag_persona_id, datetime_event, type
+        ca_tag_persona_id, datetime_event, type='manual'
     ):
         if (
             self.env.user.has_group('inrim_controllo_accessi_base.ca_ru') or
