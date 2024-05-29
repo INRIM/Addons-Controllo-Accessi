@@ -37,8 +37,9 @@ class CaTagLettore(models.Model):
             record.date_end = False
             if record.ca_tag_id and record.tag_in_use:
                 tag_persona_id = self.env['ca.tag_persona'].search([
-                    ('ca_tag_id', '=', record.ca_tag_id.id)
-                ])
+                    ('ca_tag_id', '=', record.ca_tag_id.id),
+                    ('tag_in_use', '=', True)
+                ], limit=1)
                 if tag_persona_id:
                     record.date_start = tag_persona_id.date_start
                     record.date_end = tag_persona_id.date_end
