@@ -5,7 +5,7 @@
         <field name="name">INRIM Utente: Categoria Richiesta</field>
         <field name="model_id" ref="model_ca_categoria_richiesta"/>
         <field name="global" eval="False"/>
-        <field name="perm_read" eval="False"/>
+        <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
@@ -32,7 +32,7 @@
         <field name="name">INRIM Utente: Categoria Tipo Richiesta</field>
         <field name="model_id" ref="model_ca_categoria_tipo_richiesta"/>
         <field name="global" eval="False"/>
-        <field name="perm_read" eval="False"/>
+        <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
@@ -59,7 +59,7 @@
         <field name="name">INRIM Utente: Codice Locale</field>
         <field name="model_id" ref="model_ca_codice_locale"/>
         <field name="global" eval="False"/>
-        <field name="perm_read" eval="False"/>
+        <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
@@ -86,7 +86,7 @@
         <field name="name">INRIM Utente: Tipo Doc Identità</field>
         <field name="model_id" ref="model_ca_tipo_doc_ident"/>
         <field name="global" eval="False"/>
-        <field name="perm_read" eval="False"/>
+        <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
@@ -113,7 +113,7 @@
         <field name="name">INRIM Utente: Stato Documento</field>
         <field name="model_id" ref="model_ca_stato_documento"/>
         <field name="global" eval="False"/>
-        <field name="perm_read" eval="False"/>
+        <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
@@ -140,7 +140,7 @@
         <field name="name">INRIM Utente: Img Documento</field>
         <field name="model_id" ref="model_ca_img_documento"/>
         <field name="global" eval="False"/>
-        <field name="perm_read" eval="False"/>
+        <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
@@ -167,7 +167,7 @@
         <field name="name">INRIM Utente: Documento</field>
         <field name="model_id" ref="model_ca_documento"/>
         <field name="global" eval="False"/>
-        <field name="perm_read" eval="False"/>
+        <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
@@ -194,7 +194,7 @@
         <field name="name">INRIM Utente: Ente Azienda</field>
         <field name="model_id" ref="model_ca_ente_azienda"/>
         <field name="global" eval="False"/>
-        <field name="perm_read" eval="False"/>
+        <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
@@ -221,7 +221,7 @@
         <field name="name">INRIM Utente: Tipo Ente Azienda</field>
         <field name="model_id" ref="model_ca_tipo_ente_azienda"/>
         <field name="global" eval="False"/>
-        <field name="perm_read" eval="False"/>
+        <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
@@ -248,7 +248,7 @@
         <field name="name">INRIM Utente: Lettore</field>
         <field name="model_id" ref="model_ca_lettore"/>
         <field name="global" eval="False"/>
-        <field name="perm_read" eval="False"/>
+        <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
@@ -275,7 +275,7 @@
         <field name="name">INRIM Utente: Persona</field>
         <field name="model_id" ref="model_ca_persona"/>
         <field name="global" eval="False"/>
-        <field name="perm_read" eval="False"/>
+        <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
@@ -302,7 +302,7 @@
         <field name="name">INRIM Utente: Righe Accesso</field>
         <field name="model_id" ref="model_ca_righe_accesso"/>
         <field name="global" eval="False"/>
-        <field name="perm_read" eval="False"/>
+        <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
@@ -329,7 +329,7 @@
         <field name="name">INRIM Utente: Righe Persona</field>
         <field name="model_id" ref="model_ca_righe_persona"/>
         <field name="global" eval="False"/>
-        <field name="perm_read" eval="False"/>
+        <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
@@ -356,7 +356,7 @@
         <field name="name">INRIM Utente: Tipo Spazio</field>
         <field name="model_id" ref="model_ca_tipo_spazio"/>
         <field name="global" eval="False"/>
-        <field name="perm_read" eval="False"/>
+        <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
@@ -383,7 +383,7 @@
         <field name="name">INRIM Utente: Spazio</field>
         <field name="model_id" ref="model_ca_spazio"/>
         <field name="global" eval="False"/>
-        <field name="perm_read" eval="False"/>
+        <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
@@ -410,7 +410,7 @@
         <field name="name">INRIM Utente: Stato Anag</field>
         <field name="model_id" ref="model_ca_stato_anag"/>
         <field name="global" eval="False"/>
-        <field name="perm_read" eval="False"/>
+        <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
@@ -437,7 +437,7 @@
         <field name="name">INRIM Utente: Tag Persona</field>
         <field name="model_id" ref="model_ca_tag_persona"/>
         <field name="global" eval="False"/>
-        <field name="perm_read" eval="False"/>
+        <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
@@ -464,7 +464,7 @@
         <field name="name">INRIM Utente: Proprieta Tag</field>
         <field name="model_id" ref="model_ca_proprieta_tag"/>
         <field name="global" eval="False"/>
-        <field name="perm_read" eval="False"/>
+        <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
@@ -491,7 +491,7 @@
         <field name="name">INRIM Utente: Tag</field>
         <field name="model_id" ref="model_ca_tag"/>
         <field name="global" eval="False"/>
-        <field name="perm_read" eval="False"/>
+        <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
@@ -518,7 +518,7 @@
         <field name="name">INRIM Utente: Tipo Persona</field>
         <field name="model_id" ref="model_ca_tipo_persona"/>
         <field name="global" eval="False"/>
-        <field name="perm_read" eval="False"/>
+        <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>

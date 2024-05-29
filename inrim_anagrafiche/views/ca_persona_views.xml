@@ -209,7 +209,7 @@
                                 <field name="domicile_other_than_residence"/>
                                 <field name="fiscalcode" required="True"/>
                                 <field name="vat"/>
-                                <field name="type_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                                <field name="type_ids" widget="many2many_tags" options="{'no_create': True}" required="True"/>
                                 <field name="freshman" required="is_internal"/>
                                 <field name="ca_ente_azienda_ids" widget="many2many_tags" options="{'no_create': True}"/>
                             </group>
