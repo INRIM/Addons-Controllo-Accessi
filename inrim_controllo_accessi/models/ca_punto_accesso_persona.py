@@ -41,9 +41,12 @@ class CaPuntoAccessoPersona(models.Model):
         if punto_accesso_id:
             for tag in punto_accesso_id.ca_tag_lettore_ids:
                 if tag.tag_in_use:
+                    today = fields.Date.today()
                     tag_persona_id = self.env['ca.tag_persona'].search([
-                        ('ca_tag_id', '=', tag.ca_tag_id.id)
-                    ])
+                        ('ca_tag_id', '=', tag.ca_tag_id.id),
+                        ('date_start', '<=', today),
+                        ('date_end', '>=', today)
+                    ], limit=1)
                     old_punto_accesso_persona_id = self.env[
                         'ca.punto_accesso_persona'
                     ].search([

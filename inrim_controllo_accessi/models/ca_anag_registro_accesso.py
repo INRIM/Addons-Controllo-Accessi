@@ -24,7 +24,7 @@ class CaAnagRegistroAccesso(models.Model):
     type = fields.Selection([
         ('manual', 'Manual'),
         ('auto', 'Auto')
-    ])
+    ], string="Insertion Type")
     active = fields.Boolean(default=True)
 
     def aggiungi_riga_accesso(
