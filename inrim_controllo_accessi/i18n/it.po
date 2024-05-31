@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-09 13:10+0000\n"
-"PO-Revision-Date: 2024-05-09 13:10+0000\n"
+"POT-Creation-Date: 2024-05-31 08:20+0000\n"
+"PO-Revision-Date: 2024-05-31 08:20+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -95,6 +95,7 @@ msgstr "Atto Data"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_avanzamento_rich__active
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__active
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__active
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__active
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__active
@@ -186,6 +187,12 @@ msgid "Are you sure you want to enable this record?"
 msgstr "Sei sicuro di voler abilitare questo record?"
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_aggiungi_movimento_accesso__type__auto
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_anag_registro_accesso__type__auto
+msgid "Auto"
+msgstr "Automatica"
+
+#. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_servizi_persona__ca_anag_servizi_id
 msgid "Ca Anag Servizi"
 msgstr "Servizio"
@@ -198,6 +205,11 @@ msgstr "Servizio"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__ca_lettore_id
 msgid "Ca Lettore"
 msgstr "Lettore"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__ca_persona_id
+msgid "Ca Persona"
+msgstr ""
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__ca_punto_accesso
@@ -218,7 +230,7 @@ msgid "Ca Richiesta Accesso Persona"
 msgstr "Richiesta Accesso Persona"
 
 #. module: inrim_controllo_accessi
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_accesso_persona__ca_richieta_servizi_persona_ids
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_accesso_persona__ca_richiesta_servizi_persona_ids
 msgid "Ca Richiesta Servizi Persona"
 msgstr ""
 
@@ -640,6 +652,11 @@ msgid "In Use"
 msgstr "In Uso"
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__type
+msgid "Insertion Type"
+msgstr "Tipo Inserimento"
+
+#. module: inrim_controllo_accessi
 #: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_anag_tipologie_istanze_action
 #: model:ir.ui.menu,name:inrim_controllo_accessi.ca_anag_tipologie_istanze_menu
 msgid "Instances"
@@ -717,6 +734,12 @@ msgstr "Log Errore"
 #: model:ir.model,name:inrim_controllo_accessi.model_ca_log_integrazione_lettori
 msgid "Log Integrazione Lettori"
 msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_aggiungi_movimento_accesso__type__manual
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_anag_registro_accesso__type__manual
+msgid "Manual"
+msgstr "Manuale"
 
 #. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_sposta_punto_accesso_view_form
@@ -879,7 +902,7 @@ msgstr ""
 #: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
 #, python-format
 msgid "Qualified People"
-msgstr "Pesone Abilitate"
+msgstr ""
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__system_error
@@ -914,7 +937,7 @@ msgstr "Tag Lettore"
 #: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
 #, python-format
 msgid "Reader already in use in another location"
-msgstr "Lettore già in uso in un altra posizione"
+msgstr ""
 
 #. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_kanban
@@ -1101,6 +1124,7 @@ msgid "Two Days Ago"
 msgstr "Due giorni fa"
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__type
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_servizi__type_ids
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__type_ids
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_accesso__type_ids
