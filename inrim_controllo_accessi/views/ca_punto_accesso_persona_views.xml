@@ -8,6 +8,7 @@
                 <field name="ca_lettore_id"/>
                 <field name="ca_tag_lettore_id"/>
                 <field name="ca_tag_persona"/>
+                <field name="ca_persona_id"/>
                 <field name="state"/>
                 <field name="date"/>
             </tree>
