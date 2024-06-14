@@ -5,10 +5,8 @@
         <field name="model">ca.punto_accesso_persona</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="ca_lettore_id"/>
-                <field name="ca_tag_lettore_id"/>
-                <field name="ca_tag_persona"/>
                 <field name="ca_persona_id"/>
+                <field name="ca_tag_lettore_id"/>
                 <field name="state"/>
                 <field name="date"/>
             </tree>
@@ -23,12 +21,13 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="ca_lettore_id"/>
+                            <field name="ca_persona_id"/>
                             <field name="ca_tag_lettore_id"/>
-                            <field name="ca_tag_persona"/>
+                            <field name="ca_lettore_id" invisible="1"/>
+                            <field name="ca_tag_persona" invisible="1"/>
                         </group>
                         <group>
-                            <field name="ca_persona_id"/>
+                            
                             <field name="state"/>
                             <field name="date"/>
                         </group>
