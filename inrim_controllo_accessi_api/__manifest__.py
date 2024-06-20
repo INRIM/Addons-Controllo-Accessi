@@ -2,7 +2,9 @@
     'name': 'Inrim Controllo Accessi API',
     'version': '17.0.1.0.0',
     'description': "Inrim Controllo Accessi API",
-    'depends': [],
+    'depends': [
+        'inrim_anagrafiche',
+    ],
     'data': [
         'data/ir_cron.xml',
     ],
