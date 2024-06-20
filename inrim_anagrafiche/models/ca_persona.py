@@ -128,8 +128,8 @@ class CaPersona(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'tree,form',
-            'res_model': 'ca.registro_accesso',
-            'domain': [('ente_azienda_id', 'in', self.ca_ente_azienda_ids.ids)],
+            'res_model': 'ca.anag_registro_accesso',
+            'domain': [('ca_ente_azienda_id', 'in', self.ca_ente_azienda_ids.ids)],
         }
 
     @api.model_create_multi
