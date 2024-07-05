@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_richiesta_riga_accesso_sede_view_tree" model="ir.ui.view">
+        <field name="name">ca.richiesta.riga.accesso.sede.view.tree</field>
+        <field name="model">ca.richiesta_riga_accesso_sede</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="persona_id"/>
+                <field name="ente_azienda_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ca_richiesta_riga_accesso_sede_view_form" model="ir.ui.view">
+        <field name="name">ca.richiesta.riga.accesso.sede.view.form</field>
+        <field name="model">ca.richiesta_riga_accesso_sede</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name='elabora_richieste_registro_accesso'
+                        type='object'
+                        string='Process Access Log Requests'
+                        class='btn-primary'
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="is_headquarters" invisible="1"/>
+                            <field name="persona_id" options="{'no_create': True}"/>
+                            <field 
+                                name="ente_azienda_id"
+                                options="{'no_create': True}"
+                                domain="[('tipo_ente_azienda_id', '=', is_headquarters)]"
+                            />
+                            <field name="punto_accesso_id" options="{'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="direction"/>
+                            <field name="datetime_event" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ca_richiesta_riga_accesso_sede_action" model="ir.actions.act_window">
+        <field name="name">Request Insertion Headquarters Access Register</field>
+        <field name="res_model">ca.richiesta_riga_accesso_sede</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

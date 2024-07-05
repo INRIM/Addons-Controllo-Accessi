@@ -7,6 +7,9 @@
     ],
     'data': [
         'data/ir_cron.xml',
+        'security/ir.model.access.csv',
+        'views/ca_richiesta_riga_accesso_sede_views.xml',
+        'views/menus.xml',
     ],
     'demo': [],
     'installable': True,

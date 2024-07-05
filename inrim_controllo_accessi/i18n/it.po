@@ -63,7 +63,7 @@ msgstr "Registro Accesso"
 #: model:ir.ui.menu,name:inrim_controllo_accessi.ca_richiesta_accesso_root
 #: model:ir.ui.menu,name:inrim_controllo_accessi.ca_richiesta_accesso_root_menu
 msgid "Access Request"
-msgstr "Richiesto Accesso"
+msgstr "Richiesta Accesso"
 
 #. module: inrim_controllo_accessi
 #. odoo-python
