@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="ca_richiesta_riga_accesso_sede_menu"
+        name="Request Insertion Headquarters Access Register"
+        action="ca_richiesta_riga_accesso_sede_action"
+        groups="inrim_controllo_accessi_base.ca_utente"
+        parent="inrim_controllo_accessi.ca_richiesta_accesso_root_menu"
+        sequence="20"
+    />
+</odoo>
