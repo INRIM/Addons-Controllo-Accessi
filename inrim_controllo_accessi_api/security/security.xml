@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Richiesta Riga Accesso Sede -->
+    <record id="inrim_utente_ca_richiesta_riga_accesso_sede_rule" model="ir.rule">
+        <field name="name">INRIM Utente: Richiesta Riga Accesso Sede</field>
+        <field name="model_id" ref="model_ca_richiesta_riga_accesso_sede"/>
+        <field name="global" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_utente'))]"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="inrim_controllo_accesso_ca_richiesta_riga_accesso_sede_rule" model="ir.rule">
+        <field name="name">INRIM Controllo Accesso: Richiesta Riga Accesso Sede</field>
+        <field name="model_id" ref="model_ca_richiesta_riga_accesso_sede"/>
+        <field name="global" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_ca'))]"/>
+        <field name="active" eval="True"/>
+    </record>
+</odoo>
