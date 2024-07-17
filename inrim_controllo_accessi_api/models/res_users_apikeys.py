@@ -1,6 +1,5 @@
-from odoo import models, fields
+from odoo import models
 from datetime import datetime, timedelta
-import pytz
 
 class ResUsersApikeys(models.Model):
     _inherit = 'res.users.apikeys'

@@ -1,7 +1,6 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 from datetime import timedelta
-import pytz
 
 class CaRichiestaRigaAccessoSede(models.Model):
     _name = 'ca.richiesta_riga_accesso_sede'
