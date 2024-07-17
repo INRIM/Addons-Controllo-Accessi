@@ -39,6 +39,7 @@ class CaTipoEnteAzienda(models.Model):
     description = fields.Char()
     date_start = fields.Date()
     date_end = fields.Date()
+    is_internal = fields.Boolean()
     active = fields.Boolean(default=True)
 
     @api.constrains('date_start', 'date_end')
