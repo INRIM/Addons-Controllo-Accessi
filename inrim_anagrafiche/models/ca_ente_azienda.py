@@ -30,6 +30,35 @@ class CaEnteAzienda(models.Model):
     note = fields.Text()
     company_id = fields.Many2one('res.company')
     ca_persona_ids = fields.Many2many('ca.persona', string='People')
+    url_gateway_lettori = fields.Char(groups="inrim_controllo_accessi_base.ca_tech")
+    nome_chiave_header = fields.Char(groups="inrim_controllo_accessi_base.ca_tech")
+    jwt = fields.Char(groups="inrim_controllo_accessi_base.ca_tech")
+    ref = fields.Boolean()
+    lock = fields.Boolean()
+
+    @api.model_create_multi
+    def create(self, vals):
+        res = super(CaEnteAzienda, self).create(vals)
+        sede = self.env.ref('inrim_anagrafiche.tipo_ente_azienda_sede')
+        for record in res:
+            for val in vals:
+                if record.tipo_ente_azienda_id == sede:
+                    if not record.jwt:
+                        val['jwt'] = self.env['ir.config_parameter'].sudo().get_param('service_reader.jwt')
+                    if not record.url_gateway_lettori:
+                        val['url_gateway_lettori'] = self.env['ir.config_parameter'].sudo().get_param('service_reader.url')
+        return res
+    
+    def write(self, vals):
+        res = super(CaEnteAzienda, self).write(vals)
+        sede = self.env.ref('inrim_anagrafiche.tipo_ente_azienda_sede')
+        for record in self:
+            if record.tipo_ente_azienda_id == sede:
+                if not record.jwt:
+                    vals['jwt'] = self.env['ir.config_parameter'].sudo().get_param('service_reader.jwt')
+                if not record.url_gateway_lettori:
+                    vals['url_gateway_lettori'] = self.env['ir.config_parameter'].sudo().get_param('service_reader.url')
+        return res
 
 class CaTipoEnteAzienda(models.Model):
     _name = 'ca.tipo_ente_azienda'
