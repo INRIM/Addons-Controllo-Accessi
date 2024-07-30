@@ -27,7 +27,7 @@
         </record>
 
         <record id="inrim_ir_config_parameter_service_reader_url" model="ir.config_parameter">
-            <field name="key"></field>
+            <field name="key">service_reader.url</field>
             <field name="value">In base al sistema</field>
         </record>
 
