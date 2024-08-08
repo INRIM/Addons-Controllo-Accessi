@@ -41,12 +41,11 @@ class CaEnteAzienda(models.Model):
         res = super(CaEnteAzienda, self).create(vals)
         sede = self.env.ref('inrim_anagrafiche.tipo_ente_azienda_sede')
         for record in res:
-            for val in vals:
-                if record.tipo_ente_azienda_id == sede:
-                    if not record.jwt:
-                        val['jwt'] = self.env['ir.config_parameter'].sudo().get_param('service_reader.jwt')
-                    if not record.url_gateway_lettori:
-                        val['url_gateway_lettori'] = self.env['ir.config_parameter'].sudo().get_param('service_reader.url')
+            if record.tipo_ente_azienda_id == sede:
+                if not record.jwt:
+                    record.jwt = self.env['ir.config_parameter'].sudo().get_param('service_reader.jwt')
+                if not record.url_gateway_lettori:
+                    record.url_gateway_lettori = self.env['ir.config_parameter'].sudo().get_param('service_reader.url')
         return res
     
     def write(self, vals):
@@ -55,9 +54,9 @@ class CaEnteAzienda(models.Model):
         for record in self:
             if record.tipo_ente_azienda_id == sede:
                 if not record.jwt:
-                    vals['jwt'] = self.env['ir.config_parameter'].sudo().get_param('service_reader.jwt')
+                    record.jwt = self.env['ir.config_parameter'].sudo().get_param('service_reader.jwt')
                 if not record.url_gateway_lettori:
-                    vals['url_gateway_lettori'] = self.env['ir.config_parameter'].sudo().get_param('service_reader.url')
+                    record.url_gateway_lettori = self.env['ir.config_parameter'].sudo().get_param('service_reader.url')
         return res
 
 class CaTipoEnteAzienda(models.Model):
