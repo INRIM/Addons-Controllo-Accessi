@@ -88,15 +88,15 @@ class InrimApiPersona(http.Controller):
                     'fiscalcode': persona.fiscalcode,
                     'freshman': persona.freshman or "",
                     'nationality': persona.nationality.name or "",
-                    'birth_date': persona.birth_date.strftime("%Y/%m/%d") if persona.birth_date else "",
+                    'birth_date': persona.birth_date.strftime("%Y-%m-%d") if persona.birth_date else "",
                     'birth_place': persona.birth_place or "",
                     'istat_code': persona.istat_code or "",
                 })
                 for doc in persona.ca_documento_ids:
                     vals['ca_documento_ids'].append({
                         'tipo_documento_id': doc.tipo_documento_id.display_name or "",
-                        'validity_start_date': doc.validity_start_date.strftime("%Y/%m/%d") if doc.validity_start_date else "",
-                        'validity_end_date': doc.validity_end_date.strftime("%Y/%m/%d") if doc.validity_end_date else "",
+                        'validity_start_date': doc.validity_start_date.strftime("%Y-%m-%d") if doc.validity_start_date else "",
+                        'validity_end_date': doc.validity_end_date.strftime("%Y-%m-%d") if doc.validity_end_date else "",
                         'issued_by': doc.issued_by or "",
                         'document_code': doc.document_code or "",
                         'image_ids': [],

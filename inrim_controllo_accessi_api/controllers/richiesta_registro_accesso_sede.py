@@ -59,7 +59,7 @@ class InrimApiRichiestaRegistroAccessoSede(http.Controller):
                 'ente_azienda_id': richiesta.ente_azienda_id.display_name,
                 'punto_accesso_id': richiesta.punto_accesso_id.display_name,
                 'direction': richiesta.direction,
-                'datetime_event': datetime_event_user_tz.strftime("%Y/%m/%dT%H:%M:%S")
+                'datetime_event': datetime_event_user_tz.strftime("%Y-%m-%dT%H:%M:%S")
             }
             res.append(vals)
         return Response(json.dumps({
@@ -142,7 +142,7 @@ class InrimApiRichiestaRegistroAccessoSede(http.Controller):
                     'ente_azienda_id': ca_richiesta_riga_accesso_sede_id.ente_azienda_id.display_name,
                     'punto_accesso_id': ca_richiesta_riga_accesso_sede_id.punto_accesso_id.display_name,
                     'direction': ca_richiesta_riga_accesso_sede_id.direction,
-                    'datetime_event': datetime_event_user_tz.strftime("%Y/%m/%dT%H:%M:%S")
+                    'datetime_event': datetime_event_user_tz.strftime("%Y-%m-%dT%H:%M:%S")
                 }
                 ca_richiesta_riga_accesso_sede_id.unlink()
                 return Response(json.dumps({
@@ -327,7 +327,7 @@ class InrimApiRichiestaRegistroAccessoSede(http.Controller):
                 'persona_id': richiesta_riga_accesso_sede_id.persona_id.token,
                 'ente_azienda_id': richiesta_riga_accesso_sede_id.ente_azienda_id.name,
                 'punto_accesso_id': richiesta_riga_accesso_sede_id.punto_accesso_id.name,
-                'datetime_event': datetime_event_user_tz.strftime("%Y/%m/%dT%H:%M:%S")
+                'datetime_event': datetime_event_user_tz.strftime("%Y/-%m-%dT%H:%M:%S")
             }
             return Response(json.dumps({
                 "header": {
