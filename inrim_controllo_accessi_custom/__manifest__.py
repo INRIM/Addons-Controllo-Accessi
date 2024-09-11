@@ -4,6 +4,7 @@
     'description': "Inrim Controllo Accessi Custom",
     'depends': [
         'mail',
+        'inrim_anagrafiche',
     ],
     'data': [
         'data/ir_config_parameter_data.xml',

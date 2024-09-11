@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-        <record id="res_users_apikeys_cron" model="ir.cron">
-            <field name="name">INRiM: Clear Users ApiKeys</field>
-            <field name="model_id" ref="model_res_users_apikeys"/>
-            <field name="interval_number">1</field>
-            <field name="interval_type">minutes</field>
+        <record id="read_people_get_addressbook_cron" model="ir.cron">
+            <field name="name">INRiM: Read People Get Addressbook</field>
+            <field name="model_id" ref="model_ca_persona"/>
+            <field name="nextcall" eval="(DateTime.now() + relativedelta(days=1, hour=6, minute=0, second=0, microsecond=0))"/>
+            <field name="interval_number">6</field>
+            <field name="interval_type">hours</field>
             <field name="numbercall">-1</field>
             <field name="state">code</field>
-            <field name="code">model._cron_clear_users_apikeys()</field>
+            <field name="code">model._cron_people_get_addressbook()</field>
         </record>
     </data>
 </odoo>
