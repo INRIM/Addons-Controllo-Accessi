@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_ente_azienda_view_form_inherit" model="ir.ui.view">
+        <field name="name">ca.ente.azienda.view.form.inherit</field>
+        <field name="model">ca.ente_azienda</field>
+        <field name="inherit_id" ref="inrim_anagrafiche.ca_ente_azienda_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ca_persona_ids'][1]" position="after">
+                <field name="ref" readonly="True"/>
+                <field name="lock" readonly="True"/>
+            </xpath>
+            <xpath expr="//field[@name='ca_persona_ids'][2]" position="after">
+                <field name="ref"/>
+                <field name="lock"/>
+            </xpath>
+            <xpath expr="//field[@name='note'][2]" position="after">
+                <field name="url_gateway_lettori"/>
+                <field name="nome_chiave_header"/>
+                <field name="jwt" password="True"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="ca_ente_azienda_view_tree_inherit" model="ir.ui.view">
+        <field name="name">ca.ente.azienda.view.tree.inherit</field>
+        <field name="model">ca.ente_azienda</field>
+        <field name="inherit_id" ref="inrim_anagrafiche.ca_ente_azienda_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='child_ids']" position="after">
+                <field name="ref"/>
+                <field name="lock"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

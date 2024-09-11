@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_company_view_form_inherit" model="ir.ui.view">
+        <field name="name">res.company.view.form.inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_info']" position="after">
+                <page name="people" string="API People">
+                    <group>
+                        <group>
+                            <field name="enable_people"/>
+                            <field 
+                                name="people_x_key"
+                                password='True'
+                                required='enable_people'
+                                invisible='not enable_people'
+                            />
+                            <field 
+                                name="people_url"
+                                required='enable_people'
+                                invisible='not enable_people'
+                            />
+                        </group>
+                        <group>
+                            <field
+                                name="get_addressbook_path"
+                                required='enable_people'
+                                invisible='not enable_people'
+                            />
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
