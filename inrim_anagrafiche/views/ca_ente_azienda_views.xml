@@ -9,8 +9,6 @@
                 <field name="name"/>
                 <field name="parent_id"/>
                 <field name="child_ids" widget="many2many_tags"/>
-                <field name="ref"/>
-                <field name="lock"/>
             </tree>
         </field>
     </record>
@@ -60,8 +58,6 @@
                                         <field name="company_id" options="{'no_create': True}" readonly="True"/>
                                         <field name="tipo_ente_azienda_id" options="{'no_create': True}" readonly="True"/>
                                         <field name="ca_persona_ids" widget="many2many_tags" options="{'no_create': True}" readonly="True"/>
-                                        <field name="ref" readonly="True"/>
-                                        <field name="lock" readonly="True"/>
                                     </group>
                                 </group>
                             </page>
@@ -98,9 +94,6 @@
                                         </div>
                                         <field name="vat"/>
                                         <field name="note"/>
-                                        <field name="url_gateway_lettori"/>
-                                        <field name="nome_chiave_header"/>
-                                        <field name="jwt" password="True"/>
                                     </group>
                                     <group>
                                         <field name="email"/>
@@ -111,8 +104,6 @@
                                         <field name="company_id" options="{'no_create': True}"/>
                                         <field name="tipo_ente_azienda_id" options="{'no_create': True}"/>
                                         <field name="ca_persona_ids" widget="many2many_tags" options="{'no_create': True}"/>
-                                        <field name="ref"/>
-                                        <field name="lock"/>
                                     </group>
                                 </group>
                             </page>

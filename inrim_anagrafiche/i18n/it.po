@@ -1135,7 +1135,7 @@ msgstr "Tipologia Richiesta Accesso"
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__uid
 msgid "Uid"
-msgstr ""
+msgstr "UID"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__date_start

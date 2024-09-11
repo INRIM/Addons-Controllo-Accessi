@@ -1,6 +1,8 @@
 from odoo import http, api, SUPERUSER_ID
 from odoo.http import request, Response
 from datetime import datetime
+import string
+import random
 import pytz
 import json
 
@@ -8,7 +10,18 @@ class InrimApiController(http.Controller):
 
     @staticmethod
     def authenticate_token(env, token):
-        return env['res.users.apikeys']._check_credentials(scope="INRiM", key=token)
+        try:
+            return env['auth.api.key']._retrieve_api_key(token).user_id.id
+        except Exception as e:
+            return False
+
+    def generate_token(self, env):
+        characters = string.ascii_letters + string.digits
+        token = ''.join(random.choice(characters) for i in range(40))
+        auth_api_key_id = env['auth.api.key'].search([('key', '=', token)])
+        if auth_api_key_id:
+            self.generate_token(env)
+        return token
     
     @http.route('/token/authenticate', type='http', auth="none", methods=['POST'], csrf=False, save_session=False, cors="*")
     def get_token(self, **kwargs):
@@ -39,8 +52,19 @@ class InrimApiController(http.Controller):
                 "error": "Invalid Username or Password"
             }, ensure_ascii=False, indent=4), status=400)
         env = request.env(user=user_id)
-        env['res.users.apikeys.description'].check_access_make_key()
-        token = env['res.users.apikeys']._generate("INRiM", username)
+        auth_api_key_id = env['auth.api.key'].search([
+            ('user_id', '=', user_id)
+        ], limit=1)
+        if auth_api_key_id:
+            token = auth_api_key_id.key
+        else:
+            user = env['res.users'].browse(user_id)
+            auth_api_key_id = env['auth.api.key'].create({
+                'name': f'{user.display_name} - INRiM',
+                'user_id': user_id,
+                'key': self.generate_token(env)
+            })
+            token = auth_api_key_id.key
         payload = {
             'messages': 'UserValidated',
             'user_id': user_id,
