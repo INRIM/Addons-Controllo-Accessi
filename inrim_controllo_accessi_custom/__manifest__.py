@@ -8,6 +8,7 @@
     ],
     'data': [
         'data/ir_config_parameter_data.xml',
+        'views/ente_azienda_views.xml',
         'views/menu.xml',
     ],
     'demo': [],
