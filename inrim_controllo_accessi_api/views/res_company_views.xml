@@ -28,6 +28,11 @@
                                 required='enable_people'
                                 invisible='not enable_people'
                             />
+                            <field
+                                name="get_rooms_path"
+                                required='enable_people'
+                                invisible='not enable_people'
+                            />
                         </group>
                     </group>
                 </page>

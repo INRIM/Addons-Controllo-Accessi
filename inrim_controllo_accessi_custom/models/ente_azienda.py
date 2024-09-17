@@ -6,7 +6,7 @@ class CaEnteAzienda(models.Model):
     url_gateway_lettori = fields.Char(groups="inrim_controllo_accessi_base.ca_tech")
     nome_chiave_header = fields.Char(groups="inrim_controllo_accessi_base.ca_tech")
     jwt = fields.Char(groups="inrim_controllo_accessi_base.ca_tech")
-    ref = fields.Boolean()
+    ref = fields.Char()
     lock = fields.Boolean()
 
     @api.model_create_multi
