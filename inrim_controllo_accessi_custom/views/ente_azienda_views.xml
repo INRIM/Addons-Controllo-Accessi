@@ -5,15 +5,15 @@
         <field name="model">ca.ente_azienda</field>
         <field name="inherit_id" ref="inrim_anagrafiche.ca_ente_azienda_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='ca_persona_ids'][1]" position="after">
+            <xpath expr="//t[1]//field[@name='ca_persona_ids']" position="after">
                 <field name="ref" readonly="True"/>
                 <field name="lock" readonly="True"/>
             </xpath>
-            <xpath expr="//field[@name='ca_persona_ids'][2]" position="after">
+            <xpath expr="//t[2]//field[@name='ca_persona_ids']" position="after">
                 <field name="ref"/>
                 <field name="lock"/>
             </xpath>
-            <xpath expr="//field[@name='note'][2]" position="after">
+            <xpath expr="//t[2]//field[@name='note']" position="after">
                 <field name="url_gateway_lettori"/>
                 <field name="nome_chiave_header"/>
                 <field name="jwt" password="True"/>

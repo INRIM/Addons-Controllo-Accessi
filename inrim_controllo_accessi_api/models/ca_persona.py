@@ -23,8 +23,7 @@ class CaPersona(models.Model):
                     logger.info(f"{url}, Status Code: {request.status_code}")
                     data = request.json()
                     for dt in data:
-                        logger.info(dt)
-                        if 'uid' in dt and 'name' in dt:
+                        if dt.get('uid') and dt.get('name'):
                             user_id = self.env['res.users'].search([
                                 ('login', '=', dt['uid'])
                             ])
@@ -40,10 +39,10 @@ class CaPersona(models.Model):
                             ])
                             if not persona_id:
                                 birth_date = ''
-                                if 'data_di_nascita' in dt:
+                                if dt.get('data_di_nascita'):
                                     birth_date = datetime.strptime(
                                         dt['data_di_nascita'], '%Y-%m-%d').date()
-                                if 'nome' in dt and 'cognome' in dt:
+                                if dt.get('nome') and dt.get('cognome'):
                                     vals = {
                                         'name': dt['nome'],
                                         'lastname': dt['cognome'],
@@ -52,9 +51,9 @@ class CaPersona(models.Model):
                                         'birth_date': birth_date,
                                         'associated_user_id': user_id.id,
                                     }
-                                    if 'matricola' in dt:
+                                    if dt.get('matricola'):
                                         vals['freshman'] = dt['matricola']
-                                    if 'codicefiscale' in dt:
+                                    if dt.get('codicefiscale'):
                                         vals['fiscalcode'] = dt['codicefiscale']
                                     persona_id = self.create(vals)
                                     persona_id.action_completed()

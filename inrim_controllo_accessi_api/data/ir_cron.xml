@@ -11,5 +11,16 @@
             <field name="state">code</field>
             <field name="code">model._cron_people_get_addressbook()</field>
         </record>
+
+        <record id="read_people_get_rooms_cron" model="ir.cron">
+            <field name="name">INRiM: Read People Get Rooms</field>
+            <field name="model_id" ref="model_ca_spazio"/>
+            <field name="nextcall" eval="(DateTime.now() + relativedelta(days=1, hour=6, minute=0, second=0, microsecond=0))"/>
+            <field name="interval_number">6</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="state">code</field>
+            <field name="code">model._cron_people_get_rooms()</field>
+        </record>
     </data>
 </odoo>
