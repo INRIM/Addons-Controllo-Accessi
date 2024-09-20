@@ -1,15 +1,140 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
+# 	* inrim_controllo_accessi_custom
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 08:30+0000\n"
-"PO-Revision-Date: 2024-05-07 08:30+0000\n"
+"POT-Creation-Date: 2024-09-18 08:35+0000\n"
+"PO-Revision-Date: 2024-09-18 08:35+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: inrim_controllo_accessi_custom
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi_custom.ca_persona_view_form_inherit_geolocation
+msgid "Compute Localization"
+msgstr "Calcola Geolocalizzazione"
+
+#. module: inrim_controllo_accessi_custom
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi_custom.ca_persona_view_form_inherit_geolocation
+msgid "Compute based on domicile address"
+msgstr "Calcola in base all'indirizzo di domicilio"
+
+#. module: inrim_controllo_accessi_custom
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi_custom.ca_persona_view_form_inherit_geolocation
+msgid "Compute based on residence address"
+msgstr "Calcola in base all'indirizzo di residenza"
+
+#. module: inrim_controllo_accessi_custom
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi_custom.ca_persona_view_form_inherit_geolocation
+msgid "Domicile Geolocation"
+msgstr "Geolocalizzazione Domicilio"
+
+#. module: inrim_controllo_accessi_custom
+#: model:ir.model,name:inrim_controllo_accessi_custom.model_ca_ente_azienda
+msgid "Ente Azienda"
+msgstr ""
+
+#. module: inrim_controllo_accessi_custom
+#: model:ir.model.fields,field_description:inrim_controllo_accessi_custom.field_ca_persona__domicile_partner_latitude
+#: model:ir.model.fields,field_description:inrim_controllo_accessi_custom.field_ca_persona__residence_partner_latitude
+msgid "Geo Latitude"
+msgstr ""
+
+#. module: inrim_controllo_accessi_custom
+#: model:ir.model.fields,field_description:inrim_controllo_accessi_custom.field_ca_persona__domicile_partner_longitude
+#: model:ir.model.fields,field_description:inrim_controllo_accessi_custom.field_ca_persona__residence_partner_longitude
+msgid "Geo Longitude"
+msgstr ""
+
+#. module: inrim_controllo_accessi_custom
+#: model:ir.model.fields,field_description:inrim_controllo_accessi_custom.field_ca_persona__domicile_date_localization
+#: model:ir.model.fields,field_description:inrim_controllo_accessi_custom.field_ca_persona__residence_date_localization
+msgid "Geolocation Date"
+msgstr "Data geolocalizzazione"
+
+#. module: inrim_controllo_accessi_custom
+#: model:ir.model.fields,field_description:inrim_controllo_accessi_custom.field_ca_ente_azienda__jwt
+msgid "Jwt"
+msgstr ""
+
+#. module: inrim_controllo_accessi_custom
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi_custom.ca_persona_view_form_inherit_geolocation
+msgid "Lat :"
+msgstr ""
+
+#. module: inrim_controllo_accessi_custom
+#: model:ir.model.fields,field_description:inrim_controllo_accessi_custom.field_ca_ente_azienda__lock
+msgid "Lock"
+msgstr ""
+
+#. module: inrim_controllo_accessi_custom
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi_custom.ca_persona_view_form_inherit_geolocation
+msgid "Long:"
+msgstr ""
+
+#. module: inrim_controllo_accessi_custom
+#. odoo-python
+#: code:addons/inrim_controllo_accessi_custom/models/ca_persona.py:0
+#: code:addons/inrim_controllo_accessi_custom/models/ca_persona.py:0
+#, python-format
+msgid "No match found for %(partner_names)s address(es)."
+msgstr "Nessuna corrispondenza individuata per gli indirizzi di %(partner_names)s."
+
+#. module: inrim_controllo_accessi_custom
+#: model:ir.model.fields,field_description:inrim_controllo_accessi_custom.field_ca_ente_azienda__nome_chiave_header
+msgid "Nome Chiave Header"
+msgstr ""
+
+#. module: inrim_controllo_accessi_custom
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi_custom.ca_persona_view_form_inherit_geolocation
+msgid "Partner Geolocation"
+msgstr ""
+
+#. module: inrim_controllo_accessi_custom
+#: model:ir.model,name:inrim_controllo_accessi_custom.model_ca_persona
+msgid "Persona"
+msgstr "Anagrafica Persona"
+
+#. module: inrim_controllo_accessi_custom
+#: model:ir.model.fields,field_description:inrim_controllo_accessi_custom.field_ca_ente_azienda__ref
+msgid "Ref"
+msgstr ""
+
+#. module: inrim_controllo_accessi_custom
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi_custom.ca_persona_view_form_inherit_geolocation
+msgid "Refresh"
+msgstr "Aggiorna"
+
+#. module: inrim_controllo_accessi_custom
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi_custom.ca_persona_view_form_inherit_geolocation
+msgid "Refresh Localization"
+msgstr "Ricarica Geolocalizzazione"
+
+#. module: inrim_controllo_accessi_custom
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi_custom.ca_persona_view_form_inherit_geolocation
+msgid "Residence Geolocation"
+msgstr "Geolocalizzazione Residenza"
+
+#. module: inrim_controllo_accessi_custom
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi_custom.ca_persona_view_form_inherit_geolocation
+msgid "Updated on:"
+msgstr "Aggiornato il:"
+
+#. module: inrim_controllo_accessi_custom
+#: model:ir.model.fields,field_description:inrim_controllo_accessi_custom.field_ca_ente_azienda__url_gateway_lettori
+msgid "Url Gateway Lettori"
+msgstr ""
+
+#. module: inrim_controllo_accessi_custom
+#. odoo-python
+#: code:addons/inrim_controllo_accessi_custom/models/ca_persona.py:0
+#: code:addons/inrim_controllo_accessi_custom/models/ca_persona.py:0
+#, python-format
+msgid "Warning"
+msgstr "Attenzione"
