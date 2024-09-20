@@ -78,6 +78,16 @@ class CaPersona(models.Model):
                 raise UserError(_(
                     'Per una persona esterna è obbligatorio caricare i documenti'))
 
+    @api.onchange('domicile_state_id')
+    def _onchange_domicile_state_id(self):
+        if self.domicile_state_id.country_id:
+            self.domicile_country_id = self.domicile_state_id.country_id
+
+    @api.onchange('residence_state_id')
+    def _onchange_residence_state_id(self):
+        if self.residence_state_id.country_id:
+            self.residence_country_id = self.residence_state_id.country_id
+
     @api.depends('type_ids')
     def _compute_bool(self):
         for record in self:
