@@ -94,7 +94,7 @@ msgstr ""
 #. module: inrim_controllo_accessi_custom
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi_custom.ca_persona_view_form_inherit_geolocation
 msgid "Partner Geolocation"
-msgstr ""
+msgstr "Geolocalizzazione"
 
 #. module: inrim_controllo_accessi_custom
 #: model:ir.model,name:inrim_controllo_accessi_custom.model_ca_persona
