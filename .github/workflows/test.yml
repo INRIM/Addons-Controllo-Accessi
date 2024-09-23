@@ -51,7 +51,7 @@ jobs:
           fetch-depth: 1
       - uses: actions/checkout@v4
         with:
-          repository: OCA/server-auth
+          repository: https://github.com/OCA/server-auth.git
           path: oqa
           ref: server-auth
           fetch-depth: 1
