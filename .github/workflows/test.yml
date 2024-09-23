@@ -2,7 +2,7 @@ name: tests
 env:
   REPO_NAME: Addons-Controllo-Accessi
   ODOO_RC: odoo.cfg
-  ADDONS_PATH: /opt/odoo/addons,/mnt/Addons-Controllo-Accessi
+  ADDONS_PATH: /opt/odoo/addons,/mnt/server-auth,/mnt/Addons-Controllo-Accessi
   TESTTAGS: inrim
   OE_VER: "17.0"
 
@@ -39,16 +39,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          path: ${{ env.REPO_NAME }}
           persist-credentials: false
+          fetch-depth: 1
       - uses: actions/checkout@v4
         with:
           repository: INRIM/Odoo-Qa
           path: oqa
           ref: ${{ env.OE_VER }}
           token: ${{ secrets.CA_TOKEN }}
+          fetch-depth: 1
+      - uses: actions/checkout@v4
+        with:
+          repository: OCA/server-auth
+          path: oqa
+          ref: server-auth
+          fetch-depth: 1
+      - run: pip install -r server-auth/requirements.txt
+      - run: pip install -r server-auth/test-requirements.txt
       - name: Install dependencies
         run: ${PWD}/oqa/bin/install_deps.sh
       - name: Init Data
         run: ${PWD}/oqa/bin/init_repo.sh
       - name: Tests
-        run: docker run --rm  -v ${PWD}/run_tests.sh:/mnt/tests/runtests.sh -v ${PWD}/:/mnt/${{ env.REPO_NAME }} -v ${PWD}/${ODOO_RC}:/etc/odoo/odoo.conf --network=host odoo:${{ env.OE_VER }} /mnt/tests/runtests.sh
+        run: docker run --rm  -v ${PWD}/run_tests.sh:/mnt/tests/runtests.sh -v ${PWD}/${{ env.REPO_NAME }}:/mnt/${{ env.REPO_NAME }} -v ${PWD}/${ODOO_RC}:/etc/odoo/odoo.conf --network=host odoo:${{ env.OE_VER }} /mnt/tests/runtests.sh
