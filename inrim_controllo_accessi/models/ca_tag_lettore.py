@@ -23,7 +23,28 @@ class CaTagLettore(models.Model):
                 if record.date_end <= record.date_start:
                     raise UserError(
                         _('Data fine deve essere maggiore della data di inizio'))
-                
+
+    @api.model_create_multi
+    def create(self, vals):
+        res = super(CaTagLettore, self).create(vals)
+        for record in res:
+            if record.ca_punto_accesso_id:
+                record.ca_punto_accesso_id.remote_update = True
+        return res
+
+    def write(self, vals):
+        res = super(CaTagLettore, self).write(vals)
+        for record in self:
+            if record.ca_punto_accesso_id:
+                record.ca_punto_accesso_id.remote_update = True
+        return res
+
+    def unlink(self):
+        for record in self:
+            if record.ca_punto_accesso_id:
+                record.ca_punto_accesso_id.remote_update = True
+        return super(CaTagLettore, self).unlink()
+
     @api.onchange('ca_lettore_id')
     def _onchange_ca_lettore_id(self):
         for record in self:
@@ -58,7 +79,7 @@ class CaTagLettore(models.Model):
         for record in self:
             record.name = '/'
             if record.ca_lettore_id and record.ca_tag_id:
-                record.name = record.ca_lettore_id.name + ' ' + record.ca_tag_id.name
+                record.name = f'{record.ca_lettore_id.name} {record.ca_tag_id.name}'
 
     @api.constrains('ca_tag_id', 'ca_lettore_id', 'active')
     def _check_unique(self):

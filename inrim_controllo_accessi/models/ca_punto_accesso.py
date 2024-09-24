@@ -30,6 +30,7 @@ class CaPuntoAccesso(models.Model):
     date_start = fields.Date(required=True)
     date_end = fields.Date(required=True, default=lambda self:self.default_date_end())
     ca_tag_lettore_ids = fields.One2many('ca.tag_lettore', 'ca_punto_accesso_id')
+    remote_update = fields.Boolean(readonly=True)
     active = fields.Boolean(default=True)
 
     @api.constrains('date_start', 'date_end')

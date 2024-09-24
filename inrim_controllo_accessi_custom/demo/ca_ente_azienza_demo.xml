@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inrim_anagrafiche.inrim_demo_ca_ente_azienda_1" model="ca.ente_azienda">
+        <field name="name">Campus</field>
+        <field name="pec">Pec 1</field>
+        <field name="tipo_ente_azienda_id" eval="ref('inrim_anagrafiche.tipo_ente_azienda_sede')"/>
+        <field name="note">Ente Azienda 1</field>
+        <field name="ref">cacce</field>
+        <field name="lock" eval="True"/>
+    </record>
+
+    <record id="inrim_anagrafiche.inrim_demo_ca_ente_azienda_2" model="ca.ente_azienda">
+        <field name="name">Sede 1</field>
+        <field name="pec">Pec 2</field>
+        <field name="tipo_ente_azienda_id" eval="ref('inrim_anagrafiche.tipo_ente_azienda_sede')"/>
+        <field name="note">Ente Azienda 2</field>
+        <field name="ref">mda</field>
+        <field name="lock" eval="True"/>
+    </record>
+
+    <record id="inrim_anagrafiche.inrim_demo_ca_ente_azienda_3" model="ca.ente_azienda">
+        <field name="name">Azienda Test</field>
+        <field name="pec">Pec 3</field>
+        <field name="tipo_ente_azienda_id" eval="ref('inrim_anagrafiche.tipo_ente_azienda_azienda')"/>
+        <field name="note">Ente Azienda 3</field>
+    </record>
+
+    <record id="inrim_anagrafiche.inrim_demo_ca_ente_azienda_4" model="ca.ente_azienda">
+        <field name="name">Professionista Test</field>
+        <field name="pec">Pec 4</field>
+        <field name="tipo_ente_azienda_id" eval="ref('inrim_anagrafiche.tipo_ente_azienda_professionista')"/>
+        <field name="note">Ente Azienda 4</field>
+    </record>
+
+    <record id="inrim_anagrafiche.inrim_demo_ca_ente_azienda_5" model="ca.ente_azienda">
+        <field name="name">Ente test</field>
+        <field name="pec">Pec 5</field>
+        <field name="tipo_ente_azienda_id" eval="ref('inrim_anagrafiche.tipo_ente_azienda_universita')"/>
+        <field name="note">Ente Azienda 5</field>
+    </record>
+</odoo>
