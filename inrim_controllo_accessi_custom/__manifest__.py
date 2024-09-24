@@ -13,7 +13,9 @@
         'views/ca_persona_views.xml',
         'views/menu.xml',
     ],
-    'demo': [],
+    'demo': [
+        'demo/ca_ente_azienza_demo.xml',
+    ],
     'installable': True,
     'application': True,
 }
