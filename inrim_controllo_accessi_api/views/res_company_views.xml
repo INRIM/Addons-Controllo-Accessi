@@ -36,6 +36,36 @@
                         </group>
                     </group>
                 </page>
+                <page name="rfid" string="API RFID">
+                    <group>
+                        <group>
+                            <field name="enable_rfid"/>
+                            <field 
+                                name="rfid_token_jwt"
+                                password='True'
+                                required='enable_rfid'
+                                invisible='not enable_rfid'
+                            />
+                            <field 
+                                name="rfid_url"
+                                required='enable_rfid'
+                                invisible='not enable_rfid'
+                            />
+                        </group>
+                        <group>
+                            <field
+                                name="rfid_info_path"
+                                required='enable_rfid'
+                                invisible='not enable_rfid'
+                            />
+                            <field
+                                name="rfid_status_path"
+                                required='enable_rfid'
+                                invisible='not enable_rfid'
+                            />
+                        </group>
+                    </group>
+                </page>
             </xpath>
         </field>
     </record>
