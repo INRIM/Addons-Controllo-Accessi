@@ -72,9 +72,9 @@ class InrimApiLettore(http.Controller):
             "body": res
         }, ensure_ascii=False, indent=4), status=200)
     
-    @http.route('/api/lettore', auth="none", type='http', methods=['PUT'],
+    @http.route('/api/lettore', auth="none", type='http', methods=['POST'],
            csrf=False)
-    def api_put_ca_lettore(self):
+    def api_post_ca_lettore(self):
         env = api.Environment(request.cr, SUPERUSER_ID,
                                 {'active_test': False})
         if 'token' in request.httprequest.headers:
@@ -260,9 +260,9 @@ class InrimApiLettore(http.Controller):
                 "body": f"Errore: {e}"
             }, ensure_ascii=False, indent=4), status=400)
         
-    @http.route('/api/lettore', auth="none", type='http', methods=['POST'],
+    @http.route('/api/lettore', auth="none", type='http', methods=['PUT'],
            csrf=False)
-    def api_post_ca_lettore(self):
+    def api_put_ca_lettore(self):
         env = api.Environment(request.cr, SUPERUSER_ID,
                                 {'active_test': False})
         if 'token' in request.httprequest.headers:
