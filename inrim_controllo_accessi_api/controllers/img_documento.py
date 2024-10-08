@@ -68,9 +68,9 @@ class InrimApiImgDocumento(http.Controller):
             "body": res
         }, ensure_ascii=False, indent=4), status=200)
 
-    @http.route('/api/immagine', auth="none", type='http', methods=['POST'],
+    @http.route('/api/immagine', auth="none", type='http', methods=['PUT'],
            csrf=False)
-    def api_post_gest_immagine(self):
+    def api_put_gest_immagine(self):
         env = api.Environment(request.cr, SUPERUSER_ID,
                                 {'active_test': False})
         if 'token' in request.httprequest.headers:
@@ -299,9 +299,9 @@ class InrimApiImgDocumento(http.Controller):
                 "body": f"Errore: {e}"
             }, ensure_ascii=False, indent=4), status=400)
     
-    @http.route('/api/immagine', auth="none", type='http', methods=['PUT'],
+    @http.route('/api/immagine', auth="none", type='http', methods=['POST'],
            csrf=False)
-    def api_put_gest_immagine(self):
+    def api_post_gest_immagine(self):
         env = api.Environment(request.cr, SUPERUSER_ID,
                                 {'active_test': False})
         if 'token' in request.httprequest.headers:
