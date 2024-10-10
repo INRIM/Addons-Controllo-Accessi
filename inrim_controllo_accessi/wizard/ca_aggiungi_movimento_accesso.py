@@ -4,7 +4,6 @@ class CaAggiungiMovimentoAccesso(models.TransientModel):
     _name = 'ca.aggiungi_movimento_accesso'
     _description = 'Aggiungi Movimento Accesso'
 
-    anag_registro_accesso_id = fields.Many2one('ca.anag_registro_accesso')
     ca_ente_azienda_id = fields.Many2one('ca.ente_azienda', string="Position")
     ca_punto_accesso = fields.Many2one('ca.punto_accesso', required=True)
     ca_tag_persona_id = fields.Many2one('ca.tag_persona', required=True)
@@ -41,7 +40,7 @@ class CaAggiungiMovimentoAccesso(models.TransientModel):
                 self.ca_tag_persona_id = False
 
     def action_done(self):
-        return self.anag_registro_accesso_id.aggiungi_riga_accesso(
+        return self.env['ca.anag_registro_accesso'].aggiungi_riga_accesso(
             self.ca_punto_accesso, self.ca_tag_persona_id, self.datetime,
             self.type
         )

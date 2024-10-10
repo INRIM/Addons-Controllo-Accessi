@@ -10,7 +10,7 @@ class CaRichiestaRigaAccessoSede(models.Model):
     persona_id = fields.Many2one('ca.persona', 
         default=lambda self:self._default_persona_id(), required=True)
     ente_azienda_id = fields.Many2one('ca.ente_azienda', required=True)
-    punto_accesso_id = fields.Many2one('ca.punto_accesso', required=True)
+    punto_accesso_id = fields.Many2one('ca.punto_accesso', required=True, ondelete='cascade')
     direction = fields.Selection(related="punto_accesso_id.direction", required=True)
     datetime_event = fields.Datetime(required=True)
     display_name = fields.Char(compute='_compute_display_name')
@@ -98,7 +98,8 @@ class CaRichiestaRigaAccessoSede(models.Model):
                         'ca_punto_accesso_id': record.punto_accesso_id.id,
                         'ca_tag_persona_id': tag_persona_id.id,
                         'direction': record.direction,
-                        'datetime_event': record.datetime_event
+                        'datetime_event': record.datetime_event,
+                        'type': 'manual',
                     })
             else:
                 raise ValidationError(_(f"Non sono presenti tag in corso di validità per la persona '{record.persona_id.display_name}' nel punto accesso '{record.punto_accesso_id.display_name}'"))
