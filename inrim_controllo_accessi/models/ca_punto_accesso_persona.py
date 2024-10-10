@@ -9,7 +9,7 @@ class CaPuntoAccessoPersona(models.Model):
 
     ca_lettore_id = fields.Many2one(related="ca_tag_lettore_id.ca_lettore_id", required=True)
     ca_tag_lettore_id = fields.Many2one('ca.tag_lettore', required=True, readonly=True)
-    ca_tag_persona = fields.Many2one('ca.tag_persona', required=True, readonly=True)
+    ca_tag_persona = fields.Many2one('ca.tag_persona', ondelete='cascade', required=True, readonly=True)
     state = fields.Selection([
         ('active', 'Active'),
         ('expired', 'Expired')

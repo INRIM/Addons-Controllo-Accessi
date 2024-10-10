@@ -131,11 +131,20 @@
     />
 
     <menuitem
+        id="create_ca_anag_registro_accesso_menu"
+        name="Add Access Movement"
+        action="ca_aggiungi_movimento_accesso_action"
+        groups="inrim_controllo_accessi_base.ca_ru,inrim_controllo_accessi_base.ca_portineria"
+        parent="access_data_management_menu"
+        sequence="20"
+    />
+
+    <menuitem
         id="ca_log_integrazione_lettori_menu"
         name="Reader Integration Log"
         action="ca_log_integrazione_lettori_action"
         groups="inrim_controllo_accessi_base.ca_tech"
         parent="access_data_management_menu"
-        sequence="20"
+        sequence="25"
     />
 </odoo>

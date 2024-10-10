@@ -7,7 +7,7 @@ class CaPuntoAccesso(models.Model):
     _description = 'Punto Accesso'
 
     name = fields.Char(compute="_compute_name", store=True)
-    ca_spazio_id = fields.Many2one('ca.spazio', required=True, string="Position")
+    ca_spazio_id = fields.Many2one('ca.spazio', required=True, string="Position", ondelete='cascade')
     tipo_spazio_id = fields.Many2one(related='ca_spazio_id.tipo_spazio_id', string="Position Type")
     ente_azienda_id = fields.Many2one(related='ca_spazio_id.ente_azienda_id', string="Headquarters Location")
     ca_lettore_id = fields.Many2one('ca.lettore', required=True)
@@ -78,7 +78,7 @@ class CaPuntoAccesso(models.Model):
         }
 
     def elabora_persone_abilitate(self):
-        for record in self.env['ca.punto_accesso'].search([]):
+        for record in self:
             self.env[
                 'ca.punto_accesso_persona'
             ].elabora_persone_lettore(record.ca_lettore_id.name)
