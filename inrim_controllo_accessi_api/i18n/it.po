@@ -76,20 +76,9 @@ msgid "Persona"
 msgstr ""
 
 #. module: inrim_controllo_accessi_api
-#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi_api.ca_richiesta_riga_accesso_sede_view_form
-msgid "Process Access Log Requests"
-msgstr "Elabora Richieste Registro Accesso"
-
-#. module: inrim_controllo_accessi_api
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_api.field_ca_richiesta_riga_accesso_sede__punto_accesso_id
 msgid "Punto Accesso"
 msgstr ""
-
-#. module: inrim_controllo_accessi_api
-#: model:ir.actions.act_window,name:inrim_controllo_accessi_api.ca_richiesta_riga_accesso_sede_action
-#: model:ir.ui.menu,name:inrim_controllo_accessi_api.ca_richiesta_riga_accesso_sede_menu
-msgid "Request Insertion Headquarters Access Register"
-msgstr "Richiesta Inserimento Registro Accesso Sede"
 
 #. module: inrim_controllo_accessi_api
 #: model:ir.model,name:inrim_controllo_accessi_api.model_ca_richiesta_riga_accesso_sede

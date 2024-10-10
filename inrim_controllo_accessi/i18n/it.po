@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-12 14:47+0000\n"
-"PO-Revision-Date: 2024-06-12 14:47+0000\n"
+"POT-Creation-Date: 2024-10-09 10:48+0000\n"
+"PO-Revision-Date: 2024-10-09 10:48+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -124,6 +124,11 @@ msgid "Activity Type"
 msgstr "Tipologia Attività"
 
 #. module: inrim_controllo_accessi
+#: model:ir.ui.menu,name:inrim_controllo_accessi.create_ca_anag_registro_accesso_menu
+msgid "Add Access Movement"
+msgstr "Aggiungi Movimento Accesso"
+
+#. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_accesso__ca_anag_avanzamento_rich_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_accesso_persona__ca_anag_avanzamento_rich_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_servizi_persona__ca_anag_avanzamento_rich_id
@@ -133,7 +138,6 @@ msgstr "Avanzamento"
 #. module: inrim_controllo_accessi
 #: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_aggiungi_movimento_accesso_action
 #: model:ir.model,name:inrim_controllo_accessi.model_ca_aggiungi_movimento_accesso
-#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_anag_registro_accesso_view_tree
 msgid "Aggiungi Movimento Accesso"
 msgstr ""
 
@@ -955,6 +959,11 @@ msgstr "Lettore:"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_settore_ente__ca_persona_id
 msgid "Referent"
 msgstr "Referente"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__remote_update
+msgid "Remote Update"
+msgstr ""
 
 #. module: inrim_controllo_accessi
 #: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_richiesta_servizi_persona_action

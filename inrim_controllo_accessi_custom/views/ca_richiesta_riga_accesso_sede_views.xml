@@ -38,7 +38,7 @@
                         </group>
                         <group>
                             <field name="direction"/>
-                            <field name="datetime_event" readonly="1"/>
+                            <field name="datetime_event"/>
                         </group>
                     </group>
                 </sheet>

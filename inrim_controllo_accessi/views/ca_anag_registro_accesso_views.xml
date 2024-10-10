@@ -32,15 +32,6 @@
                 <field name="direction"/>
                 <field name="access_allowed"/>
                 <field name="system_error"/>
-                <button 
-                    name="%(inrim_controllo_accessi.ca_aggiungi_movimento_accesso_action)d"
-                    type="action" 
-                    string="Aggiungi Movimento Accesso"
-                    groups="inrim_controllo_accessi_base.ca_ru,
-                    inrim_controllo_accessi_base.ca_portineria"
-                    context="{'default_anag_registro_accesso_id': id}"
-                    class="btn-primary"
-                />
             </tree>
         </field>
     </record>
