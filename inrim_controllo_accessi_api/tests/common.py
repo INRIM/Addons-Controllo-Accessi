@@ -1,13 +1,40 @@
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
+import requests
+import json
+from datetime import date
+from dateutil.relativedelta import relativedelta
 
 @tagged("post_install", "-at_install")
 class TestCommon(TransactionCase):
-
     @classmethod
     def setUpClass(cls):
         super(TestCommon, cls).setUpClass()
         cls.failureException = True
+        # Token
+        def get_token(cls):
+            token_url = cls.env['ir.config_parameter'].sudo().get_param('web.base.url') + '/token/authenticate'
+            data = {
+                "username": "admin",
+                "password": "admin"
+            }
+            response = requests.post(token_url, json=data)
+            return json.loads(response.text)['body']['token']
+        cls.token = get_token(cls)
+        # Persona
+        cls.persona_1 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_persona_1')
+        # Lettore
+        cls.lettore_1 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_lettore_1')
+        # Tag
+        cls.tag_1 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_tag_1')
+        # Tag Persona
+        cls.ca_tag_persona_id =  cls.env.ref('inrim_anagrafiche.inrim_demo_ca_tag_persona_1')
+        # Ente Azienda
+        cls.ente_azienda_1 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_ente_azienda_1')
+        # Spazio
+        cls.spazio_1 = cls.env.ref('inrim_anagrafiche.ca_spazio_1')
+        # Punto Accesso
+        cls.punto_accesso_1p001 = cls.env.ref('inrim_controllo_accessi.ca_punto_accesso_1p001')
         # Parametri di sistema
         cls.people_key = cls.env[
             'ir.config_parameter'
@@ -15,6 +42,9 @@ class TestCommon(TransactionCase):
         cls.people_url = cls.env[
             'ir.config_parameter'
         ].sudo().get_param('people.url')
+        cls.api_url = cls.env[
+            'ir.config_parameter'
+        ].sudo().get_param('web.base.url')
         # Fake Mock Get Addressbook
         cls.get_addressbook_data = [
             {

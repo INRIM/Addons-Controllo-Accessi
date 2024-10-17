@@ -6,7 +6,10 @@
         'inrim_controllo_accessi_custom',
         'inrim_controllo_accessi_api',
     ],
-    'data': [],
+    'data': [
+        'data/ir_config_parameter.xml',
+        'views/ca_tag_views.xml',
+    ],
     'demo': [],
     'installable': True,
     'application': True,

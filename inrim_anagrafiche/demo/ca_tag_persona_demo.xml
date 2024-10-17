@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inrim_demo_ca_tag_persona_1" model="ca.tag_persona">
+        <field name="ca_persona_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_persona_1')"/>
+        <field name="ca_tag_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_tag_1')"/>
+        <field name="date_start" eval="datetime.today()"/>
+        <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
+    </record>
+</odoo>
