@@ -15,7 +15,7 @@ class TestCommon(TransactionCase):
         cls.service_reader_url = cls.env[
             'ir.config_parameter'
         ].sudo().get_param('service_reader.url')
-        # Fake Mock Info
+        # Mock Info
         cls.info_data = {
             "status": True,
             "diagnostic": {
@@ -29,7 +29,7 @@ class TestCommon(TransactionCase):
                 "modeCode": "0x20"
             }
         }
-        # Fake Mock Status
+        # Mock Status
         cls.status_data = {
             "status": True,
             "diagnostic": {
@@ -37,4 +37,111 @@ class TestCommon(TransactionCase):
                 "event_cnt": 4,
                 "systemClock": "2023-12-01T18:20:21.000",
             }
+        }
+        # Punto Accesso
+        cls.punto_accesso_1p001 = cls.env.ref('inrim_controllo_accessi.ca_punto_accesso_1p001')
+        # Tag Persona
+        cls.tag_persona_id = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_tag_persona_1')
+        # Mock Read Events
+        cls.read_events_data = {
+            "status": 148,
+            "statusStr": "OK",
+            "layoutIdd": True,
+            "layoutTimeStamp": True,
+            "layoutEventStatus": True,
+            "layoutInput": True,
+            "dataSetsLenght": 1,
+            "hasMore": True,
+            "layout": [
+                True,
+                True,
+                True,
+                True,
+                False,
+                False,
+                False,
+                False
+            ],
+            "eventRecords": [
+                {
+                    "idd": "E0010150AD255C11",
+                    "eventDateTime": "2023-02-24T07:03:13",
+                    "errorCode": "0000",
+                    "accessAllowed": False,
+                    "digitalInput": [
+                        True,
+                        True,
+                        True,
+                        True,
+                        False,
+                        False,
+                        False,
+                        False
+                    ]
+                },
+                {
+                    "idd": "E0010150AD255C12",
+                    "eventDateTime": "2023-02-14T17:03:13",
+                    "errorCode": "0000",
+                    "accessAllowed": True,
+                    "digitalInput": [
+                        True,
+                        True,
+                        True,
+                        True,
+                        False,
+                        False,
+                        False,
+                        False
+                    ]
+                },
+                {
+                    "idd": "E0010150AD255C13",
+                    "eventDateTime": "2023-02-24T07:03:13",
+                    "errorCode": "0000",
+                    "accessAllowed": True,
+                    "digitalInput": [
+                        True,
+                        True,
+                        True,
+                        True,
+                        False,
+                        False,
+                        False,
+                        False
+                    ]
+                },
+                {
+                    "idd": "E0010150AD255C13",
+                    "eventDateTime": "2023-02-24T07:03:15",
+                    "errorCode": "0000",
+                    "accessAllowed": True,
+                    "digitalInput": [
+                        True,
+                        True,
+                        True,
+                        True,
+                        False,
+                        False,
+                        False,
+                        False
+                    ]
+                },
+                {
+                    "idd": "E0010150AD255C14",
+                    "eventDateTime": "2023-02-24T07:03:15",
+                    "errorCode": "0000",
+                    "accessAllowed": True,
+                    "digitalInput": [
+                        True,
+                        True,
+                        True,
+                        True,
+                        False,
+                        False,
+                        False,
+                        False
+                    ]
+                }
+            ]
         }

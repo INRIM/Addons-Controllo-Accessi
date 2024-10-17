@@ -297,7 +297,7 @@ class InrimApiEnteAzienda(http.Controller):
         nome_chiave_header = data.get('nome_chiave_header')
         jwt = data.get('jwt')
         if tipo_ente_azienda_id and type(tipo_ente_azienda_id) == str:
-            tipo_ente_azienda = env['ca.tipo_ente_azienda'].search([('name', '=', tipo_ente_azienda_id)])
+            tipo_ente_azienda = env['ca.tipo_ente_azienda'].search([('name', '=', tipo_ente_azienda_id)], limit=1)
             if not tipo_ente_azienda:
                 return Response(json.dumps({
                     "header": {
@@ -321,7 +321,7 @@ class InrimApiEnteAzienda(http.Controller):
                 }, ensure_ascii=False, indent=4), status=400)
             parent_id = parent.id
         if country_id and type(country_id) == str:
-            country = env['res.country'].with_context(lang=env.user.lang).search([('name', '=', country_id)])
+            country = env['res.country'].with_context(lang=env.user.lang).search([('name', '=', country_id)], limit=1)
             if not country:
                 return Response(json.dumps({
                     "header": {
@@ -333,7 +333,7 @@ class InrimApiEnteAzienda(http.Controller):
                 }, ensure_ascii=False, indent=4), status=400)
             country_id = country.id
         if state_id and type(state_id) == str:
-            state = env['res.country.state'].with_context(lang=env.user.lang).search([('name', '=', state_id)])
+            state = env['res.country.state'].with_context(lang=env.user.lang).search([('name', '=', state_id)], limit=1)
             if not state:
                 return Response(json.dumps({
                     "header": {
@@ -345,7 +345,7 @@ class InrimApiEnteAzienda(http.Controller):
                 }, ensure_ascii=False, indent=4), status=400)
             state_id = state.id
         if company_id and type(company_id) == str:
-            company = env['res.company'].search([('name', '=', company_id)])
+            company = env['res.company'].search([('name', '=', company_id)], limit=1)
             if not company:
                 return Response(json.dumps({
                     "header": {
@@ -359,7 +359,7 @@ class InrimApiEnteAzienda(http.Controller):
             ca_persona_vals = []
             for persona in ca_persona_ids:
                 if persona and type(persona) == str:
-                    ca_persona = env['ca.persona'].search([('token', '=', persona)])
+                    ca_persona = env['ca.persona'].search([('token', '=', persona)], limit=1)
                     if not ca_persona:
                         return Response(json.dumps({
                             "header": {
@@ -404,7 +404,7 @@ class InrimApiEnteAzienda(http.Controller):
                 'website': website if website else False,
                 'company_id': company_id if company_id else False,
                 'ca_persona_ids': ca_persona_ids if ca_persona_ids else False,
-                'ref': eval(ref) if ref else False,
+                'ref': ref if ref else False,
                 'lock': eval(lock) if lock else False,
                 'url_gateway_lettori': url_gateway_lettori if url_gateway_lettori else False,
                 'nome_chiave_header': nome_chiave_header if nome_chiave_header else False,
@@ -609,7 +609,7 @@ class InrimApiEnteAzienda(http.Controller):
             }
             # parent_id
             if parent_id and type(parent_id) == str and parent_id != "":
-                parent = env['ca.ente_azienda'].search([('name', '=', parent_id)])
+                parent = env['ca.ente_azienda'].search([('name', '=', parent_id)], limit=1)
                 if not parent:
                     return Response(json.dumps({
                         "header": {
@@ -649,7 +649,7 @@ class InrimApiEnteAzienda(http.Controller):
                 vals['city'] = city
             # country_id
             if country_id and type(country_id) == str and country_id != "":
-                country = env['res.country'].with_context(lang=env.user.lang).search([('name', '=', country_id)])
+                country = env['res.country'].with_context(lang=env.user.lang).search([('name', '=', country_id)], limit=1)
                 if not country:
                     return Response(json.dumps({
                         "header": {
@@ -677,7 +677,7 @@ class InrimApiEnteAzienda(http.Controller):
                 vals['country_id'] = country_id
             # state_id
             if state_id and type(state_id) == str and state_id != "":
-                state = env['res.country.state'].with_context(lang=env.user.lang).search([('name', '=', state_id)])
+                state = env['res.country.state'].with_context(lang=env.user.lang).search([('name', '=', state_id)], limit=1)
                 if not state:
                     return Response(json.dumps({
                         "header": {
@@ -729,7 +729,7 @@ class InrimApiEnteAzienda(http.Controller):
                 vals['pec'] = pec
             # company_id
             if company_id and type(company_id) == str and company_id != "":
-                company = env['res.company'].search([('name', '=', company_id)])
+                company = env['res.company'].search([('name', '=', company_id)], limit=1)
                 if not company:
                     return Response(json.dumps({
                         "header": {
@@ -757,7 +757,7 @@ class InrimApiEnteAzienda(http.Controller):
                 vals['company_id'] = company_id
             # tipo_ente_azienda_id
             if tipo_ente_azienda_id and type(tipo_ente_azienda_id) == str and tipo_ente_azienda_id != "":
-                tipo_ente_azienda = env['ca.tipo_ente_azienda'].search([('name', '=', tipo_ente_azienda_id)])
+                tipo_ente_azienda = env['ca.tipo_ente_azienda'].search([('name', '=', tipo_ente_azienda_id)], limit=1)
                 if not tipo_ente_azienda:
                     return Response(json.dumps({
                         "header": {
@@ -788,7 +788,7 @@ class InrimApiEnteAzienda(http.Controller):
             if ca_persona_ids:
                 for persona in ca_persona_ids:
                     if persona and type(persona) == str:
-                        ca_persona = env['ca.persona'].search([('token', '=', persona)])
+                        ca_persona = env['ca.persona'].search([('token', '=', persona)], limit=1)
                         if not ca_persona:
                             return Response(json.dumps({
                                 "header": {
@@ -815,7 +815,7 @@ class InrimApiEnteAzienda(http.Controller):
                 vals['ca_persona_ids'] = ca_persona_vals
             # ref
             if ref:
-                vals['ref'] = eval(ref)
+                vals['ref'] = ref
             # lock
             if lock:
                 vals['lock'] = eval(lock)
@@ -868,4 +868,111 @@ class InrimApiEnteAzienda(http.Controller):
                     'response': 400
                 },
                 "body": f"Errore: {e}"
+            }, ensure_ascii=False, indent=4), status=400)
+        
+    @http.route('/api/ente_azienda', auth="none", type='http', methods=['DELETE'],
+           csrf=False)
+    def api_delete_ca_ente_azienda(self):
+        env = api.Environment(request.cr, SUPERUSER_ID,
+                                {'active_test': False})
+        
+        if 'token' in request.httprequest.headers and request.httprequest.headers.get('active_test') == 'True':
+            token = request.httprequest.headers.get('token')
+            user_token = InrimApiController.authenticate_token(env, token)
+            user_id = env['res.users'].browse(user_token)
+            request.update_env(user=user_id)
+            env.user = user_id
+            if not user_token:
+                return Response(json.dumps({
+                    "header": {
+                        'response': 400
+                    },
+                    'body': {
+                        'token': 'Token non valido'
+                    }
+                }, ensure_ascii=False, indent=4), status=400)
+        else:
+            return Response(json.dumps({
+                    "header": {
+                        'response': 400
+                    },
+                    'body': {
+                        'token': 'Token non presente'
+                    }
+                }, ensure_ascii=False, indent=4), status=400)
+        byte_string = request.httprequest.data
+        if not byte_string:
+            return Response(json.dumps({
+                    "header": {
+                        'response': 400
+                    },
+                    'body': {
+                        'MissingBody': "Per poter eliminare un record, é necessario che nel body venga specificato l'id del record da eliminare"
+                    }
+                }, ensure_ascii=False, indent=4), status=400)
+        data = json.loads(byte_string.decode('utf-8'))
+        id = data.get('id')
+        if not id:
+            return Response(json.dumps({
+                    "header": {
+                        'response': 400
+                    },
+                    'body': {
+                        'MissingBody': "Per poter eliminare un record, é necessario che nel body venga specificato l'id del record da eliminare"
+                    }
+                }, ensure_ascii=False, indent=4), status=400)
+        try:
+            env['ca.ente_azienda'].with_user(env.user).check_access_rights('unlink')
+        except Exception as e:
+            return Response(json.dumps({
+                    "header": {
+                        'response': 401
+                    },
+                    'body': {
+                        'permission': f"L'utente {user_id.name} non ha il permesso di cancellare i record di ca.ente_azienda"
+                    }
+                }, ensure_ascii=False, indent=4), status=401)
+        try:
+            ca_ente_azienda_id = env['ca.ente_azienda'].browse(int(id))
+            if ca_ente_azienda_id:
+                vals = {
+                    'id': ca_ente_azienda_id.id,
+                    'name': ca_ente_azienda_id.name,
+                    'parent_id': ca_ente_azienda_id.parent_id.name if ca_ente_azienda_id.parent_id else '',
+                    'parent_path': ca_ente_azienda_id.parent_path or '',
+                    'street': ca_ente_azienda_id.street or '',
+                    'street2': ca_ente_azienda_id.street2 or '',
+                    'city': ca_ente_azienda_id.city or '',
+                    'state_id': ca_ente_azienda_id.state_id.name if ca_ente_azienda_id.state_id else '',
+                    'zip': ca_ente_azienda_id.zip or '',
+                    'country_id': ca_ente_azienda_id.country_id.name if ca_ente_azienda_id.country_id else '',
+                    'vat': ca_ente_azienda_id.vat or '',
+                    'note': ca_ente_azienda_id.note or '',
+                    'email': ca_ente_azienda_id.email or '',
+                    'phone': ca_ente_azienda_id.phone or '',
+                    'mobile': ca_ente_azienda_id.mobile or '',
+                    'website': ca_ente_azienda_id.website or '',
+                    'pec': ca_ente_azienda_id.pec,
+                    'company_id': ca_ente_azienda_id.company_id.name if ca_ente_azienda_id.company_id else '',
+                    'tipo_ente_azienda_id': ca_ente_azienda_id.tipo_ente_azienda_id.name,
+                    'ca_persona_ids': ",".join(p.token for p in ca_ente_azienda_id.ca_persona_ids),
+                    'ref': ca_ente_azienda_id.ref,
+                    'lock': ca_ente_azienda_id.lock,
+                    'url_gateway_lettori': ca_ente_azienda_id.url_gateway_lettori or '',
+                    'nome_chiave_header': ca_ente_azienda_id.nome_chiave_header or '',
+                    'jwt': ca_ente_azienda_id.jwt or '',
+                }
+                ca_ente_azienda_id.unlink()
+                return Response(json.dumps({
+                    "header": {
+                        'response': 200
+                    },
+                    "body": vals
+                }, ensure_ascii=False, indent=4), status=200)
+        except:
+            return Response(json.dumps({
+                "header": {
+                    'response': 400
+                },
+                "body": f"Non é stato trovato nessun record con id {id}"
             }, ensure_ascii=False, indent=4), status=400)

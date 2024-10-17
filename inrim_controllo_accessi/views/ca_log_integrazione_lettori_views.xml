@@ -5,7 +5,7 @@
         <field name="model">ca.log_integrazione_lettori</field>
         <field name="arch" type="xml">
             <search>
-                <filter string="In Error" name="in_error" domain="[('error_code', '!=', '0000')]"/>
+                <filter string="In Error" name="in_error" domain="[('operation_status', '=', 'ko')]"/>
                 <filter string="Activity Code" name="activity_code" context="{'group_by':'activity_code'}"/>
             </search>
         </field>
@@ -15,7 +15,7 @@
         <field name="name">ca.log.integrazione.lettori.view.tree</field>
         <field name="model">ca.log_integrazione_lettori</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree create='false'>
                 <field name="activity_code"/>
                 <field name="datetime"/>
                 <field name="ca_lettore_id"/>

@@ -4,7 +4,7 @@ class CaRigheAccesso(models.Model):
     _name = 'ca.righe_accesso'
     _description = 'Righe Accesso'
 
-    registro_accesso_id = fields.Many2one('ca.registro_accesso')
+    registro_accesso_id = fields.Many2one('ca.anag_registro_accesso')
     persona_id = fields.Many2one('ca.persona')
     spazio_id = fields.Many2one('ca.spazio')
     tipo_spazio_id = fields.Many2one('ca.tipo_spazio')

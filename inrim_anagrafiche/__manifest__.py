@@ -39,6 +39,7 @@
         'demo/ca_lettore_demo.xml',
         'demo/ca_tag_demo.xml',
         'demo/ca_persona_demo.xml',
+        'demo/ca_tag_persona_demo.xml',
     ],
     'installable': True,
     'application': True,

@@ -29,7 +29,6 @@ class CaPuntoAccesso(models.Model):
             if info_request.status_code == 200:
                 logger.info(f"{info_url}, Status Code: {info_request.status_code}")
                 self.post_rfid_info(device, info_request.json())
-                self.env.cr.commit()
             else:
                 logger.info(f"{info_url}, Status Code: {info_request.status_code}")
             status_request = requests.post(status_url, headers=header, json=body, verify=False)

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_tag_view_form_inherit" model="ir.ui.view">
+        <field name="name">ca.tag.view.form.inherit</field>
+        <field name="model">ca.tag</field>
+        <field name="inherit_id" ref="inrim_anagrafiche.ca_tag_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ca_proprieta_tag_ids']" position="after">
+                <field name="timezone_config"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
