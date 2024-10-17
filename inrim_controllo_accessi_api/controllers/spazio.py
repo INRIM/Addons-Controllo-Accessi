@@ -923,3 +923,94 @@ class InrimApiSpazio(http.Controller):
                 },
                 "body": f"Errore: {e}"
             }, ensure_ascii=False, indent=4), status=400)
+        
+    @http.route('/api/spazio', auth="none", type='http', methods=['DELETE'],
+           csrf=False)
+    def api_delete_ca_spazio(self):
+        env = api.Environment(request.cr, SUPERUSER_ID,
+                                {'active_test': False})
+        
+        if 'token' in request.httprequest.headers and request.httprequest.headers.get('active_test') == 'True':
+            token = request.httprequest.headers.get('token')
+            user_token = InrimApiController.authenticate_token(env, token)
+            user_id = env['res.users'].browse(user_token)
+            request.update_env(user=user_id)
+            env.user = user_id
+            if not user_token:
+                return Response(json.dumps({
+                    "header": {
+                        'response': 400
+                    },
+                    'body': {
+                        'token': 'Token non valido'
+                    }
+                }, ensure_ascii=False, indent=4), status=400)
+        else:
+            return Response(json.dumps({
+                    "header": {
+                        'response': 400
+                    },
+                    'body': {
+                        'token': 'Token non presente'
+                    }
+                }, ensure_ascii=False, indent=4), status=400)
+        byte_string = request.httprequest.data
+        if not byte_string:
+            return Response(json.dumps({
+                    "header": {
+                        'response': 400
+                    },
+                    'body': {
+                        'MissingBody': "Per poter eliminare un record, é necessario che nel body venga specificato l'id del record da eliminare"
+                    }
+                }, ensure_ascii=False, indent=4), status=400)
+        data = json.loads(byte_string.decode('utf-8'))
+        id = data.get('id')
+        if not id:
+            return Response(json.dumps({
+                    "header": {
+                        'response': 400
+                    },
+                    'body': {
+                        'MissingBody': "Per poter eliminare un record, é necessario che nel body venga specificato l'id del record da eliminare"
+                    }
+                }, ensure_ascii=False, indent=4), status=400)
+        try:
+            env['ca.spazio'].with_user(env.user).check_access_rights('unlink')
+        except Exception as e:
+            return Response(json.dumps({
+                    "header": {
+                        'response': 401
+                    },
+                    'body': {
+                        'permission': f"L'utente {user_id.name} non ha il permesso di cancellare i record di ca.spazio"
+                    }
+                }, ensure_ascii=False, indent=4), status=401)
+        try:
+            ca_spazio_id = env['ca.spazio'].browse(int(id))
+            if ca_spazio_id:
+                vals = {
+                    'id': ca_spazio_id.id,
+                    'name': ca_spazio_id.name,
+                    'tipo_spazio_id': ca_spazio_id.tipo_spazio_id.display_name,
+                    'ente_azienda_id': ca_spazio_id.ente_azienda_id.display_name,
+                    'codice_locale_id': ca_spazio_id.codice_locale_id.display_name or "",
+                    'lettore_id': ca_spazio_id.lettore_id.display_name or "",
+                    'date_start': ca_spazio_id.date_start.strftime('%Y-%m-%d') if ca_spazio_id.date_start else "",
+                    'date_end': ca_spazio_id.date_end.strftime('%Y-%m-%d') if ca_spazio_id.date_end else "",
+                    'righe_persona_ids': []
+                }
+                ca_spazio_id.unlink()
+                return Response(json.dumps({
+                    "header": {
+                        'response': 200
+                    },
+                    "body": vals
+                }, ensure_ascii=False, indent=4), status=200)
+        except:
+            return Response(json.dumps({
+                "header": {
+                    'response': 400
+                },
+                "body": f"Non é stato trovato nessun record con id {id}"
+            }, ensure_ascii=False, indent=4), status=400)

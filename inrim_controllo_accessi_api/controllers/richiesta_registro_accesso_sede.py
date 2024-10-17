@@ -237,7 +237,7 @@ class InrimApiRichiestaRegistroAccessoSede(http.Controller):
                     }
                 }, ensure_ascii=False, indent=4), status=400)
         if type(persona_id) == str:
-            persona = env['ca.persona'].search([('token', '=', persona_id)])
+            persona = env['ca.persona'].search([('token', '=', persona_id)], limit=1)
             if not persona:
                 return Response(json.dumps({
                     "header": {
@@ -261,7 +261,7 @@ class InrimApiRichiestaRegistroAccessoSede(http.Controller):
                     }
                 }, ensure_ascii=False, indent=4), status=400)
         if type(ente_azienda_id) == str:
-            ente_azienda = env['ca.ente_azienda'].search([('name', '=', ente_azienda_id)])
+            ente_azienda = env['ca.ente_azienda'].search([('name', '=', ente_azienda_id)], limit=1)
             if not ente_azienda:
                 return Response(json.dumps({
                     "header": {
@@ -285,7 +285,7 @@ class InrimApiRichiestaRegistroAccessoSede(http.Controller):
                     }
                 }, ensure_ascii=False, indent=4), status=400)
         if type(punto_accesso_id) == str:
-            punto_accesso = env['ca.punto_accesso'].search([('name', '=', punto_accesso_id)])
+            punto_accesso = env['ca.punto_accesso'].search([('name', '=', punto_accesso_id)], limit=1)
             if not punto_accesso:
                 return Response(json.dumps({
                     "header": {
@@ -433,7 +433,7 @@ class InrimApiRichiestaRegistroAccessoSede(http.Controller):
                         "body": f"Non é stato trovato nessun record con id {id} nel model ca.richiesta_riga_accesso_sede"
                     }, ensure_ascii=False, indent=4), status=400)
         if persona_id and type(persona_id) == str:
-            persona = env['ca.persona'].search([('token', '=', persona_id)])
+            persona = env['ca.persona'].search([('token', '=', persona_id)], limit=1)
             if not persona:
                 return Response(json.dumps({
                     "header": {
@@ -455,7 +455,7 @@ class InrimApiRichiestaRegistroAccessoSede(http.Controller):
                         "body": f"La persona con id {persona_id} non esiste"
                     }, ensure_ascii=False, indent=4), status=400)
         if ente_azienda_id and type(ente_azienda_id) == str:
-            ente_azienda = env['ca.ente_azienda'].search([('name', '=', ente_azienda_id)])
+            ente_azienda = env['ca.ente_azienda'].search([('name', '=', ente_azienda_id)], limit=1)
             if not ente_azienda:
                 return Response(json.dumps({
                     "header": {
@@ -479,7 +479,7 @@ class InrimApiRichiestaRegistroAccessoSede(http.Controller):
                     }
                 }, ensure_ascii=False, indent=4), status=400)
         if punto_accesso_id and type(punto_accesso_id) == str:
-            punto_accesso = env['ca.punto_accesso'].search([('name', '=', punto_accesso_id)])
+            punto_accesso = env['ca.punto_accesso'].search([('name', '=', punto_accesso_id)], limit=1)
             if not punto_accesso:
                 return Response(json.dumps({
                     "header": {

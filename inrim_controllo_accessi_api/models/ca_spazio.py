@@ -1,5 +1,4 @@
 from odoo import models
-from datetime import datetime
 import logging
 import requests
 

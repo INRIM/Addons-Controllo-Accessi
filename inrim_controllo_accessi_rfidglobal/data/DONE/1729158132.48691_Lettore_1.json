@@ -1,0 +1,102 @@
+{
+    "status": 148,
+    "statusStr": "OK",
+    "layoutIdd": true,
+    "layoutTimeStamp": true,
+    "layoutEventStatus": true,
+    "layoutInput": true,
+    "dataSetsLenght": 1,
+    "hasMore": true,
+    "layout": [
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false
+    ],
+    "eventRecords": [
+        {
+            "idd": "E0010150AD255C11",
+            "eventDateTime": "2023-02-24T07:03:13",
+            "errorCode": "0000",
+            "accessAllowed": false,
+            "digitalInput": [
+                true,
+                true,
+                true,
+                true,
+                false,
+                false,
+                false,
+                false
+            ]
+        },
+        {
+            "idd": "E0010150AD255C12",
+            "eventDateTime": "2023-02-14T17:03:13",
+            "errorCode": "0000",
+            "accessAllowed": true,
+            "digitalInput": [
+                true,
+                true,
+                true,
+                true,
+                false,
+                false,
+                false,
+                false
+            ]
+        },
+        {
+            "idd": "E0010150AD255C13",
+            "eventDateTime": "2023-02-24T07:03:13",
+            "errorCode": "0000",
+            "accessAllowed": true,
+            "digitalInput": [
+                true,
+                true,
+                true,
+                true,
+                false,
+                false,
+                false,
+                false
+            ]
+        },
+        {
+            "idd": "E0010150AD255C13",
+            "eventDateTime": "2023-02-24T07:03:15",
+            "errorCode": "0000",
+            "accessAllowed": true,
+            "digitalInput": [
+                true,
+                true,
+                true,
+                true,
+                false,
+                false,
+                false,
+                false
+            ]
+        },
+        {
+            "idd": "E0010150AD255C14",
+            "eventDateTime": "2023-02-24T07:03:15",
+            "errorCode": "0000",
+            "accessAllowed": true,
+            "digitalInput": [
+                true,
+                true,
+                true,
+                true,
+                false,
+                false,
+                false,
+                false
+            ]
+        }
+    ]
+}

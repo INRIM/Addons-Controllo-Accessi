@@ -269,7 +269,7 @@ class InrimApiDocumento(http.Controller):
                 'ca.documento'
             ].browse(int(id))
             if type(tipo_documento_id) == str:
-                tipo_documento = env['ca.tipo_doc_ident'].search([('name', '=', tipo_documento_id)])
+                tipo_documento = env['ca.tipo_doc_ident'].search([('name', '=', tipo_documento_id)], limit=1)
                 if not tipo_documento_id:
                     return Response(json.dumps({
                         "header": {
@@ -294,7 +294,7 @@ class InrimApiDocumento(http.Controller):
                     }, ensure_ascii=False, indent=4), status=400)
                 vals['tipo_documento_id'] = tipo_documento_id  
             if type(ca_persona_id) == str:
-                ca_persona = env['ca.persona'].search([('token', '=', ca_persona_id)])
+                ca_persona = env['ca.persona'].search([('token', '=', ca_persona_id)], limit=1)
                 if not ca_persona:
                     return Response(json.dumps({
                         "header": {
@@ -415,7 +415,7 @@ class InrimApiDocumento(http.Controller):
         data = json.loads(byte_string.decode('utf-8'))
         ca_persona_id = data.get('ca_persona_id')
         if type(ca_persona_id) == str:
-                ca_persona = env['ca.persona'].search([('token', '=', ca_persona_id)])
+                ca_persona = env['ca.persona'].search([('token', '=', ca_persona_id)], limit=1)
                 if not ca_persona:
                     return Response(json.dumps({
                         "header": {
@@ -441,7 +441,7 @@ class InrimApiDocumento(http.Controller):
             ca_persona_id = ca_persona_id
         tipo_documento_id = data.get('tipo_documento_id')
         if type(tipo_documento_id) == str:
-                tipo_documento = env['ca.tipo_doc_ident'].search([('name', '=', tipo_documento_id)])
+                tipo_documento = env['ca.tipo_doc_ident'].search([('name', '=', tipo_documento_id)], limit=1)
                 if not tipo_documento_id:
                     return Response(json.dumps({
                         "header": {
@@ -591,4 +591,94 @@ class InrimApiDocumento(http.Controller):
                     'response': 400
                 },
                 "body": f"Errore: {e}"
+            }, ensure_ascii=False, indent=4), status=400)
+
+    @http.route('/api/documento', auth="none", type='http', methods=['DELETE'],
+           csrf=False)
+    def api_delete_ca_documento(self):
+        env = api.Environment(request.cr, SUPERUSER_ID,
+                                {'active_test': False})
+        
+        if 'token' in request.httprequest.headers and request.httprequest.headers.get('active_test') == 'True':
+            token = request.httprequest.headers.get('token')
+            user_token = InrimApiController.authenticate_token(env, token)
+            user_id = env['res.users'].browse(user_token)
+            request.update_env(user=user_id)
+            env.user = user_id
+            if not user_token:
+                return Response(json.dumps({
+                    "header": {
+                        'response': 400
+                    },
+                    'body': {
+                        'token': 'Token non valido'
+                    }
+                }, ensure_ascii=False, indent=4), status=400)
+        else:
+            return Response(json.dumps({
+                    "header": {
+                        'response': 400
+                    },
+                    'body': {
+                        'token': 'Token non presente'
+                    }
+                }, ensure_ascii=False, indent=4), status=400)
+        byte_string = request.httprequest.data
+        if not byte_string:
+            return Response(json.dumps({
+                    "header": {
+                        'response': 400
+                    },
+                    'body': {
+                        'MissingBody': "Per poter eliminare un record, é necessario che nel body venga specificato l'id del record da eliminare"
+                    }
+                }, ensure_ascii=False, indent=4), status=400)
+        data = json.loads(byte_string.decode('utf-8'))
+        id = data.get('id')
+        if not id:
+            return Response(json.dumps({
+                    "header": {
+                        'response': 400
+                    },
+                    'body': {
+                        'MissingBody': "Per poter eliminare un record, é necessario che nel body venga specificato l'id del record da eliminare"
+                    }
+                }, ensure_ascii=False, indent=4), status=400)
+        try:
+            env['ca.documento'].with_user(env.user).check_access_rights('unlink')
+        except Exception as e:
+            return Response(json.dumps({
+                    "header": {
+                        'response': 401
+                    },
+                    'body': {
+                        'permission': f"L'utente {user_id.name} non ha il permesso di cancellare i record di ca.documento"
+                    }
+                }, ensure_ascii=False, indent=4), status=401)
+        try:
+            ca_documento_id = env['ca.documento'].browse(int(id))
+            if ca_documento_id:
+                vals = {
+                    'id': ca_documento_id.id,
+                    'ca_persona_id': ca_documento_id.ca_persona_id.token,
+                    'tipo_documento_id' : ca_documento_id.tipo_documento_id.name,
+                    'validity_start_date': ca_documento_id.validity_start_date.strftime("%Y-%m-%d"),
+                    'validity_end_date': ca_documento_id.validity_end_date.strftime("%Y-%m-%d"),
+                    'issued_by' : ca_documento_id.issued_by,
+                    'document_code' : ca_documento_id.document_code,
+                    'ca_stato_documento_id' : ca_documento_id.ca_stato_documento_id.name
+                }
+                ca_documento_id.unlink()
+                return Response(json.dumps({
+                    "header": {
+                        'response': 200
+                    },
+                    "body": vals
+                }, ensure_ascii=False, indent=4), status=200)
+        except:
+            return Response(json.dumps({
+                "header": {
+                    'response': 400
+                },
+                "body": f"Non é stato trovato nessun record con id {id}"
             }, ensure_ascii=False, indent=4), status=400)
