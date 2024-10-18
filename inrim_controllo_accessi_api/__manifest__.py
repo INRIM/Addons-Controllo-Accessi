@@ -12,7 +12,6 @@
     ],
     'data': [
         'data/ir_cron.xml',
-        'views/ca_persona_views.xml',
     ],
     'demo': [],
     'installable': True,

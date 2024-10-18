@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-05 07:33+0000\n"
-"PO-Revision-Date: 2024-07-05 07:33+0000\n"
+"POT-Creation-Date: 2024-10-18 14:37+0000\n"
+"PO-Revision-Date: 2024-10-18 14:37+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,87 +16,41 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: inrim_controllo_accessi_api
-#: model:ir.actions.server,name:inrim_controllo_accessi_api.res_users_apikeys_cron_ir_actions_server
-msgid "Clear: Users ApiKeys"
-msgstr "INRiM: Clear Users ApiKeys"
+#: model:ir.model.fields,field_description:inrim_controllo_accessi_api.field_res_users__api_enabled
+msgid "Api Enabled"
+msgstr "Abilitato API"
 
 #. module: inrim_controllo_accessi_api
-#: model:ir.model.fields,field_description:inrim_controllo_accessi_api.field_ca_richiesta_riga_accesso_sede__create_uid
-msgid "Created by"
+#: model:ir.model.fields,help:inrim_controllo_accessi_api.field_res_users__api_enabled
+msgid "Enabled for integration via API"
+msgstr "Abilitato all' integrazione tramite API"
+
+#. module: inrim_controllo_accessi_api
+#: model:ir.actions.server,name:inrim_controllo_accessi_api.read_people_get_addressbook_cron_ir_actions_server
+msgid "INRiM: Read People Get Addressbook"
 msgstr ""
 
 #. module: inrim_controllo_accessi_api
-#: model:ir.model.fields,field_description:inrim_controllo_accessi_api.field_ca_richiesta_riga_accesso_sede__create_date
-msgid "Created on"
+#: model:ir.actions.server,name:inrim_controllo_accessi_api.read_people_get_rooms_cron_ir_actions_server
+msgid "INRiM: Read People Get Rooms"
 msgstr ""
 
 #. module: inrim_controllo_accessi_api
-#: model:ir.model.fields,field_description:inrim_controllo_accessi_api.field_ca_richiesta_riga_accesso_sede__datetime_event
-msgid "Datetime Event"
-msgstr "Data/Ora Evento"
-
-#. module: inrim_controllo_accessi_api
-#: model:ir.model.fields,field_description:inrim_controllo_accessi_api.field_ca_richiesta_riga_accesso_sede__direction
-msgid "Direction"
-msgstr "Direzione"
-
-#. module: inrim_controllo_accessi_api
-#: model:ir.model.fields,field_description:inrim_controllo_accessi_api.field_ca_richiesta_riga_accesso_sede__display_name
-msgid "Display Name"
-msgstr ""
-
-#. module: inrim_controllo_accessi_api
-#: model:ir.model.fields,field_description:inrim_controllo_accessi_api.field_ca_richiesta_riga_accesso_sede__ente_azienda_id
-msgid "Ente Azienda"
-msgstr ""
-
-#. module: inrim_controllo_accessi_api
-#: model:ir.model.fields,field_description:inrim_controllo_accessi_api.field_ca_richiesta_riga_accesso_sede__id
-msgid "ID"
-msgstr ""
-
-#. module: inrim_controllo_accessi_api
-#: model:ir.model.fields,field_description:inrim_controllo_accessi_api.field_ca_richiesta_riga_accesso_sede__is_headquarters
-msgid "Is Headquarters"
-msgstr ""
-
-#. module: inrim_controllo_accessi_api
-#: model:ir.model.fields,field_description:inrim_controllo_accessi_api.field_ca_richiesta_riga_accesso_sede__write_uid
-msgid "Last Updated by"
-msgstr ""
-
-#. module: inrim_controllo_accessi_api
-#: model:ir.model.fields,field_description:inrim_controllo_accessi_api.field_ca_richiesta_riga_accesso_sede__write_date
-msgid "Last Updated on"
-msgstr ""
-
-#. module: inrim_controllo_accessi_api
-#: model:ir.model.fields,field_description:inrim_controllo_accessi_api.field_ca_richiesta_riga_accesso_sede__persona_id
+#: model:ir.model,name:inrim_controllo_accessi_api.model_ca_persona
 msgid "Persona"
-msgstr ""
+msgstr "Anagrafica Persona"
 
 #. module: inrim_controllo_accessi_api
-#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi_api.ca_richiesta_riga_accesso_sede_view_form
-msgid "Process Access Log Requests"
-msgstr "Elabora Richieste Registro Accesso"
-
-#. module: inrim_controllo_accessi_api
-#: model:ir.model.fields,field_description:inrim_controllo_accessi_api.field_ca_richiesta_riga_accesso_sede__punto_accesso_id
+#: model:ir.model,name:inrim_controllo_accessi_api.model_ca_punto_accesso
 msgid "Punto Accesso"
 msgstr ""
 
 #. module: inrim_controllo_accessi_api
-#: model:ir.actions.act_window,name:inrim_controllo_accessi_api.ca_richiesta_riga_accesso_sede_action
-#: model:ir.ui.menu,name:inrim_controllo_accessi_api.ca_richiesta_riga_accesso_sede_menu
-msgid "Request Insertion Headquarters Access Register"
-msgstr "Richiesta Inserimento Registro Accesso Sede"
-
-#. module: inrim_controllo_accessi_api
-#: model:ir.model,name:inrim_controllo_accessi_api.model_ca_richiesta_riga_accesso_sede
-msgid "Richiesta Riga Accesso Sede"
+#: model:ir.model,name:inrim_controllo_accessi_api.model_ca_spazio
+msgid "Spazio"
 msgstr ""
 
 #. module: inrim_controllo_accessi_api
-#: model:ir.model,name:inrim_controllo_accessi_api.model_res_users_apikeys
-msgid "Users API Keys"
-msgstr "Chiavi API utenti"
+#: model:ir.model,name:inrim_controllo_accessi_api.model_res_users
+msgid "User"
+msgstr "Utente"
