@@ -6,6 +6,7 @@ import string
 
 class CaRichiestaServiziPersona(models.Model):
     _name = 'ca.richiesta_servizi_persona'
+    _inherit = "ca.model.base.mixin"
     _description = 'Richiesta Servizi Persona'
     _rec_name = 'token'
 

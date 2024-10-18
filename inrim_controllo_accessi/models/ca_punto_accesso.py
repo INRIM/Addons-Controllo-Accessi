@@ -4,6 +4,7 @@ from datetime import datetime
 
 class CaPuntoAccesso(models.Model):
     _name = 'ca.punto_accesso'
+    _inherit = "ca.model.base.mixin"
     _description = 'Punto Accesso'
 
     name = fields.Char(compute="_compute_name", store=True)

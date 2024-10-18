@@ -104,6 +104,7 @@ class TestInrim(TestCommon):
                 'issued_by': 'Comune'
             })
         })
+        self.assertTrue(ca_persona_id.token != "")
         self.assertTrue(ca_persona_id)
 
     # Test 4

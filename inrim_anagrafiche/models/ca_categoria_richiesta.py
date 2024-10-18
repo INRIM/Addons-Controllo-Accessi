@@ -3,6 +3,7 @@ from odoo.exceptions import UserError
 
 class CaCategoriaRichiesta(models.Model):
     _name = 'ca.categoria_richiesta'
+    _inherit = "ca.model.base.mixin"
     _description = 'Categoria Richiesta'
 
     name = fields.Char(required=True)

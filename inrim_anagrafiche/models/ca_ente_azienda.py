@@ -3,6 +3,7 @@ from odoo.exceptions import UserError
 
 class CaEnteAzienda(models.Model):
     _name = 'ca.ente_azienda'
+    _inherit = "ca.model.base.mixin"
     _description = 'Ente Azienda'
 
     name = fields.Char(required=True)
@@ -33,6 +34,7 @@ class CaEnteAzienda(models.Model):
 
 class CaTipoEnteAzienda(models.Model):
     _name = 'ca.tipo_ente_azienda'
+    _inherit = "ca.model.base.mixin"
     _description = 'Tipo Ente Azienda'
 
     name = fields.Char(required=True)

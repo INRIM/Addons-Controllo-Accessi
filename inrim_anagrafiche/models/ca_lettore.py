@@ -2,6 +2,7 @@ from odoo import models, fields, api
 
 class CaLettore(models.Model):
     _name = 'ca.lettore'
+    _inherit = "ca.model.base.mixin"
     _description = 'Lettore'
 
     name = fields.Char(required=True)

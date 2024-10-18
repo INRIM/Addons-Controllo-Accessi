@@ -3,6 +3,7 @@ from odoo.exceptions import UserError
 
 class CaAnagRegistroAccesso(models.Model):
     _name = 'ca.anag_avanzamento_rich'
+    _inherit = "ca.model.base.mixin"
     _description = 'Anagrafica Avanzamento Richiesta'
     _rec_name = 'code'
 

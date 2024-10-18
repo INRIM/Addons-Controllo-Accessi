@@ -3,6 +3,7 @@ from odoo.exceptions import UserError
 
 class CaTagLettore(models.Model):
     _name = 'ca.tag_lettore'
+    _inherit = "ca.model.base.mixin"
     _description = 'Tag Lettore'
 
     name = fields.Char(compute="_compute_name", store=True)

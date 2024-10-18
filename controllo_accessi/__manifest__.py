@@ -4,9 +4,7 @@
     'description': "Controllo Accessi Base",
     "author": "Alessio Gerace - Inrim",
     "website": "https://github.com/INRIM",
-    'depends': [
-        'inrim_controllo_accessi_api'
-    ],
+    'depends': [],
     'data': [
         'security/security.xml',
     ],

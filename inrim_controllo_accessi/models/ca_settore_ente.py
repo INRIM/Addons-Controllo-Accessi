@@ -4,6 +4,7 @@ from datetime import datetime
 
 class CaSettoreEnte(models.Model):
     _name = 'ca.settore_ente'
+    _inherit = "ca.model.base.mixin"
     _description = 'Settore Ente'
 
     name = fields.Char(required=True)

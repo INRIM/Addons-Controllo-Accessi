@@ -4,6 +4,7 @@ from datetime import datetime
 
 class CaAnagServizi(models.Model):
     _name = 'ca.anag_servizi'
+    _inherit = "ca.model.base.mixin"
     _description = 'Anagrafica Servizi'
 
     name = fields.Char(required=True)

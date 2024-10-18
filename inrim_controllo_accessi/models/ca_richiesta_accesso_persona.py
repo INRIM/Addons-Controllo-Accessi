@@ -6,6 +6,7 @@ from datetime import timedelta
 
 class CaRichiestaAccessoPersona(models.Model):
     _name = 'ca.richiesta_accesso_persona'
+    _inherit = "ca.model.base.mixin"
     _description = 'Richiesta Accesso Persona'
     _rec_name = 'token'
 

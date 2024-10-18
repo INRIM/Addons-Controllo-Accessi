@@ -5,6 +5,7 @@ import string
 
 class CaPersona(models.Model):
     _name = 'ca.persona'
+    _inherit = "ca.model.base.mixin"
     _description = 'Persona'
     _rec_name = "display_name"
     _rec_names_search = ['display_name', 'token']

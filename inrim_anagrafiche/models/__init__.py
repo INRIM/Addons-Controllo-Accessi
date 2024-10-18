@@ -1,3 +1,4 @@
+from . import ca_model_base_mixin
 from . import ca_persona
 from . import ca_tipo_persona
 from . import ca_documento

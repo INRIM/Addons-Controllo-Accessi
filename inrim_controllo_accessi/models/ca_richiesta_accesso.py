@@ -6,6 +6,7 @@ import string
 
 class CaRichiestaAccesso(models.Model):
     _name = 'ca.richiesta_accesso'
+    _inherit = "ca.model.base.mixin"
     _description = 'Richiesta Accesso'
     _rec_name = 'token'
 

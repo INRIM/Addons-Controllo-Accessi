@@ -3,6 +3,7 @@ from odoo.exceptions import UserError
 
 class CaTipoSpazio(models.Model):
     _name = 'ca.tipo_spazio'
+    _inherit = "ca.model.base.mixin"
     _description = 'Tipo Spazio'
 
     name = fields.Char(required=True)
@@ -21,6 +22,7 @@ class CaTipoSpazio(models.Model):
 
 class CaSpazio(models.Model):
     _name = 'ca.spazio'
+    _inherit = "ca.model.base.mixin"
     _description = 'Spazio'
 
     name = fields.Char(required=True, string="Space Name")

@@ -4,7 +4,7 @@
     "website": "https://github.com/INRIM",
     'version': '17.0.1.0.0',
     'description': "Inrim Anagrafiche",
-    'depends': ['base'],
+    'depends': ['controllo_accessi'],
     'data': [
         'security/ir.model.access.csv',
         'security/security.xml',

@@ -110,8 +110,9 @@ class ApiTestCommon(TestCommon):
 
         # post
         data = {
-            "ca_persona_id": self.persona_1.token,
-            "tipo_documento_id": "Carta D’identita",
+            "ca_persona_token": self.persona_1.token,
+            "tipo_documento_id": self.env.ref(
+                    'inrim_anagrafiche.tipo_doc_ident_carta_identita').id,
             "validity_start_date": "2024-01-01",
             "validity_end_date": "2024-06-20",
             "issued_by": "Comune",
@@ -120,7 +121,8 @@ class ApiTestCommon(TestCommon):
 
         response = requests.post(self.api_url + '/api/documento', headers=headers, json=data)
         self.assertEqual(response.status_code, 200)
-        id_from_post = response.json()['body'].get('id')
+        print(response.json())
+        id_from_post = response.json().get('id')
 
         # get
         response = requests.get(self.api_url + '/api/documento', headers=headers, json=data)
@@ -129,8 +131,9 @@ class ApiTestCommon(TestCommon):
         # put
         data = {
             "id": id_from_post,
-            "ca_persona_id": self.persona_1.token,
-            "tipo_documento_id": "Carta D’identita",
+            "ca_persona_token": self.persona_1.token,
+            "tipo_documento_id": self.env.ref(
+                    'inrim_anagrafiche.tipo_doc_ident_carta_identita').id,
             "validity_start_date": "2024-01-01",
             "validity_end_date": "2024-06-20",
             "issued_by": "Comune",

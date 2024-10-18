@@ -8,6 +8,7 @@ from odoo import models, fields, api, _
 
 class CaTagPersona(models.Model):
     _name = 'ca.tag_persona'
+    _inherit = "ca.model.base.mixin"
     _description = 'Tag Persona'
     _rec_name = 'tag_name'
 

@@ -6,7 +6,6 @@
     "website": "https://github.com/INRIM",
     'depends': [
         'inrim_iam_user_ldap',
-        'controllo_accessi',
         'inrim_controllo_accessi_rfidglobal'
     ],
     'data': [

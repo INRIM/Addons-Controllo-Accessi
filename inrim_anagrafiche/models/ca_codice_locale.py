@@ -3,6 +3,7 @@ from odoo.exceptions import UserError
 
 class CaCodiceLocale(models.Model):
     _name = 'ca.codice_locale'
+    _inherit = "ca.model.base.mixin"
     _description = 'Codice Locale'
 
     name = fields.Char(required=True)
