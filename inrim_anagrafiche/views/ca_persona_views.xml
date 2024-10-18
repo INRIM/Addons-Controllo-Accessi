@@ -51,6 +51,11 @@
                                 <div class="o_address_format" groups="inrim_controllo_accessi_base.ca_gdpr">
                                     <field name="domicile_street" placeholder="Street..." class="o_address_street" required="is_external" readonly="True"/>
                                     <field name="domicile_street2" placeholder="Street 2..." class="o_address_street" readonly="True"/>
+                                    <field
+                                        name="domicile_zip_id"
+                                        options="{'create_name_field': 'domicile_city', 'no_open': True, 'no_create': True}"
+                                        placeholder="City completion"
+                                    />
                                     <field name="domicile_city" placeholder="City" class="o_address_city" required="is_external" readonly="True"/>
                                     <field name="domicile_state_id" class="o_address_state" placeholder="State" required="is_external" readonly="True"/>
                                     <field name="domicile_zip" placeholder="ZIP" class="o_address_zip" required="is_external" readonly="True"/>
@@ -78,6 +83,12 @@
                                 <div class="o_address_format" groups="inrim_controllo_accessi_base.ca_gdpr">
                                     <field name="residence_street" placeholder="Street..." class="o_address_street" required="domicile_other_than_residence" invisible="not domicile_other_than_residence" readonly="True"/>
                                     <field name="residence_street2" placeholder="Street 2..." class="o_address_street" invisible="not domicile_other_than_residence" readonly="True"/>
+                                    <field
+                                        name="residence_zip_id"
+                                        options="{'create_name_field': 'residence_city', 'no_open': True, 'no_create': True}"
+                                        placeholder="City completion"
+                                        invisible="not domicile_other_than_residence"
+                                    />
                                     <field name="residence_city" placeholder="City" class="o_address_city" required="domicile_other_than_residence" invisible="not domicile_other_than_residence" readonly="True"/>
                                     <field name="residence_state_id" class="o_address_state" placeholder="State" required="domicile_other_than_residence" invisible="not domicile_other_than_residence" readonly="True"/>
                                     <field name="residence_zip" placeholder="ZIP" class="o_address_zip" required="domicile_other_than_residence" invisible="not domicile_other_than_residence" readonly="True"/>
@@ -201,6 +212,11 @@
                                 <div class="o_address_format" groups="inrim_controllo_accessi_base.ca_gdpr">
                                     <field name="domicile_street" placeholder="Street..." class="o_address_street" required="is_external"/>
                                     <field name="domicile_street2" placeholder="Street 2..." class="o_address_street"/>
+                                    <field
+                                        name="domicile_zip_id"
+                                        options="{'create_name_field': 'domicile_city', 'no_open': True, 'no_create': True}"
+                                        placeholder="City completion"
+                                    />
                                     <field name="domicile_city" placeholder="City" class="o_address_city" required="is_external"/>
                                     <field name="domicile_state_id" class="o_address_state" placeholder="State" required="is_external"/>
                                     <field name="domicile_zip" placeholder="ZIP" class="o_address_zip" required="is_external"/>
@@ -229,6 +245,12 @@
                                 <div class="o_address_format" groups="inrim_controllo_accessi_base.ca_gdpr">
                                     <field name="residence_street" placeholder="Street..." class="o_address_street" required="domicile_other_than_residence" invisible="not domicile_other_than_residence"/>
                                     <field name="residence_street2" placeholder="Street 2..." class="o_address_street" invisible="not domicile_other_than_residence"/>
+                                    <field
+                                        name="residence_zip_id"
+                                        options="{'create_name_field': 'residence_city', 'no_open': True, 'no_create': True}"
+                                        placeholder="City completion"
+                                        invisible="not domicile_other_than_residence"
+                                    />
                                     <field name="residence_city" placeholder="City" class="o_address_city" required="domicile_other_than_residence" invisible="not domicile_other_than_residence"/>
                                     <field name="residence_state_id" class="o_address_state" placeholder="State" required="domicile_other_than_residence" invisible="not domicile_other_than_residence"/>
                                     <field name="residence_zip" placeholder="ZIP" class="o_address_zip" required="domicile_other_than_residence" invisible="not domicile_other_than_residence"/>
