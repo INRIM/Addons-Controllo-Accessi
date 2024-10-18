@@ -52,6 +52,10 @@ class InrimApiController(http.Controller):
                 "error": "Invalid Username or Password"
             }, ensure_ascii=False, indent=4), status=400)
         env = request.env(user=user_id)
+        if not env['res.users'].browse(user_id).api_enabled:
+            return Response(json.dumps({
+                "error": "Unauthorized user"
+            }, ensure_ascii=False, indent=4), status=401)
         auth_api_key_id = env['auth.api.key'].search([
             ('user_id', '=', user_id)
         ], limit=1)
