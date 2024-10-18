@@ -39,6 +39,11 @@
                                         <div class="o_address_format">
                                             <field name="street" placeholder="Street..." class="o_address_street" readonly="True"/>
                                             <field name="street2" placeholder="Street 2..." class="o_address_street" readonly="True"/>
+                                            <field
+                                                name="zip_id"
+                                                options="{'create_name_field': 'city', 'no_open': True, 'no_create': True}"
+                                                placeholder="City completion"
+                                            />
                                             <field name="city" placeholder="City" class="o_address_city" readonly="True"/>
                                             <field name="state_id" class="o_address_state" placeholder="State" readonly="True"/>
                                             <field name="zip" placeholder="ZIP" class="o_address_zip" readonly="True"/>
@@ -85,6 +90,11 @@
                                         <div class="o_address_format">
                                             <field name="street" placeholder="Street..." class="o_address_street"/>
                                             <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                            <field
+                                                name="zip_id"
+                                                options="{'create_name_field': 'city', 'no_open': True, 'no_create': True}"
+                                                placeholder="City completion"
+                                            />
                                             <field name="city" placeholder="City" class="o_address_city"/>
                                             <field name="state_id" class="o_address_state" placeholder="State"/>
                                             <field name="zip" placeholder="ZIP" class="o_address_zip"/>

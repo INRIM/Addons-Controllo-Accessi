@@ -50,6 +50,14 @@
     />
 
     <menuitem
+        id="inrim_city_zip_geonames_import_menu"
+        name="Import from Geonames"
+        action="base_location_geonames_import.city_zip_geonames_import_action"
+        parent="ca_persona_menu"
+        sequence="10"
+    />
+
+    <menuitem
         id="ca_documento_root_menu"
         name="Documents"
         parent="ca_persona_menu_root"
@@ -220,5 +228,13 @@
         parent="inrim_ca_configuration_menu"
         sequence="20"
         groups="controllo_accessi.ca_config"
+    />
+
+    <menuitem 
+        name="Contacts"
+        id="contacts.menu_contacts"
+        sequence="20"
+        web_icon="contacts,static/description/icon.png"
+        groups="-base.group_user,-base.group_partner_manager,base.group_system"
     />
 </odoo>
