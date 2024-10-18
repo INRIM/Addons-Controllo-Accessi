@@ -40,6 +40,7 @@
                             <group>
                                 <field name="is_external" invisible="1"/>
                                 <field name="is_internal" invisible="1"/>
+                                <field name="is_structured" invisible="1"/>
                                 <field name="name" readonly="True"/>
                                 <field name="lastname" readonly="True"/>
                                 <field name="parent_id" widget="res_partner_many2one" placeholder="Company Name..." readonly="1"/>
@@ -65,10 +66,10 @@
                                 <field name="ca_ente_azienda_ids" widget="many2many_tags" options="{'no_create': True}" readonly="True"/>
                             </group>
                             <group>
-                                <field name="nationality" required="is_external" readonly="True"/>
-                                <field name="birth_date" required="is_external" readonly="True"/>
-                                <field name="birth_place" required="is_external" readonly="True"/>
-                                <field name="istat_code" required="is_external" readonly="True"/>
+                                <field name="nationality" required="is_structured" readonly="True"/>
+                                <field name="birth_date" required="is_structured" readonly="True"/>
+                                <field name="birth_place" required="is_structured" readonly="True"/>
+                                <field name="istat_code" required="is_structured" readonly="True"/>
                                 <field name="present"/>
                                 <field name="token"/>
                                 <span class="o_form_label o_td_label" name="address_name" invisible="not domicile_other_than_residence" groups="inrim_controllo_accessi_base.ca_gdpr">
@@ -189,6 +190,7 @@
                             <group>
                                 <field name="is_external" invisible="1" force_save="1"/>
                                 <field name="is_internal" invisible="1" force_save="1"/>
+                                <field name="is_structured" invisible="1" force_save="1"/>
                                 <field name="name"/>
                                 <field name="lastname"/>
                                 <field name="parent_id" widget="res_partner_many2one" placeholder="Company Name..." readonly="1"/>
@@ -214,10 +216,10 @@
                                 <field name="ca_ente_azienda_ids" widget="many2many_tags" options="{'no_create': True}"/>
                             </group>
                             <group>
-                                <field name="nationality" required="is_external"/>
-                                <field name="birth_date" required="is_external"/>
-                                <field name="birth_place" required="is_external"/>
-                                <field name="istat_code" required="is_external"/>
+                                <field name="nationality" required="is_structured"/>
+                                <field name="birth_date" required="is_structured"/>
+                                <field name="birth_place" required="is_structured"/>
+                                <field name="istat_code" required="is_structured"/>
                                 <field name="uid"/>
                                 <field name="present"/>
                                 <field name="token"/>

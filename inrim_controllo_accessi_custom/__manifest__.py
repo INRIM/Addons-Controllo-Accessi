@@ -7,6 +7,7 @@
         'inrim_anagrafiche',
         'base_geolocalize',
         'inrim_controllo_accessi',
+        'base_location_geonames_import',
     ],
     'data': [
         'security/ir.model.access.csv',
