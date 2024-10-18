@@ -1,8 +1,7 @@
-from odoo.exceptions import ValidationError
-from odoo import api, fields, models, _
-from odoo.tools import config
+from datetime import datetime
 
 from odoo import api, fields, models, _
+from odoo.tools import config
 
 get_addressbook_path = '/api/get_addressbook'
 

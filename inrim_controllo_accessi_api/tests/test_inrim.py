@@ -1,5 +1,6 @@
 from odoo.addons.inrim_controllo_accessi_api.tests.common import TestCommon
 from odoo.tests import tagged
+from datetime import datetime
 import requests
 
 @tagged("post_install", "-at_install", "inrim")
@@ -110,7 +111,7 @@ class ApiTestCommon(TestCommon):
 
         # post
         data = {
-            "ca_persona_token": self.persona_1.token,
+            "ca_persona_id": self.persona_1.id,
             "tipo_documento_id": self.env.ref(
                     'inrim_anagrafiche.tipo_doc_ident_carta_identita').id,
             "validity_start_date": "2024-01-01",
@@ -121,7 +122,6 @@ class ApiTestCommon(TestCommon):
 
         response = requests.post(self.api_url + '/api/documento', headers=headers, json=data)
         self.assertEqual(response.status_code, 200)
-        print(response.json())
         id_from_post = response.json().get('id')
 
         # get
@@ -131,17 +131,12 @@ class ApiTestCommon(TestCommon):
         # put
         data = {
             "id": id_from_post,
-            "ca_persona_token": self.persona_1.token,
-            "tipo_documento_id": self.env.ref(
-                    'inrim_anagrafiche.tipo_doc_ident_carta_identita').id,
-            "validity_start_date": "2024-01-01",
-            "validity_end_date": "2024-06-20",
-            "issued_by": "Comune",
-            "document_code": "Codice Doc Persona 1"
+            "validity_end_date": "2024-06-26",
         }
 
         response = requests.put(self.api_url + '/api/documento', headers=headers, json=data)
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json().get('validity_end_date'), '2024-06-26')
 
         # delete documento
         if test == False:

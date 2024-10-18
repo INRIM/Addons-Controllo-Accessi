@@ -11,7 +11,9 @@
     'data': [
         'data/ir_cron.xml',
     ],
-    'demo': [],
+    'demo': [
+        'demo/res_users.xml',
+    ],
     'installable': True,
     'application': True,
 }

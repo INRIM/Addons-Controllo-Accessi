@@ -41,7 +41,8 @@ class InrimApiDocumento(InrimApiController):
         self.check_token('ca.documento', 'unlink')
         data = self.check_and_decode_body()
         try:
-            return self.handle_response(*self.model.rest_delete(data), delete=True)
+            return self.handle_response(
+                *self.model.rest_delete(data), delete=True)
         except Exception as e:
             env.cr.rollback()
             raise BadRequest(str(e))

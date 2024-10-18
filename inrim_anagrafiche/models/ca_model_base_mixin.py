@@ -53,7 +53,7 @@ class CaModelBase(models.AbstractModel):
         vals, msg = self.rest_put_eval_body(body)
         if vals:
             record.write(vals)
-            return record.rest_get_record(), ""
+            return record, ""
         else:
             return False, msg
 
@@ -61,7 +61,10 @@ class CaModelBase(models.AbstractModel):
         idrecord = body.get('id', None)
         if not idrecord:
             return False, "No Id key in body"
-        self.unlink(int(idrecord))
+        record = self.browse(idrecord)
+        if not record:
+            return False, "No Irecord found"
+        record.unlink()
         return True, ""
 
     def get_by_key(self, key: str, value, operator="="):

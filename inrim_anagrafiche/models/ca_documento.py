@@ -155,9 +155,8 @@ class CaDocumento(models.Model):
         }
 
     def rest_eval_body(self, body):
-        ca_persona_token = body.get('ca_persona_token', "")
-        ca_persona = self.env['ca.persona'].get_by_key(
-            'token', body.get('ca_persona_token'))
+        ca_persona = self.env['ca.persona'].get_by_id(
+            body.get('ca_persona_id'))
         tipo_documento = self.env['ca.tipo_doc_ident'].get_by_id(
             body.get('tipo_documento_id'))
 

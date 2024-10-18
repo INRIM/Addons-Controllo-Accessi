@@ -11,16 +11,17 @@ class TestCommon(TransactionCase):
     def setUpClass(cls):
         super(TestCommon, cls).setUpClass()
         cls.failureException = True
+
         # Token
-        def get_token(cls):
-            token_url = cls.env['ir.config_parameter'].sudo().get_param('web.base.url') + '/token/authenticate'
+        def get_token(clz):
+            token_url = clz.env['ir.config_parameter'].sudo().get_param('web.base.url') + '/token/authenticate'
             data = {
                 "username": "admin",
                 "password": "admin"
             }
             response = requests.post(token_url, json=data)
-            print(response.text)
             return json.loads(response.text).get('token')
+
         cls.token = get_token(cls)
         # Persona
         cls.persona_1 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_persona_1')
