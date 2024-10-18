@@ -9,6 +9,7 @@
     ],
     'data': [
         'data/ir_cron.xml',
+        'views/res_users_views.xml',
     ],
     'demo': [],
     'installable': True,
