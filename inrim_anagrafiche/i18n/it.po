@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-12 16:00+0000\n"
-"PO-Revision-Date: 2024-07-12 16:00+0000\n"
+"POT-Creation-Date: 2024-10-18 09:07+0000\n"
+"PO-Revision-Date: 2024-10-18 09:07+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -651,6 +651,11 @@ msgid "Institution/Company"
 msgstr "Enti/Aziende"
 
 #. module: inrim_anagrafiche
+#: model:ir.model.fields,help:inrim_anagrafiche.field_ca_tipo_persona__structured
+msgid "Integration U-Gov/Esse3"
+msgstr "Integrazione U-Gov/Esse3"
+
+#. module: inrim_anagrafiche
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_tag_persona_view_search
 msgid "Internal"
 msgstr "Interni"
@@ -672,13 +677,9 @@ msgstr "E' esterno"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__is_internal
-msgid "Is Internal"
-msgstr "E' interno"
-
-#. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__is_internal
 msgid "Is Internal"
-msgstr "Interno"
+msgstr "E' interno"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__issued_by
@@ -1049,6 +1050,11 @@ msgstr "Indirizzo..."
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__street2
 msgid "Street2"
 msgstr "Indirizzo2"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__structured
+msgid "Structured"
+msgstr "Strutturato"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__suspended
