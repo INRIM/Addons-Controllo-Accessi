@@ -4,7 +4,7 @@ import logging
 import requests
 
 logger = logging.getLogger(__name__)
-get_addressbook_path = '/api/get_addressbook'
+
 
 class CaPersona(models.Model):
     _inherit = 'ca.persona'

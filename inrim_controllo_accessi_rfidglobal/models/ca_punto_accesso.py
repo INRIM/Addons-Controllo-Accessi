@@ -95,7 +95,7 @@ class CaPuntoAccesso(models.Model):
             for tag in punto_accesso_id.ca_tag_lettore_ids:
                 body['tags'].append({
                     'idd': tag.ca_tag_id.tag_code,
-                    'timezoneConfig': tag.ca_tag_id.timezone_config if tag.ca_tag_id.timezone_config else '0000000000000001'
+                    'timezoneConfig': tag.ca_tag_id.timezone_config or '1000000000000000'
                 })
             timezone_table = self.env[
                 'ir.config_parameter'

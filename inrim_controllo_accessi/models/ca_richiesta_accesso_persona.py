@@ -106,9 +106,9 @@ class CaRichiestaAccessoPersona(models.Model):
     def aggiorna_stato_richiesta(self, stato=None):
         for record in self:
             if (
-                self.env.user.has_group('inrim_controllo_accessi_base.ca_ca') or
-                self.env.user.has_group('inrim_controllo_accessi_base.ca_ru') or
-                self.env.user.has_group('inrim_controllo_accessi_base.ca_spp')
+                self.env.user.has_group('controllo_accessi.ca_ca') or
+                self.env.user.has_group('controllo_accessi.ca_ru') or
+                self.env.user.has_group('controllo_accessi.ca_spp')
             ):
                 today = fields.datetime.now()
                 if stato:

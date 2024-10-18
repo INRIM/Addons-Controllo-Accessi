@@ -1,12 +1,13 @@
 {
     'name': 'Inrim Anagrafiche',
+    "author": "Alessio Gerace - Inrim",
+    "website": "https://github.com/INRIM",
     'version': '17.0.1.0.0',
     'description': "Inrim Anagrafiche",
-    'depends': ['inrim_controllo_accessi_base'],
+    'depends': ['base'],
     'data': [
         'security/ir.model.access.csv',
         'security/security.xml',
-        'data/res_company_data.xml',
         'data/ca_tipo_persona_data.xml',
         'data/ca_tipo_doc_ident_data.xml',
         'data/ca_tipo_ente_azienda_data.xml',

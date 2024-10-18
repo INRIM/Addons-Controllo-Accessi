@@ -159,3 +159,12 @@ class CaPuntoAccesso(models.Model):
             'res_model': 'ca.punto_accesso_persona',
             'domain': [('date', '=', fields.date.today())],
         }
+
+    def check_readers(self):
+        return True
+
+    def load_readers_data(self):
+        return True
+
+    def update_readers_data(self):
+        return True

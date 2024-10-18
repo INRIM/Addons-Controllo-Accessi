@@ -76,7 +76,7 @@ class InrimApiEnteAzienda(http.Controller):
                 'lock': ente_azienda.lock,
 
             }
-            if env.user.has_group('inrim_controllo_accessi_base.ca_tech'):
+            if env.user.has_group('controllo_accessi.ca_tech'):
                 ca_tech_vals = {
                     'url_gateway_lettori': ente_azienda.url_gateway_lettori,
                     'nome_chiave_header': ente_azienda.nome_chiave_header,

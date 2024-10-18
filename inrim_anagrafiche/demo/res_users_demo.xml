@@ -15,7 +15,7 @@
         <field name="login">user</field>
         <field name="password">demo</field>
         <field name="groups_id" 
-            eval="[(6, 0, [ref('base.group_user'), ref('inrim_controllo_accessi_base.ca_base')])]"/>
+            eval="[(6, 0, [ref('base.group_user'), ref('controllo_accessi.ca_base')])]"/>
     </record>
 
     <record id="res_partner_ca_user_1" model="res.partner">
@@ -35,8 +35,8 @@
         <field name="groups_id" 
             eval="[(6, 0, [
                 ref('base.group_user'),
-                ref('inrim_controllo_accessi_base.ca_ca'),
-                ref('inrim_controllo_accessi_base.ca_gdpr')
+                ref('controllo_accessi.ca_ca'),
+                ref('controllo_accessi.ca_gdpr')
         ])]"/>
     </record>
 
@@ -55,7 +55,7 @@
         <field name="login">user2</field>
         <field name="password">demo2</field>
         <field name="groups_id" 
-            eval="[(6, 0, [ref('base.group_user'), ref('inrim_controllo_accessi_base.ca_ru')])]"/>
+            eval="[(6, 0, [ref('base.group_user'), ref('controllo_accessi.ca_ru')])]"/>
     </record>
 
     <record id="res_partner_ca_user_3" model="res.partner">
@@ -73,7 +73,7 @@
         <field name="login">user3</field>
         <field name="password">demo3</field>
         <field name="groups_id" 
-            eval="[(6, 0, [ref('base.group_user'), ref('inrim_controllo_accessi_base.ca_spp')])]"/>
+            eval="[(6, 0, [ref('base.group_user'), ref('controllo_accessi.ca_spp')])]"/>
     </record>
 
     <record id="res_partner_ca_user_4" model="res.partner">
@@ -91,7 +91,7 @@
         <field name="login">user4</field>
         <field name="password">demo4</field>
         <field name="groups_id" 
-            eval="[(6, 0, [ref('base.group_user'), ref('inrim_controllo_accessi_base.ca_portineria')])]"/>
+            eval="[(6, 0, [ref('base.group_user'), ref('controllo_accessi.ca_portineria')])]"/>
     </record>
 
     <record id="res_partner_ca_user_5" model="res.partner">
@@ -108,6 +108,6 @@
             ref="inrim_anagrafiche.res_partner_ca_user_5"/>
         <field name="login">user5</field>
         <field name="password">demo5</field>
-        <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('inrim_controllo_accessi_base.ca_tech')])]"/>
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('controllo_accessi.ca_tech')])]"/>
     </record>
 </odoo>

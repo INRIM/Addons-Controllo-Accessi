@@ -55,7 +55,7 @@
                         icon="fa-play-circle-o"
                         invisible="enable_sync"
                         confirm="Are you sure you want to enable this record?"
-                        groups="inrim_controllo_accessi_base.ca_tech"
+                        groups="controllo_accessi.ca_tech"
                     />
                     <button
                         name="commuta_abilitazione"
@@ -64,7 +64,7 @@
                         icon="fa-stop-circle-o"
                         invisible="not enable_sync"
                         confirm="Are you sure you want to disable this record?"
-                        groups="inrim_controllo_accessi_base.ca_tech"
+                        groups="controllo_accessi.ca_tech"
                     />
                     <button
                         name="persone_abilitate"

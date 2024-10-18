@@ -18,7 +18,7 @@
         <field name="model">ca.ente_azienda</field>
         <field name="arch" type="xml">
             <form>
-                <t groups="inrim_controllo_accessi_base.ca_base, !inrim_controllo_accessi_base.ca_ca">
+                <t groups="controllo_accessi.ca_base, !controllo_accessi.ca_ca">
                     <sheet>
                         <div class="oe_title">
                             <label for="name"/>
@@ -64,7 +64,7 @@
                         </notebook>
                     </sheet>
                 </t>
-                <t groups="inrim_controllo_accessi_base.ca_ca">
+                <t groups="controllo_accessi.ca_ca">
                     <sheet>
                         <div class="oe_title">
                             <label for="name"/>

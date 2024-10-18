@@ -10,7 +10,7 @@
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
         <field name="domain_force">[('create_uid', '=', user.id)]</field>
-        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_utente'))]"/>
+        <field name="groups" eval="[(4, ref('controllo_accessi.ca_utente'))]"/>
         <field name="active" eval="True"/>
     </record>
 
@@ -23,7 +23,7 @@
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
         <field name="domain_force">[(1, '=', 1)]</field>
-        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_ca'))]"/>
+        <field name="groups" eval="[(4, ref('controllo_accessi.ca_ca'))]"/>
         <field name="active" eval="True"/>
     </record>
 </odoo>

@@ -31,7 +31,7 @@
         <field name="model">ca.persona</field>
         <field name="arch" type="xml">
             <form>
-                <t groups="inrim_controllo_accessi_base.ca_base, !inrim_controllo_accessi_base.ca_ca">
+                <t groups="controllo_accessi.ca_base, !controllo_accessi.ca_ca">
                     <sheet>
                         <header>
                             <field name="ca_stato_anag_id" widget="statusbar"/>
@@ -44,10 +44,10 @@
                                 <field name="lastname" readonly="True"/>
                                 <field name="parent_id" widget="res_partner_many2one" placeholder="Company Name..." readonly="1"/>
                                 <field name="associated_user_id" options="{'no_create': True}" readonly="True"/>
-                                <span class="o_form_label o_td_label" name="address_name" groups="inrim_controllo_accessi_base.ca_gdpr">
+                                <span class="o_form_label o_td_label" name="address_name" groups="controllo_accessi.ca_gdpr">
                                     <b>Domicile Address</b>
                                 </span>
-                                <div class="o_address_format" groups="inrim_controllo_accessi_base.ca_gdpr">
+                                <div class="o_address_format" groups="controllo_accessi.ca_gdpr">
                                     <field name="domicile_street" placeholder="Street..." class="o_address_street" required="is_external" readonly="True"/>
                                     <field name="domicile_street2" placeholder="Street 2..." class="o_address_street" readonly="True"/>
                                     <field name="domicile_city" placeholder="City" class="o_address_city" required="is_external" readonly="True"/>
@@ -71,10 +71,10 @@
                                 <field name="istat_code" required="is_external" readonly="True"/>
                                 <field name="present"/>
                                 <field name="token"/>
-                                <span class="o_form_label o_td_label" name="address_name" invisible="not domicile_other_than_residence" groups="inrim_controllo_accessi_base.ca_gdpr">
+                                <span class="o_form_label o_td_label" name="address_name" invisible="not domicile_other_than_residence" groups="controllo_accessi.ca_gdpr">
                                     <b>Residence Address</b>
                                 </span>
-                                <div class="o_address_format" groups="inrim_controllo_accessi_base.ca_gdpr">
+                                <div class="o_address_format" groups="controllo_accessi.ca_gdpr">
                                     <field name="residence_street" placeholder="Street..." class="o_address_street" required="domicile_other_than_residence" invisible="not domicile_other_than_residence" readonly="True"/>
                                     <field name="residence_street2" placeholder="Street 2..." class="o_address_street" invisible="not domicile_other_than_residence" readonly="True"/>
                                     <field name="residence_city" placeholder="City" class="o_address_city" required="domicile_other_than_residence" invisible="not domicile_other_than_residence" readonly="True"/>
@@ -87,7 +87,7 @@
                             </group>
                         </group>
                         <notebook>
-                            <page name="identity_documents" string="List of Identity Documents" invisible="not is_external" groups="inrim_controllo_accessi_base.ca_gdpr">
+                            <page name="identity_documents" string="List of Identity Documents" invisible="not is_external" groups="controllo_accessi.ca_gdpr">
                                 <field name="ca_documento_ids" readonly="True">
                                     <form>
                                         <group>
@@ -131,7 +131,7 @@
                         </notebook>
                     </sheet>
                 </t>
-                <t groups="inrim_controllo_accessi_base.ca_ca">
+                <t groups="controllo_accessi.ca_ca">
                     <sheet>
                         <header>
                             <button
@@ -139,49 +139,49 @@
                                 type="object"
                                 class="btn-secondary"
                                 string="Draft"
-                                groups="inrim_controllo_accessi_base.ca_ca"
+                                groups="controllo_accessi.ca_ca"
                             />
                             <button
                                 name="action_documents"
                                 type="object"
                                 class="btn-secondary"
                                 string="Waiting For Documents"
-                                groups="inrim_controllo_accessi_base.ca_ca"
+                                groups="controllo_accessi.ca_ca"
                             />
                             <button
                                 name="action_expired"
                                 type="object"
                                 class="btn-secondary"
                                 string="Expired"
-                                groups="inrim_controllo_accessi_base.ca_ca"
+                                groups="controllo_accessi.ca_ca"
                             />
                             <button
                                 name="action_in_update"
                                 type="object"
                                 class="btn-secondary"
                                 string="In Update"
-                                groups="inrim_controllo_accessi_base.ca_ca"
+                                groups="controllo_accessi.ca_ca"
                             />
                             <button
                                 name="action_checks_in_progress"
                                 type="object"
                                 class="btn-secondary"
                                 string="Checks In Progress"
-                                groups="inrim_controllo_accessi_base.ca_ca"
+                                groups="controllo_accessi.ca_ca"
                             />
                             <button
                                 name="action_completed"
                                 type="object"
                                 string="Complete"
                                 class="btn-primary"
-                                groups="inrim_controllo_accessi_base.ca_ca"
+                                groups="controllo_accessi.ca_ca"
                             />
                             <button
                                 name="action_attendance_today"
                                 type="object"
                                 string="Attendance Today"
                                 class="btn-primary"
-                                groups="inrim_controllo_accessi_base.ca_ca"
+                                groups="controllo_accessi.ca_ca"
                             />
                             <field name="ca_stato_anag_id" widget="statusbar"/>
                         </header>
@@ -193,10 +193,10 @@
                                 <field name="lastname"/>
                                 <field name="parent_id" widget="res_partner_many2one" placeholder="Company Name..." readonly="1"/>
                                 <field name="associated_user_id" options="{'no_create': True}"/>
-                                <span class="o_form_label o_td_label" name="address_name" groups="inrim_controllo_accessi_base.ca_gdpr">
+                                <span class="o_form_label o_td_label" name="address_name" groups="controllo_accessi.ca_gdpr">
                                     <b>Domicile Address</b>
                                 </span>
-                                <div class="o_address_format" groups="inrim_controllo_accessi_base.ca_gdpr">
+                                <div class="o_address_format" groups="controllo_accessi.ca_gdpr">
                                     <field name="domicile_street" placeholder="Street..." class="o_address_street" required="is_external"/>
                                     <field name="domicile_street2" placeholder="Street 2..." class="o_address_street"/>
                                     <field name="domicile_city" placeholder="City" class="o_address_city" required="is_external"/>
@@ -221,10 +221,10 @@
                                 <field name="uid"/>
                                 <field name="present"/>
                                 <field name="token"/>
-                                <span class="o_form_label o_td_label" name="address_name" invisible="not domicile_other_than_residence" groups="inrim_controllo_accessi_base.ca_gdpr">
+                                <span class="o_form_label o_td_label" name="address_name" invisible="not domicile_other_than_residence" groups="controllo_accessi.ca_gdpr">
                                     <b>Residence Address</b>
                                 </span>
-                                <div class="o_address_format" groups="inrim_controllo_accessi_base.ca_gdpr">
+                                <div class="o_address_format" groups="controllo_accessi.ca_gdpr">
                                     <field name="residence_street" placeholder="Street..." class="o_address_street" required="domicile_other_than_residence" invisible="not domicile_other_than_residence"/>
                                     <field name="residence_street2" placeholder="Street 2..." class="o_address_street" invisible="not domicile_other_than_residence"/>
                                     <field name="residence_city" placeholder="City" class="o_address_city" required="domicile_other_than_residence" invisible="not domicile_other_than_residence"/>
@@ -237,7 +237,7 @@
                             </group>
                         </group>
                         <notebook>
-                            <page name="identity_documents" string="List of Identity Documents" invisible="not is_external" groups="inrim_controllo_accessi_base.ca_gdpr">
+                            <page name="identity_documents" string="List of Identity Documents" invisible="not is_external" groups="controllo_accessi.ca_gdpr">
                                 <field name="ca_documento_ids">
                                     <form>
                                         <group>

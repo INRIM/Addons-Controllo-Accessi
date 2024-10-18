@@ -1,10 +1,12 @@
-from odoo import http, api, SUPERUSER_ID
-from odoo.http import request, Response
-from datetime import datetime
-import string
-import random
-import pytz
 import json
+import random
+import string
+
+from odoo.http import request, Response
+from werkzeug.exceptions import Unauthorized, Forbidden, NotAcceptable
+
+from odoo import http, api, SUPERUSER_ID
+
 
 class InrimApiController(http.Controller):
 
@@ -22,8 +24,38 @@ class InrimApiController(http.Controller):
         if auth_api_key_id:
             self.generate_token(env)
         return token
-    
-    @http.route('/token/authenticate', type='http', auth="none", methods=['POST'], csrf=False, save_session=False, cors="*")
+
+    def check_token(self, model, access_type):
+        env = api.Environment(
+            request.cr, SUPERUSER_ID,
+            {'active_test': False}
+        )
+        if 'token' in request.httprequest.headers:
+            token = request.httprequest.headers.get('token')
+            user_token = self.authenticate_token(env, token)
+            user_id = env['res.users'].browse(user_token)
+            request.update_env(user=user_id)
+            env.user = user_id
+            if not user_token:
+                raise Unauthorized(description='Token non valido')
+        else:
+            raise Unauthorized(description='Token non valido')
+        try:
+            env[model].with_user(env.user).check_access_rights(access_type)
+        except Exception as e:
+            raise Forbidden(
+                description=f"L'utente {user_id.name} non ha accesso ai record di ca.documento"
+            )
+
+    @staticmethod
+    def check_body():
+        byte_string = request.httprequest.data
+        if not byte_string:
+            raise NotAcceptable(description="No body in request")
+        return byte_string
+
+    @http.route('/token/authenticate', type='http', auth="none", methods=['POST'],
+                csrf=False, save_session=False, cors="*")
     def get_token(self, **kwargs):
         byte_string = request.httprequest.data
         if not byte_string:
@@ -38,7 +70,8 @@ class InrimApiController(http.Controller):
         username = data.get('username')
         password = data.get('password')
         try:
-            user_id = request.session.authenticate(request.session.db, username, password)
+            user_id = request.session.authenticate(request.session.db, username,
+                                                   password)
         except Exception as e:
             return Response(json.dumps({
                 "error": "Invalid Username or Password",

@@ -9,6 +9,16 @@ status_path = '/status'
 class CaPuntoAccesso(models.Model):
     _inherit = 'ca.punto_accesso'
 
+    def prepare_header(self):
+        rfid_token_jwt = self.env[
+            'ir.config_parameter'
+        ].sudo().get_param('service_reader.jwt')
+
+        header = {
+            'authtoken': rfid_token_jwt
+        }
+        return header
+
     def update_rfid_data(self, device):
         try:
             rfid_token_jwt = self.env[

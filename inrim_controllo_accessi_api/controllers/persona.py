@@ -83,7 +83,7 @@ class InrimApiPersona(http.Controller):
                 'istat_code': "",
                 'ca_documento_ids': []
             }
-            if env.user.has_group('inrim_controllo_accessi_base.ca_gdpr'):
+            if env.user.has_group('controllo_accessi.ca_gdpr'):
                 vals.update({
                     'fiscalcode': persona.fiscalcode,
                     'freshman': persona.freshman or "",
