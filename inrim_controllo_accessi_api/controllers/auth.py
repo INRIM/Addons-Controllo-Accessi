@@ -85,33 +85,17 @@ class InrimApiController(http.Controller):
     @http.route('/token/authenticate', type='http', auth="none", methods=['POST'],
                 csrf=False, save_session=False, cors="*")
     def get_token(self, **kwargs):
-        byte_string = request.httprequest.data
-        if not byte_string:
-            return Response(json.dumps({
-                "error": "Invalid Body",
-                'BodyHint': {
-                    "username": "admin",
-                    "password": "admin"
-                }
-            }, ensure_ascii=False, indent=4), status=400)
-        data = json.loads(byte_string.decode('utf-8'))
+        data = self.check_and_decode_body()
         username = data.get('username')
         password = data.get('password')
         try:
-            user_id = request.session.authenticate(request.session.db, username,
-                                                   password)
+            user_id = request.session.authenticate(
+                request.session.db, username, password)
         except Exception as e:
-            return Response(json.dumps({
-                "error": "Invalid Username or Password",
-                'BodyHint': {
-                    "username": "admin",
-                    "password": "admin"
-                }
-            }, ensure_ascii=False, indent=4), status=400)
+            raise Unauthorized(description='Invalid Credential')
+
         if not user_id:
-            return Response(json.dumps({
-                "error": "Invalid Username or Password"
-            }, ensure_ascii=False, indent=4), status=400)
+            return Unauthorized(description='Invalid Credential')
         env = request.env(user=user_id)
         if not env['res.users'].browse(user_id).api_enabled:
             return Response(json.dumps({
@@ -137,9 +121,4 @@ class InrimApiController(http.Controller):
             'password': password,
             'token': token
         }
-        return Response(json.dumps({
-            "header": {
-                'response': 200
-            },
-            "body": payload,
-        }, ensure_ascii=False, indent=4), status=200)
+        return self.success_response(payload)

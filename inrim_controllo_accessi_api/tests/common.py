@@ -19,7 +19,8 @@ class TestCommon(TransactionCase):
                 "password": "admin"
             }
             response = requests.post(token_url, json=data)
-            return json.loads(response.text)['body']['token']
+            print(response.text)
+            return json.loads(response.text).get('token')
         cls.token = get_token(cls)
         # Persona
         cls.persona_1 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_persona_1')
