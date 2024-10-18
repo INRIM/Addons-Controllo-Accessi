@@ -10,6 +10,7 @@ class CaTipoPersona(models.Model):
     date_start = fields.Date()
     date_end = fields.Date()
     active = fields.Boolean(default=True)
+    structured = fields.Boolean(help='Integration U-Gov/Esse3')
 
     @api.constrains('date_start', 'date_end')
     def _check_date(self):
