@@ -48,6 +48,7 @@ class CaPersona(models.Model):
     uid = fields.Char()
     is_external = fields.Boolean(compute="_compute_bool", store=True)
     is_internal = fields.Boolean(compute="_compute_bool", store=True)
+    is_structured = fields.Boolean(compute='_compute_is_structured', store=True)
     active = fields.Boolean(default=True)
 
     @api.constrains('fiscalcode', 'active')
@@ -98,6 +99,14 @@ class CaPersona(models.Model):
                 record.is_internal = True
             if self.env.ref('inrim_anagrafiche.tipo_persona_esterno').id in record.type_ids.ids:
                 record.is_external = True
+    
+    @api.depends('type_ids', 'type_ids.structured')
+    def _compute_is_structured(self):
+        for record in self:
+            record.is_structured = False
+            for type in record.type_ids:
+                if type.structured:
+                    record.is_structured = True
 
     @api.depends('name', 'lastname')
     def _compute_display_name(self):

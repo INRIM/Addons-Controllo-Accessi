@@ -13,6 +13,7 @@
         'security/security.xml',
         'data/ir_config_parameter_data.xml',
         'views/ente_azienda_views.xml',
+        'views/ca_persona_views.xml',
         'views/ca_richiesta_riga_accesso_sede_views.xml',
         'views/menu.xml',
     ],
