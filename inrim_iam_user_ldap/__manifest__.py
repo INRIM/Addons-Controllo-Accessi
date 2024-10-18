@@ -16,5 +16,5 @@
         "views/res_company_ldap_views.xml",
         'data/ir.cron.xml',
     ],
-    "external_dependencies": {"python": ["python-ldap"]},
+    "external_dependencies": {"python": ["ldap"]},
 }

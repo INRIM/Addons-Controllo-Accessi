@@ -5,9 +5,7 @@
     "author": "Alessio Gerace - Inrim",
     "website": "https://github.com/INRIM",
     'depends': [
-        'base_geolocalize',
         'auth_api_key_server_env',
-        'inrim_anagrafiche',
         'inrim_controllo_accessi'
     ],
     'data': [

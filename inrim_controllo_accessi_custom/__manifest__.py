@@ -5,8 +5,8 @@
     "author": "Alessio Gerace - Inrim",
     "website": "https://github.com/INRIM",
     'depends': [
-        'mail',
-        'controllo_accessi',
+        'inrim_iam_user_ldap',
+        'inrim_controllo_accessi_api'
     ],
     'data': [
         'security/ir.model.access.csv',
