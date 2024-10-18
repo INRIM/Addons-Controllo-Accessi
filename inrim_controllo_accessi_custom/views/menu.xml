@@ -25,19 +25,4 @@
         parent="inrim_controllo_accessi.ca_richiesta_accesso_root_menu"
         sequence="20"
     />
-
-    <menuitem 
-        name="Contacts"
-        id="contacts.menu_contacts"
-        sequence="20"
-        web_icon="contacts,static/description/icon.png"
-        groups="-base.group_user,-base.group_partner_manager,base.group_system"
-    />
-
-    <menuitem
-        id="inrim_city_zip_geonames_import_menu"
-        action="base_location_geonames_import.city_zip_geonames_import_action"
-        parent="inrim_anagrafiche.ca_persona_menu"
-        sequence="10"
-    />
 </odoo>
