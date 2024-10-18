@@ -2,7 +2,10 @@
     'name': 'Inrim Anagrafiche',
     'version': '17.0.1.0.0',
     'description': "Inrim Anagrafiche",
-    'depends': ['inrim_controllo_accessi_base'],
+    'depends': [
+        'inrim_controllo_accessi_base',
+        'base_location_geonames_import',
+    ],
     'data': [
         'security/ir.model.access.csv',
         'security/security.xml',

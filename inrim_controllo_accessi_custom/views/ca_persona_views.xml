@@ -5,36 +5,6 @@
         <field name="model">ca.persona</field>
         <field name="inherit_id" ref="inrim_anagrafiche.ca_persona_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//t//field[@name='domicile_street2']" position="after">
-                <field
-                    name="domicile_zip_id"
-                    options="{'create_name_field': 'domicile_city', 'no_open': True, 'no_create': True}"
-                    placeholder="City completion"
-                />
-            </xpath>
-            <xpath expr="//t//field[@name='residence_street2']" position="after">
-                <field
-                    name="residence_zip_id"
-                    options="{'create_name_field': 'residence_city', 'no_open': True, 'no_create': True}"
-                    placeholder="City completion"
-                    invisible="not domicile_other_than_residence"
-                />
-            </xpath>
-            <xpath expr="//t[2]//field[@name='domicile_street2']" position="after">
-                <field
-                    name="domicile_zip_id"
-                    options="{'create_name_field': 'domicile_city', 'no_open': True, 'no_create': True}"
-                    placeholder="City completion"
-                />
-            </xpath>
-            <xpath expr="//t[2]//field[@name='residence_street2']" position="after">
-                <field
-                    name="residence_zip_id"
-                    options="{'create_name_field': 'residence_city', 'no_open': True, 'no_create': True}"
-                    placeholder="City completion"
-                    invisible="not domicile_other_than_residence"
-                />
-            </xpath>
             <xpath expr="//t//page[@name='identity_documents']" position="after">
                 <page string="Partner Geolocation" name="geo_location">
                     <group>
