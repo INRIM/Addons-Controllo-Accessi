@@ -4,7 +4,7 @@
     'description': "Controllo Accessi Base",
     "author": "Alessio Gerace - Inrim",
     "website": "https://github.com/INRIM",
-    'depends': [],
+    'depends': ['base_location_geonames_import'],
     'data': [
         'security/security.xml',
     ],

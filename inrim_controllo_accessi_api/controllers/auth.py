@@ -69,7 +69,7 @@ class InrimApiController(http.Controller):
             headers['Content-Type'] = 'application/json; charset=utf-8'
         return Response(data, status=200, headers=headers.to_wsgi_list())
 
-    def handle_response(self, record, msg="", delete=False, is_list=True):
+    def handle_response(self, record, msg="", delete=False, is_list=False):
         if not record:
             raise BadRequest(description=msg)
         if delete:

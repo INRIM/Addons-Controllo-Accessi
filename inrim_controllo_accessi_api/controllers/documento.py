@@ -10,7 +10,8 @@ class InrimApiDocumento(InrimApiController):
     def api_get_gest_documento(self):
         self.check_token('ca.documento', 'read')
 
-        return self.handle_response(*self.model.rest_get(self.get_query_params()))
+        return self.handle_response(
+            *self.model.rest_get(self.get_query_params()), is_list=True)
 
     @http.route('/api/documento', auth="none", type='http', methods=['POST'],
                 csrf=False)
