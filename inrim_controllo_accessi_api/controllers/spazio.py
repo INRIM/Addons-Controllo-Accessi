@@ -1,6 +1,6 @@
 from odoo import http, api, SUPERUSER_ID
 from odoo.http import request, Response
-from .auth import InrimApiController
+from .api_controller_inrim import InrimApiController, BadRequest
 from datetime import datetime
 import pytz
 import json

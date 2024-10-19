@@ -212,23 +212,7 @@
         groups="controllo_accessi.ca_config_tech"
     />
 
-    <menuitem
-        id="ca_categoria_richiesta_menu"
-        name="Categories Requests Access"
-        action="ca_categoria_richiesta_action"
-        parent="inrim_ca_configuration_menu"
-        sequence="15"
-        groups="controllo_accessi.ca_config"
-    />
 
-    <menuitem
-        id="ca_categoria_tipo_richiesta_menu"
-        name="Type of Access Request"
-        action="ca_categoria_tipo_richiesta_action"
-        parent="inrim_ca_configuration_menu"
-        sequence="20"
-        groups="controllo_accessi.ca_config"
-    />
 
     <menuitem 
         name="Contacts"

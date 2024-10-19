@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import models, fields
+
 
 class CaLettore(models.Model):
     _name = 'ca.lettore'
@@ -20,3 +21,34 @@ class CaLettore(models.Model):
     system_error = fields.Boolean(readonly=True)
     error_code = fields.Char(readonly=True)
     active = fields.Boolean(default=True)
+
+    def rest_boby_hint(self):
+        return {
+            "name": "Test",
+            "reader_ip": "127.0.0.1",
+            "direction": "in, out",
+        }
+
+    def rest_get_record(self):
+        vals = {
+            "id": self.id,
+            "name": self.name,
+            "reader_ip": self.reader_ip,
+            "direction": self.f_selection('direction', self.direction),
+            "device_id": self.device_id,
+            "type": self.type,
+            "mode": self.mode,
+            "mode_type": self.mode_type,
+            "reader_status": self.reader_status,
+            "available_events": self.available_events,
+            "system_error": self.system_error,
+            "error_code": self.error_code
+        }
+        return vals
+
+    def rest_eval_body(self, body):
+        body, msg = super().rest_eval_body(
+            body, [
+                'name', 'reader_ip'
+            ])
+        return body, msg

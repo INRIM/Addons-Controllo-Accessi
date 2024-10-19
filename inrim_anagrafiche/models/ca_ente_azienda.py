@@ -1,6 +1,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
 
+
 class CaEnteAzienda(models.Model):
     _name = 'ca.ente_azienda'
     _inherit = "ca.model.base.mixin"
@@ -11,7 +12,8 @@ class CaEnteAzienda(models.Model):
     sequence = fields.Integer(default=10)
     parent_id = fields.Many2one('ca.ente_azienda', string='Parent Company', index=True)
     child_ids = fields.One2many('ca.ente_azienda', 'parent_id', string='Branches')
-    all_child_ids = fields.One2many('ca.ente_azienda', 'parent_id', context={'active_test': False})
+    all_child_ids = fields.One2many('ca.ente_azienda', 'parent_id',
+                                    context={'active_test': False})
     parent_path = fields.Char(index=True, unaccent=False)
     street = fields.Char()
     street2 = fields.Char()
@@ -50,7 +52,7 @@ class CaEnteAzienda(models.Model):
     mobile = fields.Char()
     website = fields.Char()
     vat = fields.Char()
-    pec = fields.Char(required=True)
+    pec = fields.Char(required=False)
     tipo_ente_azienda_id = fields.Many2one('ca.tipo_ente_azienda', required=True)
     note = fields.Text()
     company_id = fields.Many2one('res.company')
@@ -68,9 +70,9 @@ class CaEnteAzienda(models.Model):
             }
             for rec_field, zip_field in fields_map.items():
                 if (
-                    record[rec_field]
-                    and record[rec_field] != record._origin[rec_field]
-                    and record[rec_field] != record.zip_id[zip_field]
+                        record[rec_field]
+                        and record[rec_field] != record._origin[rec_field]
+                        and record[rec_field] != record.zip_id[zip_field]
                 ):
                     record.zip_id = False
                     break
@@ -92,7 +94,7 @@ class CaEnteAzienda(models.Model):
         for record in self:
             if record.zip_id:
                 record.zip = record.zip_id.name
-    
+
     @api.depends("zip_id", "state_id")
     def _compute_country_id(self):
         for record in self:
@@ -149,6 +151,78 @@ class CaEnteAzienda(models.Model):
                     % error_dict
                 )
 
+    def rest_boby_hint(self):
+        return {
+            "name": "Test Put",
+            "parent_id": "parent_id",
+            "parent_path": "",
+            "street": "Street",
+            "street2": "Street2",
+            "city": "city_id",
+            "state_id": "sede_id",
+            "zip": "Zip",
+            "country_id": "contry_id",
+            "vat": "Vat",
+            "note": "Ente Azienda 1",
+            "email": "Email",
+            "phone": "Phone",
+            "mobile": "Mobile",
+            "website": "Website",
+            "pec": "Pec Test",
+            "company_id": "company_id",
+            "tipo_ente_azienda_id": "Sede Distaccata",
+            "ca_persona_ids": ["id", "other_id"],
+            "ref": type(True),
+            "lock": type(False),
+            "url_gateway_lettori": "In base al sistema",
+            "nome_chiave_header": "In base al sistema",
+            "jwt": "In base al sistema"
+        }
+
+    def rest_get_record(self):
+        vals = {
+            'id': self.id,
+            'name': self.name,
+            'parent_id': self.parent_id.name or "",
+            'all_child_ids': self.f_m2m(self.all_child_ids),
+            'parent_path': self.parent_path or "",
+            'street': self.street or "",
+            'street2': self.street2 or "",
+            'city': self.city or "",
+            'state_id': self.f_o2m(self.state_id),
+            'zip': self.zip or "",
+            'country_id': self.f_o2m(self.country_id),
+            'vat': self.vat or "",
+            'note': self.note or "",
+            'email': self.email or "",
+            'phone': self.phone or "",
+            'mobile': self.mobile or "",
+            'website': self.website or "",
+            'pec': self.pec or "",
+            'company_id': self.f_o2m(self.company_id),
+            'tipo_ente_azienda_id': self.f_o2m(self.tipo_ente_azienda_id),
+            'ca_persona_ids': self.f_m2m(self.ca_persona_ids),
+            'ref': self.ref,
+            'lock': self.lock,
+
+        }
+        if self.env.user.has_group('controllo_accessi.ca_tech'):
+            ca_tech_vals = {
+                'url_gateway_lettori': self.url_gateway_lettori,
+                'nome_chiave_header': self.nome_chiave_header,
+                'jwt': self.jwt
+            }
+            vals.update(ca_tech_vals)
+        return vals
+
+    def rest_eval_body(self, body):
+        body, msg = super().rest_eval_body(
+            body, [
+                'name', 'tipo_ente_azienda_id'
+            ])
+        return body, msg
+
+
 class CaTipoEnteAzienda(models.Model):
     _name = 'ca.tipo_ente_azienda'
     _inherit = "ca.model.base.mixin"
@@ -168,3 +242,29 @@ class CaTipoEnteAzienda(models.Model):
                 if record.date_end <= record.date_start:
                     raise UserError(
                         _('Data fine deve essere maggiore della data di inizio'))
+
+    def rest_boby_hint(self):
+        return {
+            'name': "name",
+            'description': "",
+            'date_start': '2024-01-01',
+            'date_end': '2024-01-02',
+            'is_internal': 'bool'
+        }
+
+    def rest_get_record(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description or "",
+            'date_start': self.f_date(self.date_start),
+            'date_end': self.f_date(self.date_end),
+            'is_internal': self.is_internal
+        }
+
+    def rest_eval_body(self, body):
+        body, msg = super().rest_eval_body(
+            body, [
+                'name', 'description', 'date_start', 'date_end'
+            ])
+        return body, msg

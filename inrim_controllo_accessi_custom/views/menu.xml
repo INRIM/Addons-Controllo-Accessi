@@ -1,28 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <menuitem 
-        name="Discuss"
-        id="mail.menu_root_discuss"
-        action="mail.action_discuss"
-        web_icon="mail,static/description/icon.png"
-        groups="-base.group_user,base.group_system"
-        sequence="5"
-    />
-
-    <menuitem 
-        id="base.menu_management" 
-        name="Apps" 
-        sequence="500" 
-        web_icon="base,static/description/modules.png" 
-        groups="base.group_system"
+    <menuitem
+            name="Discuss"
+            id="mail.menu_root_discuss"
+            action="mail.action_discuss"
+            web_icon="mail,static/description/icon.png"
+            groups="-base.group_user,base.group_system"
+            sequence="5"
     />
 
     <menuitem
-        id="ca_richiesta_riga_accesso_sede_menu"
-        name="Request Insertion Headquarters Access Register"
-        action="ca_richiesta_riga_accesso_sede_action"
-        groups="controllo_accessi.ca_utente"
-        parent="inrim_controllo_accessi.ca_richiesta_accesso_root_menu"
+            id="base.menu_management"
+            name="Apps"
+            sequence="500"
+            web_icon="base,static/description/modules.png"
+            groups="base.group_system"
+    />
+
+    <!--    Richiesta Accesso-->
+
+    <menuitem
+        id="ca_richiesta_accesso_root"
+        name="Access Request"
+        groups="controllo_accessi.ca_ca,controllo_accessi.ca_base"
+        web_icon="inrim_controllo_accessi,static/src/img/richiesta_accesso.png"
+    />
+
+
+    <menuitem
+            id="ca_richiesta_accesso_root_menu"
+            name="Access Request"
+            groups="controllo_accessi.ca_base"
+            parent="ca_richiesta_accesso_root"
+            sequence="5"
+    />
+
+    <menuitem
+            id="ca_richiesta_accesso_menu"
+            name="Access Request"
+            action="ca_richiesta_accesso_action"
+            groups="controllo_accessi.ca_base"
+            parent="ca_richiesta_accesso_root_menu"
+            sequence="5"
+    />
+
+    <menuitem
+            id="ca_richiesta_accesso_persona_menu"
+            name="Person Access Request"
+            action="ca_richiesta_accesso_persona_action"
+            groups="controllo_accessi.ca_base"
+            parent="ca_richiesta_accesso_root_menu"
+            sequence="10"
+    />
+
+    <menuitem
+            id="ca_richiesta_servizi_persona_menu"
+            name="Request Person Services"
+            action="ca_richiesta_servizi_persona_action"
+            groups="controllo_accessi.ca_base"
+            parent="ca_richiesta_accesso_root_menu"
+            sequence="15"
+    />
+
+<!--    Richiesta Accesso Config-->
+    <menuitem
+        id="ca_richiesta_accesso_configuration_menu"
+        name="Configuration"
+        groups="controllo_accessi.ca_config"
+        parent="ca_richiesta_accesso_root"
+        sequence="10"
+    />
+
+    <menuitem
+        id="ca_anag_servizi_menu"
+        name="Services"
+        groups="controllo_accessi.ca_config"
+        action="ca_anag_servizi_action"
+        parent="ca_richiesta_accesso_configuration_menu"
+        sequence="5"
+    />
+    <menuitem
+        id="ca_categoria_richiesta_menu"
+        name="Categories Requests Access"
+        action="ca_categoria_richiesta_action"
+        parent="ca_richiesta_accesso_configuration_menu"
+        sequence="10"
+        groups="controllo_accessi.ca_config"
+    />
+
+    <menuitem
+        id="ca_categoria_tipo_richiesta_menu"
+        name="Type of Access Request"
+        action="ca_categoria_tipo_richiesta_action"
+        parent="ca_richiesta_accesso_configuration_menu"
+        sequence="15"
+        groups="controllo_accessi.ca_config"
+    />
+    <menuitem
+        id="ca_settore_ente_menu"
+        name="Sector"
+        groups="controllo_accessi.ca_config"
+        action="ca_settore_ente_action"
+        parent="ca_richiesta_accesso_configuration_menu"
         sequence="20"
+    />
+
+    <menuitem
+        id="ca_anag_tipologie_istanze_menu"
+        name="Instances"
+        groups="controllo_accessi.ca_config"
+        action="ca_anag_tipologie_istanze_action"
+        parent="ca_richiesta_accesso_configuration_menu"
+        sequence="25"
+    />
+
+    <menuitem
+        id="ca_anag_avanzamento_rich_menu"
+        name="Progress Request"
+        groups="controllo_accessi.ca_config"
+        action="ca_anag_avanzamento_rich_action"
+        parent="ca_richiesta_accesso_configuration_menu"
+        sequence="30"
     />
 </odoo>

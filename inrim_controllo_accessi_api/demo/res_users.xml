@@ -3,6 +3,12 @@
     <record id="base.user_admin" model="res.users">
         <field name="api_enabled" eval="True"/>
     </record>
+    <record id="inrim_anagrafiche.inrim_demo_user_3" model="res.users">
+        <field name="api_enabled" eval="True"/>
+    </record>
+    <record id="inrim_anagrafiche.inrim_demo_user_5" model="res.users">
+        <field name="api_enabled" eval="True"/>
+    </record>
 
 
 </odoo>

@@ -1,150 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
     <menuitem
-        id="ca_richiesta_accesso_root"
-        name="Access Request"
-        groups="controllo_accessi.ca_ca,controllo_accessi.ca_base"
-        web_icon="inrim_controllo_accessi,static/src/img/richiesta_accesso.png"
+            id="ca_punto_accesso_menu"
+            name="Access Points"
+            groups="controllo_accessi.ca_ca"
+            action="ca_punto_accesso_action"
+            parent="inrim_anagrafiche.ca_controllo_accessi_root"
+            sequence="1"
     />
 
     <menuitem
-        id="ca_richiesta_accesso_root_menu"
-        name="Access Request"
-        groups="controllo_accessi.ca_base"
-        parent="ca_richiesta_accesso_root"
-        sequence="5"
+            id="access_data_management_menu"
+            name="Access Data Management"
+            groups="controllo_accessi.ca_utente"
+            parent="inrim_anagrafiche.ca_controllo_accessi_root"
+            sequence="2"
     />
 
     <menuitem
-        id="ca_richiesta_accesso_menu"
-        name="Access Request"
-        action="ca_richiesta_accesso_action"
-        groups="controllo_accessi.ca_base"
-        parent="ca_richiesta_accesso_root_menu"
-        sequence="5"
+            id="ca_tag_lettore_menu"
+            name="Reader Tag"
+            action="ca_tag_lettore_action"
+            groups="controllo_accessi.ca_ca"
+            parent="access_data_management_menu"
+            sequence="5"
     />
 
     <menuitem
-        id="ca_richiesta_accesso_persona_menu"
-        name="Person Access Request"
-        action="ca_richiesta_accesso_persona_action"
-        groups="controllo_accessi.ca_base"
-        parent="ca_richiesta_accesso_root_menu"
-        sequence="10"
+            id="ca_punto_accesso_persona_menu"
+            name="Reader Person"
+            action="ca_punto_accesso_persona_action"
+            groups="controllo_accessi.ca_ca"
+            parent="access_data_management_menu"
+            sequence="10"
     />
 
     <menuitem
-        id="ca_richiesta_servizi_persona_menu"
-        name="Request Person Services"
-        action="ca_richiesta_servizi_persona_action"
-        groups="controllo_accessi.ca_base"
-        parent="ca_richiesta_accesso_root_menu"
-        sequence="15"
+            id="ca_anag_registro_accesso_menu"
+            name="Access Register"
+            action="ca_anag_registro_accesso_action"
+            groups="controllo_accessi.ca_utente"
+            parent="access_data_management_menu"
+            sequence="15"
     />
 
     <menuitem
-        id="ca_richiesta_accesso_configuration_menu"
-        name="Configuration"
-        groups="controllo_accessi.ca_config"
-        parent="ca_richiesta_accesso_root"
-        sequence="10"
+            id="create_ca_anag_registro_accesso_menu"
+            name="Add Access Movement"
+            action="ca_aggiungi_movimento_accesso_action"
+            groups="controllo_accessi.ca_ru,controllo_accessi.ca_portineria"
+            parent="access_data_management_menu"
+            sequence="20"
     />
 
     <menuitem
-        id="ca_anag_servizi_menu"
-        name="Services"
-        groups="controllo_accessi.ca_config"
-        action="ca_anag_servizi_action"
-        parent="ca_richiesta_accesso_configuration_menu"
-        sequence="5"
+            id="ca_log_integrazione_lettori_menu"
+            name="Reader Integration Log"
+            action="ca_log_integrazione_lettori_action"
+            groups="controllo_accessi.ca_tech"
+            parent="access_data_management_menu"
+            sequence="25"
     />
 
+    <!-- Richiesta Riga Accesso -->
     <menuitem
-        id="ca_settore_ente_menu"
-        name="Sector"
-        groups="controllo_accessi.ca_config"
-        action="ca_settore_ente_action"
-        parent="ca_richiesta_accesso_configuration_menu"
-        sequence="10"
+            id="ca_richiesta_riga_accesso_sede_menu"
+            name="Request Insertion Headquarters Access Register"
+            action="ca_richiesta_riga_accesso_sede_action"
+            groups="controllo_accessi.ca_utente"
+            parent="ca_punto_accesso_menu"
+            sequence="20"
     />
 
-    <menuitem
-        id="ca_anag_tipologie_istanze_menu"
-        name="Instances"
-        groups="controllo_accessi.ca_config"
-        action="ca_anag_tipologie_istanze_action"
-        parent="ca_richiesta_accesso_configuration_menu"
-        sequence="15"
-    />
-
-    <menuitem
-        id="ca_anag_avanzamento_rich_menu"
-        name="Progress Request"
-        groups="controllo_accessi.ca_config"
-        action="ca_anag_avanzamento_rich_action"
-        parent="ca_richiesta_accesso_configuration_menu"
-        sequence="20"
-    />
-
-    <menuitem
-        id="ca_punto_accesso_menu"
-        name="Access Points"
-        groups="controllo_accessi.ca_ca"
-        action="ca_punto_accesso_action"
-        parent="inrim_anagrafiche.ca_controllo_accessi_root"
-        sequence="1"
-    />
-
-    <menuitem
-        id="access_data_management_menu"
-        name="Access Data Management"
-        groups="controllo_accessi.ca_utente"
-        parent="inrim_anagrafiche.ca_controllo_accessi_root"
-        sequence="2"
-    />
-
-    <menuitem
-        id="ca_tag_lettore_menu"
-        name="Reader Tag"
-        action="ca_tag_lettore_action"
-        groups="controllo_accessi.ca_ca"
-        parent="access_data_management_menu"
-        sequence="5"
-    />
-
-    <menuitem
-        id="ca_punto_accesso_persona_menu"
-        name="Reader Person"
-        action="ca_punto_accesso_persona_action"
-        groups="controllo_accessi.ca_ca"
-        parent="access_data_management_menu"
-        sequence="10"
-    />
-
-    <menuitem
-        id="ca_anag_registro_accesso_menu"
-        name="Access Register"
-        action="ca_anag_registro_accesso_action"
-        groups="controllo_accessi.ca_utente"
-        parent="access_data_management_menu"
-        sequence="15"
-    />
-
-    <menuitem
-        id="create_ca_anag_registro_accesso_menu"
-        name="Add Access Movement"
-        action="ca_aggiungi_movimento_accesso_action"
-        groups="controllo_accessi.ca_ru,controllo_accessi.ca_portineria"
-        parent="access_data_management_menu"
-        sequence="20"
-    />
-
-    <menuitem
-        id="ca_log_integrazione_lettori_menu"
-        name="Reader Integration Log"
-        action="ca_log_integrazione_lettori_action"
-        groups="controllo_accessi.ca_tech"
-        parent="access_data_management_menu"
-        sequence="25"
-    />
 </odoo>

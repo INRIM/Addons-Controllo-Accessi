@@ -1,9 +1,9 @@
+import json
+
+import requests
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
-import requests
-import json
-from datetime import date
-from dateutil.relativedelta import relativedelta
+
 
 @tagged("post_install", "-at_install")
 class TestCommon(TransactionCase):
@@ -13,16 +13,20 @@ class TestCommon(TransactionCase):
         cls.failureException = True
 
         # Token
-        def get_token(clz):
-            token_url = clz.env['ir.config_parameter'].sudo().get_param('web.base.url') + '/token/authenticate'
+        def get_token(clz, user, passw):
+            token_url = clz.env['ir.config_parameter'].sudo().get_param(
+                'web.base.url') + '/token/authenticate'
             data = {
-                "username": "admin",
-                "password": "admin"
+                "username": user,
+                "password": passw
             }
             response = requests.post(token_url, json=data)
             return json.loads(response.text).get('token')
 
-        cls.token = get_token(cls)
+        cls.token = get_token(cls, "user3", "demo3")
+        cls.tokentech = get_token(cls, "user5", "demo5")
+
+        cls.company = cls.env.ref('controllo_accessi_inrim_app.res_company_inrim')
         # Persona
         cls.persona_1 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_persona_1')
         # Lettore
@@ -30,13 +34,16 @@ class TestCommon(TransactionCase):
         # Tag
         cls.tag_1 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_tag_1')
         # Tag Persona
-        cls.ca_tag_persona_id =  cls.env.ref('inrim_anagrafiche.inrim_demo_ca_tag_persona_1')
+        cls.ca_tag_persona_id = cls.env.ref(
+            'inrim_anagrafiche.inrim_demo_ca_tag_persona_1')
         # Ente Azienda
-        cls.ente_azienda_1 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_ente_azienda_1')
+        cls.ente_azienda_1 = cls.env.ref(
+            'inrim_anagrafiche.inrim_demo_ca_ente_azienda_1')
         # Spazio
         cls.spazio_1 = cls.env.ref('inrim_anagrafiche.ca_spazio_1')
         # Punto Accesso
-        cls.punto_accesso_1p001 = cls.env.ref('inrim_controllo_accessi.ca_punto_accesso_1p001')
+        cls.punto_accesso_1p001 = cls.env.ref(
+            'inrim_controllo_accessi.ca_punto_accesso_1p001')
         # Parametri di sistema
         cls.people_key = cls.env[
             'ir.config_parameter'
@@ -97,7 +104,7 @@ class TestCommon(TransactionCase):
                 "uid": "na.cognomea"
             },
             {
-                "all_roles":[],
+                "all_roles": [],
                 "aspp": False,
                 "badge": "E0010150AD255C12",
                 "cell_phone_service": "",
@@ -111,10 +118,10 @@ class TestCommon(TransactionCase):
                 "defibrillator_emergency": False,
                 "division_uo_roles": [
                     {
-                        "id":718,
+                        "id": 718,
                         "proprieta": False,
-                        "tipo":[],
-                        "type_id":9
+                        "tipo": [],
+                        "type_id": 9
                     }
                 ],
                 "divisione_code": "SIR",
@@ -163,12 +170,12 @@ class TestCommon(TransactionCase):
                 "data_inizio": "2015-08-01",
                 "datanascita": "1980-05-25",
                 "defibrillator_emergency": False,
-                "division_uo_roles":[
+                "division_uo_roles": [
                     {
-                        "id":718,
-                        "proprieta":False,
-                        "tipo":[],
-                        "type_id":9
+                        "id": 718,
+                        "proprieta": False,
+                        "tipo": [],
+                        "type_id": 9
                     }
                 ],
                 "divisione_code": "SIR",
@@ -339,7 +346,7 @@ class TestCommon(TransactionCase):
                 'prefix': '01-N-',
                 'surface': 0,
                 'technical_location': False,
-                'type': 3, 
+                'type': 3,
                 'type_name': 'Locale'
             }
         ]

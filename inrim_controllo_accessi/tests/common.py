@@ -47,6 +47,11 @@ class TestCommon(TransactionCase):
         cls.tag_7 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_tag_7')
         cls.tag_8 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_tag_8')
         cls.tag_9 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_tag_9')
+        # Punto Accesso
+        cls.punto_accesso_1 = cls.env.ref(
+            'inrim_controllo_accessi.ca_punto_accesso_1p001')
+        cls.punto_accesso_2 = cls.env.ref(
+            'inrim_controllo_accessi.ca_punto_accesso_1p002')
         # Tag Persona
         cls.tag_persona_1 = cls.env['ca.tag_persona'].create({
             'ca_persona_id': cls.persona_6.id,
@@ -54,51 +59,4 @@ class TestCommon(TransactionCase):
             'date_start': date.today() - timedelta(days=1),
             'date_end': date.today() + relativedelta(days=3)
         })
-        # Punto Accesso
-        cls.punto_accesso_1 = cls.env.ref(
-            'inrim_controllo_accessi.ca_punto_accesso_1p001')
-        cls.punto_accesso_2 = cls.env.ref(
-            'inrim_controllo_accessi.ca_punto_accesso_1p002')
-        # Anag Tipologie Istanze
-        cls.anag_tipologie_istanze_1 = cls.env.ref(
-            'inrim_controllo_accessi.ca_anag_tipologie_istanze_ordine_contratto')
-        cls.anag_tipologie_istanze_2 = cls.env.ref(
-            'inrim_controllo_accessi.ca_anag_tipologie_istanze_accordi')
-        cls.anag_tipologie_istanze_3 = cls.env.ref(
-            'inrim_controllo_accessi.ca_anag_tipologie_istanze_bandi')
-        cls.anag_tipologie_istanze_4 = cls.env.ref(
-            'inrim_controllo_accessi.ca_anag_tipologie_istanze_concorsi')
-        cls.anag_tipologie_istanze_5 = cls.env.ref(
-            'inrim_controllo_accessi.ca_anag_tipologie_istanze_inviti_convocazioni')
-        cls.anag_tipologie_istanze_6 = cls.env.ref(
-            'inrim_controllo_accessi.ca_anag_tipologie_istanze_conferimento')
-        cls.anag_tipologie_istanze_7 = cls.env.ref(
-            'inrim_controllo_accessi.ca_anag_tipologie_istanze_assunzione')
-        cls.anag_tipologie_istanze_8 = cls.env.ref(
-            'inrim_controllo_accessi.ca_anag_tipologie_istanze_visita')
-        # Richiesta Accesso Persona
-        cls.richiesta_accesso_persona_1 = cls.env[
-            'ca.richiesta_accesso_persona'
-        ].create({
-            'anag_tipologie_istanze_id': cls.anag_tipologie_istanze_1.id,
-            'ca_persona_id': cls.persona_2.id,
-            'act_application_code': 'Richiesta Accesso Persona',
-            'date_start': date.today() - relativedelta(months=1),
-            'date_end': date.today() + relativedelta(days=3),
-            'persona_id': cls.persona_3.id
-        })
-        # Richiesta Accesso
-        cls.richiesta_accesso_1 = cls.env['ca.richiesta_accesso'].create({
-            'date_start': datetime.now() - relativedelta(months=1),
-            'date_end': datetime.now() + relativedelta(days=3),
-            'ca_persona_id': cls.persona_2.id,
-            'ca_richiesta_accesso_persona_ids': cls.env[
-                'ca.richiesta_accesso_persona'
-            ].create({
-                'anag_tipologie_istanze_id': cls.anag_tipologie_istanze_1.id,
-                'ca_persona_id': cls.persona_2.id,
-                'act_application_code': 'Richiesta Accesso Persona',
-                'date_start': datetime.now() - relativedelta(months=1),
-                'date_end': datetime.now() + relativedelta(days=3)
-            })
-        })
+

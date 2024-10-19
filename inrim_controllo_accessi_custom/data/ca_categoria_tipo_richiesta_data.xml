@@ -2,136 +2,136 @@
 <odoo>
     <record id="ca_categoria_tipo_richiesta_lavori_servizi_forniture" model="ca.categoria_tipo_richiesta">
         <field name="name">Lavori, servizi e forniture</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_lavori_esterni')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_lavori_esterni')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_lavori_servizi_forniture_continuative" model="ca.categoria_tipo_richiesta">
         <field name="name">Lavori, servizi e forniture continuative (portinerie, pulizie, mensa)</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_lavori_esterni')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_lavori_esterni')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_consegne_prese_carico" model="ca.categoria_tipo_richiesta">
         <field name="name">Consegne/Prese in carico</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_lavori_esterni')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_lavori_esterni')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_sopralluoghi" model="ca.categoria_tipo_richiesta">
         <field name="name">Sopralluoghi</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_lavori_esterni')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_lavori_esterni')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_attivita_conto_terzi" model="ca.categoria_tipo_richiesta">
         <field name="name">Attività conto terzi</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_servizi_esterni')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_servizi_esterni')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_confronti_interlaboratorio" model="ca.categoria_tipo_richiesta">
         <field name="name">Confronti interlaboratorio</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_servizi_esterni')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_servizi_esterni')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_misure" model="ca.categoria_tipo_richiesta">
         <field name="name">Misure</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_servizi_esterni')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_servizi_esterni')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_consultazioni_materiale_bibliografico" model="ca.categoria_tipo_richiesta">
         <field name="name">Consultazioni del materiale bibliografico</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_servizi_esterni')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_servizi_esterni')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_partecipazione_gare_concorsi" model="ca.categoria_tipo_richiesta">
         <field name="name">Partecipazione a gare, concorsi</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_servizi_esterni')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_servizi_esterni')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_concessione_spazi_riunioni_congressi" model="ca.categoria_tipo_richiesta">
         <field name="name">Concessione uso spazi per riunioni/congressi</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_servizi_esterni')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_servizi_esterni')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_attivita_varie" model="ca.categoria_tipo_richiesta">
         <field name="name">Attività varie</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_esterni')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_esterni')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_evento_congresso_seminario_meeting_progetto" model="ca.categoria_tipo_richiesta">
         <field name="name">Evento (congresso, seminario, meeting di progetto)</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_eventi')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_eventi')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_incontro_riunione" model="ca.categoria_tipo_richiesta">
         <field name="name">Incontro/Riunione (CdA, RdC, CS)</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_collaboratori_continuativi')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_collaboratori_continuativi')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_commissari_concorsi_gare" model="ca.categoria_tipo_richiesta">
         <field name="name">Commissari (concorsi, gare)</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_collaboratore')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_collaboratore')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_ricercatori" model="ca.categoria_tipo_richiesta">
         <field name="name">Ricercatori</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_collaboratore')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_collaboratore')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_collaborazione_scientifica_ospiti" model="ca.categoria_tipo_richiesta">
         <field name="name">Collaborazione scientifica</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_ospiti')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_ospiti')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_docenza_ospiti" model="ca.categoria_tipo_richiesta">
         <field name="name">Docenza</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_ospiti')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_ospiti')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_conferenza_ospiti" model="ca.categoria_tipo_richiesta">
         <field name="name">Conferenza</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_ospiti')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_ospiti')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_formazione_ospiti" model="ca.categoria_tipo_richiesta">
         <field name="name">Formazione</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_ospiti')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_ospiti')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_dottorando" model="ca.categoria_tipo_richiesta">
         <field name="name">Dottorando</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_formazione')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_formazione')"/>
     </record>
     
     <record id="ca_categoria_tipo_richiesta_tesista" model="ca.categoria_tipo_richiesta">
         <field name="name">Tesista</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_formazione')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_formazione')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_tirocinante" model="ca.categoria_tipo_richiesta">
         <field name="name">Tirocinante</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_formazione')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_formazione')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_stagista_alternanza_scuola_lavoro" model="ca.categoria_tipo_richiesta">
         <field name="name">Stagista, Alternanza scuola/lavoro</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_formazione')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_formazione')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_collaborazione_scientifica" model="ca.categoria_tipo_richiesta">
         <field name="name">Collaborazione scientifica</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_lavoro')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_lavoro')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_rapporto_lavoro" model="ca.categoria_tipo_richiesta">
         <field name="name">Rapporto di lavoro</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_lavoro')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_lavoro')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_formazione" model="ca.categoria_tipo_richiesta">
         <field name="name">Formazione</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_lavoro')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_lavoro')"/>
     </record>
 
     <record id="ca_categoria_tipo_richiesta_ditte_esterne" model="ca.categoria_tipo_richiesta">
         <field name="name">Ditte Esterne</field>
-        <field name="ca_categoria_richiesta" eval="ref('inrim_anagrafiche.ca_categoria_richiesta_attivita')"/>
+        <field name="ca_categoria_richiesta" eval="ref('inrim_controllo_accessi_custom.ca_categoria_richiesta_attivita')"/>
     </record>
 </odoo>

@@ -16,8 +16,6 @@
         'data/ca_proprieta_tag_data.xml',
         'data/ca_stato_documento_data.xml',
         'data/ca_stato_anag_data.xml',
-        'data/ca_categoria_richiesta_data.xml',
-        'data/ca_categoria_tipo_richiesta_data.xml',
         'data/ir.cron.xml',
         'views/ca_persona_views.xml',
         'views/ca_tipo_persona_views.xml',
@@ -30,8 +28,6 @@
         'views/ca_spazio_views.xml',
         'views/ca_codice_locale_views.xml',
         'views/ca_stato_anag_views.xml',
-        'views/ca_categoria_richiesta_views.xml',
-        'views/ca_categoria_tipo_richiesta_views.xml',
         'views/menus.xml',
     ],
     'demo': [
