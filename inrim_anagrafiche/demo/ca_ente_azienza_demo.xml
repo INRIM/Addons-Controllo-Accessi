@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="inrim_demo_ca_ente_azienda_1" model="ca.ente_azienda">
-        <field name="name">Campus</field>
-        <field name="pec">Pec 1</field>
+        <field name="name">Campus Cacce</field>
+        <field name="street">Strada delle Cacce, 91</field>
         <field name="tipo_ente_azienda_id" eval="ref('inrim_anagrafiche.tipo_ente_azienda_sede')"/>
         <field name="note">Ente Azienda 1</field>
     </record>

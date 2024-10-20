@@ -1,9 +1,11 @@
-from odoo import models
 import logging
+
 import requests
+from odoo import models
 
 logger = logging.getLogger(__name__)
 get_rooms_path = '/api/get_rooms'
+
 
 class CaSpazio(models.Model):
     _inherit = 'ca.spazio'
@@ -53,7 +55,7 @@ class CaSpazio(models.Model):
                         ], limit=1)
                         if ente_azienda_id:
                             spazio_id.ente_azienda_id = ente_azienda_id.id
-                elif dt.get('institution_address_ref') and dt.get('type_name'):
+                elif dt.get('type_name'):
                     vals = {
                         'name': dt['name']
                     }
@@ -67,5 +69,8 @@ class CaSpazio(models.Model):
                     ], limit=1)
                     if ente_azienda_id:
                         vals['ente_azienda_id'] = ente_azienda_id.id
+                    else:
+                        vals['ente_azienda_id'] = self.env.ref(
+                            "controllo_accessi_inrim_app.inrim_campus_cacce").id
                     if vals.get('tipo_spazio_id') and vals.get('ente_azienda_id'):
                         self.create(vals)

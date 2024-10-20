@@ -10,6 +10,9 @@
     ],
     'data': [
         'data/res_company_data.xml',
+        'data/ente_azienda_inrim_data.xml',
+        'data/ir_config_parameter_data.xml',
+        'data/ir_cron.xml',
     ],
     'demo': [],
     'installable': True,

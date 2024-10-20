@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inrim_campus_cacce" model="ca.ente_azienda">
+        <field name="name">Inrim Campus Cacce</field>
+        <field name="street">Strada delle Cacce, 91</field>
+        <field name="zip">10135</field>
+        <field name="state_id" ref="base.state_it_to"/>
+        <field name="company_id" ref="controllo_accessi_inrim_app.res_company_inrim"/>
+        <field name="country_id" ref="base.it"/>
+        <field name="tipo_ente_azienda_id" ref="inrim_anagrafiche.tipo_ente_azienda_sede"/>
+        <field name="note">Campus</field>
+    </record>
+
+    <record id="inrim_sede_mda" model="ca.ente_azienda">
+        <field name="name">Inrim Sede Storica MdA</field>
+         <field name="street">Corso Massimo d'Azielio</field>
+        <field name="zip">10135</field>
+        <field name="state_id" ref="base.state_it_to"/>
+        <field name="country_id" ref="base.it"/>
+        <field name="parent_id" ref="controllo_accessi_inrim_app.inrim_campus_cacce"/>
+        <field name="tipo_ente_azienda_id" eval="ref('inrim_anagrafiche.tipo_ente_azienda_sede_distaccata')"/>
+        <field name="note">Sede Storica</field>
+    </record>
+
+    <record id="inrim_sede_fi" model="ca.ente_azienda">
+        <field name="name">Inrim Sede Sesto Fiorentino</field>
+         <field name="street">Via Nello Carrara 1</field>
+        <field name="zip">50019</field>
+        <field name="state_id" ref="base.state_it_fi"/>
+        <field name="country_id" ref="base.it"/>
+        <field name="parent_id" ref="controllo_accessi_inrim_app.inrim_campus_cacce"/>
+        <field name="tipo_ente_azienda_id" eval="ref('inrim_anagrafiche.tipo_ente_azienda_sede_distaccata')"/>
+        <field name="note">Lens</field>
+    </record>
+
+    <record id="inrim_sede_pv" model="ca.ente_azienda">
+        <field name="name">Inrim Sede Sesto Fiorentino</field>
+         <field name="street">Generale Viale Taramelli, 12</field>
+        <field name="zip">27100</field>
+        <field name="state_id" ref="base.state_it_pv"/>
+        <field name="country_id" ref="base.it"/>
+        <field name="parent_id" ref="controllo_accessi_inrim_app.inrim_campus_cacce"/>
+        <field name="tipo_ente_azienda_id" eval="ref('inrim_anagrafiche.tipo_ente_azienda_sede_distaccata')"/>
+        <field name="note">Pavia</field>
+    </record>
+
+</odoo>

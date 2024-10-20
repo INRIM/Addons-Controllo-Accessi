@@ -1,6 +1,3 @@
-from datetime import date, datetime
-
-from dateutil.relativedelta import relativedelta
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 
@@ -12,24 +9,6 @@ class TestCommon(TransactionCase):
     def setUpClass(cls):
         super(TestCommon, cls).setUpClass()
         cls.failureException = True
-        # Tipo Ente Azienda
-        cls.tipo_ente_azienda_1 = cls.env.ref('inrim_anagrafiche.tipo_ente_azienda_sede')
-        cls.tipo_ente_azienda_2 = cls.env.ref(
-            'inrim_anagrafiche.tipo_ente_azienda_sede_distaccata')
-        # Utente
-        cls.user = cls.env.ref('inrim_anagrafiche.inrim_demo_user')
-        cls.user_1 = cls.env.ref('inrim_anagrafiche.inrim_demo_user_1')
-        cls.user_2 = cls.env.ref('inrim_anagrafiche.inrim_demo_user_2')
-        cls.user_3 = cls.env.ref('inrim_anagrafiche.inrim_demo_user_3')
-        cls.user_4 = cls.env.ref('inrim_anagrafiche.inrim_demo_user_4')
-        cls.user_5 = cls.env.ref('inrim_anagrafiche.inrim_demo_user_5')
-        # Persona
-        cls.persona_1 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_persona_1')
-        cls.persona_2 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_persona_2')
-        cls.persona_3 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_persona_3')
-        cls.persona_4 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_persona_4')
-        cls.persona_5 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_persona_5')
-        cls.persona_6 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_persona_6')
         # Enti/Aziende
         cls.ente_azienda_1 = cls.env.ref(
             'inrim_anagrafiche.inrim_demo_ca_ente_azienda_1')
@@ -40,23 +19,6 @@ class TestCommon(TransactionCase):
         cls.punto_accesso_2 = cls.env.ref(
             'inrim_controllo_accessi.ca_punto_accesso_1p002')
 
-        # Anag Tipologie Istanze
-        cls.anag_tipologie_istanze_1 = cls.env.ref(
-            'inrim_controllo_accessi_custom.ca_anag_tipologie_istanze_ordine_contratto')
-        cls.anag_tipologie_istanze_2 = cls.env.ref(
-            'inrim_controllo_accessi_custom.ca_anag_tipologie_istanze_accordi')
-        cls.anag_tipologie_istanze_3 = cls.env.ref(
-            'inrim_controllo_accessi_custom.ca_anag_tipologie_istanze_bandi')
-        cls.anag_tipologie_istanze_4 = cls.env.ref(
-            'inrim_controllo_accessi_custom.ca_anag_tipologie_istanze_concorsi')
-        cls.anag_tipologie_istanze_5 = cls.env.ref(
-            'inrim_controllo_accessi_custom.ca_anag_tipologie_istanze_inviti_convocazioni')
-        cls.anag_tipologie_istanze_6 = cls.env.ref(
-            'inrim_controllo_accessi_custom.ca_anag_tipologie_istanze_conferimento')
-        cls.anag_tipologie_istanze_7 = cls.env.ref(
-            'inrim_controllo_accessi_custom.ca_anag_tipologie_istanze_assunzione')
-        cls.anag_tipologie_istanze_8 = cls.env.ref(
-            'inrim_controllo_accessi_custom.ca_anag_tipologie_istanze_visita')
         # Parametri di sistema
         cls.people_key = cls.env[
             'ir.config_parameter'
@@ -101,7 +63,7 @@ class TestCommon(TransactionCase):
                 "referente": "CgnomaB NomeB",
                 "referente_uid": "",
                 "responsabile_uid": "nb.cognomeb",
-                "room_1": "Cp212",
+                "room_1": "Cp312",
                 "room_2": "",
                 "room_3": "",
                 "room_4": "",
@@ -155,7 +117,7 @@ class TestCommon(TransactionCase):
                 "referente": "CognomeC NomeC",
                 "referente_uid": "",
                 "responsabile_uid": "nc.cognomec",
-                "room_1": "Cp209",
+                "room_1": "Cp309",
                 "room_2": "",
                 "room_3": "",
                 "room_4": "",
@@ -209,7 +171,7 @@ class TestCommon(TransactionCase):
                 "referente": "",
                 "referente_uid": "",
                 "responsabile_uid": "",
-                "room_1": "Cp204",
+                "room_1": "Cp304",
                 "room_2": "",
                 "room_3": "",
                 "room_4": "",
@@ -231,128 +193,135 @@ class TestCommon(TransactionCase):
                 'institution_address_ref': '',
                 'institution_ref': '',
                 'maximum_number_user': 1,
-                'name': '1p001',
+                'name': '1p101',
                 'officer_user_uid': 'admin',
-                'parent_building_code': '1p0',
+                'parent_building_code': '1p1',
                 'parent_building_id': 3025,
                 'prefix': '01-N-',
                 'surface': 0,
                 'technical_location': False,
                 'type': 3,
                 'type_name': 'Locale'
-            }, {
+            },
+            {
                 'base_name': '02',
                 'institution': 'INRIM',
                 'institution_address': 'Cacce',
                 'institution_address_ref': 'cacce',
                 'institution_ref': 'inrim',
                 'maximum_number_user': 1,
-                'name': '1p002',
+                'name': '1p102',
                 'divisione_uo_id': 1,
                 'officer_user_uid': 'admin',
-                'parent_building_code': '1p0',
+                'parent_building_code': '1p1',
                 'parent_building_id': 3025,
                 'prefix': '01-N-',
                 'surface': 0,
                 'technical_location': False,
                 'type': 3,
                 'type_name': 'Locale'
-            }, {
+            },
+            {
                 'base_name': '03',
                 'institution': 'INRIM',
                 'institution_address': 'Cacce',
                 'institution_address_ref': 'cacce',
                 'institution_ref': 'inrim',
                 'maximum_number_user': 1,
-                'name': '1p003',
+                'name': '1p103',
                 'divisione_uo_id': 1,
                 'officer_user_uid': 'admin',
-                'parent_building_code': '1p0',
+                'parent_building_code': '1p1',
                 'parent_building_id': 3025,
                 'prefix': '01-N-',
                 'surface': 0,
                 'technical_location': False,
                 'type': 3,
                 'type_name': 'Locale'
-            }, {
+            },
+            {
                 'base_name': '04',
                 'institution': '',
                 'institution_address': '',
                 'institution_address_ref': '',
                 'institution_ref': '',
                 'maximum_number_user': 1,
-                'name': '1p004',
+                'name': '1p104',
                 'divisione_uo_id': 1,
                 'officer_user_uid': 'user1',
-                'parent_building_code': '1p0',
+                'parent_building_code': '1p1',
                 'parent_building_id': 3025,
                 'prefix': '01-N-',
                 'surface': 0,
                 'technical_location': False,
                 'type': 3,
                 'type_name': 'Locale'
-            }, {
+            },
+            {
                 'base_name': '05',
                 'institution': '',
                 'institution_address': 'test',
                 'institution_address_ref': '',
                 'institution_ref': '',
                 'maximum_number_user': 1,
-                'name': '1p005',
+                'name': '1p105',
                 'divisione_uo_id': 1,
                 'officer_user_uid': 'user2',
-                'parent_building_code': '1p0',
+                'parent_building_code': '1p1',
                 'parent_building_id': 3025,
                 'prefix': '01-N-',
                 'surface': 0,
                 'technical_location': False,
                 'type': 3,
                 'type_name': 'Locale'
-            }, {
+            },
+            {
                 'base_name': '04',
                 'institution': '',
                 'institution_address': '',
                 'institution_address_ref': '',
                 'institution_ref': '',
                 'maximum_number_user': 1,
-                'name': 'Cp204',
+                'name': 'Cp304',
                 'divisione_uo_id': 1,
                 'officer_user_uid': '',
-                'parent_building_code': 'Cp2',
+                'parent_building_code': 'Cp3',
                 'parent_building_id': 3025,
                 'prefix': '01-N-',
                 'surface': 0,
                 'technical_location': False,
                 'type': 3,
                 'type_name': 'Locale'
-            }, {
+            },
+            {
                 'base_name': '09',
                 'institution': '',
                 'institution_address': '',
                 'institution_address_ref': '',
                 'institution_ref': '',
                 'maximum_number_user': 1,
-                'name': 'Cp209',
+                'name': 'Cp309',
                 'divisione_uo_id': 1,
                 'officer_user_uid': '',
-                'parent_building_code': 'Cp2',
+                'parent_building_code': 'Cp3',
                 'parent_building_id': 3025,
                 'prefix': '01-N-',
                 'surface': 0,
                 'technical_location': False,
                 'type': 3,
                 'type_name': 'Locale'
-            }, {
+            },
+            {
                 'base_name': '12',
                 'institution': '',
                 'institution_address': '',
                 'institution_address_ref': '',
                 'institution_ref': '',
                 'maximum_number_user': 1,
-                'name': 'Cp212',
+                'name': 'Cp312',
                 'divisione_uo_id': 1,
                 'officer_user_uid': '',
-                'parent_building_code': 'Cp2',
+                'parent_building_code': 'Cp3',
                 'parent_building_id': 3025,
                 'prefix': '01-N-',
                 'surface': 0,
@@ -362,28 +331,3 @@ class TestCommon(TransactionCase):
             }
         ]
         # Richiesta Accesso Persona
-        cls.richiesta_accesso_persona_1 = cls.env[
-            'ca.richiesta_accesso_persona'
-        ].create({
-            'anag_tipologie_istanze_id': cls.anag_tipologie_istanze_1.id,
-            'ca_persona_id': cls.persona_2.id,
-            'act_application_code': 'Richiesta Accesso Persona',
-            'date_start': date.today() - relativedelta(months=1),
-            'date_end': date.today() + relativedelta(days=3),
-            'persona_id': cls.persona_3.id
-        })
-        # Richiesta Accesso
-        cls.richiesta_accesso_1 = cls.env['ca.richiesta_accesso'].create({
-            'date_start': datetime.now() - relativedelta(months=1),
-            'date_end': datetime.now() + relativedelta(days=3),
-            'ca_persona_id': cls.persona_2.id,
-            'ca_richiesta_accesso_persona_ids': cls.env[
-                'ca.richiesta_accesso_persona'
-            ].create({
-                'anag_tipologie_istanze_id': cls.anag_tipologie_istanze_1.id,
-                'ca_persona_id': cls.persona_2.id,
-                'act_application_code': 'Richiesta Accesso Persona',
-                'date_start': datetime.now() - relativedelta(months=1),
-                'date_end': datetime.now() + relativedelta(days=3)
-            })
-        })

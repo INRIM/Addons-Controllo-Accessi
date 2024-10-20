@@ -221,4 +221,20 @@
         web_icon="contacts,static/description/icon.png"
         groups="-base.group_user,-base.group_partner_manager,base.group_system"
     />
+      <menuitem
+            name="Discuss"
+            id="mail.menu_root_discuss"
+            action="mail.action_discuss"
+            web_icon="mail,static/description/icon.png"
+            groups="-base.group_user,base.group_system"
+            sequence="5"
+    />
+
+    <menuitem
+            id="base.menu_management"
+            name="Apps"
+            sequence="500"
+            web_icon="base,static/description/modules.png"
+            groups="base.group_system"
+    />
 </odoo>

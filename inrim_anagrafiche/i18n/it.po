@@ -1195,11 +1195,6 @@ msgstr "CU"
 msgid "Type"
 msgstr "Tipo"
 
-#. module: inrim_anagrafiche
-#: model:ir.actions.act_window,name:inrim_anagrafiche.ca_categoria_tipo_richiesta_action
-#: model:ir.ui.menu,name:inrim_anagrafiche.ca_categoria_tipo_richiesta_menu
-msgid "Type of Access Request"
-msgstr "Tipologia Richiesta Accesso"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__uid

@@ -21,7 +21,7 @@ class CaCategoriaTipoRichiesta(models.Model):
             record.is_activity = False
             if (
                     record.ca_categoria_richiesta == self.env.ref(
-                'inrim_controllo_accessi_custom.ca_categoria_richiesta_attivita')
+                'inrim_controllo_accessi_richieste_accesso.ca_categoria_richiesta_attivita')
             ):
                 record.is_activity = True
 

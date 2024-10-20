@@ -72,7 +72,7 @@ class CaRichiestaAccessoPersona(models.Model):
             record.external_companies = False
             if (
                 record.ca_categoria_tipo_richiesta_id == self.env.ref(
-                'inrim_controllo_accessi_custom.ca_categoria_tipo_richiesta_ditte_esterne')
+                'inrim_controllo_accessi_richieste_accesso.ca_categoria_tipo_richiesta_ditte_esterne')
             ):
                 record.external_companies = True
 
@@ -123,7 +123,7 @@ class CaRichiestaAccessoPersona(models.Model):
                 ):
                     record.state = 'scheduled'
                     record.ca_anag_avanzamento_rich_id = self.env.ref(
-                        'inrim_controllo_accessi_custom.ca_anag_avanzamento_rich_attesa_in_attivazione').id
+                        'inrim_controllo_accessi_richieste_accesso.ca_anag_avanzamento_rich_attesa_in_attivazione').id
                     break
                 if (
                     record.date_start <= today <= record.date_end
@@ -132,7 +132,7 @@ class CaRichiestaAccessoPersona(models.Model):
                 ):
                     record.state = 'valid'
                     record.ca_anag_avanzamento_rich_id = self.env.ref(
-                        'inrim_controllo_accessi_custom.ca_anag_avanzamento_rich_attesa_attiva').id
+                        'inrim_controllo_accessi_richieste_accesso.ca_anag_avanzamento_rich_attesa_attiva').id
                     record.expiring = False
                     break
                 expire_days = self.env[
@@ -146,7 +146,7 @@ class CaRichiestaAccessoPersona(models.Model):
                 ):
                     record.state = 'expired'
                     record.ca_anag_avanzamento_rich_id = self.env.ref(
-                        'inrim_controllo_accessi_custom.ca_anag_avanzamento_rich_attesa_conclusa').id
+                        'inrim_controllo_accessi_richieste_accesso.ca_anag_avanzamento_rich_attesa_conclusa').id
                     record.expiring = False
                     break
             else:

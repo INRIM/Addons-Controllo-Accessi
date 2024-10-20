@@ -16,6 +16,7 @@
         'data/ca_proprieta_tag_data.xml',
         'data/ca_stato_documento_data.xml',
         'data/ca_stato_anag_data.xml',
+        'data/ca_tipo_spazio.xml',
         'data/ir.cron.xml',
         'views/ca_persona_views.xml',
         'views/ca_tipo_persona_views.xml',
@@ -33,7 +34,6 @@
     'demo': [
         'demo/res_users_demo.xml',
         'demo/ca_ente_azienza_demo.xml',
-        'demo/ca_tipo_spazio_demo.xml',
         'demo/ca_spazio_demo.xml',
         'demo/ca_lettore_demo.xml',
         'demo/ca_tag_demo.xml',

@@ -5,10 +5,11 @@
     "author": "Alessio Gerace - Inrim",
     "website": "https://github.com/INRIM",
     'depends': [
-        'inrim_controllo_accessi_custom',
+        'inrim_controllo_accessi_api',
     ],
     'data': [
-        'data/ir_config_parameter.xml',
+        'data/ir_config_parameter_data.xml',
+        'views/ente_azienda_views.xml',
         'views/ca_tag_views.xml',
     ],
     'demo': [],
