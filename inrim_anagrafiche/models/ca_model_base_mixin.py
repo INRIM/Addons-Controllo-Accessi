@@ -1,7 +1,7 @@
-import json
 from datetime import datetime
 
 from odoo import models
+import json
 
 
 class CaModelBase(models.AbstractModel):

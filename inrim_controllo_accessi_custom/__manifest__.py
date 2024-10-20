@@ -21,7 +21,6 @@
         'views/ca_categoria_richiesta_views.xml',
         'views/ca_categoria_tipo_richiesta_views.xml',
         'views/ente_azienda_views.xml',
-        'views/ca_persona_views.xml',
         'views/ca_settore_ente_views.xml',
         'views/ca_anag_servizi_views.xml',
         'views/ca_anag_tipologie_istanze_views.xml',
@@ -30,6 +29,7 @@
         'views/ca_richiesta_accesso_persona_views.xml',
         'views/ca_richiesta_accesso_views.xml',
         'views/menu.xml',
+        'data/ir_cron.xml',
     ],
     'demo': [
         'demo/ca_ente_azienza_demo.xml',

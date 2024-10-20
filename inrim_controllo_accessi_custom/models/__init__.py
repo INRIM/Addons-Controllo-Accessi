@@ -1,4 +1,5 @@
 from . import ca_persona
+from . import ca_spazio
 from . import ca_settore_ente
 from . import ca_anag_servizi
 from . import ca_anag_tipologie_istanze

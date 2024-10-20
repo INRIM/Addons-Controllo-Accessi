@@ -7,11 +7,11 @@ class InrimApiDocumento(InrimApiController):
 
     @http.route('/api/documento', auth="none", type='http', methods=['GET'],
                 csrf=False)
-    def api_get_gest_documento(self):
+    def api_get_gest_documento(self, **params):
         self.check_token('ca.documento', 'read')
 
         return self.handle_response(
-            *self.model.rest_get(self.get_query_params()), is_list=True)
+            *self.model.rest_get(params), is_list=True)
 
     @http.route('/api/documento', auth="none", type='http', methods=['POST'],
                 csrf=False)
@@ -52,11 +52,11 @@ class InrimApiImgDocumento(InrimApiController):
 
     @http.route('/api/immaginedoc', auth="none", type='http', methods=['GET'],
                 csrf=False)
-    def api_get_gest_immagine_doc(self):
+    def api_get_gest_immagine_doc(self, **params):
         self.check_token('ca.img_documento', 'read')
 
         return self.handle_response(
-            *self.model.rest_get(self.get_query_params()), is_list=True)
+            *self.model.rest_get(params), is_list=True)
 
     @http.route('/api/immaginedoc', auth="none", type='http', methods=['POST'],
                 csrf=False)

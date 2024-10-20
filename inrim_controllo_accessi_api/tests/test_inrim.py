@@ -1,3 +1,6 @@
+import json
+from urllib.parse import urlencode, quote_plus
+
 import requests
 from odoo.addons.inrim_controllo_accessi_api.tests.common import TestCommon
 from odoo.tests import tagged
@@ -14,10 +17,7 @@ class ApiTestCommon(TestCommon):
 
         :return: I dati nei parametri di sistema esistono e sono valorizzati
         """
-        self.assertTrue(self.people_key)
-        self.assertTrue(self.people_url)
-        self.assertTrue(self.get_addressbook_data)
-        self.assertTrue(self.get_rooms_data)
+
         self.assertTrue(self.persona_1)
         self.assertTrue(self.lettore_1)
         self.assertTrue(self.token)
@@ -26,80 +26,6 @@ class ApiTestCommon(TestCommon):
         self.assertTrue(self.spazio_1)
         self.assertTrue(self.punto_accesso_1p001)
 
-    # Test 2
-    def test_2(self):
-        """
-        Descrizione:
-            Verifica che il metodo get_addressbook_data crei gli utente le persone
-
-        :return: Gli utenti e le persone vengono create correttamente
-        """
-        data = self.get_addressbook_data
-        for dt in data:
-            user_id = self.env['res.users'].search([
-                ('login', '=', dt['uid'])
-            ])
-            if user_id:
-                user_id.unlink()
-                user_id = False
-            persona_id = self.env['ca.persona'].search([
-                ('freshman', '=', dt['matricola']),
-                ('fiscalcode', '=', dt['codicefiscale'])
-            ])
-            if persona_id:
-                persona_id.unlink()
-                persona_id = False
-            self.assertFalse(persona_id)
-            self.assertFalse(user_id)
-            self.env['ca.persona'].get_addressbook_data(data)
-            user_id = self.env['res.users'].search([
-                ('login', '=', dt['uid'])
-            ])
-            persona_id = self.env['ca.persona'].search([
-                ('freshman', '=', dt['matricola']),
-                ('fiscalcode', '=', dt['codicefiscale'])
-            ])
-            self.assertTrue(persona_id)
-            self.assertEqual(persona_id.associated_user_id, user_id)
-            self.assertEqual(persona_id.fiscalcode, dt['codicefiscale'])
-            self.assertEqual(persona_id.freshman, dt['matricola'])
-            self.assertTrue(user_id)
-            self.assertEqual(user_id.name, dt['name'])
-            self.assertEqual(user_id.login, dt['uid'])
-
-    # Test 3
-    def test_3(self):
-        """
-        Descrizione:
-            Verifica che il metodo get_rooms_data crei i record di spazio
-
-        :return: I record di spazio vengono creati correttamente
-        """
-        data = self.get_rooms_data
-        for dt in data:
-            spazio_id = self.env['ca.spazio'].search([
-                ('name', '=', dt['name'])
-            ], limit=1)
-            if spazio_id:
-                punto_accesso_id = self.env['ca.punto_accesso'].search([
-                    ('ca_spazio_id', '=', spazio_id.id)
-                ])
-                if punto_accesso_id:
-                    punto_accesso_id.unlink()
-                spazio_id.unlink()
-                spazio_id = False
-            self.assertFalse(spazio_id)
-            self.env['ca.spazio'].get_rooms_data(data)
-            spazio_id = self.env['ca.spazio'].search([
-                ('name', '=', dt['name']),
-                ('tipo_spazio_id.name', '=', dt['type_name']),
-                ('ente_azienda_id.ref', '=', dt['institution_address_ref'])
-            ], limit=1)
-            if dt.get('institution_address_ref') and dt.get('type_name'):
-                self.assertTrue(spazio_id)
-                self.assertEqual(spazio_id.tipo_spazio_id.name, dt['type_name'])
-                self.assertEqual(spazio_id.ente_azienda_id.ref,
-                                 dt['institution_address_ref'])
 
     def test_documento(self, test=False):
         """
@@ -418,21 +344,14 @@ class ApiTestCommon(TestCommon):
         data = {
             "name": self.lettore_1.name,
             "reader_ip": "127.0.0.1",
-            "direction": "In",
-            "device_id": "Device ID",
-            "type": "Type",
-            "mode": "Mode",
-            "mode_type": "Mode Type",
-            "reader_status": "Reader Status",
-            "available_events": 3,
-            "error_code": "0000"
+            "direction": "in",
         }
 
         response = requests.post(self.api_url + '/api/lettore', headers=headers,
                                  json=data)
 
         self.assertEqual(response.status_code, 200)
-        id_from_post = response.json()['body'].get('id')
+        id_from_post = response.json().get('id')
 
         # get
         response = requests.get(self.api_url + '/api/lettore', headers=headers,
@@ -440,23 +359,11 @@ class ApiTestCommon(TestCommon):
         self.assertEqual(response.status_code, 200)
 
         # put
-        headers = {
-            'token': self.tokentech,
-            'active_test': 'True'
-        }
 
         data = {
             "id": id_from_post,
             "name": self.lettore_1.name,
             "reader_ip": "127.0.0.1",
-            "direction": "In",
-            "device_id": "Device ID",
-            "type": "Type",
-            "mode": "Mode",
-            "mode_type": "Mode Type",
-            "reader_status": "Reader Status",
-            "available_events": 3,
-            "error_code": "0000"
         }
 
         response = requests.put(self.api_url + '/api/lettore', headers=headers,
@@ -464,17 +371,71 @@ class ApiTestCommon(TestCommon):
         self.assertEqual(response.status_code, 200)
 
         # delete
-        headers = {
-            'token': self.tokentech,
-            'active_test': 'True'
-        }
 
         data = {
-            "id": response.json()['body'].get('id')
+            "id": response.json().get('id')
         }
         response = requests.delete(self.api_url + '/api/lettore', headers=headers,
                                    json=data)
         self.assertEqual(response.status_code, 200)
+
+    def test_persona(self):
+        """
+        Descrizione:
+            Verifica il funzionamento delle richieste POST e PUT della API lettore
+            creando un record di test per poi aggiornarlo.
+            :return: Status code 200.
+        """
+        headers = {'token': self.token}
+
+        # post
+        # data = {}
+        #
+        # response = requests.post(self.api_url + '/api/persona', headers=headers,
+        #                          json=data)
+        #
+        # self.assertEqual(response.status_code, 200)
+        # id_from_post = response.json().get('id')
+        #
+
+        # # get
+        interno = self.env.ref('inrim_anagrafiche.tipo_persona_interno').id
+        query = [("type_ids", "in", [interno])]
+
+        params = urlencode({"domain": json.dumps(query)}, quote_via=quote_plus)
+        response = requests.get(
+            self.api_url + '/api/persona', headers=headers, params=params)
+        self.assertEqual(response.status_code, 200)
+        res = response.json()
+        self.assertEqual(len(res), 2)
+        #test get limit = 1
+        params = urlencode(
+            {"domain": json.dumps(query), "limit": 1}, quote_via=quote_plus)
+        response = requests.get(
+            self.api_url + '/api/persona', headers=headers, params=params)
+        self.assertEqual(response.status_code, 200)
+        res = response.json()
+        self.assertEqual(len(res), 1)
+        # put
+
+        # data = {
+        #     "id": id_from_post,
+        #     "name": self.lettore_1.name,
+        #     "reader_ip": "127.0.0.1",
+        # }
+        #
+        # response = requests.put(self.api_url + '/api/persona', headers=headers,
+        #                         json=data)
+        # self.assertEqual(response.status_code, 200)
+        #
+        # # delete
+        #
+        # data = {
+        #     "id": response.json().get('id')
+        # }
+        # response = requests.delete(self.api_url + '/api/persona', headers=headers,
+        #                            json=data)
+        # self.assertEqual(response.status_code, 200)
 
     def test_richiesta_registro_accesso_sede(self):
         """

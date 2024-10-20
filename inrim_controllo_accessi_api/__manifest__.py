@@ -9,7 +9,7 @@
         'inrim_controllo_accessi'
     ],
     'data': [
-        'data/ir_cron.xml',
+        'views/ca_persona_views.xml',
     ],
     'demo': [
         'demo/res_users.xml',

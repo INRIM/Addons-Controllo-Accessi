@@ -73,7 +73,6 @@ class TestUsersLdapPopulate(TransactionCase):
             ],
         ):
             ldap = get_fake_ldap(self)
-            print(ldap)
             conf = ldap._get_ldap_dicts(idres=ldap.id)
             results = ldap.get_ldap_users_dicts(conf)
             self.assertEqual(len(results), 1)

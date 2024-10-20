@@ -9,7 +9,7 @@ class InrimApiRichiestaRegistroAccessoSede(http.Controller):
 
     @http.route('/api/richiesta_registro_accesso_sede', auth="none", type='http', methods=['GET'],
            csrf=False)
-    def api_get_ca_richiesta_registro_accesso_sede(self):
+    def api_get_ca_richiesta_registro_accesso_sede(self, **params):
         res = []
         env = api.Environment(request.cr, SUPERUSER_ID,
                                 {'active_test': False})

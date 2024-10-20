@@ -9,7 +9,7 @@ class InrimApiSpazio(http.Controller):
 
     @http.route('/api/spazio', auth="none", type='http', methods=['GET'],
            csrf=False)
-    def api_get_ca_spazio(self):
+    def api_get_ca_spazio(self, **params):
         res = []
         env = api.Environment(request.cr, SUPERUSER_ID,
                                 {'active_test': False})

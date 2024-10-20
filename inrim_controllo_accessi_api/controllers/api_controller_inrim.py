@@ -1,7 +1,7 @@
+import datetime
 import json
 import random
 import string
-import datetime
 
 import werkzeug
 from odoo import http, api, SUPERUSER_ID
@@ -26,7 +26,7 @@ class InrimApiController(http.Controller):
 
     def generate_token(self, env):
         characters = string.ascii_letters + string.digits
-        uniquepart =  str(datetime.datetime.now().timestamp()).replace(".","")
+        uniquepart = str(datetime.datetime.now().timestamp()).replace(".", "")
         rndpart = ''.join(random.choice(characters) for i in range(40))
         token = f"{rndpart}{uniquepart}"
         return token

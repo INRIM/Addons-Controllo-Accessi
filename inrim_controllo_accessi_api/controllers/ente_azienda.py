@@ -2,15 +2,16 @@ from odoo import http
 
 from .api_controller_inrim import InrimApiController, BadRequest
 
+
 class InrimApiEnteAzienda(InrimApiController):
 
     @http.route('/api/ente_azienda', auth="none", type='http', methods=['GET'],
                 csrf=False)
-    def api_get_ca_ente_azienda(self):
+    def api_get_ca_ente_azienda(self, **params):
         self.check_token('ca.ente_azienda', 'read')
 
         return self.handle_response(
-            *self.model.rest_get(self.get_query_params()), is_list=True)
+            *self.model.rest_get(params), is_list=True)
 
     @http.route('/api/ente_azienda', auth="none", type='http', methods=['POST'],
                 csrf=False)
@@ -51,11 +52,11 @@ class InrimApiTipoEnteAzienda(InrimApiController):
 
     @http.route('/api/tipo_ente_azienda', auth="none", type='http', methods=['GET'],
                 csrf=False)
-    def api_get_ca_tipo_ente_azienda(self):
+    def api_get_ca_tipo_ente_azienda(self, **params):
         self.check_token('ca.tipo_ente_azienda', 'read')
 
         return self.handle_response(
-            *self.model.rest_get(self.get_query_params()), is_list=True)
+            *self.model.rest_get(params), is_list=True)
 
     @http.route('/api/tipo_ente_azienda', auth="none", type='http', methods=['POST'],
                 csrf=False)
