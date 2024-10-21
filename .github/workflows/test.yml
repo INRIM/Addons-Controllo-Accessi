@@ -73,4 +73,4 @@ jobs:
       - name: Init Data
         run: ${PWD}/oqa/bin/init_repo.sh
       - name: Tests
-        run: docker run --rm  -v ${PWD}/run_tests.sh:/mnt/tests/runtests.sh -v ${PWD}/partner-contact:/mtn/partner-contact -v ${PWD}/server-auth:/mnt/server-auth -v ${PWD}/server-env:/mnt/server-env -v ${PWD}/${{ env.REPO_NAME }}:/mnt/${{ env.REPO_NAME }} -v ${PWD}/${ODOO_RC}:/etc/odoo/odoo.conf --network=host odoo:${{ env.OE_VER }} /mnt/tests/runtests.sh
+        run: docker run --rm -v ${PWD}/reader-data:/mnt/reader-data -v ${PWD}/run_tests.sh:/mnt/tests/runtests.sh -v ${PWD}/partner-contact:/mtn/partner-contact -v ${PWD}/server-auth:/mnt/server-auth -v ${PWD}/server-env:/mnt/server-env -v ${PWD}/${{ env.REPO_NAME }}:/mnt/${{ env.REPO_NAME }} -v ${PWD}/${ODOO_RC}:/etc/odoo/odoo.conf --network=host odoo:${{ env.OE_VER }} /mnt/tests/runtests.sh
