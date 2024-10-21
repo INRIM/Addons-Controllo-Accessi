@@ -2,7 +2,7 @@ name: tests
 env:
   REPO_NAME: Addons-Controllo-Accessi
   ODOO_RC: odoo.cfg
-  ADDONS_PATH: /opt/odoo/addons,/mnt/server-auth,/mtn/partner-contact,/mnt/server-env,/mnt/Addons-Controllo-Accessi
+  ADDONS_PATH: /opt/odoo/addons,/mnt/server-auth,/mnt/Addons-Controllo-Accessi
   TESTTAGS: inrim
   OE_VER: "17.0"
 
@@ -55,17 +55,6 @@ jobs:
           path: server-auth
           ref: ${{ env.OE_VER }}
           fetch-depth: 1
-      - uses: actions/checkout@v4
-        with:
-          repository: OCA/partner-contact
-          path: partner-contact
-          ref: ${{ env.OE_VER }}
-      - uses: actions/checkout@v4
-        with:
-          repository: OCA/server-env
-          path: server-env
-          ref: ${{ env.OE_VER }}
-          fetch-depth: 1
       - run: pip install -r server-auth/requirements.txt
       - run: pip install -r server-auth/test-requirements.txt
       - name: Install dependencies
@@ -73,4 +62,4 @@ jobs:
       - name: Init Data
         run: ${PWD}/oqa/bin/init_repo.sh
       - name: Tests
-        run: docker run --rm  -v ${PWD}/run_tests.sh:/mnt/tests/runtests.sh -v ${PWD}/partner-contact:/mtn/partner-contact -v ${PWD}/server-auth:/mnt/server-auth -v ${PWD}/server-env:/mnt/server-env -v ${PWD}/${{ env.REPO_NAME }}:/mnt/${{ env.REPO_NAME }} -v ${PWD}/${ODOO_RC}:/etc/odoo/odoo.conf --network=host odoo:${{ env.OE_VER }} /mnt/tests/runtests.sh
+        run: docker run --rm  -v ${PWD}/run_tests.sh:/mnt/tests/runtests.sh -v ${PWD}/${{ env.REPO_NAME }}:/mnt/${{ env.REPO_NAME }} -v ${PWD}/${ODOO_RC}:/etc/odoo/odoo.conf --network=host odoo:${{ env.OE_VER }} /mnt/tests/runtests.sh

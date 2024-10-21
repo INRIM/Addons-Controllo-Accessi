@@ -3,7 +3,6 @@ from odoo.exceptions import UserError
 
 class CaRighePersona(models.Model):
     _name = 'ca.righe_persona'
-    _inherit = "ca.model.base.mixin"
     _description = 'Righe Persona'
 
     spazio_id = fields.Many2one('ca.spazio')

@@ -1,4 +1,3 @@
-from . import ca_model_base_mixin
 from . import ca_persona
 from . import ca_tipo_persona
 from . import ca_documento
@@ -11,3 +10,5 @@ from . import ca_codice_locale
 from . import ca_righe_persona
 from . import ca_righe_accesso
 from . import ca_stato_anag
+from . import ca_categoria_richiesta
+from . import ca_categoria_tipo_richiesta

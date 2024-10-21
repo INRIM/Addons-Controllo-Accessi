@@ -1,6 +1,6 @@
 from odoo import http, api, SUPERUSER_ID
 from odoo.http import request, Response
-from .api_controller_inrim import InrimApiController, BadRequest
+from .auth import InrimApiController
 from datetime import datetime
 import pytz
 import json
@@ -9,7 +9,7 @@ class InrimApiImgDocumento(http.Controller):
     
     @http.route('/api/immagine', auth="none", type='http', methods=['GET'],
            csrf=False)
-    def api_get_gest_immagine(self, **params):
+    def api_get_gest_immagine(self):
         res = []
         env = api.Environment(request.cr, SUPERUSER_ID,
                                 {'active_test': False})

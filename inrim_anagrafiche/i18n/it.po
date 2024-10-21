@@ -18,22 +18,22 @@ msgstr ""
 #. module: inrim_anagrafiche
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
 msgid ""
-"<span class=\"o_form_label o_td_label\" name=\"address_name\" groups=\"controllo_accessi.ca_gdpr\">\n"
+"<span class=\"o_form_label o_td_label\" name=\"address_name\" groups=\"inrim_controllo_accessi_base.ca_gdpr\">\n"
 "                                    <b>Domicile Address</b>\n"
 "                                </span>"
 msgstr ""
-"<span class=\"o_form_label o_td_label\" name=\"address_name\" groups=\"controllo_accessi.ca_gdpr\">\n"
+"<span class=\"o_form_label o_td_label\" name=\"address_name\" groups=\"inrim_controllo_accessi_base.ca_gdpr\">\n"
 "                                    <b>Indirizzo Domicilio</b>\n"
 "                                </span>"
 
 #. module: inrim_anagrafiche
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
 msgid ""
-"<span class=\"o_form_label o_td_label\" name=\"address_name\" invisible=\"not domicile_other_than_residence\" groups=\"controllo_accessi.ca_gdpr\">\n"
+"<span class=\"o_form_label o_td_label\" name=\"address_name\" invisible=\"not domicile_other_than_residence\" groups=\"inrim_controllo_accessi_base.ca_gdpr\">\n"
 "                                    <b>Residence Address</b>\n"
 "                                </span>"
 msgstr ""
-"<span class=\"o_form_label o_td_label\" name=\"address_name\" invisible=\"not domicile_other_than_residence\" groups=\"controllo_accessi.ca_gdpr\">\n"
+"<span class=\"o_form_label o_td_label\" name=\"address_name\" invisible=\"not domicile_other_than_residence\" groups=\"inrim_controllo_accessi_base.ca_gdpr\">\n"
 "                                    <b>Indirizzo Residenza</b>\n"
 "                                </span>"
 
@@ -1195,6 +1195,11 @@ msgstr "CU"
 msgid "Type"
 msgstr "Tipo"
 
+#. module: inrim_anagrafiche
+#: model:ir.actions.act_window,name:inrim_anagrafiche.ca_categoria_tipo_richiesta_action
+#: model:ir.ui.menu,name:inrim_anagrafiche.ca_categoria_tipo_richiesta_menu
+msgid "Type of Access Request"
+msgstr "Tipologia Richiesta Accesso"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__uid

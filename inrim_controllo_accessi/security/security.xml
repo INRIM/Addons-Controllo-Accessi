@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- Avanzamento Richiesta -->
+    <record id="inrim_utente_ca_anag_avanzamento_rich_rule" model="ir.rule">
+        <field name="name">INRIM Utente: Avanzamento Richiesta</field>
+        <field name="model_id" ref="model_ca_anag_avanzamento_rich"/>
+        <field name="global" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_utente'))]"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="inrim_controllo_accesso_ca_anag_avanzamento_rich_rule" model="ir.rule">
+        <field name="name">INRIM Controllo Accesso: Avanzamento Richiesta</field>
+        <field name="model_id" ref="model_ca_anag_avanzamento_rich"/>
+        <field name="global" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_ca'))]"/>
+        <field name="active" eval="True"/>
+    </record>
 
     <!-- Registro Accesso -->
     <record id="inrim_utente_ca_anag_registro_accesso_rule" model="ir.rule">
@@ -11,12 +37,11 @@
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
         <field name="domain_force">[('create_uid', '=', user.id)]</field>
-        <field name="groups" eval="[(4, ref('controllo_accessi.ca_utente'))]"/>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_utente'))]"/>
         <field name="active" eval="True"/>
     </record>
 
-    <record id="inrim_controllo_accesso_ca_anag_registro_accesso_rule"
-            model="ir.rule">
+    <record id="inrim_controllo_accesso_ca_anag_registro_accesso_rule" model="ir.rule">
         <field name="name">INRIM Controllo Accesso: Registro Accesso</field>
         <field name="model_id" ref="model_ca_anag_registro_accesso"/>
         <field name="global" eval="False"/>
@@ -25,10 +50,63 @@
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
         <field name="domain_force">[(1, '=', 1)]</field>
-        <field name="groups" eval="[(4, ref('controllo_accessi.ca_ca'))]"/>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_ca'))]"/>
         <field name="active" eval="True"/>
     </record>
 
+    <!-- Anag Servizi -->
+    <record id="inrim_utente_ca_anag_servizi_rule" model="ir.rule">
+        <field name="name">INRIM Utente: Servizi</field>
+        <field name="model_id" ref="model_ca_anag_servizi"/>
+        <field name="global" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_utente'))]"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="inrim_controllo_accesso_ca_anag_servizi_rule" model="ir.rule">
+        <field name="name">INRIM Controllo Accesso: Servizi</field>
+        <field name="model_id" ref="model_ca_anag_servizi"/>
+        <field name="global" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_ca'))]"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Anag Tipologie Istanze -->
+    <record id="inrim_utente_ca_anag_servizi_rule" model="ir.rule">
+        <field name="name">INRIM Utente: Tipologie Istanze</field>
+        <field name="model_id" ref="model_ca_anag_tipologie_istanze"/>
+        <field name="global" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_utente'))]"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="inrim_controllo_accesso_ca_anag_servizi_rule" model="ir.rule">
+        <field name="name">INRIM Controllo Accesso: Tipologie Istanze</field>
+        <field name="model_id" ref="model_ca_anag_tipologie_istanze"/>
+        <field name="global" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_ca'))]"/>
+        <field name="active" eval="True"/>
+    </record>
 
     <!-- Log Integrazione Lettori -->
     <record id="inrim_utente_ca_log_integrazione_lettori_rule" model="ir.rule">
@@ -40,14 +118,12 @@
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
         <field name="domain_force">[('create_uid', '=', user.id)]</field>
-        <field name="groups" eval="[(4, ref('controllo_accessi.ca_utente'))]"/>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_utente'))]"/>
         <field name="active" eval="True"/>
     </record>
 
-    <record id="inrim_controllo_accesso_ca_log_integrazione_lettori_rule"
-            model="ir.rule">
-        <field name="name">INRIM Controllo Accesso: Integrazione Lettori
-        </field>
+    <record id="inrim_controllo_accesso_ca_log_integrazione_lettori_rule" model="ir.rule">
+        <field name="name">INRIM Controllo Accesso: Integrazione Lettori</field>
         <field name="model_id" ref="model_ca_log_integrazione_lettori"/>
         <field name="global" eval="False"/>
         <field name="perm_read" eval="True"/>
@@ -55,7 +131,7 @@
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
         <field name="domain_force">[(1, '=', 1)]</field>
-        <field name="groups" eval="[(4, ref('controllo_accessi.ca_ca'))]"/>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_ca'))]"/>
         <field name="active" eval="True"/>
     </record>
 
@@ -69,14 +145,12 @@
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
         <field name="domain_force">[('create_uid', '=', user.id)]</field>
-        <field name="groups" eval="[(4, ref('controllo_accessi.ca_utente'))]"/>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_utente'))]"/>
         <field name="active" eval="True"/>
     </record>
 
-    <record id="inrim_controllo_accesso_ca_punto_accesso_persona_rule"
-            model="ir.rule">
-        <field name="name">INRIM Controllo Accesso: Punto Accesso Persona
-        </field>
+    <record id="inrim_controllo_accesso_ca_punto_accesso_persona_rule" model="ir.rule">
+        <field name="name">INRIM Controllo Accesso: Punto Accesso Persona</field>
         <field name="model_id" ref="model_ca_punto_accesso_persona"/>
         <field name="global" eval="False"/>
         <field name="perm_read" eval="True"/>
@@ -84,7 +158,7 @@
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
         <field name="domain_force">[(1, '=', 1)]</field>
-        <field name="groups" eval="[(4, ref('controllo_accessi.ca_ca'))]"/>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_ca'))]"/>
         <field name="active" eval="True"/>
     </record>
 
@@ -98,7 +172,7 @@
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
         <field name="domain_force">[('create_uid', '=', user.id)]</field>
-        <field name="groups" eval="[(4, ref('controllo_accessi.ca_utente'))]"/>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_utente'))]"/>
         <field name="active" eval="True"/>
     </record>
 
@@ -111,10 +185,117 @@
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
         <field name="domain_force">[(1, '=', 1)]</field>
-        <field name="groups" eval="[(4, ref('controllo_accessi.ca_ca'))]"/>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_ca'))]"/>
         <field name="active" eval="True"/>
     </record>
 
+    <!-- Richiesta Accesso Persona -->
+    <record id="inrim_utente_ca_richiesta_accesso_persona_rule" model="ir.rule">
+        <field name="name">INRIM Utente: Richiesta Accesso Persona</field>
+        <field name="model_id" ref="model_ca_richiesta_accesso_persona"/>
+        <field name="global" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_utente'))]"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="inrim_controllo_accesso_ca_richiesta_accesso_persona_rule" model="ir.rule">
+        <field name="name">INRIM Controllo Accesso: Richiesta Accesso Persona</field>
+        <field name="model_id" ref="model_ca_richiesta_accesso_persona"/>
+        <field name="global" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_ca'))]"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Richiesta Accesso -->
+    <record id="inrim_utente_ca_richiesta_accesso_rule" model="ir.rule">
+        <field name="name">INRIM Utente: Richiesta Accesso</field>
+        <field name="model_id" ref="model_ca_richiesta_accesso"/>
+        <field name="global" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_utente'))]"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="inrim_controllo_accesso_ca_richiesta_accesso_rule" model="ir.rule">
+        <field name="name">INRIM Controllo Accesso: Richiesta Accesso</field>
+        <field name="model_id" ref="model_ca_richiesta_accesso"/>
+        <field name="global" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_ca'))]"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Richiesta Servizi Persona -->
+    <record id="inrim_utente_ca_richiesta_servizi_persona_rule" model="ir.rule">
+        <field name="name">INRIM Utente: Richiesta Servizi Persona</field>
+        <field name="model_id" ref="model_ca_richiesta_servizi_persona"/>
+        <field name="global" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_utente'))]"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="inrim_controllo_accesso_ca_richiesta_servizi_persona_rule" model="ir.rule">
+        <field name="name">INRIM Controllo Accesso: Richiesta Servizi Persona</field>
+        <field name="model_id" ref="model_ca_richiesta_servizi_persona"/>
+        <field name="global" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_ca'))]"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Settore Ente -->
+    <record id="inrim_utente_ca_settore_ente_rule" model="ir.rule">
+        <field name="name">INRIM Utente: Settore Ente</field>
+        <field name="model_id" ref="model_ca_settore_ente"/>
+        <field name="global" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_utente'))]"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="inrim_controllo_accesso_ca_settore_ente_rule" model="ir.rule">
+        <field name="name">INRIM Controllo Accesso: Settore Ente</field>
+        <field name="model_id" ref="model_ca_settore_ente"/>
+        <field name="global" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_ca'))]"/>
+        <field name="active" eval="True"/>
+    </record>
 
     <!-- Tag Lettore -->
     <record id="inrim_utente_ca_tag_lettore_rule" model="ir.rule">
@@ -126,7 +307,7 @@
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
         <field name="domain_force">[('create_uid', '=', user.id)]</field>
-        <field name="groups" eval="[(4, ref('controllo_accessi.ca_utente'))]"/>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_utente'))]"/>
         <field name="active" eval="True"/>
     </record>
 
@@ -139,7 +320,7 @@
         <field name="perm_write" eval="True"/>
         <field name="perm_unlink" eval="True"/>
         <field name="domain_force">[(1, '=', 1)]</field>
-        <field name="groups" eval="[(4, ref('controllo_accessi.ca_ca'))]"/>
+        <field name="groups" eval="[(4, ref('inrim_controllo_accessi_base.ca_ca'))]"/>
         <field name="active" eval="True"/>
     </record>
 </odoo>

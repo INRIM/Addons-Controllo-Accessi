@@ -2,7 +2,6 @@ from odoo import models, fields, api
 
 class CaLogIntegrazioneLettori(models.Model):
     _name = 'ca.log_integrazione_lettori'
-    _inherit = "ca.model.base.mixin"
     _description = 'Log Integrazione Lettori'
     _rec_name = 'activity_code'
 

@@ -4,7 +4,6 @@ from odoo.exceptions import UserError
 
 class CaPuntoAccessoPersona(models.Model):
     _name = 'ca.punto_accesso_persona'
-    _inherit = "ca.model.base.mixin"
     _description = 'Punto Accesso Persona'
     _rec_name = 'ca_lettore_id'
 

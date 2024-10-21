@@ -4,7 +4,6 @@ from datetime import datetime
 
 class CaPuntoAccesso(models.Model):
     _name = 'ca.punto_accesso'
-    _inherit = "ca.model.base.mixin"
     _description = 'Punto Accesso'
 
     name = fields.Char(compute="_compute_name", store=True)
@@ -160,12 +159,3 @@ class CaPuntoAccesso(models.Model):
             'res_model': 'ca.punto_accesso_persona',
             'domain': [('date', '=', fields.date.today())],
         }
-
-    def check_readers(self):
-        return True
-
-    def load_readers_data(self):
-        return True
-
-    def update_readers_data(self):
-        return True

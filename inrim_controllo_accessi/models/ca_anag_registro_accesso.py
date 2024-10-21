@@ -3,7 +3,6 @@ from odoo.exceptions import UserError
 
 class CaAnagRegistroAccesso(models.Model):
     _name = 'ca.anag_registro_accesso'
-    _inherit = "ca.model.base.mixin"
     _description = 'Anagrafica Registro Accesso'
     _rec_name = 'ca_punto_accesso_id'
 
@@ -33,9 +32,9 @@ class CaAnagRegistroAccesso(models.Model):
         ca_tag_persona_id, datetime_event, type='manual'
     ):
         if (
-            self.env.user.has_group('controllo_accessi.ca_ru') or
+            self.env.user.has_group('inrim_controllo_accessi_base.ca_ru') or
             self.env.user.has_group(
-                'controllo_accessi.ca_portineria')
+                'inrim_controllo_accessi_base.ca_portineria')
         ):
             if ca_punto_accesso_id.typology == 'stamping':
                 if ca_punto_accesso_id.enable_sync:

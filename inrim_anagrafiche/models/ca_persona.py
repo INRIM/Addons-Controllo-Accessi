@@ -1,35 +1,28 @@
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError, ValidationError
 import random
 import string
 
-from odoo import models, fields, api, _
-from odoo.exceptions import UserError, ValidationError
-
-
 class CaPersona(models.Model):
     _name = 'ca.persona'
-    _inherit = "ca.model.base.mixin"
     _description = 'Persona'
     _rec_name = "display_name"
     _rec_names_search = ['display_name', 'token']
-
+   
     name = fields.Char(required=True)
     lastname = fields.Char(required=True)
     display_name = fields.Char(compute="_compute_display_name", store=True)
     associated_user_id = fields.Many2one('res.users')
-    fiscalcode = fields.Char(groups="controllo_accessi.ca_gdpr")
+    fiscalcode = fields.Char(groups="inrim_controllo_accessi_base.ca_gdpr")
     vat = fields.Char()
     type_ids = fields.Many2many('ca.tipo_persona')
-    freshman = fields.Char(groups="controllo_accessi.ca_gdpr")
-    nationality = fields.Many2one('res.country', groups="controllo_accessi.ca_gdpr")
-    birth_date = fields.Date(groups="controllo_accessi.ca_gdpr")
-    birth_place = fields.Char(groups="controllo_accessi.ca_gdpr")
-    istat_code = fields.Char(groups="controllo_accessi.ca_gdpr")
+    freshman = fields.Char(groups="inrim_controllo_accessi_base.ca_gdpr")
+    nationality = fields.Many2one('res.country', groups="inrim_controllo_accessi_base.ca_gdpr")
+    birth_date = fields.Date(groups="inrim_controllo_accessi_base.ca_gdpr")
+    birth_place = fields.Char(groups="inrim_controllo_accessi_base.ca_gdpr")
+    istat_code = fields.Char(groups="inrim_controllo_accessi_base.ca_gdpr")
     parent_id = fields.Many2one('ca.persona', string='Father Contact', index=True)
-    child_ids = fields.One2many('ca.persona', 'parent_id', string='Contact',
-                                domain=[('active', '=', True)])
-    email = fields.Char()
-    phone = fields.Char()
-    mobile = fields.Char()
+    child_ids = fields.One2many('ca.persona', 'parent_id', string='Contact', domain=[('active', '=', True)])
     residence_street = fields.Char()
     residence_street2 = fields.Char()
     residence_city = fields.Char(
@@ -98,11 +91,9 @@ class CaPersona(models.Model):
     )
     domicile_other_than_residence = fields.Boolean()
     ca_documento_ids = fields.One2many('ca.documento', 'ca_persona_id')
-    ca_stato_anag_id = fields.Many2one('ca.stato_anag', default=lambda
-        self: self.default_ca_stato_anag_id(), required=True)
+    ca_stato_anag_id = fields.Many2one('ca.stato_anag', default=lambda self:self.default_ca_stato_anag_id(), required=True)
     ca_ente_azienda_ids = fields.Many2many('ca.ente_azienda')
-    token = fields.Char(required=True, readonly=True, copy=False,
-                        default=lambda self: self.get_token())
+    token = fields.Char(required=True, readonly=True, copy=False, default=lambda self:self.get_token())
     present = fields.Selection([
         ('yes', 'Yes'),
         ('no', 'No')
@@ -122,9 +113,8 @@ class CaPersona(models.Model):
                     ('fiscalcode', '=', record.fiscalcode)
                 ])
                 if persona_id:
-                    raise UserError(
-                        _('Esiste già una persona con questo codice fiscale'))
-
+                    raise UserError(_('Esiste già una persona con questo codice fiscale'))
+    
     @api.constrains('freshman', 'active')
     def _check_unique_freshman(self):
         for record in self:
@@ -135,7 +125,7 @@ class CaPersona(models.Model):
                 ])
                 if persona_id:
                     raise UserError(_('Esiste già una persona con questa matricola'))
-
+    
     @api.constrains('ca_documento_ids')
     def _check_external_documento_ids(self):
         for record in self:
@@ -158,13 +148,11 @@ class CaPersona(models.Model):
         for record in self:
             record.is_external = False
             record.is_internal = False
-            if self.env.ref(
-                    'inrim_anagrafiche.tipo_persona_interno').id in record.type_ids.ids:
+            if self.env.ref('inrim_anagrafiche.tipo_persona_interno').id in record.type_ids.ids:
                 record.is_internal = True
-            if self.env.ref(
-                    'inrim_anagrafiche.tipo_persona_esterno').id in record.type_ids.ids:
+            if self.env.ref('inrim_anagrafiche.tipo_persona_esterno').id in record.type_ids.ids:
                 record.is_external = True
-
+    
     @api.depends('type_ids', 'type_ids.structured')
     def _compute_is_structured(self):
         for record in self:
@@ -185,33 +173,27 @@ class CaPersona(models.Model):
 
     def action_draft(self):
         for record in self:
-            record.ca_stato_anag_id = self.env.ref(
-                'inrim_anagrafiche.ca_stato_anag_bozza').id
+            record.ca_stato_anag_id = self.env.ref('inrim_anagrafiche.ca_stato_anag_bozza').id
 
     def action_documents(self):
         for record in self:
-            record.ca_stato_anag_id = self.env.ref(
-                'inrim_anagrafiche.ca_stato_anag_in_attesa_documenti').id
+            record.ca_stato_anag_id = self.env.ref('inrim_anagrafiche.ca_stato_anag_in_attesa_documenti').id
 
     def action_expired(self):
         for record in self:
-            record.ca_stato_anag_id = self.env.ref(
-                'inrim_anagrafiche.ca_stato_anag_scaduto').id
+            record.ca_stato_anag_id = self.env.ref('inrim_anagrafiche.ca_stato_anag_scaduto').id
 
     def action_in_update(self):
         for record in self:
-            record.ca_stato_anag_id = self.env.ref(
-                'inrim_anagrafiche.ca_stato_anag_in_aggiornamento').id
+            record.ca_stato_anag_id = self.env.ref('inrim_anagrafiche.ca_stato_anag_in_aggiornamento').id
 
     def action_checks_in_progress(self):
         for record in self:
-            record.ca_stato_anag_id = self.env.ref(
-                'inrim_anagrafiche.ca_stato_anag_verifiche_in_corso').id
+            record.ca_stato_anag_id = self.env.ref('inrim_anagrafiche.ca_stato_anag_verifiche_in_corso').id
 
     def action_completed(self):
         for record in self:
-            record.ca_stato_anag_id = self.env.ref(
-                'inrim_anagrafiche.ca_stato_anag_completata').id
+            record.ca_stato_anag_id = self.env.ref('inrim_anagrafiche.ca_stato_anag_completata').id
 
     def action_attendance_today(self):
         return {
@@ -228,7 +210,7 @@ class CaPersona(models.Model):
         res = super(CaPersona, self).create(vals)
         self._check_external_documento_ids()
         return res
-
+    
     def write(self, vals_list):
         res = super(CaPersona, self).write(vals_list)
         self._check_external_documento_ids()
@@ -241,10 +223,9 @@ class CaPersona(models.Model):
         if persona_id:
             self.get_token()
         return token
-
+    
     # DOMICILE
-    @api.depends("domicile_state_id", "domicile_country_id", "domicile_city_id",
-                 "domicile_zip")
+    @api.depends("domicile_state_id", "domicile_country_id", "domicile_city_id", "domicile_zip")
     def _compute_domicile_zip_id(self):
         """Empty the zip auto-completion field if data mismatch when on UI."""
         for record in self.filtered("domicile_zip_id"):
@@ -256,9 +237,9 @@ class CaPersona(models.Model):
             }
             for rec_field, zip_field in fields_map.items():
                 if (
-                        record[rec_field]
-                        and record[rec_field] != record._origin[rec_field]
-                        and record[rec_field] != record.domicile_zip_id[zip_field]
+                    record[rec_field]
+                    and record[rec_field] != record._origin[rec_field]
+                    and record[rec_field] != record.domicile_zip_id[zip_field]
                 ):
                     record.domicile_zip_id = False
                     break
@@ -280,7 +261,7 @@ class CaPersona(models.Model):
         for record in self:
             if record.domicile_zip_id:
                 record.domicile_zip = record.domicile_zip_id.name
-
+    
     @api.depends("domicile_zip_id", "domicile_state_id")
     def _compute_domicile_country_id(self):
         for record in self:
@@ -296,8 +277,7 @@ class CaPersona(models.Model):
             if state and record.domicile_state_id != state:
                 record.domicile_state_id = record.domicile_zip_id.city_id.state_id
 
-    @api.constrains("domicile_zip_id", "domicile_country_id", "domicile_city_id",
-                    "domicile_state_id", "domicile_zip")
+    @api.constrains("domicile_zip_id", "domicile_country_id", "domicile_city_id", "domicile_state_id", "domicile_zip")
     def _check_zip(self):
         if self.env.context.get("skip_check_zip"):
             return
@@ -337,10 +317,9 @@ class CaPersona(models.Model):
                     )
                     % error_dict
                 )
-
+    
     # RESIDENCE
-    @api.depends("residence_state_id", "residence_country_id", "residence_city_id",
-                 "residence_zip")
+    @api.depends("residence_state_id", "residence_country_id", "residence_city_id", "residence_zip")
     def _compute_residence_zip_id(self):
         """Empty the zip auto-completion field if data mismatch when on UI."""
         for record in self.filtered("residence_zip_id"):
@@ -352,9 +331,9 @@ class CaPersona(models.Model):
             }
             for rec_field, zip_field in fields_map.items():
                 if (
-                        record[rec_field]
-                        and record[rec_field] != record._origin[rec_field]
-                        and record[rec_field] != record.residence_zip_id[zip_field]
+                    record[rec_field]
+                    and record[rec_field] != record._origin[rec_field]
+                    and record[rec_field] != record.residence_zip_id[zip_field]
                 ):
                     record.residence_zip_id = False
                     break
@@ -376,7 +355,7 @@ class CaPersona(models.Model):
         for record in self:
             if record.residence_zip_id:
                 record.residence_zip = record.residence_zip_id.name
-
+    
     @api.depends("residence_zip_id", "residence_state_id")
     def _compute_residence_country_id(self):
         for record in self:
@@ -392,8 +371,7 @@ class CaPersona(models.Model):
             if state and record.residence_state_id != state:
                 record.residence_state_id = record.residence_zip_id.city_id.state_id
 
-    @api.constrains("residence_zip_id", "residence_country_id", "residence_city_id",
-                    "residence_state_id", "residence_zip")
+    @api.constrains("residence_zip_id", "residence_country_id", "residence_city_id", "residence_state_id", "residence_zip")
     def _check_zip(self):
         if self.env.context.get("skip_check_zip"):
             return
@@ -433,54 +411,3 @@ class CaPersona(models.Model):
                     )
                     % error_dict
                 )
-
-    def rest_boby_hint(self):
-        return {
-            "name": "",
-            "lastname": "",
-            "fiscalcode": "",
-        }
-
-    def rest_get_record(self):
-        vals = {
-            'id': self.id,
-            'name': self.name,
-            'lastname': self.lastname,
-            'parent_id': self.f_m2o(self.parent_id),
-            'associated_user_id': self.f_m2o(self.associated_user_id),
-            'domicile_street': self.domicile_street or "",
-            'domicile_street2': self.domicile_street2 or "",
-            'domicile_city_id': self.f_m2o(self.associated_user_id),
-            'domicile_state_id': self.f_m2o(self.domicile_state_id),
-            'domicile_zip_id': self.f_m2o(self.domicile_zip_id),
-            'domicile_country_id': self.f_m2o(self.domicile_country_id),
-            'vat': self.vat or "",
-            'domicile_other_than_residence': self.domicile_other_than_residence,
-            'type_ids': self.f_m2m(self.type_ids),
-            'ca_ente_azienda_ids': self.f_m2m(self.ca_ente_azienda_ids),
-            'present': self.f_selection("present", self.present),
-            'token': self.token,
-            'residence_street': self.residence_street or "",
-            'residence_street2': self.residence_street2 or "",
-            'residence_city_id': self.f_m2o(self.residence_city_id),
-            'residence_state_id': self.f_m2o(self.residence_state_id),
-            'residence_zip_id': self.f_m2o(self.residence_zip_id),
-            'residence_country_id': self.f_m2o(self.residence_country_id)
-        }
-        if self.env.user.has_group('controllo_accessi.ca_gdpr'):
-            vals.update({
-                'fiscalcode': self.fiscalcode,
-                'freshman': self.freshman or "",
-                'nationality': self.f_m2o(self.nationality),
-                'birth_date': self.f_date(self.birth_date),
-                'birth_place': self.f_date(self.birth_place),
-                'istat_code': self.f_date(self.istat_code),
-            })
-        return vals
-
-    def rest_eval_body(self, body):
-        body, msg = super().rest_eval_body(
-            body, [
-                'name', 'lastname', 'fiscalcode'
-            ])
-        return body, msg

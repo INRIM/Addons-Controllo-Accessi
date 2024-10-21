@@ -1,67 +1,19 @@
-import json
-import logging
-import os
-import shutil
-from datetime import datetime
-
-import requests
 from odoo import models, fields
+from datetime import datetime
+import requests
+import logging
+import shutil
+import json
+import os
 
 logger = logging.getLogger(__name__)
 info_path = '/info'
 status_path = '/status'
 read_events_path = '/read-events'
 add_tags_path = '/add-tags'
-update_clock_path = '/update-clock'
-
 
 class CaPuntoAccesso(models.Model):
     _inherit = 'ca.punto_accesso'
-
-    def prepare_header(self):
-        rfid_token_jwt = self.env[
-            'ir.config_parameter'
-        ].sudo().get_param('service_reader.jwt')
-
-        header = {
-            'authtoken': rfid_token_jwt
-        }
-        return header
-
-    def update_rfid_data(self, device):
-        try:
-            rfid_token_jwt = self.env[
-                'ir.config_parameter'
-            ].sudo().get_param('service_reader.jwt')
-            header = {
-                'authtoken': rfid_token_jwt
-            }
-            body = {
-                'device': device
-            }
-            rfid_url = self.env[
-                'ir.config_parameter'
-            ].sudo().get_param('service_reader.url')
-            info_url = f'{rfid_url}{info_path}'
-            status_url = f'{rfid_url}{status_path}'
-            info_request = requests.post(
-                info_url, headers=header, json=body, verify=False)
-            if info_request.status_code == 200:
-                logger.info(f"{info_url}, Status Code: {info_request.status_code}")
-                self.post_rfid_info(device, info_request.json())
-            else:
-                logger.info(f"{info_url}, Status Code: {info_request.status_code}")
-            status_request = requests.post(status_url, headers=header, json=body,
-                                           verify=False)
-            if status_request.status_code == 200:
-                logger.info(f"{status_url}, Status Code: {status_request.status_code}")
-                self.post_rfid_status(device, status_request.json())
-                self.env.cr.commit()
-            else:
-                logger.info(f"{status_url}, Status Code: {status_request.status_code}")
-        except Exception as e:
-            self.env.cr.rollback()
-            logger.info(f"Error: {e}")
 
     def post_rfid_info(self, device, data):
         try:
@@ -107,8 +59,7 @@ class CaPuntoAccesso(models.Model):
                 if 'diagnostic' in data:
                     if 'event_cnt' in data['diagnostic']:
                         vals['available_events'] = data['diagnostic']['event_cnt']
-                        vals_punto_accesso['events_to_read_num'] = data['diagnostic'][
-                                                                       'event_cnt'] + punto_accesso_id.events_to_read_num
+                        vals_punto_accesso['events_to_read_num'] = data['diagnostic']['event_cnt'] + punto_accesso_id.events_to_read_num
                 if vals:
                     punto_accesso_id.ca_lettore_id.write(vals)
                 if vals_punto_accesso:
@@ -122,11 +73,11 @@ class CaPuntoAccesso(models.Model):
             logger.info(f"{status_path}, Error: {e}")
             logger.info(e)
             return False
-
+        
     def add_tags(
             self, punto_accesso_id, holidayTableCountry,
             holidayTableCity, holidayTable=False
-    ):
+        ):
         device = punto_accesso_id.ca_lettore_id.reader_ip
         body = {
             'device': device,
@@ -144,7 +95,7 @@ class CaPuntoAccesso(models.Model):
             for tag in punto_accesso_id.ca_tag_lettore_ids:
                 body['tags'].append({
                     'idd': tag.ca_tag_id.tag_code,
-                    'timezoneConfig': tag.ca_tag_id.timezone_config or '1000000000000000'
+                    'timezoneConfig': tag.ca_tag_id.timezone_config if tag.ca_tag_id.timezone_config else '0000000000000001'
                 })
             timezone_table = self.env[
                 'ir.config_parameter'
@@ -152,11 +103,11 @@ class CaPuntoAccesso(models.Model):
             timezone_table = json.loads(timezone_table)
             body['timeZoneTable'] = json.dumps(timezone_table)
         return body
-
+        
     def post_add_tags(
             self, device, holidayTableCountry,
             holidayTableCity, holidayTable=False
-    ):
+        ):
         try:
             rfid_token_jwt = self.env[
                 'ir.config_parameter'
@@ -177,26 +128,23 @@ class CaPuntoAccesso(models.Model):
                     holidayTableCity, holidayTable
                 )
                 add_tags_url = f'{rfid_url}{add_tags_path}'
-                add_tags_request = requests.post(add_tags_url, headers=header, json=body,
-                                                 verify=False)
+                add_tags_request = requests.post(add_tags_url, headers=header, json=body, verify=False)
                 if add_tags_request.status_code == 200:
                     punto_accesso_id.remote_update = False
-                    logger.info(
-                        f"{add_tags_url}, Status Code: {add_tags_request.status_code}")
+                    logger.info(f"{add_tags_url}, Status Code: {add_tags_request.status_code}")
                     return True
                 else:
-                    logger.info(
-                        f"{add_tags_url}, Status Code: {add_tags_request.status_code}")
+                    logger.info(f"{add_tags_url}, Status Code: {add_tags_request.status_code}")
                     return False
         except Exception as e:
             self.env.cr.rollback()
             logger.info(f'Error: {e}')
             return False
-
+        
     def events_save_json(self, data, punto_accesso, datetime_now):
         json_data = json.dumps(data, indent=4)
         modulo_path = os.path.dirname(os.path.abspath(__file__))
-        data_dir = os.path.join(modulo_path, '..', 'data', 'TODO')
+        data_dir = os.path.join(modulo_path, '..', 'data', 'TODO') 
         if not os.path.exists(data_dir):
             os.makedirs(data_dir)
         name = punto_accesso.ca_lettore_id.name.replace(' ', '_')
@@ -221,7 +169,7 @@ class CaPuntoAccesso(models.Model):
                                 tag.ca_lettore_id.error_code = record.get('errorCode')
             punto_accesso.ca_lettore_id.available_events -= len(data['eventRecords'])
             punto_accesso.events_read_num += len(data['eventRecords'])
-
+        
     def post_read_events(self, punto_accesso, datetime_now):
         try:
             rfid_token_jwt = self.env[
@@ -238,20 +186,18 @@ class CaPuntoAccesso(models.Model):
                 'ir.config_parameter'
             ].sudo().get_param('service_reader.url')
             read_events_url = f'{rfid_url}{read_events_path}'
-            read_events_request = requests.post(
-                read_events_url, headers=header, json=body, verify=False)
+            read_events_request = requests.post(read_events_url, headers=header, json=body, verify=False)
             if read_events_request.status_code == 200:
                 data = read_events_request.json()
                 self.events_save_json(data, punto_accesso, datetime_now)
             else:
-                logger.info(
-                    f"{read_events_url}, Status Code: {read_events_request.status_code}")
+                logger.info(f"{read_events_url}, Status Code: {read_events_request.status_code}")
                 return False
         except Exception as e:
             self.env.cr.rollback()
             logger.info(f'Error: {e}')
             return False
-
+        
     def read_json_file(self, punto_accesso, datetime_now):
         todo_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'TODO')
         err_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'ERR')
@@ -287,8 +233,7 @@ class CaPuntoAccesso(models.Model):
                                         })
                                         if not os.path.exists(done_path):
                                             os.makedirs(done_path)
-                                        done_file_path = os.path.join(done_path,
-                                                                      json_file)
+                                        done_file_path = os.path.join(done_path, json_file)
                                         shutil.move(file_path, done_file_path)
                                         logger.info(f'Lettura file: {json_file}, OK')
                                         self.env['ca.log_integrazione_lettori'].create({
@@ -316,7 +261,7 @@ class CaPuntoAccesso(models.Model):
     def sync_reader_data(
             self, device, holidayTableCountry,
             holidayTableCity, holidayTable=False
-    ):
+        ):
         punto_accesso_ids = self.env['ca.punto_accesso'].search([
             ('ca_lettore_id.reader_ip', '=', device),
             ('system_error', '=', False),
@@ -338,7 +283,7 @@ class CaPuntoAccesso(models.Model):
     def sync_readers_data(
             self, holidayTableCountry,
             holidayTableCity, holidayTable=False
-    ):
+        ):
         punto_accesso_ids = self.env['ca.punto_accesso'].search([])
         for punto_accesso in punto_accesso_ids:
             self.sync_reader_data(

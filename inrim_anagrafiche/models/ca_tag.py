@@ -3,7 +3,6 @@ from odoo.exceptions import UserError
 
 class CaProprietaTag(models.Model):
     _name = 'ca.proprieta_tag'
-    _inherit = "ca.model.base.mixin"
     _description = 'Proprietà Tag'
 
     name = fields.Char(required=True)
@@ -23,7 +22,6 @@ class CaProprietaTag(models.Model):
 class CaTag(models.Model):
     _name = 'ca.tag'
     _description = 'Tag'
-    _inherit = "ca.model.base.mixin"
     _rec_names_search = ['name', 'tag_code']
 
     name = fields.Char(required=True)
