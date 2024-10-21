@@ -21,6 +21,7 @@ class RfidTestCommon(TestCommon):
         self.assertTrue(self.punto_accesso_1p001)
         self.assertTrue(self.read_events_data)
         self.assertTrue(self.tag_persona_id)
+        self.assertTrue(self.path_files)
 
     # Test 2
     def test_2(self):
@@ -66,9 +67,8 @@ class RfidTestCommon(TestCommon):
         punto_accesso = self.punto_accesso_1p001
         data = self.read_events_data
         self.env['ca.punto_accesso'].events_save_json(data, punto_accesso, datetime_now)
-        modulo_path = os.path.dirname(os.path.abspath(__file__))
-        todo_path = os.path.join(modulo_path, '..', 'data', 'TODO')
-        done_path = os.path.join(modulo_path, '..', 'data', 'DONE')
+        todo_path = os.path.join(self.path_files, 'TODO')
+        done_path = os.path.join(self.path_files, 'DONE')
         codice_attivita = datetime_now.timestamp()
         name = punto_accesso.ca_lettore_id.name.replace(' ', '_')
         file_name = f'{str(codice_attivita)}_{name}.json'

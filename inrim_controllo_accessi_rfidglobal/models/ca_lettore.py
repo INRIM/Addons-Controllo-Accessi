@@ -37,6 +37,8 @@ class CaLettore(models.Model):
             }
             data = self.remote_device_request(req_url, headers, body)
             punto_accesso_id = self.punto_accesso_ids[0]
+            if not data:
+                return False
 
             if punto_accesso_id:
                 vals = {}

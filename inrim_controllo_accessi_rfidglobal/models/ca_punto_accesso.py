@@ -13,6 +13,7 @@ status_path = '/status'
 read_events_path = '/read-events'
 add_tags_path = '/add-tags'
 update_clock_path = '/update-clock'
+path_files = '/mnt/reader-data'
 
 
 class CaPuntoAccesso(models.Model):
@@ -196,7 +197,7 @@ class CaPuntoAccesso(models.Model):
     def events_save_json(self, data, punto_accesso, datetime_now):
         json_data = json.dumps(data, indent=4)
         modulo_path = os.path.dirname(os.path.abspath(__file__))
-        data_dir = os.path.join(modulo_path, '..', 'data', 'TODO')
+        data_dir = os.path.join(path_files, 'TODO')
         if not os.path.exists(data_dir):
             os.makedirs(data_dir)
         name = punto_accesso.ca_lettore_id.name.replace(' ', '_')
@@ -253,9 +254,9 @@ class CaPuntoAccesso(models.Model):
             return False
 
     def read_json_file(self, punto_accesso, datetime_now):
-        todo_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'TODO')
-        err_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'ERR')
-        done_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'DONE')
+        todo_path = os.path.join(path_files, 'TODO')
+        err_path = os.path.join(path_files, 'ERR')
+        done_path = os.path.join(path_files, 'DONE')
         if not os.path.exists(todo_path):
             raise FileNotFoundError(f"La cartella {todo_path} non esiste.")
         json_files = [f for f in os.listdir(todo_path) if f.endswith('.json')]

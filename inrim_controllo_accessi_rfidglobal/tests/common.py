@@ -145,3 +145,4 @@ class TestCommon(TransactionCase):
                 }
             ]
         }
+        cls.path_files = '/mnt/reader-data'
