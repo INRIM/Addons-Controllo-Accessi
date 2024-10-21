@@ -112,11 +112,11 @@ class CaImgDocumento(models.Model):
             'id': self.id,
             'name': self.name,
             'description': self.description or "",
-            'ca_tipo_documento_id': self.f_o2m(self.ca_tipo_documento_id),
+            'ca_tipo_documento_id': self.f_m2o(self.ca_tipo_documento_id),
             'side': self.f_selection("side", self.side),
             'image': self.f_img(self.image),
             'filename': self.filename,
-            'ca_documento_id': self.f_o2m(self.ca_documento_id, 'tipo_documento_name')
+            'ca_documento_id': self.f_m2o(self.ca_documento_id, 'tipo_documento_name')
         }
 
     def rest_eval_body(self, body):
@@ -193,8 +193,8 @@ class CaDocumento(models.Model):
             images.append(image.rest_get_record())
         return {
             'id': self.id,
-            'ca_persona_id': self.f_o2m(self.ca_persona_id, "display_name"),
-            'tipo_documento_id': self.f_o2m(self.tipo_documento_id),
+            'ca_persona_id': self.f_m2o(self.ca_persona_id, "display_name"),
+            'tipo_documento_id': self.f_m2o(self.tipo_documento_id),
             'validity_start_date': self.f_date(self.validity_start_date),
             'validity_end_date': self.f_date(self.validity_end_date),
             'image_ids': images,

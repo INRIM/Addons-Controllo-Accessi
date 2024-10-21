@@ -123,8 +123,12 @@ class CaModelBase(models.AbstractModel):
         return str(record_o)
 
     @classmethod
-    def f_o2m(cls, record_o, name="name"):
+    def f_m2o(cls, record_o, name="name"):
         return {"name": record_o.id, "label": record_o.display_name}
+
+    @classmethod
+    def f_o2m(cls, record_o, name="name"):
+        return [{"name": p.id, "label": p.display_name} for p in record_o]
 
     @classmethod
     def f_m2m(cls, record_o, name="name"):

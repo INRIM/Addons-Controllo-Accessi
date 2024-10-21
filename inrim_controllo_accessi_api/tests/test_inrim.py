@@ -26,7 +26,6 @@ class ApiTestCommon(TestCommon):
         self.assertTrue(self.spazio_1)
         self.assertTrue(self.punto_accesso_1p001)
 
-
     def test_documento(self, test=False):
         """
         Descrizione:
@@ -342,28 +341,28 @@ class ApiTestCommon(TestCommon):
 
         # post
         data = {
-            "name": self.lettore_1.name,
+            "name": "lettore test",
             "reader_ip": "127.0.0.1",
             "direction": "in",
         }
 
-        response = requests.post(self.api_url + '/api/lettore', headers=headers,
-                                 json=data)
+        response = requests.post(
+            self.api_url + '/api/lettore', headers=headers, json=data)
 
         self.assertEqual(response.status_code, 200)
         id_from_post = response.json().get('id')
 
         # get
-        response = requests.get(self.api_url + '/api/lettore', headers=headers,
-                                json=data)
+        response = requests.get(
+            self.api_url + '/api/lettore', headers=headers, json=data)
         self.assertEqual(response.status_code, 200)
 
         # put
 
         data = {
             "id": id_from_post,
-            "name": self.lettore_1.name,
-            "reader_ip": "127.0.0.1",
+            "name": "lettore test",
+            "reader_ip": "127.0.0.2",
         }
 
         response = requests.put(self.api_url + '/api/lettore', headers=headers,
@@ -408,7 +407,7 @@ class ApiTestCommon(TestCommon):
         self.assertEqual(response.status_code, 200)
         res = response.json()
         self.assertEqual(len(res), 2)
-        #test get limit = 1
+        # test get limit = 1
         params = urlencode(
             {"domain": json.dumps(query), "limit": 1}, quote_via=quote_plus)
         response = requests.get(

@@ -12,6 +12,7 @@ info_path = '/info'
 status_path = '/status'
 read_events_path = '/read-events'
 add_tags_path = '/add-tags'
+update_clock_path = '/update-clock'
 
 
 class CaPuntoAccesso(models.Model):
@@ -43,8 +44,8 @@ class CaPuntoAccesso(models.Model):
             ].sudo().get_param('service_reader.url')
             info_url = f'{rfid_url}{info_path}'
             status_url = f'{rfid_url}{status_path}'
-            info_request = requests.post(info_url, headers=header, json=body,
-                                         verify=False)
+            info_request = requests.post(
+                info_url, headers=header, json=body, verify=False)
             if info_request.status_code == 200:
                 logger.info(f"{info_url}, Status Code: {info_request.status_code}")
                 self.post_rfid_info(device, info_request.json())
@@ -237,8 +238,8 @@ class CaPuntoAccesso(models.Model):
                 'ir.config_parameter'
             ].sudo().get_param('service_reader.url')
             read_events_url = f'{rfid_url}{read_events_path}'
-            read_events_request = requests.post(read_events_url, headers=header,
-                                                json=body, verify=False)
+            read_events_request = requests.post(
+                read_events_url, headers=header, json=body, verify=False)
             if read_events_request.status_code == 200:
                 data = read_events_request.json()
                 self.events_save_json(data, punto_accesso, datetime_now)
