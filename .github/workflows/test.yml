@@ -70,7 +70,13 @@ jobs:
       - run: pip install -r server-auth/test-requirements.txt
       - name: Install dependencies
         run: ${PWD}/oqa/bin/install_deps.sh
+      - name: Create dir
+        run: |
+          mkdir ${PWD}/reader-data
+          mkdir ${PWD}/reader-data/TODO
+          mkdir ${PWD}/reader-data/DONE
+          mkdir ${PWD}/reader-data/ERR
       - name: Init Data
         run: ${PWD}/oqa/bin/init_repo.sh
       - name: Tests
-        run: docker run --rm --privileged  -v ${PWD}/run_tests.sh:/mnt/tests/runtests.sh -v ${PWD}/partner-contact:/mtn/partner-contact -v ${PWD}/server-auth:/mnt/server-auth -v ${PWD}/server-env:/mnt/server-env -v ${PWD}/${{ env.REPO_NAME }}:/mnt/${{ env.REPO_NAME }} -v ${PWD}/${ODOO_RC}:/etc/odoo/odoo.conf --network=host odoo:${{ env.OE_VER }} /mnt/tests/runtests.sh
+        run: docker run --rm --user root -v ${PWD}/reader-data:/mnt/reader-data:rw -v ${PWD}/run_tests.sh:/mnt/tests/runtests.sh -v ${PWD}/partner-contact:/mtn/partner-contact -v ${PWD}/server-auth:/mnt/server-auth -v ${PWD}/server-env:/mnt/server-env -v ${PWD}/${{ env.REPO_NAME }}:/mnt/${{ env.REPO_NAME }} -v ${PWD}/${ODOO_RC}:/etc/odoo/odoo.conf --network=host odoo:${{ env.OE_VER }} /mnt/tests/runtests.sh
