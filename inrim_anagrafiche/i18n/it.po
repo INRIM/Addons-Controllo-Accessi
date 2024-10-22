@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-18 15:10+0000\n"
-"PO-Revision-Date: 2024-10-18 15:10+0000\n"
+"POT-Creation-Date: 2024-10-21 10:16+0000\n"
+"PO-Revision-Date: 2024-10-21 10:16+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -61,8 +61,6 @@ msgid "Access Log"
 msgstr "Registro Accesso"
 
 #. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_richiesta__active
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_tipo_richiesta__active
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__active
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__active
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__active
@@ -141,11 +139,6 @@ msgid "Branches"
 msgstr "Filiali"
 
 #. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_tipo_richiesta__ca_categoria_richiesta
-msgid "Ca Categoria Richiesta"
-msgstr "Categoria Richiesta"
-
-#. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_img_documento__ca_documento_id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__ca_documento_ids
 msgid "Ca Documento"
@@ -186,22 +179,6 @@ msgstr "Tag"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_img_documento__ca_tipo_documento_id
 msgid "Ca Tipo Documento"
 msgstr "Tipo Documento"
-
-#. module: inrim_anagrafiche
-#: model:ir.model,name:inrim_anagrafiche.model_ca_categoria_richiesta
-msgid "Categoria Richiesta"
-msgstr ""
-
-#. module: inrim_anagrafiche
-#: model:ir.model,name:inrim_anagrafiche.model_ca_categoria_tipo_richiesta
-msgid "Categoria Tipo Richiesta"
-msgstr ""
-
-#. module: inrim_anagrafiche
-#: model:ir.actions.act_window,name:inrim_anagrafiche.ca_categoria_richiesta_action
-#: model:ir.ui.menu,name:inrim_anagrafiche.ca_categoria_richiesta_menu
-msgid "Categories Requests Access"
-msgstr "Categorie Richieste Accesso"
 
 #. module: inrim_anagrafiche
 #: model:ir.actions.server,name:inrim_anagrafiche.ir_cron_check_document_availability_ir_actions_server
@@ -271,6 +248,11 @@ msgid "Contact"
 msgstr "Contatti"
 
 #. module: inrim_anagrafiche
+#: model:ir.model,name:inrim_anagrafiche.model_ca_model_base_mixin
+msgid "Control Access Model Base"
+msgstr ""
+
+#. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__country_id
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_ente_azienda_form
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
@@ -278,8 +260,6 @@ msgid "Country"
 msgstr "Provincia"
 
 #. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_richiesta__create_uid
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_tipo_richiesta__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__create_uid
@@ -302,8 +282,6 @@ msgid "Created by"
 msgstr ""
 
 #. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_richiesta__create_date
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_tipo_richiesta__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__create_date
@@ -327,8 +305,6 @@ msgstr ""
 
 #. module: inrim_anagrafiche
 #. odoo-python
-#: code:addons/inrim_anagrafiche/models/ca_categoria_richiesta.py:0
-#: code:addons/inrim_anagrafiche/models/ca_categoria_tipo_richiesta.py:0
 #: code:addons/inrim_anagrafiche/models/ca_codice_locale.py:0
 #: code:addons/inrim_anagrafiche/models/ca_documento.py:0
 #: code:addons/inrim_anagrafiche/models/ca_documento.py:0
@@ -345,8 +321,6 @@ msgid "Data fine deve essere maggiore della data di inizio"
 msgstr ""
 
 #. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_richiesta__date_end
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_tipo_richiesta__date_end
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__date_end
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_proprieta_tag__date_end
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__date_end
@@ -360,8 +334,6 @@ msgid "Date End"
 msgstr "Data Fine"
 
 #. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_richiesta__date_start
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_tipo_richiesta__date_start
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__date_start
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_proprieta_tag__date_start
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__date_start
@@ -380,8 +352,6 @@ msgid "Date/Time"
 msgstr "Data/Ora"
 
 #. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_richiesta__description
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_tipo_richiesta__description
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__description
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_img_documento__description
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_proprieta_tag__description
@@ -405,8 +375,6 @@ msgid "Direction"
 msgstr "Direzione"
 
 #. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_richiesta__display_name
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_tipo_richiesta__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__display_name
@@ -499,6 +467,7 @@ msgstr "Bozza"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__email
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__email
 msgid "Email"
 msgstr ""
 
@@ -586,8 +555,6 @@ msgid "General Information"
 msgstr "Informazioni Generali"
 
 #. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_richiesta__id
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_tipo_richiesta__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__id
@@ -679,11 +646,6 @@ msgid "Internal Staff"
 msgstr "Personale Interno"
 
 #. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_tipo_richiesta__is_activity
-msgid "Is Activity"
-msgstr "E' Attività"
-
-#. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__is_external
 msgid "Is External"
 msgstr "E' esterno"
@@ -710,8 +672,6 @@ msgid "Istat Code"
 msgstr "Codice ISTAT"
 
 #. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_richiesta__write_uid
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_tipo_richiesta__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__write_uid
@@ -734,8 +694,6 @@ msgid "Last Updated by"
 msgstr ""
 
 #. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_richiesta__write_date
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_tipo_richiesta__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__write_date
@@ -791,6 +749,7 @@ msgstr "Direzione"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__mobile
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__mobile
 msgid "Mobile"
 msgstr "Cellulare"
 
@@ -805,8 +764,6 @@ msgid "Mode Type"
 msgstr "Tipo modalità"
 
 #. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_richiesta__name
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_categoria_tipo_richiesta__name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__ca_stato_documento_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__tipo_documento_name
@@ -899,6 +856,7 @@ msgstr "Anagrafica Persona"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__phone
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__phone
 msgid "Phone"
 msgstr "Telefono"
 
@@ -1194,7 +1152,6 @@ msgstr "CU"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__type_ids
 msgid "Type"
 msgstr "Tipo"
-
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__uid
