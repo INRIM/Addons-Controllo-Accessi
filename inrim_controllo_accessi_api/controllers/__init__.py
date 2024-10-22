@@ -6,3 +6,4 @@ from . import ente_azienda
 from . import spazio
 from . import lettore
 from . import documento
+from . import tag
