@@ -19,6 +19,28 @@ class CaProprietaTag(models.Model):
                 if record.date_end <= record.date_start:
                     raise UserError(
                         _('Data fine deve essere maggiore della data di inizio'))
+                
+    def rest_boby_hint(self):
+        return {
+            "name": "Temporaneo"
+        }
+
+    def rest_get_record(self):
+        vals = {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description,
+            'date_start': self.f_date(self.date_start),
+            'date_end': self.f_date(self.date_end)
+        }
+        return vals
+
+    def rest_eval_body(self, body):
+        body, msg = super().rest_eval_body(
+            body, [
+                'name'
+            ])
+        return body, msg
 
 class CaTag(models.Model):
     _name = 'ca.tag'
