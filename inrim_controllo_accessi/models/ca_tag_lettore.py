@@ -17,6 +17,35 @@ class CaTagLettore(models.Model):
     active = fields.Boolean(default=True)
     ca_punto_accesso_id = fields.Many2one('ca.punto_accesso')
 
+    def rest_boby_hint(self):
+        return {
+            "ca_lettore_id": 1,
+            "ca_tag_id": 1,
+            "date_start": "2024-01-01",
+            "date_end": "2024-12-31"
+        }
+
+    def rest_get_record(self):
+        vals = {
+            'id': self.id,
+            'name': self.name,
+            'ca_lettore_id': self.f_m2o(self.ca_lettore_id),
+            'ca_tag_id': self.f_m2o(self.ca_tag_id),
+            'date_start': self.f_date(self.date_start),
+            'date_end': self.f_date(self.date_end),
+            'temp': self.temp,
+            'expired': self.expired,
+            'ca_punto_accesso_id': self.f_m2o(self.ca_punto_accesso_id)
+        }
+        return vals
+
+    def rest_eval_body(self, body):
+        body, msg = super().rest_eval_body(
+            body, [
+                'ca_lettore_id', 'ca_tag_id', 'date_start', 'date_end'
+            ])
+        return body, msg
+
     @api.constrains('date_start', 'date_end')
     def _check_date(self):
         for record in self:
