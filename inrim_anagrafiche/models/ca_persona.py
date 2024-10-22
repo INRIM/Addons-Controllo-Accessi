@@ -465,7 +465,10 @@ class CaPersona(models.Model):
             'residence_city_id': self.f_m2o(self.residence_city_id),
             'residence_state_id': self.f_m2o(self.residence_state_id),
             'residence_zip_id': self.f_m2o(self.residence_zip_id),
-            'residence_country_id': self.f_m2o(self.residence_country_id)
+            'residence_country_id': self.f_m2o(self.residence_country_id),
+            'email': self.email,
+            'phone': self.phone,
+            'mobile': self.mobile
         }
         if self.env.user.has_group('controllo_accessi.ca_gdpr'):
             vals.update({
@@ -473,8 +476,8 @@ class CaPersona(models.Model):
                 'freshman': self.freshman or "",
                 'nationality': self.f_m2o(self.nationality),
                 'birth_date': self.f_date(self.birth_date),
-                'birth_place': self.f_date(self.birth_place),
-                'istat_code': self.f_date(self.istat_code),
+                'birth_place': self.birth_place,
+                'istat_code': self.istat_code,
             })
         return vals
 

@@ -75,6 +75,9 @@
                                 <field name="birth_date" required="is_structured" readonly="True"/>
                                 <field name="birth_place" required="is_structured" readonly="True"/>
                                 <field name="istat_code" required="is_structured" readonly="True"/>
+                                <field name="email" readonly="True"/>
+                                <field name="phone" readonly="True"/>
+                                <field name="mobile" readonly="True"/>
                                 <field name="present"/>
                                 <field name="token"/>
                                 <span class="o_form_label o_td_label" name="address_name" invisible="not domicile_other_than_residence" groups="controllo_accessi.ca_gdpr">
@@ -237,6 +240,9 @@
                                 <field name="birth_place" required="is_structured"/>
                                 <field name="istat_code" required="is_structured"/>
                                 <field name="uid"/>
+                                <field name="email"/>
+                                <field name="phone"/>
+                                <field name="mobile"/>
                                 <field name="present"/>
                                 <field name="token"/>
                                 <span class="o_form_label o_td_label" name="address_name" invisible="not domicile_other_than_residence" groups="controllo_accessi.ca_gdpr">
