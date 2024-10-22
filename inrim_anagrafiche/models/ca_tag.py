@@ -71,3 +71,28 @@ class CaTag(models.Model):
             if record.ca_proprieta_tag_ids:
                 if self.env.ref('inrim_anagrafiche.proprieta_tag_revocato') in record.ca_proprieta_tag_ids:
                     record.revoked = True
+
+    def rest_boby_hint(self):
+        return {
+            "name": "Temporaneo",
+            "tag_code": "E0010150AD255C11",
+        }
+
+    def rest_get_record(self):
+        vals = {
+            'id': self.id,
+            'name': self.name,
+            'tag_code': self.tag_code,
+            'ca_proprieta_tag_ids': self.f_m2m(self.ca_proprieta_tag_ids),
+            'in_use': self.in_use,
+            'temp': self.temp,
+            'revoked': self.revoked,
+        }
+        return vals
+
+    def rest_eval_body(self, body):
+        body, msg = super().rest_eval_body(
+            body, [
+                'name', 'tag_code'
+            ])
+        return body, msg
