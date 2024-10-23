@@ -7,3 +7,4 @@ from . import spazio
 from . import lettore
 from . import documento
 from . import tag
+from . import settore_ente
