@@ -19,6 +19,36 @@ class CaSettoreEnte(models.Model):
     tipo_ente_azienda_ids = fields.Many2many('ca.tipo_ente_azienda', 
                         compute="_compute_tipo_ente_azienda_ids")
     
+    def rest_boby_hint(self):
+        return {
+            "name": "",
+            "ca_persona_id": "",
+            "ca_ente_azienda_id": ""
+        }
+
+    def rest_get_record(self):
+        vals = {
+            'id': self.id,
+            'name': self.name,
+            'abbreviation': self.abbreviation,
+            'ca_persona_id': self.f_m2o(self.ca_persona_id),
+            'description': self.description,
+            'cod_ref': self.cod_ref,
+            'ca_ente_azienda_id': self.f_m2o(self.ca_ente_azienda_id),
+            'date_start': self.f_date(self.date_start),
+            'date_end': self.f_date(self.date_end),
+            'type_ids': self.f_m2m(self.type_ids),
+            'tipo_ente_azienda_ids': self.f_m2m(self.tipo_ente_azienda_ids)
+        }
+        return vals
+
+    def rest_eval_body(self, body):
+        body, msg = super().rest_eval_body(
+            body, [
+                'name', 'ca_persona_id', 'ca_ente_azienda_id'
+            ])
+        return body, msg
+    
     @api.constrains('date_start', 'date_end')
     def _check_date(self):
         for record in self:
