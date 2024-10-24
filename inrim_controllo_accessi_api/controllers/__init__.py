@@ -11,3 +11,4 @@ from . import settore_ente
 from . import anag_servizi
 from . import anag_avanzamento_rich
 from . import anag_tipologie_istanze
+from . import richiesta_servizi_persona
