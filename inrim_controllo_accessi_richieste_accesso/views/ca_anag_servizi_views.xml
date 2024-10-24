@@ -16,8 +16,13 @@
         <field name="model">ca.anag_servizi</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="name"/>
+                <field name="abbreviation"/>
+                <field name="tipo_spazio_id"/>
+                <field name="spazio_id"/>
                 <field name="ca_persona_id"/>
-                <field name="ca_ente_azienda_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
             </tree>
         </field>
     </record>
