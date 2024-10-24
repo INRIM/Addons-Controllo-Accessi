@@ -9,3 +9,4 @@ from . import documento
 from . import tag
 from . import settore_ente
 from . import anag_servizi
+from . import anag_avanzamento_rich
