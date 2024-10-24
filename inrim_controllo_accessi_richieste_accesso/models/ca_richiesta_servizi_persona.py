@@ -39,6 +39,45 @@ class CaRichiestaServiziPersona(models.Model):
     expiring = fields.Boolean(readonly=True)
     active = fields.Boolean(default=True)
 
+    def rest_boby_hint(self):
+        return {
+            "ca_richiesta_accesso_persona_id": "",
+            "state": ""
+        }
+
+    def rest_get_record(self):
+        vals = {
+            'id': self.id,
+            'token': self.token,
+            'ca_richiesta_accesso_persona_id': self.f_m2o(self.ca_richiesta_accesso_persona_id),
+            'persona_id': self.f_m2o(self.persona_id),
+            'ca_anag_servizi_id': self.f_m2o(self.ca_anag_servizi_id),
+            'ca_ente_azienda_id': self.f_m2o(self.ca_ente_azienda_id),
+            'ca_settore_ente_id': self.f_m2o(self.ca_settore_ente_id),
+            'spazio_id': self.f_m2o(self.spazio_id),
+            'ca_persona_id': self.f_m2o(self.ca_persona_id),
+            'ca_categoria_richiesta_id': self.f_m2o(self.ca_categoria_richiesta_id),
+            'ca_categoria_tipo_richiesta_id': self.f_m2o(self.ca_categoria_tipo_richiesta_id),
+            'ca_anag_tipologie_istanze_id': self.f_m2o(self.ca_anag_tipologie_istanze_id),
+            'act_application_code': self.act_application_code,
+            'act_date': self.f_date(self.act_date),
+            'description': self.description,
+            'cod_ref': self.cod_ref,
+            'date_start': self.f_date(self.date_start),
+            'date_end': self.f_date(self.date_end),
+            'state': self.f_selection('state', self.state),
+            'ca_anag_avanzamento_rich_id': self.f_m2o(self.ca_anag_avanzamento_rich_id),
+            'expiring': self.expiring
+        }
+        return vals
+
+    def rest_eval_body(self, body):
+        body, msg = super().rest_eval_body(
+            body, [
+                'ca_richiesta_accesso_persona_id', 'state'
+            ])
+        return body, msg
+
     @api.constrains('date_start', 'date_end')
     def _check_date(self):
         for record in self:
