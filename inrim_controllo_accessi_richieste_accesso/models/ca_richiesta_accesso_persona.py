@@ -46,6 +46,50 @@ class CaRichiestaAccessoPersona(models.Model):
     ca_richiesta_accesso_id = fields.Many2one('ca.richiesta_accesso')
     active = fields.Boolean(default=True)
 
+    def rest_boby_hint(self):
+        return {
+            "ca_persona_id": "",
+            "anag_tipologie_istanze_id": "",
+            "act_application_code": "",
+            "date_start": "",
+            "date_end": "",
+            "state": ""
+        }
+
+    def rest_get_record(self):
+        vals = {
+            'id': self.id,
+            'token': self.token,
+            'ca_persona_id': self.f_m2o(self.ca_persona_id),
+            'type_ids': self.f_m2m(self.type_ids),
+            'persona_id': self.f_m2o(self.persona_id),
+            'freshman': self.freshman,
+            'external_freshman': self.external_freshman,
+            'external_companies': self.external_companies,
+            'anag_tipologie_istanze_id': self.f_m2o(self.anag_tipologie_istanze_id),
+            'act_application_code': self.act_application_code,
+            'ca_categoria_richiesta_id': self.f_m2o(self.ca_categoria_richiesta_id),
+            'ca_categoria_tipo_richiesta_id': self.f_m2o(self.ca_categoria_tipo_richiesta_id),
+            'categoria_richiesta_id': self.f_m2o(self.categoria_richiesta_id),
+            'date_start': self.f_datetime(self.date_start),
+            'date_end': self.f_datetime(self.date_end),
+            'state': self.f_selection('state', self.state),
+            'ca_anag_avanzamento_rich_id': self.f_m2o(self.ca_anag_avanzamento_rich_id),
+            'expiring': self.expiring,
+            'note': self.note,
+            'ca_richiesta_servizi_persona_ids': self.f_m2m(self.ca_richiesta_servizi_persona_ids),
+            'ca_richiesta_accesso_id': self.f_m2o(self.ca_richiesta_accesso_id)
+        }
+        return vals
+
+    def rest_eval_body(self, body):
+        body, msg = super().rest_eval_body(
+            body, [
+                'ca_persona_id', 'anag_tipologie_istanze_id',
+                'act_application_code', 'date_start', 'date_end', 'state'
+            ])
+        return body, msg
+
     @api.constrains('date_start', 'date_end')
     def _check_date(self):
         for record in self:
