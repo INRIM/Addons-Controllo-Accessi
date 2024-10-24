@@ -32,6 +32,42 @@ class CaAnagServizi(models.Model):
          'This CodRef already exists.')
     ]
 
+    def rest_boby_hint(self):
+        return {
+            "name": "",
+            "ca_persona_id": "",
+        }
+
+    def rest_get_record(self):
+        vals = {
+            'id': self.id,
+            'name': self.name,
+            'ca_settore_ente_id': self.f_m2o(self.ca_settore_ente_id),
+            'ca_settore_persona_id': self.f_m2o(self.ca_settore_persona_id),
+            'settore_ente_name': self.settore_ente_name,
+            'ca_persona_id': self.f_m2o(self.ca_persona_id),
+            'type_ids': self.f_m2m(self.type_ids),
+            'virtual': self.virtual,
+            'ca_ente_azienda_id': self.f_m2o(self.ca_ente_azienda_id),
+            'generic': self.generic,
+            'spazio_id': self.f_m2o(self.spazio_id),
+            'tipo_spazio_id': self.f_m2o(self.tipo_spazio_id),
+            'abbreviation': self.abbreviation,
+            'description': self.description,
+            'cod_ref': self.cod_ref,
+            'date_start': self.f_date(self.date_start),
+            'date_end': self.f_date(self.date_end),
+            'tipo_ente_azienda_ids': self.f_m2m(self.tipo_ente_azienda_ids)
+        }
+        return vals
+
+    def rest_eval_body(self, body):
+        body, msg = super().rest_eval_body(
+            body, [
+                'name', 'ca_persona_id'
+            ])
+        return body, msg
+
     @api.constrains('date_start', 'date_end')
     def _check_date(self):
         for record in self:
