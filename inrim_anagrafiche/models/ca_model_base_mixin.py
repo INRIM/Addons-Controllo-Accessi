@@ -117,6 +117,12 @@ class CaModelBase(models.AbstractModel):
         if record_o:
             return record_o.strftime("%Y-%m-%d")
         return record_o
+    
+    @classmethod
+    def f_datetime(cls, record_o):
+        if record_o:
+            return record_o.strftime("%Y-%m-%dT%H:%M:%S")
+        return record_o
 
     @classmethod
     def f_img(cls, record_o):

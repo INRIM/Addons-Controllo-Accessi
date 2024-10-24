@@ -12,3 +12,4 @@ from . import anag_servizi
 from . import anag_avanzamento_rich
 from . import anag_tipologie_istanze
 from . import richiesta_servizi_persona
+from . import richiesta_accesso_persona
