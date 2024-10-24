@@ -20,6 +20,28 @@ class CaAnagRegistroAccesso(models.Model):
     code = fields.Char(compute="_compute_code", store=True)
     active = fields.Boolean(default=True)
 
+    def rest_boby_hint(self):
+        return {
+            "name": "",
+            "state": ""
+        }
+
+    def rest_get_record(self):
+        vals = {
+            'id': self.id,
+            'name': self.name,
+            'state': self.f_selection('state', self.state),
+            'code': self.code
+        }
+        return vals
+
+    def rest_eval_body(self, body):
+        body, msg = super().rest_eval_body(
+            body, [
+                'name', 'state'
+            ])
+        return body, msg
+
     @api.depends('name', 'state')
     def _compute_code(self):
         for record in self:
