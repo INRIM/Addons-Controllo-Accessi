@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_punto_accesso_view_form_inherit" model="ir.ui.view">
+        <field name="name">ca.punto_accesso.view.form.inherit</field>
+        <field name="model">ca.punto_accesso</field>
+        <field name="inherit_id" ref="inrim_controllo_accessi.ca_punto_accesso_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='typology']" position="after">
+                <field name="codice_lettore_grum" required="typology == 'stamping'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
