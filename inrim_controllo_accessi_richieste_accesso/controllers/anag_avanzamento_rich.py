@@ -1,6 +1,6 @@
 from odoo import http
 
-from .api_controller_inrim import InrimApiController, BadRequest
+from ...inrim_controllo_accessi_api.controllers.api_controller_inrim import InrimApiController, BadRequest
 
 class InrimApiAnagAvanzamentoRich(InrimApiController):
 

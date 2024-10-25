@@ -1,0 +1,1 @@
+from . import ca_punto_accesso
