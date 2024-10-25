@@ -107,13 +107,6 @@ class ActionResponse():
     result: bool = False
 
 
-# if is_dataclass(instance):
-#     print("È una dataclass!")
-#     data = asdict(instance)
-#     return data
-# else:
-#     print("Non è una dataclass!")
-
 class Max5010RfidClient:
     def __init__(self, device_ip, base_url, header_auth_key, header_auth_value):
         self.device_ip = device_ip
