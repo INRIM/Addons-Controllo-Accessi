@@ -66,3 +66,5 @@ class TestCommon(TransactionCase):
             'date_end': date.today() + relativedelta(days=3)
         })
 
+        cls.ente_azienda_1 = cls.env.ref(
+            'inrim_anagrafiche.inrim_demo_ca_ente_azienda_1')

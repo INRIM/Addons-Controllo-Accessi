@@ -2,7 +2,7 @@ from datetime import date, datetime, timedelta
 
 from dateutil.relativedelta import relativedelta
 from odoo.addons.inrim_controllo_accessi.tests.common import TestCommon
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError,ValidationError
 from odoo.tests import tagged
 
 
@@ -253,3 +253,46 @@ class TestInrim(TestCommon):
         # 2
         self.assertFalse(self.punto_accesso_1.elabora_persone_abilitate())
 
+
+    def test_9(self):
+        """
+        Descrizione:
+            Verifica che non si possano aggiungere 2 ingressi nello stesso giorno con differenza inferiore a ca.delta_min_riga_accesso
+
+        :return: Se vengono inseriti 2 ingressi nello stesso giorno scatta la constrains
+        """
+        today = datetime.now()
+        vals = {
+            'persona_id': self.persona_1.id,
+            'ente_azienda_id': self.ente_azienda_1.id,
+            'punto_accesso_id': self.punto_accesso_1.id,
+            'direction': 'out',
+            'datetime_event': today
+        }
+        self.assertTrue(
+            self.env['ca.richiesta_riga_accesso_sede'].create(vals)
+        )
+        with self.assertRaises(ValidationError):
+            self.env['ca.richiesta_riga_accesso_sede'].create(vals)
+        delta_min_riga_accesso = float(
+            self.env[
+                'ir.config_parameter'
+            ].sudo().get_param('ca.delta_min_riga_accesso', default=0.0)
+        )
+        self.assertTrue(
+            self.env['ca.richiesta_riga_accesso_sede'].create({
+                'persona_id': self.persona_1.id,
+                'ente_azienda_id': self.ente_azienda_1.id,
+                'punto_accesso_id': self.punto_accesso_1.id,
+                'direction': 'out',
+                'datetime_event': today + timedelta(hours=delta_min_riga_accesso + 0.1)
+            })
+        )
+        with self.assertRaises(ValidationError):
+            self.env['ca.richiesta_riga_accesso_sede'].create({
+                'persona_id': self.persona_1.id,
+                'ente_azienda_id': self.ente_azienda_1.id,
+                'punto_accesso_id': self.punto_accesso_1.id,
+                'direction': 'out',
+                'datetime_event': today + timedelta(hours=delta_min_riga_accesso - 0.1)
+            })
