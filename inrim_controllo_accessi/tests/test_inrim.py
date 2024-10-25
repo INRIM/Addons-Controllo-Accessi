@@ -116,7 +116,6 @@ class TestInrim(TestCommon):
             'ca_spazio_id': self.spazio_8.id,
             'ca_lettore_id': self.lettore_3.id,
             'typology': 'stamping',
-            'codice_lettore_grum': 20,
             'date_start': date.today(),
             'date_end': date.today() + relativedelta(days=30)
         })
@@ -180,7 +179,6 @@ class TestInrim(TestCommon):
             'ca_spazio_id': self.spazio_3.id,
             'ca_lettore_id': self.lettore_3.id,
             'typology': 'stamping',
-            'codice_lettore_grum': 20,
             'enable_sync': False,
             'date_start': date.today(),
             'date_end': date.today() + relativedelta(days=30),
