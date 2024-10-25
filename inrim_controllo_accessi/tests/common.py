@@ -1,7 +1,9 @@
+from datetime import date, timedelta
+
+from dateutil.relativedelta import relativedelta
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
-from datetime import date, datetime, timedelta
-from dateutil.relativedelta import relativedelta
+
 
 @tagged("post_install", "-at_install")
 class TestCommon(TransactionCase):
@@ -11,6 +13,8 @@ class TestCommon(TransactionCase):
         super(TestCommon, cls).setUpClass()
         cls.failureException = True
         # Utenti
+
+
         cls.user = cls.env.ref('inrim_anagrafiche.inrim_demo_user')
         cls.user_1 = cls.env.ref('inrim_anagrafiche.inrim_demo_user_1')
         cls.user_2 = cls.env.ref('inrim_anagrafiche.inrim_demo_user_2')
@@ -47,6 +51,8 @@ class TestCommon(TransactionCase):
         cls.tag_7 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_tag_7')
         cls.tag_8 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_tag_8')
         cls.tag_9 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_tag_9')
+
+
         # Punto Accesso
         cls.punto_accesso_1 = cls.env.ref(
             'inrim_controllo_accessi.ca_punto_accesso_1p001')

@@ -1,353 +1,269 @@
-import json
-import logging
-import os
-import shutil
-from datetime import datetime
+from pathlib import Path
 
-import requests
-from odoo import models, fields
+from dateutil import parser
+from odoo import models
+
+from .Max5010_rfid_lib import *
 
 logger = logging.getLogger(__name__)
-info_path = '/info'
-status_path = '/status'
-read_events_path = '/read-events'
-add_tags_path = '/add-tags'
-update_clock_path = '/update-clock'
-path_files = '/mnt/reader-data'
+path_files = "/mnt/reader-data"
 
 
 class CaPuntoAccesso(models.Model):
     _inherit = 'ca.punto_accesso'
 
-    def prepare_header(self):
-        rfid_token_jwt = self.env[
-            'ir.config_parameter'
-        ].sudo().get_param('service_reader.jwt')
-
-        header = {
-            'authtoken': rfid_token_jwt
-        }
-        return header
-
-    def update_rfid_data(self, device):
-        try:
-            rfid_token_jwt = self.env[
-                'ir.config_parameter'
-            ].sudo().get_param('service_reader.jwt')
-            header = {
-                'authtoken': rfid_token_jwt
-            }
-            body = {
-                'device': device
-            }
-            rfid_url = self.env[
-                'ir.config_parameter'
-            ].sudo().get_param('service_reader.url')
-            info_url = f'{rfid_url}{info_path}'
-            status_url = f'{rfid_url}{status_path}'
-            info_request = requests.post(
-                info_url, headers=header, json=body, verify=False)
-            if info_request.status_code == 200:
-                logger.info(f"{info_url}, Status Code: {info_request.status_code}")
-                self.post_rfid_info(device, info_request.json())
-            else:
-                logger.info(f"{info_url}, Status Code: {info_request.status_code}")
-            status_request = requests.post(status_url, headers=header, json=body,
-                                           verify=False)
-            if status_request.status_code == 200:
-                logger.info(f"{status_url}, Status Code: {status_request.status_code}")
-                self.post_rfid_status(device, status_request.json())
-                self.env.cr.commit()
-            else:
-                logger.info(f"{status_url}, Status Code: {status_request.status_code}")
-        except Exception as e:
-            self.env.cr.rollback()
-            logger.info(f"Error: {e}")
-
-    def post_rfid_info(self, device, data):
-        try:
-            punto_accesso_id = self.env['ca.punto_accesso'].search([
-                ('ca_lettore_id.reader_ip', '=', device)
-            ], limit=1)
-            if punto_accesso_id:
-                vals = {}
-                if 'info' in data:
-                    if 'deviceId' in data['info']:
-                        vals['device_id'] = data['info'].get('deviceId')
-                    if 'mode' in data['info']:
-                        vals['mode'] = data['info'].get('mode')
-                    if 'modeCode' in data['info']:
-                        vals['mode_type'] = data['info'].get('modeCode')
-                    if 'readerType' in data['info']:
-                        vals['type'] = data['info'].get('readerType')
-                if vals:
-                    punto_accesso_id.ca_lettore_id.write(vals)
-                return True
-            else:
-                logger.info(f'{info_path}, ID Dispositivo non trovato {device}')
-                return False
-        except Exception as e:
-            self.env.cr.rollback()
-            logger.info(f"{info_path}, Error: {e}")
-            return False
-
-    # check_reader
-    def post_rfid_status(self, device, data):
-        try:
-            punto_accesso_id = self.env['ca.punto_accesso'].search([
-                ('ca_lettore_id.reader_ip', '=', device)
-            ], limit=1)
-            if punto_accesso_id:
-                vals = {}
-                vals_punto_accesso = {}
-                if 'status' in data:
-                    if data.get('status') == True:
-                        vals['system_error'] = False
-                    else:
-                        vals['system_error'] = True
-                if 'diagnostic' in data:
-                    if 'event_cnt' in data['diagnostic']:
-                        vals['available_events'] = data['diagnostic']['event_cnt']
-                        vals_punto_accesso['events_to_read_num'] = data['diagnostic'][
-                                                                       'event_cnt'] + punto_accesso_id.events_to_read_num
-                if vals:
-                    punto_accesso_id.ca_lettore_id.write(vals)
-                if vals_punto_accesso:
-                    punto_accesso_id.write(vals_punto_accesso)
-                return True
-            else:
-                logger.info(f'{status_path}, ID Dispositivo non trovato {device}')
-                return False
-        except Exception as e:
-            self.env.cr.rollback()
-            logger.info(f"{status_path}, Error: {e}")
-            logger.info(e)
-            return False
-
-    def add_tags(
-            self, punto_accesso_id, holidayTableCountry,
-            holidayTableCity, holidayTable=False
+    def write_log(
+            self, code, lettore_id, expected_events_num=0,
+            operation_status="ko", events_read_num=0, error_code=0, msg=""
     ):
-        device = punto_accesso_id.ca_lettore_id.reader_ip
-        body = {
-            'device': device,
-            'holidayTable': holidayTable,
-            'holidayTableCountry': holidayTableCountry,
-            'holidayTableCity': holidayTableCity,
-            'tags': [],
-            'timeZoneTable': [],
-        }
-        punto_accesso_id = self.env['ca.punto_accesso'].search([
-            ('ca_lettore_id.reader_ip', '=', device),
-            ('remote_update', '=', True)
-        ], limit=1)
-        if punto_accesso_id:
-            for tag in punto_accesso_id.ca_tag_lettore_ids:
-                body['tags'].append({
+        log_model = self.env['ca.log_integrazione_lettori']
+        log_model.create({
+            'activity_code': code,
+            'datetime': datetime.now(),
+            'ca_lettore_id': lettore_id,
+            'expected_events_num': expected_events_num,
+            'events_read_num': events_read_num,
+            'operation_status': operation_status,
+            'error_code': error_code,
+            'log_error': msg,
+        })
+
+    def load_reader(self):
+        self.ensure_one()
+        reader = Max5010RfidClient(
+            self.ca_lettore_id.reader_ip,
+            self.ente_azienda_id.url_gateway_lettori or "http://local-host",
+            self.ente_azienda_id.nome_chiave_header or "authtoken",
+            self.ente_azienda_id.jwt or "key"
+        )
+        try:
+            with self.env.cr.savepoint():
+                if not self.enable_sync:
+                    return reader
+                reader.connect()
+                vals = {}
+                vals['device_id'] = reader.device.info.deviceId
+                vals['mode'] = reader.device.info.mode
+                vals['mode_type'] = reader.device.info.modeCode
+                vals['type'] = reader.device.info.readerType
+                vals['available_events'] = reader.device.diagnostic.event_cnt
+                if not reader.device.status:
+                    vals['system_error'] = True
+                self.ca_lettore_id.write(vals)
+        except Exception as e:
+            logger.info(f"Error: {e}", exc_info=True)
+            self.write_log(
+                f"CONNECT", self.ca_lettore_id, msg="Reader is OFFLINE")
+        finally:
+            return reader
+
+    def update_reader_clock(self):
+        reader = self.load_reader()
+        reader.update_clock()
+
+    def get_tags_boby(self) -> dict:
+        timezone_table = self.env[
+            'ir.config_parameter'
+        ].sudo().get_param('service_reader.timezone_table')
+        timezone_table = json.loads(timezone_table)
+        tagsBody = {
+            "tags": [
+                {
                     'idd': tag.ca_tag_id.tag_code,
                     'timezoneConfig': tag.ca_tag_id.timezone_config or '1000000000000000'
-                })
-            timezone_table = self.env[
-                'ir.config_parameter'
-            ].sudo().get_param('service_reader.timezone_table')
-            timezone_table = json.loads(timezone_table)
-            body['timeZoneTable'] = json.dumps(timezone_table)
-        return body
+                } for tag in self.ca_tag_lettore_ids
+            ],
+            "timeZoneTable": [item for item in timezone_table]
+        }
+        return tagsBody
 
-    def post_add_tags(
-            self, device, holidayTableCountry,
-            holidayTableCity, holidayTable=False
-    ):
+    def get_code_activity(self, prefix):
+        return f"{prefix}_AP{self.id}_{self.ca_lettore_id.reader_ip}_{datetime.now().timestamp()}"
+
+    def decode_code(self, code, prefix):
+        lst_part = code.split('_')
+        if lst_part[0] == prefix:
+            punto_accesso_id = int(lst_part[1].replace("AP", ""))
+            ip = lst_part[2]
+            punto_accesso = self.browse(punto_accesso_id)
+            if punto_accesso.id == self.id:
+                if punto_accesso.ca_lettore_id.reader_ip == ip:
+                    return punto_accesso
+        return None
+
+    def update_reader_tags(self):
+        self.ensure_one()
+        reader = self.load_reader()
+        if not self.remote_update or not self.enable_sync or not reader.online:
+            return False
+        if reader.device.diagnostic.event_cnt > 0:
+            return False
+        body = self.get_tags_boby()
+        activity_code = self.get_code_activity("ADDTAGS")
+        logger.info(f"Start updateTags Reader, CodAtt: {activity_code}")
         try:
-            rfid_token_jwt = self.env[
-                'ir.config_parameter'
-            ].sudo().get_param('service_reader.jwt')
-            rfid_url = self.env[
-                'ir.config_parameter'
-            ].sudo().get_param('service_reader.url')
-            header = {
-                'authtoken': rfid_token_jwt
-            }
-            punto_accesso_id = self.env['ca.punto_accesso'].search([
-                ('ca_lettore_id.reader_ip', '=', device),
-                ('remote_update', '=', True)
-            ], limit=1)
-            if punto_accesso_id:
-                body = self.add_tags(
-                    punto_accesso_id, holidayTableCountry,
-                    holidayTableCity, holidayTable
-                )
-                add_tags_url = f'{rfid_url}{add_tags_path}'
-                add_tags_request = requests.post(add_tags_url, headers=header, json=body,
-                                                 verify=False)
-                if add_tags_request.status_code == 200:
-                    punto_accesso_id.remote_update = False
-                    logger.info(
-                        f"{add_tags_url}, Status Code: {add_tags_request.status_code}")
-                    return True
+            with self.env.cr.savepoint():
+                res: ActionResponse = reader.write_tags(body)
+                if not res.result:
+                    msg = f'update_tags, {self.name} Result: {res.result}, hint: check events numebr'
+                    logger.error(msg)
+                    self.system_error = True
+                    self.write_log(
+                        activity_code, self.ca_lettore_id.id, msg=msg
+                    )
+                self.last_update_reader = datetime.now()
+                return activity_code
+        except Exception as e:
+            msg = f'update_tags, {e}'
+            logger.exception(msg, exc_info=True)
+            self.write_log(
+                activity_code, self.ca_lettore_id.id, msg=msg
+            )
+            return False
+
+    def save_events_to_json(self):
+        self.ensure_one()
+        reader = self.load_reader()
+        if not self.enable_sync or not reader.online:
+            return False
+        activity_code = self.get_code_activity("READEVNT")
+        logger.info(f"Start save events from Reader, CodAtt: {activity_code}")
+        data_dir = path_files
+        nume_envts = self.events_to_read_num or 1
+        reads = True
+        count = nume_envts
+        try:
+            with self.env.cr.savepoint():
+                while reads:
+                    res = reader.read_and_save_events(
+                        nume_envts, data_dir, f'{activity_code}_{count}.json', "TODO")
+                    if res.is_error():
+                        msg = f"events_save_json: {activity_code}: {res.status} - {res.statusStr}"
+                        logger.error(msg)
+                        self.write_log(
+                            activity_code, self.ca_lettore_id.id, msg=msg
+                        )
+                    reads = self.recursive_read_events
+                    if reads:
+                        reads = res.hasMore
+                        count += nume_envts
+
+                self.last_reading_events = datetime.now()
+                self.events_read_num = count
+                return activity_code
+
+        except Exception as e:
+            msg = f'Exception in events_save_json: {activity_code}: Err: , {e}'
+            logger.exception(msg)
+            self.write_log(
+                activity_code, self.ca_lettore_id.id, expected_events_num=nume_envts,
+                msg=msg
+            )
+            return False
+
+    def decode_data(self, code, file_path):
+        try:
+            with self.env.cr.savepoint():
+                logger.info(f"Decode data from file Task:{code} - File: {file_path}")
+                events: EventsResponse = Max5010RfidClient.load_events_from_file(
+                    file_path)
+                riga_accesso_model = self.env['ca.anag_registro_accesso']
+                if events.eventRecords:
+                    for record in events.eventRecords:
+                        self.ca_lettore_id.error_code = record.errorCode
+                        tag = self.ca_tag_lettore_ids.filtered(
+                            lambda x: x.ca_tag_id.tag_code == record.idd)
+                        if tag:
+                            tag_persona = self.env['ca.tag_persona'].search([
+                                ('ca_tag_id.id', '=', tag.id),
+                                ('tag_in_use', '=', True)])
+                            if tag_persona:
+                                riga_accesso_model.aggiungi_riga_accesso(
+                                    self, tag_persona,
+                                    parser.parse(record.eventDateTime),
+                                    type="auto",
+                                    access_allowed=record.accessAllowed
+                                )
+                                return True
+                            else:
+                                logger.error(
+                                    f"tag {record.idd} not associated with no one ")
+                                return False
+                        else:
+                            logger.error(
+                                f"tag  {record.idd} not found ")
+                            return False
                 else:
-                    logger.info(
-                        f"{add_tags_url}, Status Code: {add_tags_request.status_code}")
+                    logger.error(
+                        f"Error read event file ")
                     return False
         except Exception as e:
-            self.env.cr.rollback()
-            logger.info(f'Error: {e}')
+            msg = f'Exception in decode event: {code}, File: {file_path}, Err: {e}'
+            logger.exception(msg)
+            self.write_log(
+                code, self.ca_lettore_id.id, msg=msg
+            )
             return False
 
-    def events_save_json(self, data, punto_accesso, datetime_now):
-        json_data = json.dumps(data, indent=4)
-        modulo_path = os.path.dirname(os.path.abspath(__file__))
-        data_dir = os.path.join(path_files, 'TODO')
-        if not os.path.exists(data_dir):
-            os.makedirs(data_dir)
-        name = punto_accesso.ca_lettore_id.name.replace(' ', '_')
-        CodAtt = datetime_now.timestamp()
-        json_file_path = os.path.join(data_dir, f'{str(CodAtt)}_{name}.json')
-        with open(json_file_path, 'w') as json_file:
-            json_file.write(json_data)
-        punto_accesso.last_reading_events = datetime_now
-        if data.get('eventRecords'):
-            for record in data['eventRecords']:
-                if record.get('eventDateTime'):
-                    punto_accesso.last_update_reader = (
-                        datetime.strptime(
-                            record.get('eventDateTime'),
-                            '%Y-%m-%dT%H:%M:%S'
-                        )
-                    )
-                for tag in punto_accesso.ca_tag_lettore_ids:
-                    if record.get('idd'):
-                        if tag.ca_tag_id.tag_code == record['idd']:
-                            if record.get('errorCode'):
-                                tag.ca_lettore_id.error_code = record.get('errorCode')
-            punto_accesso.ca_lettore_id.available_events -= len(data['eventRecords'])
-            punto_accesso.events_read_num += len(data['eventRecords'])
-
-    def post_read_events(self, punto_accesso, datetime_now):
-        try:
-            rfid_token_jwt = self.env[
-                'ir.config_parameter'
-            ].sudo().get_param('service_reader.jwt')
-            header = {
-                'authtoken': rfid_token_jwt
-            }
-            body = {
-                'device': punto_accesso.ca_lettore_id.reader_ip,
-                'numberEvents': punto_accesso.ca_lettore_id.available_events
-            }
-            rfid_url = self.env[
-                'ir.config_parameter'
-            ].sudo().get_param('service_reader.url')
-            read_events_url = f'{rfid_url}{read_events_path}'
-            read_events_request = requests.post(
-                read_events_url, headers=header, json=body, verify=False)
-            if read_events_request.status_code == 200:
-                data = read_events_request.json()
-                self.events_save_json(data, punto_accesso, datetime_now)
+    def events_process_todo(self):
+        self.ensure_one()
+        logger.info(f"Start process events from Access Point {self.name} - id {self.id}")
+        todo = Path(f'{path_files}/TODO')
+        found = 0
+        done = 0
+        err = 0
+        skip = 0
+        code = self.get_code_activity("LOADEVNT")
+        for file_path in todo.glob('*.json'):
+            found += 1
+            punto_accesso = self.decode_code(file_path.stem, "READEVNT")
+            logger.info(f"Decode data from file Task {file_path}")
+            if punto_accesso:
+                done_dst = Path(f'{path_files}/DONE/{file_path.name}')
+                err_dst = Path(f'{path_files}/ERR/{file_path.name}')
+                if self.decode_data(code, file_path):
+                    file_path.rename(done_dst)
+                    done += 1
+                    logger.info(f"{code} - file: {file_path} Done")
+                else:
+                    err += 1
+                    file_path.rename(err_dst)
+                    logger.error(
+                        f"{code} - File  {file_path.name} error impossible to decode Data moved to {err_dst} ")
             else:
+                skip += 1
                 logger.info(
-                    f"{read_events_url}, Status Code: {read_events_request.status_code}")
-                return False
-        except Exception as e:
-            self.env.cr.rollback()
-            logger.info(f'Error: {e}')
-            return False
+                    f"{code} Skip File {file_path.name} not for this Access Point {self.id}")
+        logger.info(
+            f"Complete all tasks for Job events_process_todo: Found: {found} files, {done} done, {skip} skipped, {err} error")
 
-    def read_json_file(self, punto_accesso, datetime_now):
-        todo_path = os.path.join(path_files, 'TODO')
-        err_path = os.path.join(path_files, 'ERR')
-        done_path = os.path.join(path_files, 'DONE')
-        if not os.path.exists(todo_path):
-            raise FileNotFoundError(f"La cartella {todo_path} non esiste.")
-        json_files = [f for f in os.listdir(todo_path) if f.endswith('.json')]
-        for json_file in json_files:
-            file_path = os.path.join(todo_path, json_file)
-            try:
-                with open(file_path, 'r', encoding='utf-8') as f:
-                    data = json.load(f)
-                    if data.get('eventRecords'):
-                        for record in data['eventRecords']:
-                            if record.get('idd'):
-                                tag_id = self.env['ca.tag'].search([
-                                    ('tag_code', '=', record['idd'])
-                                ], limit=1)
-                                tag_ids = self.env['ca.tag_lettore'].search([
-                                    ('ca_punto_accesso_id', '=', punto_accesso.id)
-                                ]).mapped('ca_tag_id')
-                                if tag_id and tag_ids and tag_id in tag_ids:
-                                    tag_persona_id = self.env['ca.tag_persona'].search([
-                                        ('ca_tag_id', '=', tag_id.id),
-                                        ('date_start', '<=', fields.date.today()),
-                                        ('date_end', '>=', fields.date.today())
-                                    ])
-                                    if tag_persona_id:
-                                        self.env['ca.anag_registro_accesso'].create({
-                                            'ca_punto_accesso_id': punto_accesso.id,
-                                            'ca_tag_persona_id': tag_persona_id.id,
-                                            'type': 'auto'
-                                        })
-                                        if not os.path.exists(done_path):
-                                            os.makedirs(done_path)
-                                        done_file_path = os.path.join(done_path,
-                                                                      json_file)
-                                        shutil.move(file_path, done_file_path)
-                                        logger.info(f'Lettura file: {json_file}, OK')
-                                        self.env['ca.log_integrazione_lettori'].create({
-                                            'activity_code': datetime_now.timestamp(),
-                                            'datetime': datetime_now,
-                                            'ca_lettore_id': punto_accesso.ca_lettore_id.id,
-                                            'operation_status': 'ok',
-                                            'error_code': punto_accesso.ca_lettore_id.error_code
-                                        })
-            except json.JSONDecodeError as e:
-                if not os.path.exists(err_path):
-                    os.makedirs(err_path)
-                err_file_path = os.path.join(err_path, json_file)
-                shutil.move(file_path, err_file_path)
-                logger.info(f'Lettura file: {json_file}, KO')
-                self.env['ca.log_integrazione_lettori'].create({
-                    'activity_code': datetime_now.timestamp(),
-                    'datetime': datetime_now,
-                    'ca_lettore_id': punto_accesso.ca_lettore_id.id,
-                    'operation_status': 'ko',
-                    'log_error': e,
-                    'error_code': punto_accesso.ca_lettore_id.error_code
-                })
-
-    def sync_reader_data(
-            self, device, holidayTableCountry,
-            holidayTableCity, holidayTable=False
-    ):
-        punto_accesso_ids = self.env['ca.punto_accesso'].search([
-            ('ca_lettore_id.reader_ip', '=', device),
-            ('system_error', '=', False),
-            ('enable_sync', '=', True),
-            ('direction', '=', 'in')
-        ])
-        datetime_now = datetime.now()
-        logger.info(f'Codice Attività: {datetime_now.timestamp()}')
-        for punto_accesso in punto_accesso_ids:
-            self.update_rfid_data(punto_accesso.ca_lettore_id.reader_ip)
-            if punto_accesso.ca_lettore_id.available_events > 0:
-                self.post_read_events(punto_accesso, datetime_now)
-            self.post_add_tags(
-                device, holidayTableCountry,
-                holidayTableCity, holidayTable
-            )
-            self.read_json_file(punto_accesso, datetime_now)
-
-    def sync_readers_data(
-            self, holidayTableCountry,
-            holidayTableCity, holidayTable=False
-    ):
-        punto_accesso_ids = self.env['ca.punto_accesso'].search([])
-        for punto_accesso in punto_accesso_ids:
-            self.sync_reader_data(
-                punto_accesso.ca_lettore_id.reader_ip, holidayTableCountry,
-                holidayTableCity, holidayTable
-            )
-
+    # super methods
     def check_readers(self):
-        punto_accesso_ids = self.env['ca.punto_accesso'].search([])
-        for punto_accesso in punto_accesso_ids:
-            self.update_rfid_data(punto_accesso.ca_lettore_id.reader_ip)
+        res = super().check_readers()
+        for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
+            point.load_reader()
+        return True
+
+    def load_readers_data(self):
+        res = super().load_readers_data()
+        for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
+            point.save_events_to_json()
+        return True
+
+    def eval_readers_data(self):
+        res = super().events_process_todo()
+        for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
+            point.events_process_todo()
+        return True
+
+    def update_readers_data(self):
+        res = super().update_readers_data()
+        for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
+            point.update_reader_tags()
+        return True
+
+    def update_clock(self):
+        res = super().update_clock()
+        for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
+            point.update_reader_clock()
+        return True

@@ -22,7 +22,7 @@ class CaPuntoAccesso(models.Model):
     type_ids = fields.Many2many('ca.tipo_persona', compute="_compute_type_ids")
     last_update_reader = fields.Datetime()
     last_reading_events = fields.Datetime()
-    events_to_read_num = fields.Integer(string="Number of Events To Read")
+    events_to_read_num = fields.Integer(string="Number of Events To Read", default=5)
     events_read_num = fields.Integer(string="Number of Events Read")
     enable_sync = fields.Boolean(
         string="Enabled",
@@ -33,6 +33,7 @@ class CaPuntoAccesso(models.Model):
     ca_tag_lettore_ids = fields.One2many('ca.tag_lettore', 'ca_punto_accesso_id')
     remote_update = fields.Boolean(readonly=True)
     active = fields.Boolean(default=True)
+    recursive_read_events = fields.Boolean(string='Recursive Read Events', default=False)
 
     @api.constrains('date_start', 'date_end')
     def _check_date(self):
@@ -167,5 +168,11 @@ class CaPuntoAccesso(models.Model):
     def load_readers_data(self):
         return True
 
+    def eval_readers_data(self):
+        return True
+
     def update_readers_data(self):
+        return True
+
+    def update_clock(self):
         return True

@@ -9,8 +9,8 @@ class CaLogIntegrazioneLettori(models.Model):
     activity_code = fields.Char(readonly=True)
     datetime = fields.Datetime(readonly=True)
     ca_lettore_id = fields.Many2one('ca.lettore', readonly=True)
-    expected_events_num = fields.Integer(readonly=True)
-    events_read_num = fields.Integer(readonly=True)
+    expected_events_num = fields.Integer(readonly=True, default=0)
+    events_read_num = fields.Integer(readonly=True, default=0)
     operation_status = fields.Selection([
         ('ok', 'Ok'),
         ('ko', 'Ko')

@@ -1,6 +1,7 @@
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 
+
 @tagged("post_install", "-at_install")
 class TestCommon(TransactionCase):
 
@@ -8,6 +9,11 @@ class TestCommon(TransactionCase):
     def setUpClass(cls):
         super(TestCommon, cls).setUpClass()
         cls.failureException = True
+        cls.tipo_ente_azienda_1 = cls.env.ref('inrim_anagrafiche.tipo_ente_azienda_sede')
+        cls.tipo_ente_azienda_2 = cls.env.ref(
+            'inrim_anagrafiche.tipo_ente_azienda_sede_distaccata')
+        cls.ente_azienda_1 = cls.env.ref(
+            'inrim_anagrafiche.inrim_demo_ca_ente_azienda_1')
         # Parametri di sistema
         cls.service_reader_jwt = cls.env[
             'ir.config_parameter'
@@ -38,8 +44,25 @@ class TestCommon(TransactionCase):
                 "systemClock": "2023-12-01T18:20:21.000",
             }
         }
+        cls.status_data_empty = {
+            "status": True,
+            "diagnostic": {
+                "event_tab_size": 3268,
+                "event_cnt": 0,
+                "systemClock": "2023-12-01T18:20:21.000",
+            }
+        }
+        cls.res_add_tag = {
+            "status": True,
+            "diagnostic": {
+                "event_tab_size": 0,
+                "event_cnt": 0
+            },
+            "result": True
+        }
         # Punto Accesso
-        cls.punto_accesso_1p001 = cls.env.ref('inrim_controllo_accessi.ca_punto_accesso_1p001')
+        cls.punto_accesso_1p001 = cls.env.ref(
+            'inrim_controllo_accessi.ca_punto_accesso_1p001')
         # Tag Persona
         cls.tag_persona_id = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_tag_persona_1')
         # Mock Read Events
@@ -50,7 +73,7 @@ class TestCommon(TransactionCase):
             "layoutTimeStamp": True,
             "layoutEventStatus": True,
             "layoutInput": True,
-            "dataSetsLenght": 1,
+            "dataSetsLenght": 5,
             "hasMore": True,
             "layout": [
                 True,
@@ -145,4 +168,6 @@ class TestCommon(TransactionCase):
                 }
             ]
         }
+
         cls.path_files = '/mnt/reader-data'
+        cls.event_fname = ""

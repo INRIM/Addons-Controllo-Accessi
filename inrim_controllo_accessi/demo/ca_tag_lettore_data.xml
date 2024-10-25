@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_tag_lettore_1_tag_1" model="ca.tag_lettore">
+        <field name="ca_lettore_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_lettore_1')"/>
+        <field name="ca_tag_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_tag_1')"/>
+        <field name="date_start" eval="datetime.today()"/>
+        <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
+        <field name="temp">True</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p001')"/>
+    </record>
+
+    <record id="ca_tag_lettore_1_tag_2" model="ca.tag_lettore">
+        <field name="ca_lettore_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_lettore_1')"/>
+        <field name="ca_tag_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_tag_2')"/>
+        <field name="date_start" eval="datetime.today()"/>
+        <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
+        <field name="temp">True</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p001')"/>
+    </record>
+
+    <record id="ca_tag_lettore_1_tag_3" model="ca.tag_lettore">
+        <field name="ca_lettore_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_lettore_1')"/>
+        <field name="ca_tag_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_tag_3')"/>
+        <field name="date_start" eval="datetime.today()"/>
+        <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
+        <field name="temp">False</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p001')"/>
+    </record>
+
+    <record id="ca_tag_lettore_1_tag_7" model="ca.tag_lettore">
+        <field name="ca_lettore_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_lettore_1')"/>
+        <field name="ca_tag_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_tag_7')"/>
+        <field name="date_start" eval="datetime.today()"/>
+        <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
+        <field name="temp">True</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p001')"/>
+    </record>
+
+    <record id="ca_tag_lettore_1_tag_8" model="ca.tag_lettore">
+        <field name="ca_lettore_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_lettore_1')"/>
+        <field name="ca_tag_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_tag_8')"/>
+        <field name="date_start" eval="datetime.today()"/>
+        <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
+        <field name="temp">True</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p001')"/>
+    </record>
+
+    <record id="ca_tag_lettore_1_tag_9" model="ca.tag_lettore">
+        <field name="ca_lettore_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_lettore_1')"/>
+        <field name="ca_tag_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_tag_9')"/>
+        <field name="date_start" eval="datetime.today()"/>
+        <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
+        <field name="temp">True</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p001')"/>
+    </record>
+
+    <record id="ca_tag_lettore_2_tag_1" model="ca.tag_lettore">
+        <field name="ca_lettore_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_lettore_2')"/>
+        <field name="ca_tag_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_tag_1')"/>
+        <field name="date_start" eval="datetime.today()"/>
+        <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
+        <field name="temp">True</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p002')"/>
+    </record>
+
+    <record id="ca_tag_lettore_2_tag_2" model="ca.tag_lettore">
+        <field name="ca_lettore_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_lettore_2')"/>
+        <field name="ca_tag_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_tag_2')"/>
+        <field name="date_start" eval="datetime.today()"/>
+        <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
+        <field name="temp">True</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p002')"/>
+    </record>
+
+    <record id="ca_tag_lettore_2_tag_3" model="ca.tag_lettore">
+        <field name="ca_lettore_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_lettore_2')"/>
+        <field name="ca_tag_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_tag_3')"/>
+        <field name="date_start" eval="datetime.today()"/>
+        <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
+        <field name="temp">False</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p002')"/>
+    </record>
+
+    <record id="ca_tag_lettore_2_tag_7" model="ca.tag_lettore">
+        <field name="ca_lettore_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_lettore_2')"/>
+        <field name="ca_tag_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_tag_7')"/>
+        <field name="date_start" eval="datetime.today()"/>
+        <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
+        <field name="temp">True</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p002')"/>
+    </record>
+
+    <record id="ca_tag_lettore_2_tag_8" model="ca.tag_lettore">
+        <field name="ca_lettore_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_lettore_2')"/>
+        <field name="ca_tag_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_tag_8')"/>
+        <field name="date_start" eval="datetime.today()"/>
+        <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
+        <field name="temp">True</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p002')"/>
+    </record>
+
+    <record id="ca_tag_lettore_2_tag_9" model="ca.tag_lettore">
+        <field name="ca_lettore_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_lettore_2')"/>
+        <field name="ca_tag_id" eval="ref('inrim_anagrafiche.inrim_demo_ca_tag_9')"/>
+        <field name="date_start" eval="datetime.today()"/>
+        <field name="date_end" eval="datetime.today() + timedelta(days=15)"/>
+        <field name="temp">True</field>
+        <field name="ca_punto_accesso_id" eval="ref('inrim_controllo_accessi.ca_punto_accesso_1p002')"/>
+    </record>
+</odoo>

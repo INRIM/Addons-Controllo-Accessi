@@ -5,9 +5,12 @@
         <field name="model">ca.punto_accesso</field>
         <field name="arch" type="xml">
             <search>
-                <filter string="Enabled" name="enabled" domain="[('enable_sync', '=', True)]"/>
-                <filter string="Disabled" name="disabled" domain="[('enable_sync', '=', False)]"/>
-                <filter string="In Error" name="in_error" domain="[('system_error', '=', True)]"/>
+                <filter string="Enabled" name="enabled"
+                        domain="[('enable_sync', '=', True)]"/>
+                <filter string="Disabled" name="disabled"
+                        domain="[('enable_sync', '=', False)]"/>
+                <filter string="In Error" name="in_error"
+                        domain="[('system_error', '=', True)]"/>
             </search>
         </field>
     </record>
@@ -30,6 +33,7 @@
                 <field name="events_to_read_num"/>
                 <field name="events_read_num"/>
                 <field name="enable_sync"/>
+                <field name="recursive_read_events"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
             </tree>
@@ -43,88 +47,101 @@
             <form>
                 <header>
                     <button
-                        name="%(inrim_controllo_accessi.ca_sposta_punto_accesso_action)d"
-                        string="Sposta Punto Accesso"
-                        type="action"
-                        context="{'default_old_ca_spazio_id': ca_spazio_id, 'default_ca_punto_accesso_id': id}"
+                            name="%(inrim_controllo_accessi.ca_sposta_punto_accesso_action)d"
+                            string="Sposta Punto Accesso"
+                            type="action"
+                            context="{'default_old_ca_spazio_id': ca_spazio_id, 'default_ca_punto_accesso_id': id}"
                     />
                     <button
-                        name="commuta_abilitazione"
-                        string="Abilita"
-                        type="object"
-                        icon="fa-play-circle-o"
-                        invisible="enable_sync"
-                        confirm="Are you sure you want to enable this record?"
-                        groups="controllo_accessi.ca_tech"
+                            name="commuta_abilitazione"
+                            string="Abilita"
+                            type="object"
+                            icon="fa-play-circle-o"
+                            invisible="enable_sync"
+                            confirm="Are you sure you want to enable this record?"
+                            groups="controllo_accessi.ca_tech"
                     />
                     <button
-                        name="commuta_abilitazione"
-                        string="Disabilita"
-                        type="object"
-                        icon="fa-stop-circle-o"
-                        invisible="not enable_sync"
-                        confirm="Are you sure you want to disable this record?"
-                        groups="controllo_accessi.ca_tech"
+                            name="commuta_abilitazione"
+                            string="Disabilita"
+                            type="object"
+                            icon="fa-stop-circle-o"
+                            invisible="not enable_sync"
+                            confirm="Are you sure you want to disable this record?"
+                            groups="controllo_accessi.ca_tech"
                     />
                     <button
-                        name="persone_abilitate"
-                        string="Persone Abilitate"
-                        type="object"
+                            name="persone_abilitate"
+                            string="Persone Abilitate"
+                            type="object"
                     />
                     <button
-                        name="accessi_oggi"
-                        string="Accessi Oggi"
-                        type="object"
+                            name="accessi_oggi"
+                            string="Accessi Oggi"
+                            type="object"
                     />
                     <button
-                        name="accessi_rifiutati_oggi"
-                        string="Accessi Rifiutati Oggi"
-                        type="object"
-                        class="btn-danger"
+                            name="accessi_rifiutati_oggi"
+                            string="Accessi Rifiutati Oggi"
+                            type="object"
+                            class="btn-danger"
                     />
                     <button
-                    name="elabora_persone_abilitate_view"
-                        string="Elabora Persone Abilitate"
-                        type="object"
-                        class="btn-primary"
+                            name="elabora_persone_abilitate_view"
+                            string="Elabora Persone Abilitate"
+                            type="object"
+                            class="btn-primary"
                     />
                 </header>
                 <sheet>
                     <group>
                         <group>
                             <field name="name" readonly="True"/>
-                            <field name="ca_spazio_id" options="{'no_create': True}" readonly="enable_sync"/>
+                            <field name="ca_spazio_id"
+                                   options="{'no_create': True}"
+                                   readonly="enable_sync"/>
                             <field name="tipo_spazio_id"/>
                             <field name="ente_azienda_id"/>
-                            <field name="ca_lettore_id" options="{'no_create': True}" readonly="enable_sync"/>
+                            <field name="ca_lettore_id"
+                                   options="{'no_create': True}"
+                                   readonly="enable_sync"/>
                             <field name="system_error"/>
                             <field name="direction"/>
                             <field name="typology"/>
                             <field name="type_ids" invisible="True"/>
                         </group>
                         <group>
-                            <field name="ca_persona_id" readonly="True" domain="[('type_ids', 'in', type_ids)]"/>
+                            <field name="ca_persona_id" readonly="True"
+                                   domain="[('type_ids', 'in', type_ids)]"/>
                             <field name="last_update_reader" readonly="True"/>
                             <field name="last_reading_events" readonly="True"/>
                             <field name="events_to_read_num" readonly="True"/>
                             <field name="events_read_num" readonly="True"/>
                             <field name="enable_sync" readonly="True"/>
+                            <field name="recursive_read_events"/>
                             <field name="date_start"/>
                             <field name="date_end"/>
                         </group>
                         <separator string="Tags"/>
-                        <field name="ca_tag_lettore_ids" context="{'default_ca_lettore_id': ca_lettore_id}" readonly="not ca_lettore_id">
+                        <field name="ca_tag_lettore_ids"
+                               context="{'default_ca_lettore_id': ca_lettore_id}"
+                               readonly="not ca_lettore_id">
                             <form>
                                 <group>
                                     <group>
                                         <field name="name" readonly="True"/>
-                                        <field name="ca_lettore_id" options="{'no_create': True}" readonly="1"/>
-                                        <field name="ca_tag_id" options="{'no_create': True}"/>
+                                        <field name="ca_lettore_id"
+                                               options="{'no_create': True}"
+                                               readonly="1"/>
+                                        <field name="ca_tag_id"
+                                               options="{'no_create': True}"/>
                                         <field name="tag_in_use"/>
                                     </group>
                                     <group>
-                                        <field name="date_start" readonly="False"/>
-                                        <field name="date_end" readonly="False"/>
+                                        <field name="date_start"
+                                               readonly="False"/>
+                                        <field name="date_end"
+                                               readonly="False"/>
                                         <field name="temp"/>
                                         <field name="expired"/>
                                     </group>
@@ -146,34 +163,53 @@
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click">
                             <strong>
-                                <field name="name"/><br/>
+                                <field name="name"/>
+                                <br/>
                             </strong>
                             <span name="ca_spazio_id">
-                                Position: <field name="ca_spazio_id"/><br/>
+                                Position:
+                                <field name="ca_spazio_id"/>
+                                <br/>
                             </span>
                             <span name="ente_azienda_id">
-                                Headquarters Location: <field name="ente_azienda_id"/><br/>
+                                Headquarters Location:
+                                <field name="ente_azienda_id"/>
+                                <br/>
                             </span>
                             <span name="ca_lettore_id">
-                                Reader: <field name="ca_lettore_id"/><br/>
+                                Reader:
+                                <field name="ca_lettore_id"/>
+                                <br/>
                             </span>
                             <span name="system_error">
-                                Reader Error: <field name="system_error"/><br/>
+                                Reader Error:
+                                <field name="system_error"/>
+                                <br/>
                             </span>
                             <span name="events_to_read_num">
-                                Number of Events To Read: <field name="events_to_read_num"/><br/>
+                                Number of Events To Read:
+                                <field name="events_to_read_num"/>
+                                <br/>
                             </span>
                             <span name="events_read_num">
-                                Number of Events Read: <field name="events_read_num"/><br/>
+                                Number of Events Read:
+                                <field name="events_read_num"/>
+                                <br/>
                             </span>
                             <span name="enable_sync">
-                                Enabled: <field name="enable_sync"/><br/>
+                                Enabled:
+                                <field name="enable_sync"/>
+                                <br/>
                             </span>
                             <span name="date_start">
-                                Date Start: <field name="date_start"/><br/>
+                                Date Start:
+                                <field name="date_start"/>
+                                <br/>
                             </span>
                             <span name="date_end">
-                                Date End: <field name="date_end"/><br/>
+                                Date End:
+                                <field name="date_end"/>
+                                <br/>
                             </span>
                         </div>
                     </t>

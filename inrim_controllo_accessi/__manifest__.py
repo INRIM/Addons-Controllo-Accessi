@@ -9,8 +9,6 @@
         'security/ir.model.access.csv',
         'security/security.xml',
         'data/ir_config_parameter_data.xml',
-        'data/ca_punto_accesso_data.xml',
-        'data/ca_tag_lettore_data.xml',
         'wizard/ca_sposta_punto_accesso_views.xml',
         'wizard/ca_aggiungi_movimento_accesso_views.xml',
         'views/ca_tag_lettore_views.xml',
@@ -21,7 +19,10 @@
         'views/ca_richiesta_riga_accesso_sede_views.xml',
         'views/menus.xml',
     ],
-    'demo': [],
+    'demo': [
+        'demo/ca_punto_accesso_data.xml',
+        'demo/ca_tag_lettore_data.xml',
+    ],
     'installable': True,
     'application': True,
 }
