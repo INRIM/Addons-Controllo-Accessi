@@ -1,5 +1,3 @@
-from email.policy import default
-
 from odoo import models, fields, api
 
 
@@ -7,7 +5,8 @@ class CaEnteAzienda(models.Model):
     _inherit = 'ca.ente_azienda'
 
     url_gateway_lettori = fields.Char(groups="controllo_accessi.ca_tech")
-    nome_chiave_header = fields.Char(groups="controllo_accessi.ca_tech", default="authtoken")
+    nome_chiave_header = fields.Char(groups="controllo_accessi.ca_tech",
+                                     default="authtoken")
     jwt = fields.Char(groups="controllo_accessi.ca_tech")
     ref = fields.Char()
     lock = fields.Boolean()

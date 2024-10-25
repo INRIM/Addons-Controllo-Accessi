@@ -9,6 +9,13 @@ class TestCommon(TransactionCase):
     def setUpClass(cls):
         super(TestCommon, cls).setUpClass()
         cls.failureException = True
+        cls.user = cls.env.ref('inrim_anagrafiche.inrim_demo_user')
+        cls.user_1 = cls.env.ref('inrim_anagrafiche.inrim_demo_user_1')
+        cls.user_2 = cls.env.ref('inrim_anagrafiche.inrim_demo_user_2')
+        cls.user_3 = cls.env.ref('inrim_anagrafiche.inrim_demo_user_3')
+        cls.user_4 = cls.env.ref('inrim_anagrafiche.inrim_demo_user_4')
+        cls.user_5 = cls.env.ref('inrim_anagrafiche.inrim_demo_user_5')
+
         cls.tipo_ente_azienda_1 = cls.env.ref('inrim_anagrafiche.tipo_ente_azienda_sede')
         cls.tipo_ente_azienda_2 = cls.env.ref(
             'inrim_anagrafiche.tipo_ente_azienda_sede_distaccata')

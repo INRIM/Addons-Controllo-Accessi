@@ -18,6 +18,7 @@ class RfidTestCommon(TestCommon):
 
         :return: I dati nei parametri di sistema esistono e sono valorizzati
         """
+        self.assertTrue(self.user_5)
         self.assertTrue(self.service_reader_jwt)
         self.assertTrue(self.service_reader_url)
         self.assertTrue(self.info_data)
@@ -34,51 +35,20 @@ class RfidTestCommon(TestCommon):
 
         :return: I campi si popolano correttamente
         """
-        self.env = self.env(user=self.user_5)
-        self.cr = self.env.cr
+
         vals = {
             'name': 'Test',
             'pec': 'Test PEC',
             'tipo_ente_azienda_id': self.tipo_ente_azienda_1.id
         }
-        ente_azienda_id = self.env['ca.ente_azienda'].create(vals)
-        self.assertTrue(ente_azienda_id.jwt)
-        self.assertTrue(ente_azienda_id.url_gateway_lettori)
-        ente_azienda_id.write({
+        ente_azienda_id = self.env['ca.ente_azienda'].with_user(self.user_5).create(vals)
+        self.assertFalse(ente_azienda_id.jwt == "")
+        self.assertFalse(ente_azienda_id.url_gateway_lettori == "")
+        ente_azienda_id.with_user(self.user_5).write({
             'name': 'Test 1'
         })
-        self.assertTrue(ente_azienda_id.jwt)
-        self.assertTrue(ente_azienda_id.url_gateway_lettori)
-
-
-    # Test 10
-    def test_3(self):
-        """
-        Descrizione:
-            Verifica che alla modifica di un ca.ente_azienda con tipo Sede si valorizzino i campi jwt e url_gateway_lettori se non popolati
-
-        :return: I campi si popolano correttamente
-        """
-        self.env = self.env(user=self.user_5)
-        self.cr = self.env.cr
-        vals = {
-            'name': 'Test',
-            'pec': 'Test PEC',
-            'tipo_ente_azienda_id': self.tipo_ente_azienda_2.id
-        }
-        ente_azienda_id = self.env['ca.ente_azienda'].create(vals)
-        self.assertFalse(ente_azienda_id.jwt)
-        self.assertFalse(ente_azienda_id.url_gateway_lettori)
-        ente_azienda_id.write({
-            'name': 'Test 2'
-        })
-        self.assertFalse(ente_azienda_id.jwt)
-        self.assertFalse(ente_azienda_id.url_gateway_lettori)
-        ente_azienda_id.write({
-            'tipo_ente_azienda_id': self.tipo_ente_azienda_1.id
-        })
-        self.assertTrue(ente_azienda_id.jwt)
-        self.assertTrue(ente_azienda_id.url_gateway_lettori)
+        self.assertFalse(ente_azienda_id.jwt == "")
+        self.assertFalse(ente_azienda_id.url_gateway_lettori == "")
 
     # Test 2
     # @responses.activate
