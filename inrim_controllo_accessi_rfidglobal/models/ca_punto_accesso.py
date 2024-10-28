@@ -251,7 +251,7 @@ class CaPuntoAccesso(models.Model):
         return True
 
     def eval_readers_data(self):
-        res = super().events_process_todo()
+        res = super().eval_readers_data()
         for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
             point.events_process_todo()
         return True
