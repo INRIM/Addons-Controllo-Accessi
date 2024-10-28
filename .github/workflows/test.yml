@@ -69,6 +69,7 @@ jobs:
       - run: pip install -r server-auth/requirements.txt
       - run: pip install -r server-auth/test-requirements.txt
       - run: pip install -r ${PWD}/${{ env.REPO_NAME }}/requirements.txt
+      - run: pip install -r ${PWD}/${{ env.REPO_NAME }}/test-requirements.txt
       - name: Install dependencies
         run: ${PWD}/oqa/bin/install_deps.sh
       - name: Create dir
