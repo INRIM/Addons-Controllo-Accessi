@@ -5,6 +5,7 @@ import requests
 
 logger = logging.getLogger(__name__)
 
+get_addressbook_path="/service/syncaddressbook"
 
 class CaPersona(models.Model):
     _inherit = 'ca.persona'
