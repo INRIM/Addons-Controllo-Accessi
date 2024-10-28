@@ -7,8 +7,7 @@
     'depends': [
         'mail',
         'base_location_geonames_import',
-        'base_geolocalize',
-        'web_responsive'
+        'base_geolocalize'
     ],
     'data': [
         'security/security.xml',
