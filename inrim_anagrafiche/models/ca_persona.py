@@ -24,9 +24,14 @@ class CaPersona(models.Model):
     birth_date = fields.Date(groups="controllo_accessi.ca_gdpr")
     birth_place = fields.Char(groups="controllo_accessi.ca_gdpr")
     istat_code = fields.Char(groups="controllo_accessi.ca_gdpr")
-    parent_id = fields.Many2one('ca.persona', string='Father Contact', index=True)
-    child_ids = fields.One2many('ca.persona', 'parent_id', string='Contact',
-                                domain=[('active', '=', True)])
+    parent_id = fields.Many2one(
+        'ca.persona', string='Reference person', index=True,
+        domain=[('is_internal', '=', True)]
+    )
+    child_ids = fields.One2many(
+        'ca.persona', 'parent_id', string='Contact',
+        domain=[('active', '=', True)]
+    )
     email = fields.Char()
     phone = fields.Char()
     mobile = fields.Char()
@@ -113,17 +118,30 @@ class CaPersona(models.Model):
     is_structured = fields.Boolean(compute='_compute_is_structured', store=True)
     active = fields.Boolean(default=True)
 
+    @api.constrains('is_external', 'parent_id')
+    def _check_external_and_parent_id(self):
+        for record in self:
+            if record.is_external and not record.parent_id:
+                raise ValidationError(
+                    _("For External person Internal reference is required "))
+
     @api.constrains('fiscalcode', 'active')
     def _check_unique_fiscalcode(self):
         for record in self:
             if record.fiscalcode:
-                persona_id = self.env['ca.persona'].search([
-                    ('id', '!=', record.id),
-                    ('fiscalcode', '=', record.fiscalcode)
-                ])
+                persona_id = self.env['ca.persona'].with_context(
+                    active_test=False).search(
+                    [
+                        ('id', '!=', record.id),
+                        ('fiscalcode', '=', record.fiscalcode)
+                    ]
+                )
                 if persona_id:
+                    msg = f'Esiste già una persona con questo codice fiscale: {record.fiscalcode}'
+                    if not record.active:
+                        msg = f"{msg} la persona Risulta disattivata, riattivare per utilizzare"
                     raise UserError(
-                        _('Esiste già una persona con questo codice fiscale'))
+                        _(msg))
 
     @api.constrains('freshman', 'active')
     def _check_unique_freshman(self):
@@ -439,6 +457,7 @@ class CaPersona(models.Model):
             "name": "",
             "lastname": "",
             "fiscalcode": "",
+            "parent_id": "",
         }
 
     def rest_get_record(self):

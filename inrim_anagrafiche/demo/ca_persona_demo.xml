@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
+        <!-- Persona 4 -->
+
+        <record id="inrim_demo_ca_persona_4" model="ca.persona">
+            <field name="name">Persona</field>
+            <field name="lastname">4</field>
+            <field name="fiscalcode">Fiscalcode 4</field>
+            <field name="type_ids" eval="[(6, 0, [
+                ref('inrim_anagrafiche.tipo_persona_interno'),
+                ref('inrim_anagrafiche.tipo_persona_dipendente_ti')
+            ])]"/>
+        </record>
+
         <!-- Persona 1 -->
-    
+
         <record id="inrim_demo_ca_persona_1" model="ca.persona">
             <field name="name">Persona</field>
             <field name="lastname">1</field>
             <field name="fiscalcode">Fiscalcode 1</field>
+            <field name="parent_id" ref="inrim_anagrafiche.inrim_demo_ca_persona_4"/>
             <field name="type_ids" eval="[(6, 0, [
                 ref('inrim_anagrafiche.tipo_persona_esterno')
             ])]"/>
@@ -31,11 +44,12 @@
         </record>
 
         <!-- Persona 2 -->
-    
+
         <record id="inrim_demo_ca_persona_2" model="ca.persona">
             <field name="name">Persona</field>
             <field name="lastname">2</field>
             <field name="fiscalcode">Fiscalcode 2</field>
+            <field name="parent_id" ref="inrim_anagrafiche.inrim_demo_ca_persona_4"/>
             <field name="type_ids" eval="[(6, 0, [
                 ref('inrim_anagrafiche.tipo_persona_esterno'),
                 ref('inrim_anagrafiche.tipo_persona_servizi_mensa_ristorazione')
@@ -56,11 +70,12 @@
         </record>
 
         <!-- Persona 3 -->
-    
+
         <record id="inrim_demo_ca_persona_3" model="ca.persona">
             <field name="name">Persona</field>
             <field name="lastname">3</field>
             <field name="fiscalcode">Fiscalcode 3</field>
+            <field name="parent_id" ref="inrim_anagrafiche.inrim_demo_ca_persona_4"/>
             <field name="type_ids" eval="[(6, 0, [
                 ref('inrim_anagrafiche.tipo_persona_esterno'),
                 ref('inrim_anagrafiche.tipo_persona_servizi')
@@ -80,17 +95,6 @@
             })]"/>
         </record>
 
-        <!-- Persona 4 -->
-
-        <record id="inrim_demo_ca_persona_4" model="ca.persona">
-            <field name="name">Persona</field>
-            <field name="lastname">4</field>
-            <field name="fiscalcode">Fiscalcode 4</field>
-            <field name="type_ids" eval="[(6, 0, [
-                ref('inrim_anagrafiche.tipo_persona_interno'),
-                ref('inrim_anagrafiche.tipo_persona_dipendente_ti')
-            ])]"/>
-        </record>
 
         <!-- Persona 5 -->
 
@@ -110,6 +114,7 @@
             <field name="name">Persona</field>
             <field name="lastname">6</field>
             <field name="fiscalcode">Fiscalcode 6</field>
+            <field name="parent_id" ref="inrim_anagrafiche.inrim_demo_ca_persona_4"/>
             <field name="type_ids" eval="[(6, 0, [
                 ref('inrim_anagrafiche.tipo_persona_esterno'),
                 ref('inrim_anagrafiche.tipo_persona_servizi')

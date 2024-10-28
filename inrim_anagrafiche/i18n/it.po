@@ -526,8 +526,8 @@ msgstr "Esterni"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__parent_id
-msgid "Father Contact"
-msgstr "Contatto Padre"
+msgid "Reference person"
+msgstr "Riferente interno"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_img_documento__filename
