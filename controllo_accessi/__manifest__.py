@@ -8,6 +8,7 @@
         'mail',
         'base_location_geonames_import',
         'base_geolocalize',
+        'web_responsive'
     ],
     'data': [
         'security/security.xml',
