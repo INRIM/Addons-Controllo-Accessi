@@ -10,6 +10,7 @@
     ],
     'data': [
         'views/ca_persona_views.xml',
+        'views/res_users_views.xml',
     ],
     'demo': [
         'demo/res_users.xml',
