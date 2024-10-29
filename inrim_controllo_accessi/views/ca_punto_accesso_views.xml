@@ -115,7 +115,8 @@
                                    domain="[('type_ids', 'in', type_ids)]"/>
                             <field name="last_update_reader" readonly="True"/>
                             <field name="last_reading_events" readonly="True"/>
-                            <field name="events_to_read_num" readonly="True"/>
+                            <field name="available_events" readonly="True"/>
+                            <field name="events_to_read_num" />
                             <field name="events_read_num" readonly="True"/>
                             <field name="enable_sync" readonly="True"/>
                             <field name="recursive_read_events"/>
