@@ -1,7 +1,16 @@
 from datetime import datetime
 
+import pytz
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
+
+_tzs = [(tz, tz) for tz in sorted(pytz.all_timezones,
+                                  key=lambda tz: tz if not tz.startswith(
+                                      'Etc/') else '_')]
+
+
+def _tz_get(self):
+    return _tzs
 
 
 class CaPuntoAccesso(models.Model):
@@ -14,8 +23,10 @@ class CaPuntoAccesso(models.Model):
                                    ondelete='cascade')
     tipo_spazio_id = fields.Many2one(related='ca_spazio_id.tipo_spazio_id',
                                      string="Position Type")
-    ente_azienda_id = fields.Many2one(related='ca_spazio_id.ente_azienda_id',
-                                      string="Headquarters Location")
+    ente_azienda_id = fields.Many2one(
+        related='ca_spazio_id.ente_azienda_id',
+        string="Headquarters Location"
+    )
     ca_lettore_id = fields.Many2one('ca.lettore', required=True)
     system_error = fields.Boolean(related="ca_lettore_id.system_error", store=True,
                                   string="Reader Error")
@@ -42,6 +53,15 @@ class CaPuntoAccesso(models.Model):
     remote_update = fields.Boolean(readonly=True)
     active = fields.Boolean(default=True)
     recursive_read_events = fields.Boolean(string='Recursive Read Events', default=False)
+    tz = fields.Selection(
+        related='ente_azienda_id.tz', store=True, string="Timezone", readonly=True)
+    tz_offset = fields.Char(compute='_compute_tz_offset', string='Timezone offset')
+
+    @api.depends('tz')
+    def _compute_tz_offset(self):
+        for pa in self:
+            pa.tz_offset = datetime.datetime.now(
+                pytz.timezone(partner.tz or 'GMT')).strftime('%z')
 
     @api.constrains('date_start', 'date_end')
     def _check_date(self):
@@ -154,8 +174,7 @@ class CaPuntoAccesso(models.Model):
             'ca_spazio_id': ca_spazio_id.id,
             'ca_lettore_id': self.ca_lettore_id.id,
             'typology': self.typology,
-            'ca_persona_id': self.ca_persona_id.id
-            if self.ca_persona_id else False,
+            'ca_persona_id': self.ca_persona_id.id if self.ca_persona_id else False,
             'last_update_reader': self.last_update_reader,
             'last_reading_events': self.last_reading_events,
             'events_to_read_num': self.events_to_read_num,

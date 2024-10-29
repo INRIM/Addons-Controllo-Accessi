@@ -108,6 +108,7 @@
                             <field name="system_error"/>
                             <field name="direction"/>
                             <field name="typology"/>
+                            <field name="tz"/>
                             <field name="type_ids" invisible="True"/>
                         </group>
                         <group>

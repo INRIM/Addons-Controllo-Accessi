@@ -12,6 +12,7 @@
             <field name="tipo_ente_azienda_id"
                    ref="inrim_anagrafiche.tipo_ente_azienda_sede"/>
             <field name="note">Campus</field>
+            <field name="tz">Europe/Rome</field>
         </record>
 
         <record id="inrim_sede_mda" model="ca.ente_azienda">
@@ -25,6 +26,7 @@
             <field name="tipo_ente_azienda_id"
                    eval="ref('inrim_anagrafiche.tipo_ente_azienda_sede_distaccata')"/>
             <field name="note">Sede Storica</field>
+            <field name="tz">Europe/Rome</field>
         </record>
 
         <record id="inrim_sede_fi" model="ca.ente_azienda">
@@ -38,6 +40,7 @@
             <field name="tipo_ente_azienda_id"
                    eval="ref('inrim_anagrafiche.tipo_ente_azienda_sede_distaccata')"/>
             <field name="note">Lens</field>
+            <field name="tz">Europe/Rome</field>
         </record>
 
         <record id="inrim_sede_pv" model="ca.ente_azienda">
@@ -51,6 +54,7 @@
             <field name="tipo_ente_azienda_id"
                    eval="ref('inrim_anagrafiche.tipo_ente_azienda_sede_distaccata')"/>
             <field name="note">Pavia</field>
+            <field name="tz">Europe/Rome</field>
         </record>
     </data>
 </odoo>

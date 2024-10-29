@@ -5,6 +5,7 @@
         <field name="street">Strada delle Cacce, 91</field>
         <field name="tipo_ente_azienda_id" eval="ref('inrim_anagrafiche.tipo_ente_azienda_sede')"/>
         <field name="note">Ente Azienda 1</field>
+        <field name="tz">Europe/Rome</field>
     </record>
 
     <record id="inrim_demo_ca_ente_azienda_2" model="ca.ente_azienda">
@@ -12,6 +13,7 @@
         <field name="pec">Pec 2</field>
         <field name="tipo_ente_azienda_id" eval="ref('inrim_anagrafiche.tipo_ente_azienda_sede')"/>
         <field name="note">Ente Azienda 2</field>
+        <field name="tz">Europe/Rome</field>
     </record>
 
     <record id="inrim_demo_ca_ente_azienda_3" model="ca.ente_azienda">
@@ -19,6 +21,7 @@
         <field name="pec">Pec 3</field>
         <field name="tipo_ente_azienda_id" eval="ref('inrim_anagrafiche.tipo_ente_azienda_azienda')"/>
         <field name="note">Ente Azienda 3</field>
+        <field name="tz">Europe/Rome</field>
     </record>
 
     <record id="inrim_demo_ca_ente_azienda_4" model="ca.ente_azienda">
@@ -33,5 +36,6 @@
         <field name="pec">Pec 5</field>
         <field name="tipo_ente_azienda_id" eval="ref('inrim_anagrafiche.tipo_ente_azienda_universita')"/>
         <field name="note">Ente Azienda 5</field>
+        <field name="tz">Europe/Rome</field>
     </record>
 </odoo>

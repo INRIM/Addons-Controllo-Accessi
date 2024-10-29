@@ -94,6 +94,7 @@
                                             </div>
                                         </div>
                                         <field name="vat" readonly="True"/>
+                                        <field name="tz" readonly="True"/>
                                         <field name="note" readonly="True"/>
                                     </group>
                                     <group>
@@ -172,6 +173,7 @@
                                             </div>
                                         </div>
                                         <field name="vat"/>
+                                        <field name="tz"/>
                                         <field name="note"/>
                                     </group>
                                     <group>

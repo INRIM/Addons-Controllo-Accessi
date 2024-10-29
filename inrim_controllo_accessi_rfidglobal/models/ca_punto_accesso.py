@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from dateutil import parser
+from dateutil import tz
 from odoo import models
 
 from .Max5010_rfid_lib import *
@@ -164,6 +165,7 @@ class CaPuntoAccesso(models.Model):
     def decode_data(self, code, file_path):
         try:
             with self.env.cr.savepoint():
+                tzinfo = tz.gettz(self.tz),
                 logger.info(f"Decode data from file Task:{code} - File: {file_path}")
                 events: EventsResponse = Max5010RfidClient.load_events_from_file(
                     file_path)
@@ -180,7 +182,8 @@ class CaPuntoAccesso(models.Model):
                             if tag_persona:
                                 riga_accesso_model.aggiungi_riga_accesso(
                                     self, tag_persona,
-                                    parser.parse(record.eventDateTime),
+                                    parser.parse(
+                                        record.eventDateTime).astimezone(self.tz),
                                     type="auto",
                                     access_allowed=record.accessAllowed
                                 )
