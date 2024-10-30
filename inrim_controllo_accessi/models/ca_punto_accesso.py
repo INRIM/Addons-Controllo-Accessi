@@ -4,14 +4,6 @@ import pytz
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
-_tzs = [(tz, tz) for tz in sorted(pytz.all_timezones,
-                                  key=lambda tz: tz if not tz.startswith(
-                                      'Etc/') else '_')]
-
-
-def _tz_get(self):
-    return _tzs
-
 
 class CaPuntoAccesso(models.Model):
     _name = 'ca.punto_accesso'

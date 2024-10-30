@@ -21,7 +21,7 @@ class CaTipoSpazio(models.Model):
                     raise UserError(
                         _('Data fine deve essere maggiore della data di inizio'))
 
-def _domain_project_id(self):
+def _domain_ente_azienda(self):
     domain = [
         "ente_azienda_id.tipo_ente_azienda_id", "in",
         [

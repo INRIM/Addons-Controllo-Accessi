@@ -221,7 +221,7 @@ class CaEnteAzienda(models.Model):
             'ca_persona_ids': self.f_m2m(self.ca_persona_ids),
             'ref': self.ref,
             'lock': self.lock,
-
+            "tz": self.tz
         }
         if self.env.user.has_group('controllo_accessi.ca_tech'):
             ca_tech_vals = {

@@ -35,7 +35,6 @@ class CaLettore(models.Model):
             "name": self.name,
             "reader_ip": self.reader_ip,
             "direction": self.f_selection('direction', self.direction),
-            "tz": self.tz,
             "device_id": self.device_id,
             "type": self.type,
             "mode": self.mode,

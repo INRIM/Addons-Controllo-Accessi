@@ -43,12 +43,13 @@ class CaPuntoAccesso(models.Model):
                     return reader
                 reader.connect()
                 vals = {}
-                vals['device_id'] = reader.device.info.deviceId
-                vals['mode'] = reader.device.info.mode
-                vals['mode_type'] = reader.device.info.modeCode
-                vals['type'] = reader.device.info.readerType
-                vals['available_events'] = reader.device.diagnostic.event_cnt
-                if not reader.device.status:
+                if reader.online:
+                    vals['device_id'] = reader.device.info.deviceId
+                    vals['mode'] = reader.device.info.mode
+                    vals['mode_type'] = reader.device.info.modeCode
+                    vals['type'] = reader.device.info.readerType
+                    vals['available_events'] = reader.device.diagnostic.event_cnt
+                else:
                     vals['system_error'] = True
                 self.ca_lettore_id.write(vals)
         except Exception as e:
