@@ -49,8 +49,14 @@ class CaPuntoAccesso(models.Model):
                     vals['mode_type'] = reader.device.info.modeCode
                     vals['type'] = reader.device.info.readerType
                     vals['available_events'] = reader.device.diagnostic.event_cnt
+                    vals['system_error'] = False
                 else:
                     vals['system_error'] = True
+                    vals['device_id'] = ""
+                    vals['mode'] = ""
+                    vals['mode_type'] = ""
+                    vals['type'] = ""
+                    vals['available_events'] = 0
                 self.ca_lettore_id.write(vals)
         except Exception as e:
             logger.info(f"Error: {e}", exc_info=True)
