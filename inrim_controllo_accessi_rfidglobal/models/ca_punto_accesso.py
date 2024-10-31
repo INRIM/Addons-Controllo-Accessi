@@ -65,9 +65,19 @@ class CaPuntoAccesso(models.Model):
         finally:
             return reader
 
-    def update_reader_clock(self):
-        reader = self.load_reader()
-        reader.update_clock()
+    def update_reader_clock(self, reader=None):
+        if not reader:
+            reader = self.load_reader()
+        try:
+            with self.env.cr.savepoint():
+                res = reader.update_clock()
+                return res.status
+        except Exception as e:
+            logger.info(f"Error: {e}", exc_info=True)
+            self.write_log(
+                f"UPDATECLOCK", self.ca_lettore_id, msg="Error in updating clock")
+        finally:
+            return False
 
     def get_tags_boby(self) -> dict:
         timezone_table = self.env[
@@ -120,6 +130,7 @@ class CaPuntoAccesso(models.Model):
                         activity_code, self.ca_lettore_id.id, msg=msg
                     )
                 self.last_update_reader = datetime.now()
+
                 return activity_code
         except Exception as e:
             msg = f'update_tags, {e}'
@@ -133,6 +144,9 @@ class CaPuntoAccesso(models.Model):
         self.ensure_one()
         reader = self.load_reader()
         if not self.enable_sync or not reader.online:
+            return False
+        chkupdck = self.update_reader_clock(reader)
+        if not chkupdck:
             return False
         activity_code = self.get_code_activity("READEVNT")
         logger.info(f"Start save events from Reader, CodAtt: {activity_code}")
@@ -159,7 +173,6 @@ class CaPuntoAccesso(models.Model):
                 self.last_reading_events = datetime.now()
                 self.events_read_num = count
                 return activity_code
-
         except Exception as e:
             msg = f'Exception in events_save_json: {activity_code}: Err: , {e}'
             logger.exception(msg)

@@ -118,7 +118,7 @@ class Max5010RfidClient:
         self.online = False
         self.connction_error = False
         self.response_error = False
-        self.timeout = httpx.Timeout(5.0)
+        self.timeout = httpx.Timeout(10.0)
         self.device: Device = Device()
 
     @classmethod
