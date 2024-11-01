@@ -1,7 +1,5 @@
 from pathlib import Path
 
-from dateutil import parser
-from dateutil import tz
 from odoo import models
 
 from .Max5010_rfid_lib import *
@@ -35,7 +33,8 @@ class CaPuntoAccesso(models.Model):
             self.ca_lettore_id.reader_ip,
             self.ente_azienda_id.url_gateway_lettori or "http://local-host",
             self.ente_azienda_id.nome_chiave_header or "authtoken",
-            self.ente_azienda_id.jwt or "key"
+            self.ente_azienda_id.jwt or "key",
+            self.tz
         )
         try:
             with self.env.cr.savepoint():
@@ -65,19 +64,21 @@ class CaPuntoAccesso(models.Model):
         finally:
             return reader
 
-    def update_reader_clock(self, reader=None):
-        if not reader:
-            reader = self.load_reader()
+    def update_reader_clock(self):
+        reader = self.load_reader()
+        ret = False
+        if not reader.online:
+            return False
         try:
             with self.env.cr.savepoint():
-                res = reader.update_clock()
-                return res.status
+                res: ActionResponse = reader.update_clock()
+                ret = res.result
         except Exception as e:
-            logger.info(f"Error: {e}", exc_info=True)
+            logger.error(f"Error: {e}", exc_info=True)
             self.write_log(
                 f"UPDATECLOCK", self.ca_lettore_id, msg="Error in updating clock")
         finally:
-            return False
+            return ret
 
     def get_tags_boby(self) -> dict:
         timezone_table = self.env[
@@ -114,8 +115,6 @@ class CaPuntoAccesso(models.Model):
         reader = self.load_reader()
         if not self.remote_update or not self.enable_sync or not reader.online:
             return False
-        if reader.device.diagnostic.event_cnt > 0:
-            return False
         body = self.get_tags_boby()
         activity_code = self.get_code_activity("ADDTAGS")
         logger.info(f"Start updateTags Reader, CodAtt: {activity_code}")
@@ -144,9 +143,6 @@ class CaPuntoAccesso(models.Model):
         self.ensure_one()
         reader = self.load_reader()
         if not self.enable_sync or not reader.online:
-            return False
-        chkupdck = self.update_reader_clock(reader)
-        if not chkupdck:
             return False
         activity_code = self.get_code_activity("READEVNT")
         logger.info(f"Start save events from Reader, CodAtt: {activity_code}")
@@ -185,10 +181,10 @@ class CaPuntoAccesso(models.Model):
     def decode_data(self, code, file_path):
         try:
             with self.env.cr.savepoint():
-                tzinfo = tz.gettz(self.tz),
+                tz = pytz.timezone(self.tz)
                 logger.info(f"Decode data from file Task:{code} - File: {file_path}")
                 events: EventsResponse = Max5010RfidClient.load_events_from_file(
-                    file_path)
+                    file_path, self.tz)
                 riga_accesso_model = self.env['ca.anag_registro_accesso']
                 if events.eventRecords:
                     for record in events.eventRecords:
@@ -202,10 +198,10 @@ class CaPuntoAccesso(models.Model):
                             if tag_persona:
                                 riga_accesso_model.aggiungi_riga_accesso(
                                     self, tag_persona,
-                                    parser.parse(
-                                        record.eventDateTime).astimezone(self.tz),
+                                    record.eventDateTime_to_utc(),
                                     type="auto",
-                                    access_allowed=record.accessAllowed
+                                    access_allowed=record.accessAllowed,
+                                    tz=self.tz
                                 )
                                 return True
                             else:

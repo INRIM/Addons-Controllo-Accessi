@@ -1,4 +1,13 @@
+import pytz
 from odoo import models, fields
+
+_tzs = [(tz, tz) for tz in sorted(pytz.all_timezones,
+                                  key=lambda tz: tz if not tz.startswith(
+                                      'Etc/') else '_')]
+
+
+def _tz_get(self):
+    return _tzs
 
 
 class CaAnagRegistroAccesso(models.Model):
@@ -40,18 +49,28 @@ class CaAnagRegistroAccesso(models.Model):
         ('manual', 'Manual'),
         ('auto', 'Auto')
     ], string="Insertion Type")
-
+    tz = fields.Selection(
+        _tz_get, string='Timezone',
+        default=lambda self: self._context.get('tz'),
+        help="When printing documents and exporting/importing data, time values are computed according to this timezone.\n"
+             "If the timezone is not set, UTC (Coordinated Universal Time) is used.\n"
+             "Anywhere else, time values are computed according to the time offset of your web client."
+    )
     active = fields.Boolean(default=True)
 
     def aggiungi_riga_accesso(
             self, ca_punto_accesso_id,
-            ca_tag_persona_id, datetime_event, type='manual', access_allowed=True
+            ca_tag_persona_id, datetime_event, type='manual', access_allowed=True,
+            tz=""
     ):
+        if not tz:
+            tz = self._context.get('tz')
         vals = {
             'ca_punto_accesso_id': ca_punto_accesso_id.id,
             'ca_tag_persona_id': ca_tag_persona_id.id,
             'datetime_event': datetime_event,
             'type': type,
-            'access_allowed': access_allowed
+            'access_allowed': access_allowed,
+            'tz': tz
         }
         return self.create(vals)

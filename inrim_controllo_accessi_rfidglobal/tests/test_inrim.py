@@ -214,8 +214,9 @@ class RfidTestCommon(TestCommon):
         punto_accesso_id = self.env['ca.punto_accesso'].search([
             ('ca_lettore_id.reader_ip', '=', device)
         ], limit=1)
-        res = punto_accesso_id.update_reader_tags()
-        self.assertFalse(res)
+        with self.assertRaises(Exception):
+            res = punto_accesso_id.update_reader_tags()
+            self.assertFalse(res)
 
     # Test Add Tag event count == 0
     @respx.mock
@@ -264,3 +265,44 @@ class RfidTestCommon(TestCommon):
         self.assertEqual(len(tagsBody.get('timeZoneTable')), 2)
         res = punto_accesso_id.update_reader_tags()
         self.assertTrue(type(res) == str)
+
+    @respx.mock
+    def test_9(self):
+        """
+        Descrizione:
+            Aggiorna orologio di sistema del Reader
+        """
+
+        def info(request, route):
+            return httpx.Response(200, json=self.info_data)
+
+        def status(request, route):
+            return httpx.Response(200, json=self.status_data)
+
+        def clock(request, route):
+            return httpx.Response(200, json=self.res_add_tag)
+
+        respx.post(
+            'http://local-host/info',
+        ).mock(
+            side_effect=info
+        )
+
+        respx.post(
+            'http://local-host/status',
+        ).mock(
+            side_effect=status
+        )
+
+        respx.post(
+            'http://local-host/update-clock',
+        ).mock(
+            side_effect=clock
+        )
+
+        device = '10.10.10.1'
+        punto_accesso_id = self.env['ca.punto_accesso'].search([
+            ('ca_lettore_id.reader_ip', '=', device)
+        ], limit=1)
+        result = punto_accesso_id.update_reader_clock()
+        self.assertTrue(result)

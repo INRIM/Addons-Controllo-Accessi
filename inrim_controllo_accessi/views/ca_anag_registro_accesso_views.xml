@@ -28,10 +28,12 @@
                 <field name="ca_tipo_spazio_id"/>
                 <field name="ca_ente_azienda_id"/>
                 <field name="datetime_event"/>
+                <field name="tz"/>
                 <field name="typology"/>
                 <field name="direction"/>
                 <field name="access_allowed"/>
                 <field name="system_error"/>
+
             </tree>
         </field>
     </record>
@@ -57,6 +59,7 @@
                             <field name="ca_tipo_spazio_id"/>
                             <field name="ca_ente_azienda_id"/>
                             <field name="datetime_event" readonly="True"/>
+                            <field name="tz" readonly="True"/>
                             <field name="typology"/>
                             <field name="direction"/>
                             <field name="access_allowed" readonly="True"/>

@@ -47,13 +47,7 @@ class CaPuntoAccesso(models.Model):
     recursive_read_events = fields.Boolean(string='Recursive Read Events', default=False)
     tz = fields.Selection(
         related='ente_azienda_id.tz', store=True, string="Timezone", readonly=True)
-    tz_offset = fields.Char(compute='_compute_tz_offset', string='Timezone offset')
 
-    @api.depends('tz')
-    def _compute_tz_offset(self):
-        for pa in self:
-            pa.tz_offset = datetime.datetime.now(
-                pytz.timezone(partner.tz or 'GMT')).strftime('%z')
 
     @api.constrains('date_start', 'date_end')
     def _check_date(self):

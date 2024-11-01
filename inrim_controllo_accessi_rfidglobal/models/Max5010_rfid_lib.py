@@ -8,6 +8,7 @@ from datetime import datetime
 from typing import List
 
 import httpx
+import pytz
 from attr import dataclass
 
 logger = logging.getLogger(__name__)
@@ -49,11 +50,35 @@ class LayoutItem():
 @dataclass
 class EventRecord():
     idd: str = ""
-    eventDateTime: datetime = field(default_factory=datetime.now)
+    eventDateTime: str = ""
     errorCode: str = ""
     accessAllowed: bool = False
     digitalInput: List[DigitalInputItem] = field(
         default_factory=list[DigitalInputItem])
+    tz: str = ""
+
+    def __post_init__(self):
+        if self.tz:
+            self.tzo = pytz.timezone(self.tz)
+
+    def eventDateTime_to_utc(self):
+        tzo = pytz.timezone(self.tz or "UTC")
+        loc = tzo.localize(
+            datetime.fromisoformat(self.eventDateTime)
+        )
+        return loc.astimezone(pytz.UTC).replace(tzinfo=None)
+
+    def eventDateTime_to_utc_isoformat(self):
+        return self.eventDateTime_to_utc().replace(tzinfo=None)
+
+    def eventDateTime_to_tz(self):
+        tzo = pytz.timezone(self.tz or "UTC")
+        dt_naive = datetime.fromisoformat(date_str)
+        dt_utc = pytz.UTC.localize(dt_naive)
+        return dt_utc.astimezone(tzo).replace(tzinfo=None)
+
+    def eventDateTime_to_tz_isoformat(self):
+        return self.eventDateTime_to_tz().isoformat()
 
 
 @dataclass
@@ -108,7 +133,8 @@ class ActionResponse():
 
 
 class Max5010RfidClient:
-    def __init__(self, device_ip, base_url, header_auth_key, header_auth_value):
+    def __init__(
+            self, device_ip, base_url, header_auth_key, header_auth_value, tz):
         self.device_ip = device_ip
         self.base_url = base_url
 
@@ -120,11 +146,14 @@ class Max5010RfidClient:
         self.response_error = False
         self.timeout = httpx.Timeout(10.0)
         self.device: Device = Device()
+        self._tz = tz
+        self.tz = pytz.timezone(tz)
 
     @classmethod
-    def make_EventsResponse_from_dict(self, data: dict) -> EventsResponse:
+    def make_EventsResponse_from_dict(cls, data: dict, tz) -> EventsResponse:
         events = EventsResponse(**data)
         for idx in range(len(events.eventRecords)):
+            events.eventRecords[idx]['tz'] = tz
             events.eventRecords[idx] = EventRecord(**events.eventRecords[idx])
         return events
 
@@ -186,7 +215,6 @@ class Max5010RfidClient:
             return from_dict(ActionResponse, {})
         if self.device.diagnostic.event_cnt > 0:
             res = ActionResponse()
-            res.diagnostic = dataclasses.replace(device.diagnostic)
             logger.info(
                 f"Download Events before update tags")
             return res
@@ -217,11 +245,11 @@ class Max5010RfidClient:
                 dstpath = os.path.join(path, moveto)
                 dst = os.path.join(dstpath, filename)
                 shutil.move(src, dst)
-        return self.make_EventsResponse_from_dict(eventsd)
+        return self.make_EventsResponse_from_dict(eventsd, self.tz)
 
     @classmethod
-    def load_events_from_file(cls, filepath: str) -> EventsResponse:
+    def load_events_from_file(cls, filepath: str, tz: str) -> EventsResponse:
         data = {}
         with open(filepath, 'r', encoding='utf-8') as f:
             data = json.load(f)
-        return cls.make_EventsResponse_from_dict(data)
+        return cls.make_EventsResponse_from_dict(data, tz)
