@@ -43,24 +43,24 @@
                                 <field name="is_structured" invisible="1"/>
                                 <field name="name" readonly="True"/>
                                 <field name="lastname" readonly="True"/>
-                                <field name="parent_id" widget="res_partner_many2one" placeholder="Company Name..." readonly="1"/>
+                                <field name="parent_id" widget="ca_persona_many2one" required="is_external"/>
                                 <field name="associated_user_id" options="{'no_create': True}" readonly="True"/>
                                 <span class="o_form_label o_td_label" name="address_name" groups="controllo_accessi.ca_gdpr">
                                     <b>Domicile Address</b>
                                 </span>
                                 <div class="o_address_format" groups="controllo_accessi.ca_gdpr">
-                                    <field name="domicile_street" placeholder="Street..." class="o_address_street" required="is_external" readonly="True"/>
+                                    <field name="domicile_street" placeholder="Street..." class="o_address_street"  readonly="True"/>
                                     <field name="domicile_street2" placeholder="Street 2..." class="o_address_street" readonly="True"/>
                                     <field
                                         name="domicile_zip_id"
                                         options="{'create_name_field': 'domicile_city', 'no_open': True, 'no_create': True}"
                                         placeholder="City completion"
                                     />
-                                    <field name="domicile_city" placeholder="City" class="o_address_city" required="is_external" readonly="True"/>
-                                    <field name="domicile_state_id" class="o_address_state" placeholder="State" required="is_external" readonly="True"/>
-                                    <field name="domicile_zip" placeholder="ZIP" class="o_address_zip" required="is_external" readonly="True"/>
+                                    <field name="domicile_city" placeholder="City" class="o_address_city"  readonly="True"/>
+                                    <field name="domicile_state_id" class="o_address_state" placeholder="State"  readonly="True"/>
+                                    <field name="domicile_zip" placeholder="ZIP" class="o_address_zip"  readonly="True"/>
                                     <div name="partner_address_country" class="d-flex justify-content-between" readonly="True">
-                                        <field name="domicile_country_id" placeholder="Country" class="o_address_country" required="is_external" readonly="True"/>
+                                        <field name="domicile_country_id" placeholder="Country" class="o_address_country"  readonly="True"/>
                                     </div>
                                 </div>
                                 <field name="domicile_other_than_residence" readonly="True"/>
@@ -207,24 +207,24 @@
                                 <field name="is_structured" invisible="1" force_save="1"/>
                                 <field name="name"/>
                                 <field name="lastname"/>
-                                <field name="parent_id" widget="res_partner_many2one" placeholder="Company Name..." readonly="1"/>
+                                <field name="parent_id" widget="res_partner_many2one"  required="is_external"/>
                                 <field name="associated_user_id" options="{'no_create': True}"/>
                                 <span class="o_form_label o_td_label" name="address_name" groups="controllo_accessi.ca_gdpr">
                                     <b>Domicile Address</b>
                                 </span>
                                 <div class="o_address_format" groups="controllo_accessi.ca_gdpr">
-                                    <field name="domicile_street" placeholder="Street..." class="o_address_street" required="is_external"/>
+                                    <field name="domicile_street" placeholder="Street..." class="o_address_street" />
                                     <field name="domicile_street2" placeholder="Street 2..." class="o_address_street"/>
                                     <field
                                         name="domicile_zip_id"
                                         options="{'create_name_field': 'domicile_city', 'no_open': True, 'no_create': True}"
                                         placeholder="City completion"
                                     />
-                                    <field name="domicile_city" placeholder="City" class="o_address_city" required="is_external"/>
-                                    <field name="domicile_state_id" class="o_address_state" placeholder="State" required="is_external"/>
-                                    <field name="domicile_zip" placeholder="ZIP" class="o_address_zip" required="is_external"/>
+                                    <field name="domicile_city" placeholder="City" class="o_address_city" />
+                                    <field name="domicile_state_id" class="o_address_state" placeholder="State" />
+                                    <field name="domicile_zip" placeholder="ZIP" class="o_address_zip" />
                                     <div name="partner_address_country" class="d-flex justify-content-between">
-                                        <field name="domicile_country_id" placeholder="Country" class="o_address_country" required="is_external"/>
+                                        <field name="domicile_country_id" placeholder="Country" class="o_address_country" />
                                     </div>
                                 </div>
                                 <field name="domicile_other_than_residence"/>

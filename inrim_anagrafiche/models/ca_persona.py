@@ -176,11 +176,14 @@ class CaPersona(models.Model):
         for record in self:
             record.is_external = False
             record.is_internal = False
-            if self.env.ref(
-                    'inrim_anagrafiche.tipo_persona_interno').id in record.type_ids.ids:
+            interno_id = self.env.ref('inrim_anagrafiche.tipo_persona_interno').id
+            esterno_id = self.env.ref('inrim_anagrafiche.tipo_persona_esterno').id
+            if interno_id in record.type_ids.ids:
                 record.is_internal = True
-            if self.env.ref(
-                    'inrim_anagrafiche.tipo_persona_esterno').id in record.type_ids.ids:
+            if (
+                    not interno_id in record.type_ids.ids or
+                    esterno_id in record.type_ids.ids
+            ):
                 record.is_external = True
 
     @api.depends('type_ids', 'type_ids.structured')

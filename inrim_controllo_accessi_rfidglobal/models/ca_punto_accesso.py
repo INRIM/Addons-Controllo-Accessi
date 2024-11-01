@@ -257,32 +257,40 @@ class CaPuntoAccesso(models.Model):
             f"Complete all tasks for Job events_process_todo: Found: {found} files, {done} done, {skip} skipped, {err} error")
 
     # super methods
-    def check_readers(self):
-        res = super().check_readers()
-        for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
-            point.load_reader()
-        return True
+    # def check_readers(self):
+    #     res = super().check_readers()
+    #     for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
+    #         point.load_reader()
+    #     return True
 
+    @api.model
     def load_readers_data(self):
         res = super().load_readers_data()
-        for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
-            point.save_events_to_json()
-        return True
+        with self.env.cr.savepoint():
+            for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
+                point.save_events_to_json()
+            return True
 
+    @api.model
     def eval_readers_data(self):
         res = super().eval_readers_data()
-        for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
-            point.events_process_todo()
-        return True
+        with self.env.cr.savepoint():
+            for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
+                point.events_process_todo()
+            return True
 
+    @api.model
     def update_readers_data(self):
         res = super().update_readers_data()
-        for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
-            point.update_reader_tags()
-        return True
+        with self.env.cr.savepoint():
+            for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
+                point.update_reader_tags()
+            return True
 
+    @api.model
     def update_clock(self):
         res = super().update_clock()
-        for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
-            point.update_reader_clock()
-        return True
+        with self.env.cr.savepoint():
+            for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
+                point.update_reader_clock()
+            return True
