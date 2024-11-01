@@ -82,6 +82,7 @@ class CaTag(models.Model):
                 tags = self.env['ca.tag'].with_context(
                     active_test=False).search(
                     [
+                        ('id', '!=', record.id),
                         ('tag_code', '=', record.tag_code)
                     ]
                 )
