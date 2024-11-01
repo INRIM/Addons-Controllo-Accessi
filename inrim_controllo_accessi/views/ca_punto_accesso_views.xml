@@ -19,7 +19,7 @@
         <field name="name">ca.punto.accesso.view.tree</field>
         <field name="model">ca.punto_accesso</field>
         <field name="arch" type="xml">
-            <tree  default_order="ente_azienda_id asc">
+            <tree default_order="ente_azienda_id asc">
                 <field name="name"/>
                 <field name="ente_azienda_id"/>
                 <field name="ca_lettore_id"/>
@@ -44,7 +44,7 @@
         <field name="model">ca.punto_accesso</field>
         <field name="arch" type="xml">
             <form>
-                <header>
+                <div name="button_box">
                     <button
                             name="%(inrim_controllo_accessi.ca_sposta_punto_accesso_action)d"
                             string="Sposta Punto Accesso"
@@ -91,7 +91,7 @@
                             type="object"
                             class="btn-primary"
                     />
-                </header>
+                </div>
                 <sheet>
                     <group>
                         <group>
@@ -99,30 +99,38 @@
                             <field name="ca_spazio_id"
                                    options="{'no_create': True}"
                                    readonly="enable_sync"/>
-                            <field name="tipo_spazio_id"/>
-                            <field name="ente_azienda_id"/>
                             <field name="ca_lettore_id"
                                    options="{'no_create': True}"
                                    readonly="enable_sync"/>
-                            <field name="system_error"/>
-                            <field name="direction"/>
                             <field name="typology"/>
-                            <field name="tz"/>
-                            <field name="type_ids" invisible="True"/>
                         </group>
                         <group>
-                            <field name="ca_persona_id" readonly="True"
-                                   domain="[('type_ids', 'in', type_ids)]"/>
-                            <field name="last_update_reader" readonly="True"/>
-                            <field name="last_reading_events" readonly="True"/>
-                            <field name="available_events" readonly="True"/>
-                            <field name="events_to_read_num" />
-                            <field name="events_read_num" readonly="True"/>
-                            <field name="enable_sync" readonly="True"/>
+                            <field name="events_to_read_num"/>
                             <field name="recursive_read_events"/>
                             <field name="date_start"/>
                             <field name="date_end"/>
                         </group>
+                    </group>
+
+                    <separator string="Reader Info"/>
+                    <group>
+                        <group>
+                            <field name="tipo_spazio_id" readonly="1"/>
+                            <field name="ente_azienda_id" readonly="1"/>
+                            <field name="direction"/>
+                            <field name="tz"/>
+                            <field name="type_ids" invisible="True"/>
+                        </group>
+                        <group>
+                            <field name="system_error"/>
+                            <field name="last_update_reader" readonly="True"/>
+                            <field name="last_reading_events" readonly="True"/>
+                            <field name="available_events" readonly="True"/>
+                            <field name="enable_sync" readonly="True"/>
+                            <field name="remote_update" readonly="True"/>
+                        </group>
+                        <field name="ca_persona_id" readonly="True"
+                               domain="[('type_ids', 'in', type_ids)]"/>
                         <separator string="Tags"/>
                         <field name="ca_tag_lettore_ids"
                                context="{'default_ca_lettore_id': ca_lettore_id}"
