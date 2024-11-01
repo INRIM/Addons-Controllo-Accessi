@@ -21,8 +21,6 @@
             <tree
                     decoration-danger="present == 'no'"
                     decoration-success="present == 'yes'"
-                    decoration-primary="is_internal == true"
-                    decoration-info="is_external == true"
                     default_order="display_name asc"
             >
                 <field name="display_name"/>
