@@ -19,6 +19,8 @@ class CaProprietaTag(models.Model):
                 if record.date_end <= record.date_start:
                     raise UserError(
                         _('Data fine deve essere maggiore della data di inizio'))
+
+
                 
     def rest_boby_hint(self):
         return {
@@ -55,6 +57,7 @@ class CaTag(models.Model):
     active = fields.Boolean(default=True)
     temp = fields.Boolean(compute="_compute_temp", store=True)
     revoked = fields.Boolean(compute="_compute_revoked", store=True)
+    active = fields.Boolean(default=True)
 
     @api.depends('ca_proprieta_tag_ids')
     def _compute_temp(self):
@@ -71,6 +74,23 @@ class CaTag(models.Model):
             if record.ca_proprieta_tag_ids:
                 if self.env.ref('inrim_anagrafiche.proprieta_tag_revocato') in record.ca_proprieta_tag_ids:
                     record.revoked = True
+
+    @api.constrains('tag_code', 'active')
+    def _check_unique_fiscalcode(self):
+        for record in self:
+            if record.tag_code:
+                tags = self.env['ca.tag'].with_context(
+                    active_test=False).search(
+                    [
+                        ('tag_code', '=', record.tag_code)
+                    ]
+                )
+                if tags:
+                    msg = f'Esiste già questo Tag: {record.tag_code}'
+                    if not record.active:
+                        msg = f"{record.tag_code} Risulta disattivato, riattivare per utilizzare"
+                    raise UserError(
+                        _(msg))
 
     def rest_boby_hint(self):
         return {

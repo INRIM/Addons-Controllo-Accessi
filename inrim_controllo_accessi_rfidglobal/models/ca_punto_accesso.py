@@ -114,6 +114,7 @@ class CaPuntoAccesso(models.Model):
         self.ensure_one()
         reader = self.load_reader()
         if not self.remote_update or not self.enable_sync or not reader.online:
+            logger.info(f"No Tags to update for reader")
             return False
         body = self.get_tags_boby()
         activity_code = self.get_code_activity("ADDTAGS")
@@ -129,6 +130,7 @@ class CaPuntoAccesso(models.Model):
                         activity_code, self.ca_lettore_id.id, msg=msg
                     )
                 self.last_update_reader = datetime.now()
+                self.remote_update = False
 
                 return activity_code
         except Exception as e:
@@ -267,7 +269,8 @@ class CaPuntoAccesso(models.Model):
     def load_readers_data(self):
         res = super().load_readers_data()
         with self.env.cr.savepoint():
-            for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
+            for point in self.env['ca.punto_accesso'].search(
+                    [('enable_sync', '=', True)]):
                 point.save_events_to_json()
             return True
 
@@ -275,7 +278,8 @@ class CaPuntoAccesso(models.Model):
     def eval_readers_data(self):
         res = super().eval_readers_data()
         with self.env.cr.savepoint():
-            for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
+            for point in self.env['ca.punto_accesso'].search(
+                    [('enable_sync', '=', True)]):
                 point.events_process_todo()
             return True
 
@@ -283,7 +287,8 @@ class CaPuntoAccesso(models.Model):
     def update_readers_data(self):
         res = super().update_readers_data()
         with self.env.cr.savepoint():
-            for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
+            for point in self.env['ca.punto_accesso'].search(
+                    [('enable_sync', '=', True)]):
                 point.update_reader_tags()
             return True
 
@@ -291,6 +296,7 @@ class CaPuntoAccesso(models.Model):
     def update_clock(self):
         res = super().update_clock()
         with self.env.cr.savepoint():
-            for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
+            for point in self.env['ca.punto_accesso'].search(
+                    [('enable_sync', '=', True)]):
                 point.update_reader_clock()
             return True

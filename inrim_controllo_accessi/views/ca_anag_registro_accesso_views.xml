@@ -21,12 +21,11 @@
         <field name="name">ca.anag.registro.accesso.view.tree</field>
         <field name="model">ca.anag_registro_accesso</field>
         <field name="arch" type="xml">
-            <tree duplicate="False" delete="False" create="False">
+            <tree duplicate="False" delete="False" create="False"
+                  default_order="datetime_event desc">
                 <field name="ca_punto_accesso_id"/>
-                <field name="ca_lettore_id"/>
-                <field name="ca_spazio_id"/>
-                <field name="ca_tipo_spazio_id"/>
                 <field name="ca_ente_azienda_id"/>
+                <field name="person_display_name"/>
                 <field name="datetime_event"/>
                 <field name="tz"/>
                 <field name="typology"/>
@@ -48,9 +47,9 @@
                         <group>
                             <field name="ca_punto_accesso_id" readonly="True"/>
                             <field name="ca_tag_persona_id" readonly="True"/>
-                            <field name="person_lastname"/>
-                            <field name="person_name"/>
-                            <field name="ca_ente_azienda_ids" widget="many2many_tags"/>
+                            <field name="person_display_name"/>
+                            <field name="ca_ente_azienda_ids"
+                                   widget="many2many_tags"/>
                             <field name="person_freshman"/>
                             <field name="ca_lettore_id"/>
                             <field name="ca_spazio_id"/>

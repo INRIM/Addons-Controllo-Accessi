@@ -19,9 +19,8 @@
         <field name="name">ca.punto.accesso.view.tree</field>
         <field name="model">ca.punto_accesso</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree  default_order="ente_azienda_id asc">
                 <field name="name"/>
-                <field name="ca_spazio_id"/>
                 <field name="ente_azienda_id"/>
                 <field name="ca_lettore_id"/>
                 <field name="system_error"/>

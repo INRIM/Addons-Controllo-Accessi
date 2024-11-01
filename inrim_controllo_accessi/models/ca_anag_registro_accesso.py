@@ -20,10 +20,8 @@ class CaAnagRegistroAccesso(models.Model):
         'ca.punto_accesso', string="Access", required=True, ondelete='cascade')
     ca_tag_persona_id = fields.Many2one(
         'ca.tag_persona', string="Tag", required=True, ondelete='cascade')
-    person_lastname = fields.Char(
-        related="ca_tag_persona_id.ca_persona_id.lastname", string="Person Lastname")
-    person_name = fields.Char(
-        related="ca_tag_persona_id.ca_persona_id.name", string="Person Name")
+    person_display_name = fields.Char(
+        related="ca_tag_persona_id.ca_persona_id.display_name", string="Person Name")
     ca_ente_azienda_ids = fields.Many2many(
         related="ca_tag_persona_id.ca_persona_id.ca_ente_azienda_ids",
         string="Person Institution/Company")
@@ -39,7 +37,7 @@ class CaAnagRegistroAccesso(models.Model):
         related="ca_punto_accesso_id.ente_azienda_id", store=True, string="Space Office")
     datetime_event = fields.Datetime(default=fields.datetime.now(), required=True)
     typology = fields.Char(
-        related="ca_punto_accesso_id.ca_lettore_id.type", string="Configuration Type")
+        related="ca_punto_accesso_id.typology", string="Ap Type")
     direction = fields.Selection(
         related="ca_punto_accesso_id.ca_lettore_id.direction")
     access_allowed = fields.Boolean()
