@@ -41,7 +41,7 @@ class CaPersona(models.Model):
     @api.model
     def _cron_people_get_addressbook(self):
         with self.env.cr.savepoint():
-            tipo_data = self.get_people_data(get_addressbook_path)
+            tipo_data = self.get_people_data(get_personal_types)
             if tipo_data:
                 self.update_tipo_persona(tipo_data)
             data = self.get_people_data(get_addressbook_path)
