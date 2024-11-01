@@ -59,7 +59,7 @@ class CaPersona(models.Model):
                         ])
                         if not tipo_persona_id:
                             vals = {
-                                'name': dt['nome'],
+                                'name': dt['name'],
                                 'code': dt['code'],
                                 'structured': True
                             }
