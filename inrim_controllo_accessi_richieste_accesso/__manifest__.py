@@ -10,8 +10,6 @@
     'data': [
         'security/ir.model.access.csv',
         'security/security.xml',
-        'data/ca_anag_servizi_data.xml',
-        'data/ca_settore_ente_data.xml',
         'data/ca_categoria_richiesta_data.xml',
         'data/ca_categoria_tipo_richiesta_data.xml',
         'data/ca_anag_avanzamento_rich_data.xml',
@@ -27,7 +25,10 @@
         'views/ca_richiesta_accesso_views.xml',
         'views/menu.xml',
     ],
-    'demo': [],
+    'demo': [
+        'demo/ca_anag_servizi_demo.xml',
+        'demo/ca_settore_ente_demo.xml',
+    ],
     'installable': True,
     'application': False
 }

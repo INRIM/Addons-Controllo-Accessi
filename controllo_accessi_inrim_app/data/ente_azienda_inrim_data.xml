@@ -6,8 +6,7 @@
             <field name="street">Strada delle Cacce, 91</field>
             <field name="zip">10135</field>
             <field name="state_id" ref="base.state_it_to"/>
-            <field name="company_id"
-                   ref="controllo_accessi_inrim_app.res_company_inrim"/>
+            <field name="company_id" ref="base.main_company"/>
             <field name="country_id" ref="base.it"/>
             <field name="tipo_ente_azienda_id"
                    ref="inrim_anagrafiche.tipo_ente_azienda_sede"/>

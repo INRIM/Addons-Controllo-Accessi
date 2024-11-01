@@ -26,7 +26,7 @@ class TestCommon(TransactionCase):
         cls.token = get_token(cls, "user3", "demo3")
         cls.tokentech = get_token(cls, "user5", "demo5")
 
-        cls.company = cls.env.ref('controllo_accessi_inrim_app.res_company_inrim')
+        cls.company = cls.env.ref('base.main_company')
         # Persona
         cls.persona_1 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_persona_1')
         # Lettore

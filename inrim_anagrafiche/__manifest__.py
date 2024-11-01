@@ -40,6 +40,7 @@
         'demo/ca_persona_demo.xml',
         'demo/ca_tag_persona_demo.xml',
     ],
+    'pre_init_hook': 'pre_init_hook',
     'installable': True,
     'application': True,
 }

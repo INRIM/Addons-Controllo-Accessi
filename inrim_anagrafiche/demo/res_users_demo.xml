@@ -6,7 +6,8 @@
         <field name="city">Torino</field>
         <field name="zip">10135</field>
         <field name="country_id" ref="base.it"/>
-        <field name="company_name">Istituto Nazionale di Ricerca Metrologica</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="lang">it_IT</field>
     </record>
 
     <record id="inrim_demo_user" model="res.users">
@@ -14,8 +15,8 @@
                ref="inrim_anagrafiche.res_partner_ca_user_0"/>
         <field name="login">user</field>
         <field name="password">demo</field>
-        <field name="groups_id" 
-            eval="[(6, 0, [ref('base.group_user'), ref('controllo_accessi.ca_base')])]"/>
+        <field name="groups_id"
+               eval="[(6, 0, [ref('base.group_user'), ref('controllo_accessi.ca_base')])]"/>
     </record>
 
     <record id="res_partner_ca_user_1" model="res.partner">
@@ -24,7 +25,8 @@
         <field name="city">Torino</field>
         <field name="zip">10135</field>
         <field name="country_id" ref="base.it"/>
-        <field name="company_name">Istituto Nazionale di Ricerca Metrologica</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="lang">it_IT</field>
     </record>
 
     <record id="inrim_demo_user_1" model="res.users">
@@ -32,8 +34,8 @@
                ref="inrim_anagrafiche.res_partner_ca_user_1"/>
         <field name="login">user1</field>
         <field name="password">demo1</field>
-        <field name="groups_id" 
-            eval="[(6, 0, [
+        <field name="groups_id"
+               eval="[(6, 0, [
                 ref('base.group_user'),
                 ref('controllo_accessi.ca_ca'),
                 ref('controllo_accessi.ca_gdpr')
@@ -46,16 +48,17 @@
         <field name="city">Torino</field>
         <field name="zip">10135</field>
         <field name="country_id" ref="base.it"/>
-        <field name="company_name">Istituto Nazionale di Ricerca Metrologica</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="lang">it_IT</field>
     </record>
 
     <record id="inrim_demo_user_2" model="res.users">
         <field name="partner_id"
-            ref="inrim_anagrafiche.res_partner_ca_user_2"/>
+               ref="inrim_anagrafiche.res_partner_ca_user_2"/>
         <field name="login">user2</field>
         <field name="password">demo2</field>
-        <field name="groups_id" 
-            eval="[(6, 0, [ref('base.group_user'), ref('controllo_accessi.ca_ru')])]"/>
+        <field name="groups_id"
+               eval="[(6, 0, [ref('base.group_user'), ref('controllo_accessi.ca_ru')])]"/>
     </record>
 
     <record id="res_partner_ca_user_3" model="res.partner">
@@ -64,16 +67,17 @@
         <field name="city">Torino</field>
         <field name="zip">10135</field>
         <field name="country_id" ref="base.it"/>
-        <field name="company_name">Istituto Nazionale di Ricerca Metrologica</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="lang">it_IT</field>
     </record>
 
     <record id="inrim_demo_user_3" model="res.users">
         <field name="partner_id"
-            ref="inrim_anagrafiche.res_partner_ca_user_3"/>
+               ref="inrim_anagrafiche.res_partner_ca_user_3"/>
         <field name="login">user3</field>
         <field name="password">demo3</field>
-        <field name="groups_id" 
-            eval="[(6, 0, [ref('base.group_user'), ref('controllo_accessi.ca_spp')])]"/>
+        <field name="groups_id"
+               eval="[(6, 0, [ref('base.group_user'), ref('controllo_accessi.ca_spp')])]"/>
     </record>
 
     <record id="res_partner_ca_user_4" model="res.partner">
@@ -82,16 +86,17 @@
         <field name="city">Torino</field>
         <field name="zip">10135</field>
         <field name="country_id" ref="base.it"/>
-        <field name="company_name">Istituto Nazionale di Ricerca Metrologica</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="lang">it_IT</field>
     </record>
 
     <record id="inrim_demo_user_4" model="res.users">
         <field name="partner_id"
-            ref="inrim_anagrafiche.res_partner_ca_user_4"/>
+               ref="inrim_anagrafiche.res_partner_ca_user_4"/>
         <field name="login">user4</field>
         <field name="password">demo4</field>
-        <field name="groups_id" 
-            eval="[(6, 0, [ref('base.group_user'), ref('controllo_accessi.ca_portineria')])]"/>
+        <field name="groups_id"
+               eval="[(6, 0, [ref('base.group_user'), ref('controllo_accessi.ca_portineria')])]"/>
     </record>
 
     <record id="res_partner_ca_user_5" model="res.partner">
@@ -100,14 +105,16 @@
         <field name="city">Torino</field>
         <field name="zip">10135</field>
         <field name="country_id" ref="base.it"/>
-        <field name="company_name">Istituto Nazionale di Ricerca Metrologica</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="lang">it_IT</field>
     </record>
 
     <record id="inrim_demo_user_5" model="res.users">
         <field name="partner_id"
-            ref="inrim_anagrafiche.res_partner_ca_user_5"/>
+               ref="inrim_anagrafiche.res_partner_ca_user_5"/>
         <field name="login">user5</field>
         <field name="password">demo5</field>
-        <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('controllo_accessi.ca_tech')])]"/>
+        <field name="groups_id"
+               eval="[(6, 0, [ref('base.group_user'), ref('controllo_accessi.ca_tech')])]"/>
     </record>
 </odoo>
