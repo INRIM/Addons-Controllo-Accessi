@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from odoo import models
+from odoo import models, api
 
 from .Max5010_rfid_lib import *
 

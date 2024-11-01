@@ -12,6 +12,7 @@
                    ref="inrim_anagrafiche.tipo_ente_azienda_sede"/>
             <field name="note">Campus</field>
             <field name="tz">Europe/Rome</field>
+            <field name="ref">cacce</field>
         </record>
 
         <record id="inrim_sede_mda" model="ca.ente_azienda">

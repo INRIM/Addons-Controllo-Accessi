@@ -14,6 +14,7 @@
     
     <record id="tipo_persona_tirocinio" model="ca.tipo_persona">
         <field name="name">Tirocinio</field>
+        <field name="structured" eval="True"/>
     </record>
 
     <record id="tipo_persona_servizi_igiene" model="ca.tipo_persona">
@@ -30,21 +31,31 @@
 
     <record id="tipo_persona_assegno" model="ca.tipo_persona">
         <field name="name">Assegno</field>
+        <field name="structured" eval="True"/>
     </record>
 
     <record id="tipo_persona_dottorando" model="ca.tipo_persona">
         <field name="name">Dottorando</field>
+        <field name="structured" eval="True"/>
     </record>
 
     <record id="tipo_persona_ricercatore" model="ca.tipo_persona">
         <field name="name">Ricercatore</field>
+        <field name="structured" eval="True"/>
     </record>
 
     <record id="tipo_persona_dipendente_ti" model="ca.tipo_persona">
         <field name="name">Dipendente TI</field>
+        <field name="structured" eval="True"/>
     </record>
 
     <record id="tipo_persona_dipendente_td" model="ca.tipo_persona">
         <field name="name">Dipendente TD</field>
+        <field name="structured" eval="True"/>
+    </record>
+
+    <record id="tipo_persona_strutturato" model="ca.tipo_persona">
+        <field name="name">Strutturato</field>
+        <field name="structured" eval="True"/>
     </record>
 </odoo>
