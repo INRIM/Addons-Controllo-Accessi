@@ -63,7 +63,7 @@ class CaPersona(models.Model):
                                 'code': dt['code'],
                                 'structured': True
                             }
-                            self.create(vals)
+                            self.env['ca.tipo_persona'].create(vals)
                         else:
                             tipo_persona_id.name = dt['name']
             except Exception as e:
