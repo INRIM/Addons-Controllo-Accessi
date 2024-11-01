@@ -36,7 +36,7 @@ class CaAnagRegistroAccesso(models.Model):
     ca_ente_azienda_id = fields.Many2one(
         related="ca_punto_accesso_id.ente_azienda_id", store=True, string="Space Office")
     datetime_event = fields.Datetime(default=fields.datetime.now(), required=True)
-    typology = fields.Char(
+    typology = fields.Selection(
         related="ca_punto_accesso_id.typology", string="Ap Type")
     direction = fields.Selection(
         related="ca_punto_accesso_id.ca_lettore_id.direction")
