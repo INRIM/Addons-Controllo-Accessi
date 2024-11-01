@@ -31,12 +31,11 @@
             <field name="code">model.update_readers_data()</field>
         </record>
 
-        <record id="acces_update_readers_tags" model="ir.cron">
+        <record id="acces_update_readers_clock" model="ir.cron">
             <field name="name">INRiM:Update Readers Clock</field>
             <field name="model_id" ref="model_ca_punto_accesso"/>
             <field name="nextcall"
                    eval="(DateTime.now().replace(hour=4, minute=0, second=0, microsecond=0))"/>
-
             <field name="interval_number">24</field>
             <field name="interval_type">hours</field>
             <field name="numbercall">-1</field>

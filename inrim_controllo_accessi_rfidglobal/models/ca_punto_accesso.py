@@ -65,9 +65,14 @@ class CaPuntoAccesso(models.Model):
             return reader
 
     def update_reader_clock(self):
+        self.ensure_one()
+        if not self.remote_update or not self.enable_sync:
+            logger.info(f"No Tags to update for reader")
+            return False
         reader = self.load_reader()
         ret = False
         if not reader.online:
+            logger.error("Reader is OFFLINE")
             return False
         try:
             with self.env.cr.savepoint():
@@ -112,9 +117,12 @@ class CaPuntoAccesso(models.Model):
 
     def update_reader_tags(self):
         self.ensure_one()
-        reader = self.load_reader()
-        if not self.remote_update or not self.enable_sync or not reader.online:
+        if not self.remote_update or not self.enable_sync:
             logger.info(f"No Tags to update for reader")
+            return False
+        reader = self.load_reader()
+        if not reader.online:
+            logger.error("Reader is OFFLINE")
             return False
         body = self.get_tags_boby()
         activity_code = self.get_code_activity("ADDTAGS")
@@ -143,8 +151,11 @@ class CaPuntoAccesso(models.Model):
 
     def save_events_to_json(self):
         self.ensure_one()
+        if not self.enable_sync:
+            return False
         reader = self.load_reader()
-        if not self.enable_sync or not reader.online:
+        if not reader.online:
+            logger.error("Reader is OFFLINE")
             return False
         activity_code = self.get_code_activity("READEVNT")
         logger.info(f"Start save events from Reader, CodAtt: {activity_code}")
@@ -183,7 +194,6 @@ class CaPuntoAccesso(models.Model):
     def decode_data(self, code, file_path):
         try:
             with self.env.cr.savepoint():
-                tz = pytz.timezone(self.tz)
                 logger.info(f"Decode data from file Task:{code} - File: {file_path}")
                 events: EventsResponse = Max5010RfidClient.load_events_from_file(
                     file_path, self.tz)
@@ -257,13 +267,6 @@ class CaPuntoAccesso(models.Model):
                     f"{code} Skip File {file_path.name} not for this Access Point {self.id}")
         logger.info(
             f"Complete all tasks for Job events_process_todo: Found: {found} files, {done} done, {skip} skipped, {err} error")
-
-    # super methods
-    # def check_readers(self):
-    #     res = super().check_readers()
-    #     for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
-    #         point.load_reader()
-    #     return True
 
     @api.model
     def load_readers_data(self):

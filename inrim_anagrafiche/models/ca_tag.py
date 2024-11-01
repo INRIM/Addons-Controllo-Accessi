@@ -57,7 +57,6 @@ class CaTag(models.Model):
     active = fields.Boolean(default=True)
     temp = fields.Boolean(compute="_compute_temp", store=True)
     revoked = fields.Boolean(compute="_compute_revoked", store=True)
-    active = fields.Boolean(default=True)
 
     @api.depends('ca_proprieta_tag_ids')
     def _compute_temp(self):

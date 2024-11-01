@@ -18,6 +18,7 @@ class CaTagPersona(models.Model):
     ca_tag_id = fields.Many2one('ca.tag', required=True)
     tag_name = fields.Char(related="ca_tag_id.name", store=True)
     tag_in_use = fields.Boolean(related="ca_tag_id.in_use", store=True)
+    # TODO: trasformare in datetime
     date_start = fields.Date(required=True)
     date_end = fields.Date(required=True)
     temp = fields.Boolean()

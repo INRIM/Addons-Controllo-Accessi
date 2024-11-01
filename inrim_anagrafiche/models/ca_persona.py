@@ -199,7 +199,7 @@ class CaPersona(models.Model):
         for record in self:
             record.display_name = False
             if record.name and record.lastname:
-                record.display_name = record.name + ' ' + record.lastname
+                record.display_name =  f"{record.lastname} {record.lastname}"
 
     def default_ca_stato_anag_id(self):
         return self.env.ref('inrim_anagrafiche.ca_stato_anag_bozza').id
