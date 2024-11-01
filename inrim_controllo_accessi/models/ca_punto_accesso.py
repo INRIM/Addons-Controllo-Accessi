@@ -73,7 +73,7 @@ class CaPuntoAccesso(models.Model):
                 fields.datetime.now().strftime('%Y-%m-%d 23:59:59')),
             ('ca_lettore_id', '=', self.ca_lettore_id.id),
             ('access_allowed', '=', False)
-        ], order="person_lastname, datetime_event asc")
+        ], order="person_display_name, datetime_event asc")
         return {
             'name': _('Accessi Rifiutati Oggi'),
             'type': 'ir.actions.act_window',
