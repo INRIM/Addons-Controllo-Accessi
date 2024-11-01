@@ -125,12 +125,12 @@ class CaPuntoAccesso(models.Model):
                 if not res.result:
                     msg = f'update_tags, {self.name} Result: {res.result}, hint: check events numebr'
                     logger.error(msg)
-                    self.system_error = True
                     self.write_log(
                         activity_code, self.ca_lettore_id.id, msg=msg
                     )
-                self.last_update_reader = datetime.now()
-                self.remote_update = False
+                else:
+                    self.last_update_reader = datetime.now()
+                    self.remote_update = False
 
                 return activity_code
         except Exception as e:
