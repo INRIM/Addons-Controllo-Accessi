@@ -14,6 +14,7 @@
         'views/ca_tag_lettore_views.xml',
         'views/ca_punto_accesso_persona_views.xml',
         'views/ca_punto_accesso_views.xml',
+        'views/ca_persona_view.xml',
         'views/ca_anag_registro_accesso_views.xml',
         'views/ca_log_integrazione_lettori_views.xml',
         'views/ca_richiesta_riga_accesso_sede_views.xml',

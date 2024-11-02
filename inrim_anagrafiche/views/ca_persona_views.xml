@@ -40,243 +40,239 @@
         <field name="model">ca.persona</field>
         <field name="arch" type="xml">
             <form>
-
-                <sheet>
-                    <div name="button_box" class="d-none">
-                        <button
-                                name="action_draft"
-                                type="object"
-                                class="btn-secondary"
-                                string="Draft"
-                                groups="controllo_accessi.ca_ca"
-                        />
-                        <button
-                                name="action_documents"
-                                type="object"
-                                class="btn-secondary"
-                                string="Waiting For Documents"
-                                groups="controllo_accessi.ca_ca"
-                        />
-                        <button
-                                name="action_expired"
-                                type="object"
-                                class="btn-secondary"
-                                string="Expired"
-                                groups="controllo_accessi.ca_ca"
-                        />
-                        <button
-                                name="action_in_update"
-                                type="object"
-                                class="btn-secondary"
-                                string="In Update"
-                                groups="controllo_accessi.ca_ca"
-                        />
-                        <button
-                                name="action_checks_in_progress"
-                                type="object"
-                                class="btn-secondary"
-                                string="Checks In Progress"
-                                groups="controllo_accessi.ca_ca"
-                        />
-                        <button
-                                name="action_completed"
-                                type="object"
-                                string="Complete"
-                                class="btn-primary"
-                                groups="controllo_accessi.ca_ca"
-                        />
-                        <button
-                                name="action_attendance_today"
-                                type="object"
-                                string="Attendance Today"
-                                class="btn-primary"
-                                groups="controllo_accessi.ca_ca"
-                        />
-                        <field name="ca_stato_anag_id" widget="statusbar"/>
-                    </div>
-                    <group>
+                <t>
+                    <sheet>
+                        <div name="button_box" class="d-none">
+                            <button
+                                    name="action_draft"
+                                    type="object"
+                                    class="btn-secondary"
+                                    string="Draft"
+                                    groups="controllo_accessi.ca_ca"
+                            />
+                            <button
+                                    name="action_documents"
+                                    type="object"
+                                    class="btn-secondary"
+                                    string="Waiting For Documents"
+                                    groups="controllo_accessi.ca_ca"
+                            />
+                            <button
+                                    name="action_expired"
+                                    type="object"
+                                    class="btn-secondary"
+                                    string="Expired"
+                                    groups="controllo_accessi.ca_ca"
+                            />
+                            <button
+                                    name="action_in_update"
+                                    type="object"
+                                    class="btn-secondary"
+                                    string="In Update"
+                                    groups="controllo_accessi.ca_ca"
+                            />
+                            <button
+                                    name="action_checks_in_progress"
+                                    type="object"
+                                    class="btn-secondary"
+                                    string="Checks In Progress"
+                                    groups="controllo_accessi.ca_ca"
+                            />
+                            <button
+                                    name="action_completed"
+                                    type="object"
+                                    string="Complete"
+                                    class="btn-primary"
+                                    groups="controllo_accessi.ca_ca"
+                            />
+                            <button
+                                    name="action_attendance_today"
+                                    type="object"
+                                    string="Attendance Today"
+                                    class="btn-primary"
+                                    groups="controllo_accessi.ca_ca"
+                            />
+                            <field name="ca_stato_anag_id" widget="statusbar"/>
+                        </div>
                         <group>
-                            <field name="is_external" invisible="1"
-                                   force_save="1"/>
-                            <field name="is_internal" invisible="1"
-                                   force_save="1"/>
-                            <field name="is_structured" invisible="1"
-                                   force_save="1"/>
-                            <field name="name"/>
-                            <field name="lastname"/>
-                            <field name="fiscalcode" required="True"/>
-                            <field name="freshman" required="is_internal"/>
-                            <field name="type_ids" widget="many2many_tags"
-                                   options="{'no_create': True}"
-                                   required="True"/>
-                            <field name="parent_id"
-                                   widget="res_partner_many2one"
-                                   required="is_external"/>
-                            <field name="associated_user_id"
-                                   options="{'no_create': True}"/>
-                            <span class="o_form_label o_td_label"
-                                  name="address_name"
-                                  groups="controllo_accessi.ca_gdpr">
-                                <b>Domicile Address</b>
-                            </span>
-                            <div class="o_address_format"
-                                 groups="controllo_accessi.ca_gdpr">
-                                <field name="domicile_street"
-                                       placeholder="Street..."
-                                       class="o_address_street"/>
-                                <field name="domicile_street2"
-                                       placeholder="Street 2..."
-                                       class="o_address_street"/>
-                                <field
-                                        name="domicile_zip_id"
-                                        options="{'create_name_field': 'domicile_city', 'no_open': True, 'no_create': True}"
-                                        placeholder="City completion"
-                                />
-                                <field name="domicile_city"
-                                       placeholder="City"
-                                       class="o_address_city"/>
-                                <field name="domicile_state_id"
-                                       class="o_address_state"
-                                       placeholder="State"/>
-                                <field name="domicile_zip"
-                                       placeholder="ZIP"
-                                       class="o_address_zip"/>
-                                <div name="partner_address_country"
-                                     class="d-flex justify-content-between">
-                                    <field name="domicile_country_id"
-                                           placeholder="Country"
-                                           class="o_address_country"/>
+                            <group>
+                                <field name="is_external" invisible="1"
+                                       force_save="1"/>
+                                <field name="is_internal" invisible="1"
+                                       force_save="1"/>
+                                <field name="is_structured" invisible="1"
+                                       force_save="1"/>
+                                <field name="name"/>
+                                <field name="lastname"/>
+                                <field name="fiscalcode" required="True"/>
+                                <field name="freshman" required="is_internal"/>
+                                <field name="type_ids" widget="many2many_tags"
+                                       options="{'no_create': True}"
+                                       required="True"/>
+                                <field name="parent_id"
+                                       widget="res_partner_many2one"
+                                       required="is_external"/>
+                                <field name="associated_user_id"
+                                       options="{'no_create': True}"/>
+                                <span class="o_form_label o_td_label"
+                                      name="address_name"
+                                      groups="controllo_accessi.ca_gdpr">
+                                    <b>Domicile Address</b>
+                                </span>
+                                <div class="o_address_format"
+                                     groups="controllo_accessi.ca_gdpr">
+                                    <field name="domicile_street"
+                                           placeholder="Street..."
+                                           class="o_address_street"/>
+                                    <field name="domicile_street2"
+                                           placeholder="Street 2..."
+                                           class="o_address_street"/>
+                                    <field
+                                            name="domicile_zip_id"
+                                            options="{'create_name_field': 'domicile_city', 'no_open': True, 'no_create': True}"
+                                            placeholder="City completion"
+                                    />
+                                    <field name="domicile_city"
+                                           placeholder="City"
+                                           class="o_address_city"/>
+                                    <field name="domicile_state_id"
+                                           class="o_address_state"
+                                           placeholder="State"/>
+                                    <field name="domicile_zip"
+                                           placeholder="ZIP"
+                                           class="o_address_zip"/>
+                                    <div name="partner_address_country"
+                                         class="d-flex justify-content-between">
+                                        <field name="domicile_country_id"
+                                               placeholder="Country"
+                                               class="o_address_country"/>
+                                    </div>
                                 </div>
-                            </div>
-                            <field name="domicile_other_than_residence"/>
-                            <field name="vat"/>
-                            <field name="ca_ente_azienda_ids"
-                                   widget="many2many_tags"
-                                   options="{'no_create': True}"/>
-                        </group>
-                        <group>
-                            <field name="nationality"
-                                   required="is_structured"/>
-                            <field name="birth_date"
-                                   required="is_structured"/>
-                            <field name="birth_place"
-                                   required="is_structured"/>
-                            <field name="istat_code"
-                                   required="is_structured"/>
-                            <field name="uid"/>
-                            <field name="email"/>
-                            <field name="phone"/>
-                            <field name="mobile"/>
-                            <field name="present"/>
-                            <field name="token"/>
-                            <span class="o_form_label o_td_label"
-                                  name="address_name"
-                                  invisible="not domicile_other_than_residence"
-                                  groups="controllo_accessi.ca_gdpr">
-                                <b>Residence Address</b>
-                            </span>
-                            <div class="o_address_format"
-                                 groups="controllo_accessi.ca_gdpr">
-                                <field name="residence_street"
-                                       placeholder="Street..."
-                                       class="o_address_street"
-                                       required="domicile_other_than_residence"
-                                       invisible="not domicile_other_than_residence"/>
-                                <field name="residence_street2"
-                                       placeholder="Street 2..."
-                                       class="o_address_street"
-                                       invisible="not domicile_other_than_residence"/>
-                                <field
-                                        name="residence_zip_id"
-                                        options="{'create_name_field': 'residence_city', 'no_open': True, 'no_create': True}"
-                                        placeholder="City completion"
-                                        invisible="not domicile_other_than_residence"
-                                />
-                                <field name="residence_city"
-                                       placeholder="City"
-                                       class="o_address_city"
-                                       required="domicile_other_than_residence"
-                                       invisible="not domicile_other_than_residence"/>
-                                <field name="residence_state_id"
-                                       class="o_address_state"
-                                       placeholder="State"
-                                       required="domicile_other_than_residence"
-                                       invisible="not domicile_other_than_residence"/>
-                                <field name="residence_zip"
-                                       placeholder="ZIP"
-                                       class="o_address_zip"
-                                       required="domicile_other_than_residence"
-                                       invisible="not domicile_other_than_residence"/>
-                                <div name="partner_address_country"
-                                     class="d-flex justify-content-between">
-                                    <field name="residence_country_id"
-                                           placeholder="Country"
-                                           class="o_address_country"
+                                <field name="domicile_other_than_residence"/>
+                                <field name="vat"/>
+                                <field name="ca_ente_azienda_ids"
+                                       widget="many2many_tags"
+                                       options="{'no_create': True}"/>
+                            </group>
+                            <group>
+                                <field name="nationality"
+                                       required="is_structured"/>
+                                <field name="birth_date"
+                                       required="is_structured"/>
+                                <field name="birth_place"
+                                       required="is_structured"/>
+                                <field name="istat_code"
+                                       required="is_structured"/>
+                                <field name="uid"/>
+                                <field name="email"/>
+                                <field name="phone"/>
+                                <field name="mobile"/>
+                                <field name="present"/>
+                                <field name="token"/>
+                                <span class="o_form_label o_td_label"
+                                      name="address_name"
+                                      invisible="not domicile_other_than_residence"
+                                      groups="controllo_accessi.ca_gdpr">
+                                    <b>Residence Address</b>
+                                </span>
+                                <div class="o_address_format"
+                                     groups="controllo_accessi.ca_gdpr">
+                                    <field name="residence_street"
+                                           placeholder="Street..."
+                                           class="o_address_street"
                                            required="domicile_other_than_residence"
                                            invisible="not domicile_other_than_residence"/>
+                                    <field name="residence_street2"
+                                           placeholder="Street 2..."
+                                           class="o_address_street"
+                                           invisible="not domicile_other_than_residence"/>
+                                    <field
+                                            name="residence_zip_id"
+                                            options="{'create_name_field': 'residence_city', 'no_open': True, 'no_create': True}"
+                                            placeholder="City completion"
+                                            invisible="not domicile_other_than_residence"
+                                    />
+                                    <field name="residence_city"
+                                           placeholder="City"
+                                           class="o_address_city"
+                                           required="domicile_other_than_residence"
+                                           invisible="not domicile_other_than_residence"/>
+                                    <field name="residence_state_id"
+                                           class="o_address_state"
+                                           placeholder="State"
+                                           required="domicile_other_than_residence"
+                                           invisible="not domicile_other_than_residence"/>
+                                    <field name="residence_zip"
+                                           placeholder="ZIP"
+                                           class="o_address_zip"
+                                           required="domicile_other_than_residence"
+                                           invisible="not domicile_other_than_residence"/>
+                                    <div name="partner_address_country"
+                                         class="d-flex justify-content-between">
+                                        <field name="residence_country_id"
+                                               placeholder="Country"
+                                               class="o_address_country"
+                                               required="domicile_other_than_residence"
+                                               invisible="not domicile_other_than_residence"/>
+                                    </div>
                                 </div>
-                            </div>
+                            </group>
                         </group>
-                    </group>
-                    <notebook>
-                        <page name="identity_documents"
-                              string="List of Identity Documents"
-                              invisible="not is_external"
-                              groups="controllo_accessi.ca_gdpr">
-                            <field name="ca_documento_ids">
-                                <form>
-                                    <group>
+                        <notebook>
+                            <page name="identity_documents"
+                                  string="List of Identity Documents"
+                                  invisible="not is_external"
+                                  groups="controllo_accessi.ca_gdpr">
+                                <field name="ca_documento_ids">
+                                    <form>
+                                        <group>
+                                            <field name="tipo_documento_id"/>
+                                            <field name="validity_start_date"/>
+                                            <field name="validity_end_date"/>
+                                            <field name="issued_by"/>
+                                            <field name="document_code"/>
+                                            <field name="tipo_documento_name"
+                                                   invisible="1"/>
+                                            <field
+                                                    name="image_ids"
+                                                    context="{'default_ca_tipo_documento_id': tipo_documento_id,'default_name': tipo_documento_name,'default_description': tipo_documento_name}"
+                                            >
+                                                <tree editable="bottom">
+                                                    <field name="name"/>
+                                                    <field name="description"/>
+                                                    <field name="ca_tipo_documento_id"/>
+                                                    <field name="side"/>
+                                                    <field name="image"
+                                                           widget="binary"
+                                                           filename="filename"/>
+                                                    <field name="filename"
+                                                           column_invisible="1"/>
+                                                </tree>
+                                            </field>
+                                            <field name="ca_stato_documento_id"
+                                                   force_save="1"/>
+                                        </group>
+                                    </form>
+                                    <tree>
                                         <field name="tipo_documento_id"/>
                                         <field name="validity_start_date"/>
                                         <field name="validity_end_date"/>
+                                        <field name="image_ids"
+                                               widget="many2many_tags"/>
                                         <field name="issued_by"/>
                                         <field name="document_code"/>
-                                        <field name="tipo_documento_name"
-                                               invisible="1"/>
-                                        <field
-                                                name="image_ids"
-                                                context="{
-                                                    'default_ca_tipo_documento_id': tipo_documento_id,
-                                                    'default_name': tipo_documento_name,
-                                                    'default_description': tipo_documento_name
-                                                }"
-                                        >
-                                            <tree editable="bottom">
-                                                <field name="name"/>
-                                                <field name="description"/>
-                                                <field name="ca_tipo_documento_id"/>
-                                                <field name="side"/>
-                                                <field name="image"
-                                                       widget="binary"
-                                                       filename="filename"/>
-                                                <field name="filename"
-                                                       column_invisible="1"/>
-                                            </tree>
-                                        </field>
                                         <field name="ca_stato_documento_id"
                                                force_save="1"/>
-                                    </group>
-                                </form>
-                                <tree>
-                                    <field name="tipo_documento_id"/>
-                                    <field name="validity_start_date"/>
-                                    <field name="validity_end_date"/>
-                                    <field name="image_ids"
-                                           widget="many2many_tags"/>
-                                    <field name="issued_by"/>
-                                    <field name="document_code"/>
-                                    <field name="ca_stato_documento_id"
-                                           force_save="1"/>
-                                </tree>
-                            </field>
-                        </page>
-                        <page name="person_tags" string="List Cards">
-                            <field name="ca_tag_ids"
-                                   options="{'no_create': True}"/>
-                        </page>
-                    </notebook>
-                </sheet>
-
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="person_tags" string="List Cards">
+                                <field name="ca_tag_ids"
+                                       options="{'no_create': True}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </t>
             </form>
         </field>
     </record>

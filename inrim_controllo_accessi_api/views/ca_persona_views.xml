@@ -3,9 +3,9 @@
     <record id="ca_persona_view_form_inherit_geolocation" model="ir.ui.view">
         <field name="name">ca.persona.view.form.inherit</field>
         <field name="model">ca.persona</field>
-        <field name="inherit_id" ref="inrim_anagrafiche.ca_persona_form"/>
+        <field name="inherit_id" ref="inrim_controllo_accessi.ca_persona_view_ca_form_inherit"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='person_tags']" position="after">
+            <xpath expr="//page[@name='person_access']" position="after">
                 <page string="Partner Geolocation" name="geo_location" groups="controllo_accessi.ca_config_tech">
                     <group>
                         <group string="Domicile Geolocation">

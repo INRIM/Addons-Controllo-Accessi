@@ -13,7 +13,7 @@
         'security/security.xml',
     ],
     'demo': [],
-  #  'pre_init_hook': '_init_italy',
+    'pre_init_hook': '_init_italy',
     'installable': True,
     'application': False,
 }

@@ -49,6 +49,10 @@ class CaPuntoAccesso(models.Model):
     tz = fields.Selection(
         related='ente_azienda_id.tz', store=True, string="Timezone", readonly=True)
 
+    #TODO: typology = stamping carica sul lettore tutti i TAG e lavora solo TAG <-> Persona
+    #      ( se persona ospite o tag jlly) se tag viene restituito il Tag.in_suo = False
+    #TODO: typology = local_access associa un tag al lettore e lo disassocia e aggiorna il flag enable_sync
+    #TODO: Aggiungere la categoria per raggruppare i Punti Accesso
 
     @api.constrains('date_start', 'date_end')
     def _check_date(self):

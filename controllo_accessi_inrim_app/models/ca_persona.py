@@ -82,7 +82,9 @@ class CaPersona(models.Model):
                             user_id = self.env['res.users'].create({
                                 'name': dt['name'],
                                 'login': dt['uid'],
-                                'company_id': self.env.company.id
+                                'company_id': self.env.company.id,
+                                'lang': 'it_IT',
+                                "tz": "Europe/Rome"
                             })
                         persona_id = self.env['ca.persona'].search([
                             ('freshman', '=', dt['matricola']),
@@ -100,7 +102,7 @@ class CaPersona(models.Model):
                                     'type_ids': self.env.ref(
                                         'inrim_anagrafiche.tipo_persona_interno').ids,
                                     'birth_date': birth_date,
-                                    'associated_user_id': user_id.id,
+                                    'associated_user_id': user_id.id
                                 }
                                 if dt.get('matricola'):
                                     vals['freshman'] = dt['matricola']
@@ -114,7 +116,8 @@ class CaPersona(models.Model):
                             ])
                             if tipo_persona_id:
                                 persona_id.type_ids = [
-                                    self.env.ref('inrim_anagrafiche.tipo_persona_interno').id,
+                                    self.env.ref(
+                                        'inrim_anagrafiche.tipo_persona_interno').id,
                                     tipo_persona_id.id
                                 ]
             except Exception as e:
