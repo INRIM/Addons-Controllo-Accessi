@@ -20,29 +20,37 @@ class CaAnagRegistroAccesso(models.Model):
         'ca.punto_accesso', string="Access", required=True, ondelete='cascade')
     ca_tag_persona_id = fields.Many2one(
         'ca.tag_persona', string="Tag", required=True, ondelete='cascade')
+    ca_persona_id = fields.Many2one(
+        related="ca_tag_persona_id.ca_persona_id", string="Person", store=True,
+        readonly=True)
     person_display_name = fields.Char(
-        related="ca_tag_persona_id.ca_persona_id.display_name", string="Person Name")
-    ca_ente_azienda_ids = fields.Many2many(
-        related="ca_tag_persona_id.ca_persona_id.ca_ente_azienda_ids",
-        string="Person Institution/Company")
+        related="ca_persona_id.display_name", store=True,
+        string="Person Name", readonly=True)
+
     person_freshman = fields.Char(
-        related="ca_tag_persona_id.ca_persona_id.freshman", string="Person Freshman")
+        related="ca_persona_id.freshman", store=True, string="Person Freshman",
+        readonly=True)
     ca_lettore_id = fields.Many2one(
-        related="ca_punto_accesso_id.ca_lettore_id", store=True)
+        related="ca_punto_accesso_id.ca_lettore_id", store=True, readonly=True)
     ca_spazio_id = fields.Many2one(
-        related="ca_punto_accesso_id.ca_spazio_id", store=True, string="Space")
+        related="ca_punto_accesso_id.ca_spazio_id", store=True, string="Space",
+        readonly=True)
     ca_tipo_spazio_id = fields.Many2one(
-        related="ca_punto_accesso_id.tipo_spazio_id", store=True, string="Space Type")
+        related="ca_spazio_id.tipo_spazio_id", store=True, string="Space Type",
+        readonly=True)
     ca_ente_azienda_id = fields.Many2one(
-        related="ca_punto_accesso_id.ente_azienda_id", store=True, string="Space Office")
+        related="ca_spazio_id.ente_azienda_id", store=True, string="Space Office",
+        readonly=True)
     datetime_event = fields.Datetime(default=fields.datetime.now(), required=True)
     typology = fields.Selection(
-        related="ca_punto_accesso_id.typology", string="Ap Type")
+        related="ca_punto_accesso_id.typology", store=True, string="Ap Type",
+        readonly=True)
     direction = fields.Selection(
-        related="ca_punto_accesso_id.ca_lettore_id.direction")
+        related="ca_lettore_id.direction", store=True, readonly=True)
     access_allowed = fields.Boolean()
     system_error = fields.Boolean(
-        related="ca_punto_accesso_id.ca_lettore_id.system_error")
+        related="ca_lettore_id.system_error", store=True,
+        readonly=True)
     type = fields.Selection([
         ('manual', 'Manual'),
         ('auto', 'Auto')
@@ -71,4 +79,10 @@ class CaAnagRegistroAccesso(models.Model):
             'access_allowed': access_allowed,
             'tz': tz
         }
-        return self.create(vals)
+        res = self.create(vals)
+        if res.ca_punto_accesso_id.typology == "stamping":
+            if res.direction == "out" and res.access_allowed:
+                res.ca_persona_id.present = "no"
+            if res.direction == "in" and res.access_allowed:
+                res.ca_persona_id.present = "yes"
+        return res

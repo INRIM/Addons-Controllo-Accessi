@@ -116,6 +116,7 @@ class CaPersona(models.Model):
     is_external = fields.Boolean(compute="_compute_bool", store=True)
     is_internal = fields.Boolean(compute="_compute_bool", store=True)
     is_structured = fields.Boolean(compute='_compute_is_structured', store=True)
+    ca_tag_ids = fields.Many2many('ca_tag_persona', "ca_persona_id", readonly=True)
     active = fields.Boolean(default=True)
 
     @api.constrains('is_external', 'parent_id')
@@ -199,7 +200,7 @@ class CaPersona(models.Model):
         for record in self:
             record.display_name = False
             if record.name and record.lastname:
-                record.display_name =  f"{record.lastname} {record.lastname}"
+                record.display_name = f"{record.lastname} {record.lastname}"
 
     def default_ca_stato_anag_id(self):
         return self.env.ref('inrim_anagrafiche.ca_stato_anag_bozza').id

@@ -4,7 +4,7 @@ from dateutil.relativedelta import relativedelta
 from odoo.addons.inrim_controllo_accessi.tests.common import TestCommon
 from odoo.exceptions import UserError,ValidationError
 from odoo.tests import tagged
-
+from odoo import fields
 
 @tagged("post_install", "-at_install", "inrim")
 class TestInrim(TestCommon):
@@ -187,8 +187,9 @@ class TestInrim(TestCommon):
         tag_persona_id = self.env['ca.tag_persona'].search([
             ('ca_tag_id', '=', ca_tag_lettore.ca_tag_id.id)
         ])
-        self.env['ca.punto_accesso_persona'].create({
+        self.env['ca.lettore_persona'].create({
             'ca_tag_lettore_id': ca_tag_lettore.id,
+            'ca_lettore_id': self.lettore_3.id,
             'ca_tag_persona': tag_persona_id.id,
             'date': date.today(),
             'state': 'active'
@@ -215,7 +216,7 @@ class TestInrim(TestCommon):
         punto_accesso_id.commuta_abilitazione()
         self.assertTrue(punto_accesso_id.enable_sync)
         # 5
-        punto_accesso_persona = self.env['ca.punto_accesso_persona'].search([
+        punto_accesso_persona = self.env['ca.lettore_persona'].search([
             ('ca_tag_lettore_id', '=', ca_tag_lettore.id),
             ('ca_tag_persona', '=', tag_persona_id.id)
         ])

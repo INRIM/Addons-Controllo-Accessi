@@ -105,7 +105,7 @@ class CaPuntoAccesso(models.Model):
     def elabora_persone_abilitate(self):
         for record in self:
             self.env[
-                'ca.punto_accesso_persona'
+                'ca.lettore_persona'
             ].elabora_persone_lettore(record.ca_lettore_id.name)
 
     def elabora_persone_abilitate_view(self):
@@ -115,7 +115,7 @@ class CaPuntoAccesso(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'tree,form',
-            'res_model': 'ca.punto_accesso_persona',
+            'res_model': 'ca.lettore_persona',
             'domain': [
                 ('date', '=', fields.date.today()),
                 ('ca_tag_lettore_id', 'in', self.ca_tag_lettore_ids.ids),
@@ -180,7 +180,7 @@ class CaPuntoAccesso(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'tree,form',
-            'res_model': 'ca.punto_accesso_persona',
+            'res_model': 'ca.lettore_persona',
             'domain': [('date', '=', fields.date.today())],
         }
 

@@ -1,10 +1,11 @@
 import base64
-from datetime import date
+from datetime import date, datetime
 
 from dateutil.relativedelta import relativedelta
 from odoo.addons.inrim_anagrafiche.tests.common import TestCommon
 from odoo.exceptions import UserError
 from odoo.tests import tagged
+from odoo import fields
 
 
 @tagged("post_install", "-at_install", "inrim")
@@ -139,11 +140,11 @@ class TestInrim(TestCommon):
         ca_tag_persona_id = self.env['ca.tag_persona'].create({
             'ca_persona_id': self.persona_6.id,
             'ca_tag_id': self.tag_2.id,
-            'date_start': date.today(),
-            'date_end': date.today() + relativedelta(days=3)
+            'date_start': fields.Datetime.now(),
+            'date_end': fields.Datetime.now() + relativedelta(days=3)
         })
-        self.assertTrue(
-            ca_tag_persona_id and ca_tag_persona_id.ca_tag_id.in_use)
+        self.assertTrue(ca_tag_persona_id)
+        self.assertTrue(ca_tag_persona_id.ca_tag_id.in_use)
 
     # Test 7
     def test_7(self):
@@ -158,15 +159,15 @@ class TestInrim(TestCommon):
         self.env['ca.tag_persona'].create({
             'ca_persona_id': self.persona_6.id,
             'ca_tag_id': self.tag_2.id,
-            'date_start': date.today(),
-            'date_end': date.today() + relativedelta(days=3)
+            'date_start': fields.Datetime.now(),
+            'date_end': fields.Datetime.now() + relativedelta(days=3)
         })
         with self.assertRaises(UserError):
             self.env['ca.tag_persona'].create({
                 'ca_persona_id': self.persona_6.id,
                 'ca_tag_id': self.tag_2.id,
-                'date_start': date.today(),
-                'date_end': date.today() + relativedelta(days=2)
+                'date_start': fields.Datetime.now(),
+                'date_end': fields.Datetime.now() + relativedelta(days=2)
             })
 
     # Test 8
@@ -183,8 +184,8 @@ class TestInrim(TestCommon):
             self.env['ca.tag_persona'].create({
                 'ca_persona_id': self.persona_6.id,
                 'ca_tag_id': self.tag_6.id,
-                'date_start': date.today(),
-                'date_end': date.today() + relativedelta(days=2)
+                'date_start': fields.Datetime.now(),
+                'date_end': fields.Datetime.now() + relativedelta(days=2)
             })
 
     # Test 9
@@ -202,6 +203,6 @@ class TestInrim(TestCommon):
             self.env['ca.tag_persona'].create({
                 'ca_persona_id': self.persona_6.id,
                 'ca_tag_id': self.tag_3.id,
-                'date_start': date.today(),
-                'date_end': date.today() + relativedelta(days=2)
+                'date_start': fields.Datetime.now(),
+                'date_end': fields.Datetime.now() + relativedelta(days=2)
             })

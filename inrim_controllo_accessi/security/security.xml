@@ -60,9 +60,9 @@
     </record>
 
     <!-- Punto Accesso Persona -->
-    <record id="inrim_utente_ca_punto_accesso_persona_rule" model="ir.rule">
-        <field name="name">INRIM Utente: Punto Accesso Persona</field>
-        <field name="model_id" ref="model_ca_punto_accesso_persona"/>
+    <record id="inrim_utente_ca_lettore_persona_rule" model="ir.rule">
+        <field name="name">INRIM Utente: Lettore Persona</field>
+        <field name="model_id" ref="model_ca_lettore_persona"/>
         <field name="global" eval="False"/>
         <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>
@@ -73,11 +73,11 @@
         <field name="active" eval="True"/>
     </record>
 
-    <record id="inrim_controllo_accesso_ca_punto_accesso_persona_rule"
+    <record id="inrim_controllo_accesso_ca_lettore_persona_rule"
             model="ir.rule">
-        <field name="name">INRIM Controllo Accesso: Punto Accesso Persona
+        <field name="name">INRIM Controllo Accesso: Lettore Persona
         </field>
-        <field name="model_id" ref="model_ca_punto_accesso_persona"/>
+        <field name="model_id" ref="model_ca_lettore_persona"/>
         <field name="global" eval="False"/>
         <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>
@@ -133,6 +133,33 @@
     <record id="inrim_controllo_accesso_ca_tag_lettore_rule" model="ir.rule">
         <field name="name">INRIM Controllo Accesso: Tag Lettore</field>
         <field name="model_id" ref="model_ca_tag_lettore"/>
+        <field name="global" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('controllo_accessi.ca_ca'))]"/>
+        <field name="active" eval="True"/>
+    </record>
+
+        <!-- Righe Accesso -->
+    <record id="inrim_utente_ca_righe_accesso_rule" model="ir.rule">
+        <field name="name">INRIM Utente: Righe Accesso</field>
+        <field name="model_id" ref="model_ca_righe_accesso"/>
+        <field name="global" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('controllo_accessi.ca_utente'))]"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="inrim_controllo_accesso_ca_righe_accesso_rule" model="ir.rule">
+        <field name="name">INRIM Controllo Accesso: Righe Accesso</field>
+        <field name="model_id" ref="model_ca_righe_accesso"/>
         <field name="global" eval="False"/>
         <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="True"/>

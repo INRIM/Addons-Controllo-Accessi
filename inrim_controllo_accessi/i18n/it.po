@@ -70,9 +70,9 @@ msgstr ""
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__active
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__active
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__active
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__active
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__active
-#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_punto_accesso_persona__state__active
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_lettore_persona__state__active
 msgid "Active"
 msgstr "Attivo"
 
@@ -118,13 +118,13 @@ msgstr "Automatica"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__ca_lettore_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__ca_lettore_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__ca_lettore_id
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__ca_lettore_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__ca_lettore_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__ca_lettore_id
 msgid "Ca Lettore"
 msgstr "Lettore"
 
 #. module: inrim_controllo_accessi
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__ca_persona_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__ca_persona_id
 msgid "Ca Persona"
 msgstr "Persona"
 
@@ -142,14 +142,14 @@ msgstr "Tag"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__ca_tag_lettore_ids
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__ca_tag_lettore_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__ca_tag_lettore_id
 msgid "Ca Tag Lettore"
 msgstr "Tag Lettore"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__ca_tag_persona_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__ca_tag_persona_ids
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__ca_tag_persona
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__ca_tag_persona
 msgid "Ca Tag Persona"
 msgstr "Tag Persona"
 
@@ -173,7 +173,7 @@ msgstr "Conferma"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__create_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__create_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__create_uid
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__create_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__create_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__create_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__create_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__create_uid
@@ -185,7 +185,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__create_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__create_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__create_date
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__create_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__create_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__create_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__create_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__create_date
@@ -201,7 +201,7 @@ msgid "Data fine deve essere maggiore della data di inizio"
 msgstr ""
 
 #. module: inrim_controllo_accessi
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__date
 msgid "Date"
 msgstr "Data"
 
@@ -263,7 +263,7 @@ msgstr "Disabilitati"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__display_name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__display_name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__display_name
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__display_name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__display_name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__display_name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__display_name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__display_name
@@ -341,7 +341,7 @@ msgstr "Numero Eventi Attesi"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__expired
-#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_punto_accesso_persona__state__expired
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_lettore_persona__state__expired
 msgid "Expired"
 msgstr "Scaduto"
 
@@ -365,7 +365,7 @@ msgstr "Posizione Sede:"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__id
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__id
@@ -413,7 +413,7 @@ msgstr "Ultimo Agg. Lettore"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__write_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__write_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__write_uid
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__write_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__write_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__write_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__write_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__write_uid
@@ -425,7 +425,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__write_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__write_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__write_date
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__write_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__write_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__write_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__write_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__write_date
@@ -582,13 +582,13 @@ msgid "Punto Accesso"
 msgstr ""
 
 #. module: inrim_controllo_accessi
-#: model:ir.model,name:inrim_controllo_accessi.model_ca_punto_accesso_persona
+#: model:ir.model,name:inrim_controllo_accessi.model_ca_lettore_persona
 msgid "Punto Accesso Persona"
 msgstr ""
 
 #. module: inrim_controllo_accessi
 #. odoo-python
-#: code:addons/inrim_controllo_accessi/models/ca_punto_accesso_persona.py:0
+#: code:addons/inrim_controllo_accessi/models/ca_lettore_persona.py:0
 #, python-format
 msgid ""
 "Puo’ esistere solo una configurazione per tag lettore, tag persona, data, in"
@@ -692,7 +692,7 @@ msgid "Stamping"
 msgstr "Timbratura"
 
 #. module: inrim_controllo_accessi
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_persona__state
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__state
 msgid "State"
 msgstr "Stato"
 
