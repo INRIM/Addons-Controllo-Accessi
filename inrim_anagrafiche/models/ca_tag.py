@@ -1,6 +1,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
+
 class CaProprietaTag(models.Model):
     _name = 'ca.proprieta_tag'
     _inherit = "ca.model.base.mixin"
@@ -20,8 +21,6 @@ class CaProprietaTag(models.Model):
                     raise UserError(
                         _('Data fine deve essere maggiore della data di inizio'))
 
-
-                
     def rest_boby_hint(self):
         return {
             "name": "Temporaneo"
@@ -44,6 +43,7 @@ class CaProprietaTag(models.Model):
             ])
         return body, msg
 
+
 class CaTag(models.Model):
     _name = 'ca.tag'
     _description = 'Tag'
@@ -55,27 +55,28 @@ class CaTag(models.Model):
     ca_proprieta_tag_ids = fields.Many2many('ca.proprieta_tag')
     in_use = fields.Boolean(readonly=True)
     active = fields.Boolean(default=True)
-    temp = fields.Boolean(compute="_compute_temp", store=True)
-    revoked = fields.Boolean(compute="_compute_revoked", store=True)
+    temp = fields.Boolean(compute="_compute_properties", store=True)
+    revoked = fields.Boolean(compute="_compute_properties", store=True)
+
+    def compute_properties(self):
+        record.revoked = False
+        record.temp = False
+        if record.ca_proprieta_tag_ids:
+            if self.env.ref(
+                    'inrim_anagrafiche.proprieta_tag_revocato') in record.ca_proprieta_tag_ids:
+                record.revoked = True
+        if record.ca_proprieta_tag_ids:
+            if self.env.ref(
+                    'inrim_anagrafiche.proprieta_tag_temporaneo') in record.ca_proprieta_tag_ids:
+                record.temp = True
 
     @api.depends('ca_proprieta_tag_ids')
-    def _compute_temp(self):
+    def _compute_properties(self):
         for record in self:
-            record.temp = False
-            if record.ca_proprieta_tag_ids:
-                if self.env.ref('inrim_anagrafiche.proprieta_tag_temporaneo') in record.ca_proprieta_tag_ids:
-                    record.temp = True
-
-    @api.depends('ca_proprieta_tag_ids')
-    def _compute_revoked(self):
-        for record in self:
-            record.revoked = False
-            if record.ca_proprieta_tag_ids:
-                if self.env.ref('inrim_anagrafiche.proprieta_tag_revocato') in record.ca_proprieta_tag_ids:
-                    record.revoked = True
+            record.compute_properties()
 
     @api.constrains('tag_code', 'active')
-    def _check_unique_fiscalcode(self):
+    def _check_unique_tag(self):
         for record in self:
             if record.tag_code:
                 tags = self.env['ca.tag'].with_context(

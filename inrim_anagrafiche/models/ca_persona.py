@@ -119,6 +119,18 @@ class CaPersona(models.Model):
     ca_tag_ids = fields.One2many('ca.tag_persona', 'ca_persona_id', readonly=True)
     active = fields.Boolean(default=True)
 
+    def get_current_tag(self):
+        tag = self.ca_tag_ids.filtered(
+            lambda t: not t.state == "to_give_back"
+        )
+        return tag
+
+    def set_tag_returned(self):
+        tag = self.ca_tag_ids.filtered(
+            lambda t: not t.state == "to_give_back"
+        )
+        tag.state = 'returned'
+
     @api.constrains('is_external', 'parent_id')
     def _check_external_and_parent_id(self):
         for record in self:

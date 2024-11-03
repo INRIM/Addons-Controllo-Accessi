@@ -50,49 +50,46 @@ class CaLettorePersona(models.Model):
 
     def elabora_persone(self, lettore_id):
         vals = []
-        punto_accesso_id = self.env['ca.punto_accesso'].search([
-            ('ca_lettore_id', '=', lettore_id.id)
+        ca_tag_lettore_ids = self.env['ca.tag_lettore'].search([
+            ('ca_lettore_id', '=', lettore_id.id),('expired', '=', False)
         ])
-        if punto_accesso_id:
-            for tag in punto_accesso_id.ca_tag_lettore_ids:
-                if tag.tag_in_use:
-                    today_start = fields.Datetime.today()
-                    today_end = fields.Datetime.now()
-                    tag_persona_id = self.env['ca.tag_persona'].search([
-                        ('ca_tag_id', '=', tag.ca_tag_id.id),
-                        ('date_start', '<=', today_start),
-                        ('date_end', '>=', today_start),
-                        ('state', "!=", "expired"),
-                    ], limit=1)
-                    old_punto_accesso_persona_id = self.env[
+        if ca_tag_lettore_ids:
+            for tag_lettore in ca_tag_lettore_ids:
+                now = fields.Datetime.now()
+                tag_persona_id = self.env['ca.tag_persona'].search([
+                    ('ca_tag_id', '=', tag_lettore.ca_tag_id.id),
+                    ('date_start', '<=', now),
+                    ('date_end', '>=', now)
+                ], limit=1)
+                old_lettore_persona_id = self.env[
+                    'ca.lettore_persona'
+                ].search([
+                    ('ca_tag_lettore_id', '=', tag.id),
+                    ('ca_tag_persona', '=', tag_persona_id.id),
+                    ('date_end', '<', now),
+                    ('state', '=', 'active')
+                ])
+                lettore_persona_id = self.env[
+                    'ca.lettore_persona'
+                ].search([
+                    ('ca_tag_lettore_id', '=', tag.id),
+                    ('ca_tag_persona', '=', tag_persona_id.id),
+                    ('date_start', '<=', now),
+                    ('date_end', '>=', now),
+                    ('state', '=', 'active')
+                ])
+                if old_lettore_persona_id and tag.temp:
+                    old_lettore_persona_id.state = 'expired'
+                if not lettore_persona_id:
+                    new_lettore_persona_id = self.env[
                         'ca.lettore_persona'
-                    ].search([
-                        ('ca_tag_lettore_id', '=', tag.id),
-                        ('ca_tag_persona', '=', tag_persona_id.id),
-                        ('date_end', '<', today_end),
-                        ('state', '=', 'active')
-                    ])
-                    punto_accesso_persona_id = self.env[
-                        'ca.lettore_persona'
-                    ].search([
-                        ('ca_tag_lettore_id', '=', tag.id),
-                        ('ca_tag_persona', '=', tag_persona_id.id),
-                        ('date_start', '<=', today_start),
-                        ('date_end', '>=', today_end),
-                        ('state', '=', 'active')
-                    ])
-                    if old_punto_accesso_persona_id and tag.temp:
-                        old_punto_accesso_persona_id.state = 'expired'
-                    if not punto_accesso_persona_id:
-                        new_punto_accesso_persona_id = self.env[
-                            'ca.lettore_persona'
-                        ].create({
-                            'ca_tag_lettore_id': tag.id,
-                            'ca_tag_persona': tag_persona_id.id,
-                            'date': fields.date.today(),
-                            'state': 'active'
-                        })
-                        vals.append(new_punto_accesso_persona_id)
+                    ].create({
+                        'ca_tag_lettore_id': tag.id,
+                        'ca_tag_persona': tag_persona_id.id,
+                        'date': fields.date.today(),
+                        'state': 'active'
+                    })
+                    vals.append(new_lettore_persona_id)
         return vals
 
     def elabora_persone_lettore(self, nome_lettore):

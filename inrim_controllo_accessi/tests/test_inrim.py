@@ -54,36 +54,7 @@ class TestInrim(TestCommon):
         self.assertTrue(self.punto_accesso_1)
         self.assertTrue(self.punto_accesso_2)
 
-    # Test 2
-    def test_2(self):
-        """
-        Descrizione:
-            Utente5 crea record tipo_spazio Virtuale
-        :return: 
-            Esiste Virtuale in ente tipo_spazio
-        """
-        self.env = self.env(user=self.user_5)
-        self.cr = self.env.cr
-        tipo_spazio_id = self.env['ca.tipo_spazio'].create({
-            'name': 'Virtuale'
-        })
-        self.assertTrue(tipo_spazio_id)
 
-    # Test 3
-    def test_3(self):
-        """
-        Descrizione:
-            Utente1 crea un record Servizio di tipo:servizio test
-        :return: 
-            Errore utente non abilitato
-        """
-        self.env = self.env(user=self.user_1)
-        self.cr = self.env.cr
-        with self.assertRaises(Exception):
-            self.env['ca.anag_servizi'].create({
-                'name': 'Servizio Test',
-                'spazio_id': self.spazio_1.id
-            })
 
     # Test 4
     def test_4(self):

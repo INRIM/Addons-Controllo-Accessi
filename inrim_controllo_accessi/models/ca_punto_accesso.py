@@ -1,6 +1,5 @@
 from datetime import datetime
 
-import pytz
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
@@ -43,16 +42,18 @@ class CaPuntoAccesso(models.Model):
     date_end = fields.Date(required=True, default=lambda self: self.default_date_end())
     ca_tag_lettore_ids = fields.One2many(
         'ca.tag_lettore', 'ca_punto_accesso_id')
+    ca_tag_lettore_persona_ids = fields.One2many(
+        'ca.lettore_persona', 'ca_lettore_id')
     remote_update = fields.Boolean(readonly=True)
     active = fields.Boolean(default=True)
     recursive_read_events = fields.Boolean(string='Recursive Read Events', default=False)
     tz = fields.Selection(
         related='ente_azienda_id.tz', store=True, string="Timezone", readonly=True)
 
-    #TODO: typology = stamping carica sul lettore tutti i TAG e lavora solo TAG <-> Persona
+    # TODO: typology = stamping carica sul lettore tutti i TAG e lavora solo TAG <-> Persona
     #      ( se persona ospite o tag jlly) se tag viene restituito il Tag.in_suo = False
-    #TODO: typology = local_access associa un tag al lettore e lo disassocia e aggiorna il flag enable_sync
-    #TODO: Aggiungere la categoria per raggruppare i Punti Accesso
+    # TODO: typology = local_access associa un tag al lettore e lo disassocia e aggiorna il flag enable_sync
+    # TODO: Aggiungere la categoria per raggruppare i Punti Accesso
 
     @api.constrains('date_start', 'date_end')
     def _check_date(self):
@@ -158,6 +159,86 @@ class CaPuntoAccesso(models.Model):
                 record.enable_sync = False
             else:
                 record.enable_sync = True
+                self.stamping_attach()
+
+    def local_access_detach(self, persona):
+        """
+        Rimuovo Lettore-Persona
+        Impost Tag_persona --> restituito o scaduto
+        rimuove link tag - lettore
+        sync
+        """
+        persona.set_tag_returned()
+        lettore_persona = self.ca_tag_lettore_persona_ids.filtered(
+            lambda x: x.ca_persona_id.id == persona.id
+        )
+        lettore_persona.ca_tag_lettore_id.unlink()
+        lettore_persona.unlink()
+
+    def local_access_attach(self, tag):
+        """
+        Aggiungo Tag - Lettore
+        Aggiungo Tag-Persona --> Da restituire
+        Aggiungo Lettore-Persona
+        :return:
+        """
+        self.ensure_one()
+        tag_lettore = self.env['ca.tag_lettore'].search(
+            [('ca_tag_id', '=', tag)], limit=1)
+        if not tag_lettore:
+            self.env['ca.tag_lettore'].create({
+                'ca_lettore_id': self.lettore_id.id,
+                'ca_tag_id': tag.id,
+                'date_start': self.date_start,
+                'date_end': self.date_end,
+                'punto_accesso_id': self.id
+            })
+        self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
+
+    def stamping_detach(self, persona):
+        """
+        Impost Tag_persona --> restituito o scaduto
+        Rimuovo Lettore-Persona
+
+        :return:
+        """
+        tag = persona.get_current_tag()
+        lettore_persona = self.ca_tag_lettore_persona_ids.filtered(
+            lambda x: x.ca_persona_id.id == persona.id
+        )
+        lettore_persona.expired = True
+        lettore_persona.active = False
+
+    def stamping_attach(self):
+        """
+        Caso di punto accesso timbratura generale
+        - estraggo tutti i tag validi
+        - se il tag non e' collegato ad un lettore lo collego ( questo attiva il flag di sync)
+        - aggiorno l'elenco delle persone collegate al lettore e quindi al punto accesso
+        :return:
+        """
+        self.ensure_one()
+        tags = self.env['ca.tag'].search([
+            ('name', 'in', [self.env.ref('inrim_anagrafiche.proprieta_tag_valido')])
+        ])
+        for tag in tags:
+            tag_lettore = self.env['ca.tag_lettore'].search(
+                [('ca_tag_id', '=', tag.id)], limit=1)
+            if not tag_lettore:
+                self.env['ca.tag_lettore'].create({
+                    'ca_lettore_id': self.lettore_id.id,
+                    'ca_tag_id': tag.id,
+                    'date_start': self.date_start,
+                    'date_end': self.date_end,
+                    'punto_accesso_id': self.id
+                })
+        self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
+
+    def check_and_attach(self):
+        if self.typology == 'stamping':
+            self.stamping_attach_tags_readers()
+        elif self.typology == 'local_access':
+            self.local_access_attach()
 
     def sposta_punto_accesso(self, ca_spazio_id):
         self.active = False

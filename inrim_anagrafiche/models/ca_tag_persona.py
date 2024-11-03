@@ -25,7 +25,7 @@ class CaTagPersona(models.Model):
         [
             ('to_give_back', 'To Give Back'),
             ('returned', 'Returned'),
-        ],
+        ], default='returned',
         string='State', readonly=True)
     available_tags_ids = fields.Many2many('ca.tag', compute="_compute_available_tags")
     active = fields.Boolean(default=True)
