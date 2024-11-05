@@ -21,6 +21,8 @@ class TestCommon(TransactionCase):
             'inrim_anagrafiche.tipo_ente_azienda_sede_distaccata')
         cls.ente_azienda_1 = cls.env.ref(
             'inrim_anagrafiche.inrim_demo_ca_ente_azienda_1')
+        cls.punto_accesso_1 = cls.env.ref(
+            'inrim_controllo_accessi.ca_punto_accesso_1p001')
         # Parametri di sistema
         cls.service_reader_jwt = cls.env[
             'ir.config_parameter'

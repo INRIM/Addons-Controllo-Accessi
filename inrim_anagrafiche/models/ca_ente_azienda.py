@@ -1,5 +1,14 @@
+import pytz
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
+
+_tzs = [(tz, tz) for tz in sorted(pytz.all_timezones,
+                                  key=lambda tz: tz if not tz.startswith(
+                                      'Etc/') else '_')]
+
+
+def _tz_get(self):
+    return _tzs
 
 
 class CaEnteAzienda(models.Model):
@@ -57,6 +66,13 @@ class CaEnteAzienda(models.Model):
     note = fields.Text()
     company_id = fields.Many2one('res.company')
     ca_persona_ids = fields.Many2many('ca.persona', string='People')
+    tz = fields.Selection(
+        _tz_get, string='Timezone',
+        default=lambda self: self._context.get('tz'),
+        help="When printing documents and exporting/importing data, time values are computed according to this timezone.\n"
+             "If the timezone is not set, UTC (Coordinated Universal Time) is used.\n"
+             "Anywhere else, time values are computed according to the time offset of your web client."
+    )
 
     @api.depends("state_id", "country_id", "city_id", "zip")
     def _compute_zip_id(self):
@@ -176,7 +192,8 @@ class CaEnteAzienda(models.Model):
             "lock": type(False),
             "url_gateway_lettori": "In base al sistema",
             "nome_chiave_header": "In base al sistema",
-            "jwt": "In base al sistema"
+            "jwt": "In base al sistema",
+            "tz": "Europe/Rome"
         }
 
     def rest_get_record(self):
@@ -204,7 +221,7 @@ class CaEnteAzienda(models.Model):
             'ca_persona_ids': self.f_m2m(self.ca_persona_ids),
             'ref': self.ref,
             'lock': self.lock,
-
+            "tz": self.tz
         }
         if self.env.user.has_group('controllo_accessi.ca_tech'):
             ca_tech_vals = {

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="view_ldap_installer_inrim_form_upd">
+        <field name="name">Add populate button to ldap view</field>
+        <field name="model">res.company.ldap</field>
+        <field name="inherit_id" ref="auth_ldap.view_ldap_installer_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user']" position="replace">
+                <field name="user" context="{'active_test':False}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

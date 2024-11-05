@@ -11,6 +11,16 @@ class InrimApiPersona(InrimApiController):
         self.check_token(model, 'read')
         return self.handle_response(
             *self.model.rest_get(params), is_list=True)
+
+    @http.route('/api/pesona', auth="none", type='http', methods=['POST'],
+                csrf=False)
+    def api_post_persona(self):
+        self.check_token('ca.persona', 'create')
+        data = self.check_and_decode_body()
+        try:
+            return self.handle_response(*self.model.rest_post(data))
+        except Exception as e:
+            raise BadRequest(str(e))
     
 class InrimApiTipoPersona(InrimApiController):
 

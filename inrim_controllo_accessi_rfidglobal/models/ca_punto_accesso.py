@@ -1,7 +1,6 @@
 from pathlib import Path
 
-from dateutil import parser
-from odoo import models
+from odoo import models, api
 
 from .Max5010_rfid_lib import *
 
@@ -34,7 +33,8 @@ class CaPuntoAccesso(models.Model):
             self.ca_lettore_id.reader_ip,
             self.ente_azienda_id.url_gateway_lettori or "http://local-host",
             self.ente_azienda_id.nome_chiave_header or "authtoken",
-            self.ente_azienda_id.jwt or "key"
+            self.ente_azienda_id.jwt or "key",
+            self.tz
         )
         try:
             with self.env.cr.savepoint():
@@ -42,13 +42,20 @@ class CaPuntoAccesso(models.Model):
                     return reader
                 reader.connect()
                 vals = {}
-                vals['device_id'] = reader.device.info.deviceId
-                vals['mode'] = reader.device.info.mode
-                vals['mode_type'] = reader.device.info.modeCode
-                vals['type'] = reader.device.info.readerType
-                vals['available_events'] = reader.device.diagnostic.event_cnt
-                if not reader.device.status:
+                if reader.online:
+                    vals['device_id'] = reader.device.info.deviceId
+                    vals['mode'] = reader.device.info.mode
+                    vals['mode_type'] = reader.device.info.modeCode
+                    vals['type'] = reader.device.info.readerType
+                    vals['available_events'] = reader.device.diagnostic.event_cnt
+                    vals['system_error'] = False
+                else:
                     vals['system_error'] = True
+                    vals['device_id'] = ""
+                    vals['mode'] = ""
+                    vals['mode_type'] = ""
+                    vals['type'] = ""
+                    vals['available_events'] = 0
                 self.ca_lettore_id.write(vals)
         except Exception as e:
             logger.info(f"Error: {e}", exc_info=True)
@@ -58,8 +65,25 @@ class CaPuntoAccesso(models.Model):
             return reader
 
     def update_reader_clock(self):
+        self.ensure_one()
+        if not self.enable_sync:
+            logger.info(f"Punto accesso non abilitato")
+            return False
         reader = self.load_reader()
-        reader.update_clock()
+        ret = False
+        if not reader.online:
+            logger.error("Reader is OFFLINE")
+            return False
+        try:
+            with self.env.cr.savepoint():
+                res: ActionResponse = reader.update_clock()
+                ret = res.result
+        except Exception as e:
+            logger.error(f"Error: {e}", exc_info=True)
+            self.write_log(
+                f"UPDATECLOCK", self.ca_lettore_id, msg="Error in updating clock")
+        finally:
+            return ret
 
     def get_tags_boby(self) -> dict:
         timezone_table = self.env[
@@ -93,10 +117,12 @@ class CaPuntoAccesso(models.Model):
 
     def update_reader_tags(self):
         self.ensure_one()
-        reader = self.load_reader()
-        if not self.remote_update or not self.enable_sync or not reader.online:
+        if not self.remote_update or not self.enable_sync:
+            logger.info(f"No Tags to update for reader")
             return False
-        if reader.device.diagnostic.event_cnt > 0:
+        reader = self.load_reader()
+        if not reader.online:
+            logger.error("Reader is OFFLINE")
             return False
         body = self.get_tags_boby()
         activity_code = self.get_code_activity("ADDTAGS")
@@ -107,11 +133,13 @@ class CaPuntoAccesso(models.Model):
                 if not res.result:
                     msg = f'update_tags, {self.name} Result: {res.result}, hint: check events numebr'
                     logger.error(msg)
-                    self.system_error = True
                     self.write_log(
                         activity_code, self.ca_lettore_id.id, msg=msg
                     )
-                self.last_update_reader = datetime.now()
+                else:
+                    self.last_update_reader = datetime.now()
+                    self.remote_update = False
+
                 return activity_code
         except Exception as e:
             msg = f'update_tags, {e}'
@@ -123,8 +151,11 @@ class CaPuntoAccesso(models.Model):
 
     def save_events_to_json(self):
         self.ensure_one()
+        if not self.enable_sync:
+            return False
         reader = self.load_reader()
-        if not self.enable_sync or not reader.online:
+        if not reader.online:
+            logger.error("Reader is OFFLINE")
             return False
         activity_code = self.get_code_activity("READEVNT")
         logger.info(f"Start save events from Reader, CodAtt: {activity_code}")
@@ -151,7 +182,6 @@ class CaPuntoAccesso(models.Model):
                 self.last_reading_events = datetime.now()
                 self.events_read_num = count
                 return activity_code
-
         except Exception as e:
             msg = f'Exception in events_save_json: {activity_code}: Err: , {e}'
             logger.exception(msg)
@@ -166,7 +196,7 @@ class CaPuntoAccesso(models.Model):
             with self.env.cr.savepoint():
                 logger.info(f"Decode data from file Task:{code} - File: {file_path}")
                 events: EventsResponse = Max5010RfidClient.load_events_from_file(
-                    file_path)
+                    file_path, self.tz)
                 riga_accesso_model = self.env['ca.anag_registro_accesso']
                 if events.eventRecords:
                     for record in events.eventRecords:
@@ -180,9 +210,10 @@ class CaPuntoAccesso(models.Model):
                             if tag_persona:
                                 riga_accesso_model.aggiungi_riga_accesso(
                                     self, tag_persona,
-                                    parser.parse(record.eventDateTime),
+                                    record.eventDateTime_to_utc(),
                                     type="auto",
-                                    access_allowed=record.accessAllowed
+                                    access_allowed=record.accessAllowed,
+                                    tz=self.tz
                                 )
                                 return True
                             else:
@@ -237,33 +268,38 @@ class CaPuntoAccesso(models.Model):
         logger.info(
             f"Complete all tasks for Job events_process_todo: Found: {found} files, {done} done, {skip} skipped, {err} error")
 
-    # super methods
-    def check_readers(self):
-        res = super().check_readers()
-        for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
-            point.load_reader()
-        return True
-
+    @api.model
     def load_readers_data(self):
         res = super().load_readers_data()
-        for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
-            point.save_events_to_json()
-        return True
+        with self.env.cr.savepoint():
+            for point in self.env['ca.punto_accesso'].search(
+                    [('enable_sync', '=', True)]):
+                point.save_events_to_json()
+            return True
 
+    @api.model
     def eval_readers_data(self):
         res = super().eval_readers_data()
-        for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
-            point.events_process_todo()
-        return True
+        with self.env.cr.savepoint():
+            for point in self.env['ca.punto_accesso'].search(
+                    [('enable_sync', '=', True)]):
+                point.events_process_todo()
+            return True
 
+    @api.model
     def update_readers_data(self):
         res = super().update_readers_data()
-        for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
-            point.update_reader_tags()
-        return True
+        with self.env.cr.savepoint():
+            for point in self.env['ca.punto_accesso'].search(
+                    [('enable_sync', '=', True)]):
+                point.update_reader_tags()
+            return True
 
+    @api.model
     def update_clock(self):
         res = super().update_clock()
-        for point in self.env['ca.punto_accesso'].search([('enable_sync', '=', True)]):
-            point.update_reader_clock()
-        return True
+        with self.env.cr.savepoint():
+            for point in self.env['ca.punto_accesso'].search(
+                    [('enable_sync', '=', True)]):
+                point.update_reader_clock()
+            return True

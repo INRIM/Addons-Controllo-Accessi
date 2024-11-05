@@ -9,6 +9,7 @@
     ],
     'data': [
         'data/ir_config_parameter_data.xml',
+        'data/ir_cron.xml',
         'views/ente_azienda_views.xml',
         'views/ca_tag_views.xml',
     ],

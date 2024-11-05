@@ -1,6 +1,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
+
 class CaProprietaTag(models.Model):
     _name = 'ca.proprieta_tag'
     _inherit = "ca.model.base.mixin"
@@ -19,7 +20,7 @@ class CaProprietaTag(models.Model):
                 if record.date_end <= record.date_start:
                     raise UserError(
                         _('Data fine deve essere maggiore della data di inizio'))
-                
+
     def rest_boby_hint(self):
         return {
             "name": "Temporaneo"
@@ -42,6 +43,7 @@ class CaProprietaTag(models.Model):
             ])
         return body, msg
 
+
 class CaTag(models.Model):
     _name = 'ca.tag'
     _description = 'Tag'
@@ -53,24 +55,44 @@ class CaTag(models.Model):
     ca_proprieta_tag_ids = fields.Many2many('ca.proprieta_tag')
     in_use = fields.Boolean(readonly=True)
     active = fields.Boolean(default=True)
-    temp = fields.Boolean(compute="_compute_temp", store=True)
-    revoked = fields.Boolean(compute="_compute_revoked", store=True)
+    temp = fields.Boolean(compute="_compute_properties", store=True)
+    revoked = fields.Boolean(compute="_compute_properties", store=True)
+
+    def compute_properties(self):
+        self.ensure_one()
+        self.revoked = False
+        self.temp = False
+        if self.ca_proprieta_tag_ids:
+            if self.env.ref(
+                    'inrim_anagrafiche.proprieta_tag_revocato') in self.ca_proprieta_tag_ids:
+                self.revoked = True
+        if self.ca_proprieta_tag_ids:
+            if self.env.ref(
+                    'inrim_anagrafiche.proprieta_tag_temporaneo') in self.ca_proprieta_tag_ids:
+                self.temp = True
 
     @api.depends('ca_proprieta_tag_ids')
-    def _compute_temp(self):
+    def _compute_properties(self):
         for record in self:
-            record.temp = False
-            if record.ca_proprieta_tag_ids:
-                if self.env.ref('inrim_anagrafiche.proprieta_tag_temporaneo') in record.ca_proprieta_tag_ids:
-                    record.temp = True
+            record.compute_properties()
 
-    @api.depends('ca_proprieta_tag_ids')
-    def _compute_revoked(self):
+    @api.constrains('tag_code', 'active')
+    def _check_unique_tag(self):
         for record in self:
-            record.revoked = False
-            if record.ca_proprieta_tag_ids:
-                if self.env.ref('inrim_anagrafiche.proprieta_tag_revocato') in record.ca_proprieta_tag_ids:
-                    record.revoked = True
+            if record.tag_code:
+                tags = self.env['ca.tag'].with_context(
+                    active_test=False).search(
+                    [
+                        ('id', '!=', record.id),
+                        ('tag_code', '=', record.tag_code)
+                    ]
+                )
+                if tags:
+                    msg = f'Esiste già questo Tag: {record.tag_code}'
+                    if not record.active:
+                        msg = f"{record.tag_code} Risulta disattivato, riattivare per utilizzare"
+                    raise UserError(
+                        _(msg))
 
     def rest_boby_hint(self):
         return {

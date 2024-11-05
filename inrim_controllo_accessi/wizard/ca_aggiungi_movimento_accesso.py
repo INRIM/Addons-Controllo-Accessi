@@ -7,8 +7,8 @@ class CaAggiungiMovimentoAccesso(models.TransientModel):
     ca_ente_azienda_id = fields.Many2one('ca.ente_azienda', string="Position")
     ca_punto_accesso = fields.Many2one('ca.punto_accesso', required=True)
     ca_tag_persona_id = fields.Many2one('ca.tag_persona', required=True)
-    ca_tag_persona_ids = fields.Many2many('ca.tag_persona', 
-                                        compute="_compute_ca_tag_persona_ids",
+    ca_tag_persona_ids = fields.Many2many(
+        'ca.tag_persona', compute="_compute_ca_tag_persona_ids",
                                         store=True)
     datetime = fields.Datetime(required=True, default=lambda self:fields.datetime.now())
     type = fields.Selection([

@@ -14,8 +14,10 @@ class CaPuntoAccesso(models.Model):
                                    ondelete='cascade')
     tipo_spazio_id = fields.Many2one(related='ca_spazio_id.tipo_spazio_id',
                                      string="Position Type")
-    ente_azienda_id = fields.Many2one(related='ca_spazio_id.ente_azienda_id',
-                                      string="Headquarters Location")
+    ente_azienda_id = fields.Many2one(
+        related='ca_spazio_id.ente_azienda_id',
+        string="Headquarters Location"
+    )
     ca_lettore_id = fields.Many2one('ca.lettore', required=True)
     system_error = fields.Boolean(related="ca_lettore_id.system_error", store=True,
                                   string="Reader Error")
@@ -38,10 +40,20 @@ class CaPuntoAccesso(models.Model):
     )
     date_start = fields.Date(required=True)
     date_end = fields.Date(required=True, default=lambda self: self.default_date_end())
-    ca_tag_lettore_ids = fields.One2many('ca.tag_lettore', 'ca_punto_accesso_id')
+    ca_tag_lettore_ids = fields.One2many(
+        'ca.tag_lettore', 'ca_punto_accesso_id')
+    ca_tag_lettore_persona_ids = fields.One2many(
+        'ca.lettore_persona', 'ca_lettore_id')
     remote_update = fields.Boolean(readonly=True)
     active = fields.Boolean(default=True)
     recursive_read_events = fields.Boolean(string='Recursive Read Events', default=False)
+    tz = fields.Selection(
+        related='ente_azienda_id.tz', store=True, string="Timezone", readonly=True)
+
+    # TODO: typology = stamping carica sul lettore tutti i TAG e lavora solo TAG <-> Persona
+    #      ( se persona ospite o tag jlly) se tag viene restituito il Tag.in_suo = False
+    # TODO: typology = local_access associa un tag al lettore e lo disassocia e aggiorna il flag enable_sync
+    # TODO: Aggiungere la categoria per raggruppare i Punti Accesso
 
     @api.constrains('date_start', 'date_end')
     def _check_date(self):
@@ -66,7 +78,7 @@ class CaPuntoAccesso(models.Model):
                 fields.datetime.now().strftime('%Y-%m-%d 23:59:59')),
             ('ca_lettore_id', '=', self.ca_lettore_id.id),
             ('access_allowed', '=', False)
-        ], order="person_lastname, datetime_event asc")
+        ], order="person_display_name, datetime_event asc")
         return {
             'name': _('Accessi Rifiutati Oggi'),
             'type': 'ir.actions.act_window',
@@ -85,7 +97,7 @@ class CaPuntoAccesso(models.Model):
                 'datetime_event', '<=',
                 fields.datetime.now().strftime('%Y-%m-%d 23:59:59')),
             ('ca_lettore_id', '=', self.ca_lettore_id.id)
-        ], order="person_lastname, datetime_event asc")
+        ], order="person_display_name, datetime_event asc")
         return {
             'name': _('Accessi Oggi'),
             'type': 'ir.actions.act_window',
@@ -98,8 +110,9 @@ class CaPuntoAccesso(models.Model):
     def elabora_persone_abilitate(self):
         for record in self:
             self.env[
-                'ca.punto_accesso_persona'
-            ].elabora_persone_lettore(record.ca_lettore_id.name)
+                'ca.lettore_persona'
+            ].elabora_persone(record.ca_lettore_id)
+        return True
 
     def elabora_persone_abilitate_view(self):
         self.elabora_persone_abilitate()
@@ -108,7 +121,7 @@ class CaPuntoAccesso(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'tree,form',
-            'res_model': 'ca.punto_accesso_persona',
+            'res_model': 'ca.lettore_persona',
             'domain': [
                 ('date', '=', fields.date.today()),
                 ('ca_tag_lettore_id', 'in', self.ca_tag_lettore_ids.ids),
@@ -147,6 +160,98 @@ class CaPuntoAccesso(models.Model):
                 record.enable_sync = False
             else:
                 record.enable_sync = True
+                self.check_and_attach()
+
+    def local_access_detach(self, persona):
+        """
+        Rimuovo Lettore-Persona
+        Impost Tag_persona --> restituito o scaduto
+        rimuove link tag - lettore
+        sync
+        """
+        persona.set_tag_returned()
+        lettore_persona = self.ca_tag_lettore_persona_ids.filtered(
+            lambda x: x.ca_persona_id.id == persona.id
+        )
+        lettore_persona.ca_tag_lettore_id.detach()
+        lettore_persona.unlink()
+        self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
+
+    def local_access_attach(self, tag):
+        """
+        Deve esistere un record Tag/Persona
+        Aggiungo Tag - Lettore
+        Aggiungo Tag-Persona --> Da restituire
+        Aggiungo Lettore-Persona
+        :return:
+        """
+        self.ensure_one()
+        tag_persona_id = self.env['ca.tag_persona'].get_current_by_tag(tag)
+        if tag_persona_id:
+            tag_lettore = self.env['ca.tag_lettore'].search(
+                [
+                    ('ca_tag_id', '=', tag.id),
+                    ('ca_lettore_id', "=", self.ca_lettore_id.id)
+                ], limit=1)
+            if not tag_lettore:
+                self.env['ca.tag_lettore'].create({
+                    'ca_lettore_id': self.ca_lettore_id.id,
+                    'ca_tag_id': tag.id,
+                    'date_start': self.date_start,
+                    'date_end': self.date_end,
+                    'ca_punto_accesso_id': self.id
+                })
+            self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
+            return True
+        return False
+
+    def stamping_detach(self, persona):
+        """
+        Impost Tag_persona --> restituito o scaduto
+        Rimuovo Lettore-Persona
+
+        :return:
+        """
+        tag = persona.get_current_tag()
+        lettore_persona = self.ca_tag_lettore_persona_ids.filtered(
+            lambda x: x.ca_persona_id.id == persona.id
+        )
+        lettore_persona.expired = True
+        lettore_persona.active = False
+        self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
+
+    def stamping_attach(self):
+        """
+        Caso di punto accesso timbratura generale
+        - estraggo tutti i tag validi
+        - se il tag non e' collegato ad un lettore lo collego ( questo attiva il flag di sync)
+        - aggiorno l'elenco delle persone collegate al lettore e quindi al punto accesso
+        :return:
+        """
+        self.ensure_one()
+        tags = self.env['ca.tag'].search([
+            ('name', 'in', [self.env.ref('inrim_anagrafiche.proprieta_tag_valido')])
+        ])
+        for tag in tags:
+            tag_lettore = self.env['ca.tag_lettore'].search(
+                [
+                    ('ca_tag_id', '=', tag.id),
+                    ('ca_lettore_id', "=", self.ca_lettore_id.id)
+                ], limit=1)
+            if not tag_lettore:
+                self.env['ca.tag_lettore'].create({
+                    'ca_lettore_id': self.ca_lettore_id.id,
+                    'ca_tag_id': tag.id,
+                    'date_start': self.date_start,
+                    'date_end': self.date_end,
+                    'ca_punto_accesso_id': self.id
+                })
+
+        self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
+
+    def check_and_attach(self):
+        if self.typology == 'stamping':
+            self.stamping_attach()
 
     def sposta_punto_accesso(self, ca_spazio_id):
         self.active = False
@@ -154,8 +259,7 @@ class CaPuntoAccesso(models.Model):
             'ca_spazio_id': ca_spazio_id.id,
             'ca_lettore_id': self.ca_lettore_id.id,
             'typology': self.typology,
-            'ca_persona_id': self.ca_persona_id.id
-            if self.ca_persona_id else False,
+            'ca_persona_id': self.ca_persona_id.id if self.ca_persona_id else False,
             'last_update_reader': self.last_update_reader,
             'last_reading_events': self.last_reading_events,
             'events_to_read_num': self.events_to_read_num,
@@ -174,7 +278,7 @@ class CaPuntoAccesso(models.Model):
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'tree,form',
-            'res_model': 'ca.punto_accesso_persona',
+            'res_model': 'ca.lettore_persona',
             'domain': [('date', '=', fields.date.today())],
         }
 

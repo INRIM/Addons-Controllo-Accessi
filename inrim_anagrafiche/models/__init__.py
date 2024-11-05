@@ -9,5 +9,4 @@ from . import ca_tag_persona
 from . import ca_spazio
 from . import ca_codice_locale
 from . import ca_righe_persona
-from . import ca_righe_accesso
 from . import ca_stato_anag

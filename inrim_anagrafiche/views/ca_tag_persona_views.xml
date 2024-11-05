@@ -5,8 +5,10 @@
         <field name="model">ca.tag_persona</field>
         <field name="arch" type="xml">
             <search>
-                <filter string="Internal" name="internal" domain="[('ca_persona_id.type_ids', 'ilike', 'interno')]"/>
-                <filter string="External" name="external" domain="[('ca_persona_id.type_ids', 'ilike', 'esterno')]"/>
+                <filter string="Internal" name="internal"
+                        domain="[('ca_persona_id.type_ids', 'ilike', 'interno')]"/>
+                <filter string="External" name="external"
+                        domain="[('ca_persona_id.type_ids', 'ilike', 'esterno')]"/>
             </search>
         </field>
     </record>
@@ -19,14 +21,15 @@
                 <field name="token" column_invisible="1"/>
                 <field name="ca_persona_id" options="{'no_create': True}"/>
                 <field name="available_tags_ids" column_invisible="1"/>
-                <field 
-                    name="ca_tag_id" 
-                    options="{'no_create': True}" 
-                    domain="[('id', 'in', available_tags_ids)]"
+                <field
+                        name="ca_tag_id"
+                        options="{'no_create': True}"
+                        domain="[('id', 'in', available_tags_ids)]"
                 />
                 <field name="date_start"/>
                 <field name="date_end"/>
                 <field name="temp"/>
+                <field name="state" readonly="1"/>
             </tree>
         </field>
     </record>
@@ -40,12 +43,13 @@
                     <group>
                         <group>
                             <field name="token" invisible="1"/>
-                            <field name="ca_persona_id" options="{'no_create': True}"/>
+                            <field name="ca_persona_id"
+                                   options="{'no_create': True}"/>
                             <field name="available_tags_ids" invisible="1"/>
-                            <field 
-                                name="ca_tag_id" 
-                                options="{'no_create': True}" 
-                                domain="[('id', 'in', available_tags_ids)]"
+                            <field
+                                    name="ca_tag_id"
+                                    options="{'no_create': True}"
+                                    domain="[('id', 'in', available_tags_ids)]"
                             />
                         </group>
                         <group>

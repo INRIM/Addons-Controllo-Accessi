@@ -28,9 +28,9 @@
                             <field name="name" readonly="True"/>
                             <field name="ca_lettore_id" options="{'no_create': True}"/>
                             <field name="ca_tag_id" options="{'no_create': True}"/>
-                            <field 
-                                name="ca_punto_accesso_id" 
-                                options="{'no_create': True}" 
+                            <field
+                                name="ca_punto_accesso_id"
+                                options="{'no_create': True}"
                                 required="True"
                                 domain="[('ca_lettore_id', '=', ca_lettore_id)]"
                                 readonly="not ca_lettore_id"
@@ -91,6 +91,6 @@
     <record id="ca_tag_lettore_action" model="ir.actions.act_window">
         <field name="name">Reader Tag</field>
         <field name="res_model">ca.tag_lettore</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">tree,kanban,form</field>
     </record>
 </odoo>

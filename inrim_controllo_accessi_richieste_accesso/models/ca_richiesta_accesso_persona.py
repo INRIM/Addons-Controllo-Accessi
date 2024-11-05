@@ -94,7 +94,7 @@ class CaRichiestaAccessoPersona(models.Model):
     def _check_date(self):
         for record in self:
             if record.date_end and record.date_start:
-                if record.date_end <= record.date_start:
+                if record.date_end < record.date_start:
                     raise UserError(
                         _('Data fine deve essere maggiore della data di inizio'))
 

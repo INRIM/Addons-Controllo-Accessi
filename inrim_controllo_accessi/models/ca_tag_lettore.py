@@ -1,6 +1,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
+
 class CaTagLettore(models.Model):
     _name = 'ca.tag_lettore'
     _inherit = "ca.model.base.mixin"
@@ -13,9 +14,11 @@ class CaTagLettore(models.Model):
     date_start = fields.Date(required=True)
     date_end = fields.Date(required=True)
     temp = fields.Boolean(related='ca_tag_id.temp')
-    expired = fields.Boolean(compute="_compute_expired")
+    expired = fields.Boolean(compute="_compute_expired", store=True)
     active = fields.Boolean(default=True)
     ca_punto_accesso_id = fields.Many2one('ca.punto_accesso')
+    access_point_typology = fields.Selection(related="ca_punto_accesso_id.typology",
+                                             store=True)
 
     def rest_boby_hint(self):
         return {
@@ -75,6 +78,13 @@ class CaTagLettore(models.Model):
                 record.ca_punto_accesso_id.remote_update = True
         return super(CaTagLettore, self).unlink()
 
+    def detach(self):
+        self.ensure_one()
+        if self.ca_punto_accesso_id:
+            self.ca_punto_accesso_id.remote_update = True
+        self.expired = True
+        self.active = False
+
     @api.onchange('ca_lettore_id')
     def _onchange_ca_lettore_id(self):
         for record in self:
@@ -117,13 +127,15 @@ class CaTagLettore(models.Model):
             tag_lettore_id = self.env['ca.tag_lettore'].search([
                 ('id', '!=', record.id),
                 ('ca_lettore_id', '=', record.ca_lettore_id.id),
-                ('ca_tag_id', '=', record.ca_tag_id.id)
+                ('ca_tag_id', '=', record.ca_tag_id.id),
+                ('expired', '=', False),
+                ('active', '=', True)
             ])
             if tag_lettore_id:
                 raise UserError(_('Esiste già un tag lettore con stesso tag e lettore'))
-    
-    def collega_tag_lettore(self, nome_lettore, nome_tag, date_start, date_end):
-        if nome_lettore and nome_tag and date_start and date_end:
+
+    def collega_tag_lettore(self, nome_lettore, nome_tag, date_start="", date_end=""):
+        if nome_lettore and nome_tag:
             try:
                 lettore_id = self.env['ca.lettore'].search([
                     ('name', '=', nome_lettore)
@@ -131,12 +143,19 @@ class CaTagLettore(models.Model):
                 tag_id = self.env['ca.tag'].search([
                     ('name', '=', nome_tag)
                 ])
+                punto_accesso_id = self.env['ca.punto_accesso'].search([
+                    ('ca_lettore_id', '=', lettore_id.id)
+                ])
+                if not date_start and not date_end:
+                    date_start = punto_accesso_id.date_start
+                    date_end = punto_accesso_id.date_end
                 if lettore_id and tag_id:
                     tag_lettore_id = self.env['ca.tag_lettore'].create({
                         'ca_lettore_id': lettore_id.id,
                         'ca_tag_id': tag_id.id,
                         'date_start': date_start,
-                        'date_end': date_end
+                        'date_end': date_end,
+                        'punto_accesso_id': punto_accesso_id
                     })
                     return tag_lettore_id
                 else:

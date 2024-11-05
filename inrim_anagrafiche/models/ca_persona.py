@@ -24,9 +24,14 @@ class CaPersona(models.Model):
     birth_date = fields.Date(groups="controllo_accessi.ca_gdpr")
     birth_place = fields.Char(groups="controllo_accessi.ca_gdpr")
     istat_code = fields.Char(groups="controllo_accessi.ca_gdpr")
-    parent_id = fields.Many2one('ca.persona', string='Father Contact', index=True)
-    child_ids = fields.One2many('ca.persona', 'parent_id', string='Contact',
-                                domain=[('active', '=', True)])
+    parent_id = fields.Many2one(
+        'ca.persona', string='Reference person', index=True,
+        domain=[('is_internal', '=', True), ('is_structured', '=', True)]
+    )
+    child_ids = fields.One2many(
+        'ca.persona', 'parent_id', string='Contact',
+        domain=[('active', '=', True)]
+    )
     email = fields.Char()
     phone = fields.Char()
     mobile = fields.Char()
@@ -106,24 +111,50 @@ class CaPersona(models.Model):
     present = fields.Selection([
         ('yes', 'Yes'),
         ('no', 'No')
-    ], readonly=True)
+    ], default='no', readonly=True)
     uid = fields.Char()
     is_external = fields.Boolean(compute="_compute_bool", store=True)
     is_internal = fields.Boolean(compute="_compute_bool", store=True)
     is_structured = fields.Boolean(compute='_compute_is_structured', store=True)
+    ca_tag_ids = fields.One2many('ca.tag_persona', 'ca_persona_id', readonly=True)
     active = fields.Boolean(default=True)
+
+    def get_current_tag(self):
+        tag = self.ca_tag_ids.filtered(
+            lambda t: not t.state == "to_give_back"
+        )
+        return tag
+
+    def set_tag_returned(self):
+        tag = self.ca_tag_ids.filtered(
+            lambda t: not t.state == "to_give_back"
+        )
+        tag.state = 'returned'
+
+    @api.constrains('is_external', 'parent_id')
+    def _check_external_and_parent_id(self):
+        for record in self:
+            if record.is_external and not record.parent_id:
+                raise ValidationError(
+                    _("For External person Internal reference is required "))
 
     @api.constrains('fiscalcode', 'active')
     def _check_unique_fiscalcode(self):
         for record in self:
             if record.fiscalcode:
-                persona_id = self.env['ca.persona'].search([
-                    ('id', '!=', record.id),
-                    ('fiscalcode', '=', record.fiscalcode)
-                ])
+                persona_id = self.env['ca.persona'].with_context(
+                    active_test=False).search(
+                    [
+                        ('id', '!=', record.id),
+                        ('fiscalcode', '=', record.fiscalcode)
+                    ]
+                )
                 if persona_id:
+                    msg = f'Esiste già una persona con questo codice fiscale: {record.fiscalcode}'
+                    if not record.active:
+                        msg = f"{msg} la persona Risulta disattivata, riattivare per utilizzare"
                     raise UserError(
-                        _('Esiste già una persona con questo codice fiscale'))
+                        _(msg))
 
     @api.constrains('freshman', 'active')
     def _check_unique_freshman(self):
@@ -158,11 +189,14 @@ class CaPersona(models.Model):
         for record in self:
             record.is_external = False
             record.is_internal = False
-            if self.env.ref(
-                    'inrim_anagrafiche.tipo_persona_interno').id in record.type_ids.ids:
+            interno_id = self.env.ref('inrim_anagrafiche.tipo_persona_interno').id
+            esterno_id = self.env.ref('inrim_anagrafiche.tipo_persona_esterno').id
+            if interno_id in record.type_ids.ids:
                 record.is_internal = True
-            if self.env.ref(
-                    'inrim_anagrafiche.tipo_persona_esterno').id in record.type_ids.ids:
+            if (
+                    not interno_id in record.type_ids.ids or
+                    esterno_id in record.type_ids.ids
+            ):
                 record.is_external = True
 
     @api.depends('type_ids', 'type_ids.structured')
@@ -178,7 +212,7 @@ class CaPersona(models.Model):
         for record in self:
             record.display_name = False
             if record.name and record.lastname:
-                record.display_name = record.name + ' ' + record.lastname
+                record.display_name = f"{record.lastname} {record.name}"
 
     def default_ca_stato_anag_id(self):
         return self.env.ref('inrim_anagrafiche.ca_stato_anag_bozza').id
@@ -439,6 +473,7 @@ class CaPersona(models.Model):
             "name": "",
             "lastname": "",
             "fiscalcode": "",
+            "parent_id": "",
         }
 
     def rest_get_record(self):

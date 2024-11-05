@@ -3,6 +3,7 @@ from datetime import date, timedelta
 from dateutil.relativedelta import relativedelta
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
+from odoo import fields
 
 
 @tagged("post_install", "-at_install")
@@ -62,9 +63,16 @@ class TestCommon(TransactionCase):
         cls.tag_persona_1 = cls.env['ca.tag_persona'].create({
             'ca_persona_id': cls.persona_6.id,
             'ca_tag_id': cls.tag_8.id,
-            'date_start': date.today() - timedelta(days=1),
-            'date_end': date.today() + relativedelta(days=3)
+            'date_start': fields.Datetime.today() - timedelta(days=1),
+            'date_end': fields.Datetime.now() + relativedelta(days=3)
         })
-
+        cls.punto_accesso_3 = cls.env['ca.punto_accesso'].create({
+            'ca_spazio_id': cls.spazio_4.id,
+            'ca_lettore_id': cls.lettore_3.id,
+            'typology': 'local_access',
+            'enable_sync': False,
+            'date_start': date.today(),
+            'date_end': date.today() + relativedelta(days=30),
+        })
         cls.ente_azienda_1 = cls.env.ref(
             'inrim_anagrafiche.inrim_demo_ca_ente_azienda_1')
