@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
 
 class CaLettore(models.Model):
@@ -21,6 +21,24 @@ class CaLettore(models.Model):
     system_error = fields.Boolean(readonly=True)
     error_code = fields.Char(readonly=True)
     active = fields.Boolean(default=True)
+
+    @api.constrains('reader_ip', 'active')
+    def _check_unique_IP(self):
+        for record in self:
+            if record.reader_ip:
+                tags = self.env['ca.tag'].with_context(
+                    active_test=False).search(
+                    [
+                        ('id', '!=', record.id),
+                        ('tag_code', '=', record.reader_ip)
+                    ]
+                )
+                if tags:
+                    msg = f'Esiste già questo lettore con IP: {record.reader_ip}'
+                    if not record.active:
+                        msg = f"Lettore con IP{record.reader_ip} Risulta disattivato, riattivare per utilizzare"
+                    raise UserError(
+                        _(msg))
 
     def rest_boby_hint(self):
         return {

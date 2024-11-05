@@ -14,7 +14,7 @@ class CaTagLettore(models.Model):
     date_start = fields.Date(required=True)
     date_end = fields.Date(required=True)
     temp = fields.Boolean(related='ca_tag_id.temp')
-    expired = fields.Boolean(compute="_compute_expired")
+    expired = fields.Boolean(compute="_compute_expired", store=True)
     active = fields.Boolean(default=True)
     ca_punto_accesso_id = fields.Many2one('ca.punto_accesso')
     access_point_typology = fields.Selection(related="ca_punto_accesso_id.typology",
@@ -78,6 +78,13 @@ class CaTagLettore(models.Model):
                 record.ca_punto_accesso_id.remote_update = True
         return super(CaTagLettore, self).unlink()
 
+    def detach(self):
+        self.ensure_one()
+        if self.ca_punto_accesso_id:
+            self.ca_punto_accesso_id.remote_update = True
+        self.expired = True
+        self.active = False
+
     @api.onchange('ca_lettore_id')
     def _onchange_ca_lettore_id(self):
         for record in self:
@@ -120,7 +127,9 @@ class CaTagLettore(models.Model):
             tag_lettore_id = self.env['ca.tag_lettore'].search([
                 ('id', '!=', record.id),
                 ('ca_lettore_id', '=', record.ca_lettore_id.id),
-                ('ca_tag_id', '=', record.ca_tag_id.id)
+                ('ca_tag_id', '=', record.ca_tag_id.id),
+                ('expired', '=', False),
+                ('active', '=', True)
             ])
             if tag_lettore_id:
                 raise UserError(_('Esiste già un tag lettore con stesso tag e lettore'))

@@ -1,10 +1,11 @@
 from datetime import date, datetime, timedelta
 
 from dateutil.relativedelta import relativedelta
-from odoo.addons.inrim_controllo_accessi.tests.common import TestCommon
-from odoo.exceptions import UserError,ValidationError
-from odoo.tests import tagged
 from odoo import fields
+from odoo.addons.inrim_controllo_accessi.tests.common import TestCommon
+from odoo.exceptions import ValidationError
+from odoo.tests import tagged
+
 
 @tagged("post_install", "-at_install", "inrim")
 class TestInrim(TestCommon):
@@ -52,23 +53,21 @@ class TestInrim(TestCommon):
         self.assertTrue(self.tag_9)
         self.assertTrue(self.tag_persona_1)
         self.assertTrue(self.punto_accesso_1)
-        self.assertTrue(self.punto_accesso_2)
-
-
+        self.assertTrue(self.punto_accesso_3)
 
     # Test 4
     def test_4(self):
         """
         Descrizione:
-            Utente5 crea in Lettore → Lettore 3 IP:10.10.10.4
+            Utente5 crea in Lettore → Lettore 4 IP:10.10.10.5
         :return: 
-            Esiste Lettore 3
+            Esiste Lettore 4
         """
-        self.env = self.env(user=self.user_5)
-        self.cr = self.env.cr
-        lettore_id = self.env['ca.lettore'].create({
-            'name': 'Lettore 3',
-            'reader_ip': '10.10.10.4',
+
+        lettore_id = self.env['ca.lettore'].with_user(
+            self.user_5).create({
+            'name': 'Lettore 4',
+            'reader_ip': '10.10.10.5',
             'direction': 'in'
         })
         self.assertTrue(lettore_id)
@@ -81,11 +80,17 @@ class TestInrim(TestCommon):
         :return: 
             Esiste il nuovo punto di accesso
         """
-        self.env = self.env(user=self.user_1)
-        self.cr = self.env.cr
-        punto_accesso_id = self.env['ca.punto_accesso'].create({
+        lettore_id = self.env['ca.lettore'].with_user(
+            self.user_5).create({
+            'name': 'Lettore 5',
+            'reader_ip': '10.10.10.6',
+            'direction': 'out'
+        })
+
+        punto_accesso_id = self.env['ca.punto_accesso'].with_user(
+            self.user_1).create({
             'ca_spazio_id': self.spazio_8.id,
-            'ca_lettore_id': self.lettore_3.id,
+            'ca_lettore_id': lettore_id.id,
             'typology': 'stamping',
             'date_start': date.today(),
             'date_end': date.today() + relativedelta(days=30)
@@ -102,20 +107,22 @@ class TestInrim(TestCommon):
         :return: 
             Esistono i nuovi record validi
         """
-        self.env = self.env(user=self.user_1)
-        self.cr = self.env.cr
-        tag_persona_2 = self.env['ca.tag_persona'].create({
+        # self.env = self.env(user=self.user_1)
+        # self.cr = self.env.cr
+        tag_persona_2 = self.env['ca.tag_persona'].with_user(
+            self.user_1).create({
             'ca_persona_id': self.persona_1.id,
             'ca_tag_id': self.tag_7.id,
-            'date_start': date.today() - timedelta(days=1),
-            'date_end': date.today() + relativedelta(days=3)
+            'date_start': fields.Datetime.today() - timedelta(days=1),
+            'date_end': fields.Datetime.today() + relativedelta(days=3)
         })
         self.assertTrue(tag_persona_2)
-        tag_persona_3 = self.env['ca.tag_persona'].create({
+        tag_persona_3 = self.env['ca.tag_persona'].with_user(
+            self.user_1).create({
             'ca_persona_id': self.persona_2.id,
             'ca_tag_id': self.tag_8.id,
-            'date_start': date.today() - timedelta(days=1),
-            'date_end': date.today() + relativedelta(days=3)
+            'date_start': fields.Datetime.today() - timedelta(days=1),
+            'date_end': fields.Datetime.today() + relativedelta(days=3)
         })
         self.assertTrue(tag_persona_3)
 
@@ -137,69 +144,37 @@ class TestInrim(TestCommon):
             5. Si aggiornano i record in Lettore Persona
             6. E’ presente la timbratura in Registro Accesso
         """
-        self.env = self.env(user=self.user_1)
-        self.cr = self.env.cr
+        self.assertTrue(self.punto_accesso_2)
+
+        self.punto_accesso_2.commuta_abilitazione()
+
         # 1
-        ca_tag_lettore = self.env['ca.tag_lettore'].create({
-            'ca_lettore_id': self.lettore_3.id,
-            'ca_tag_id': self.tag_8.id,
-            'date_start': date.today() - timedelta(days=1),
-            'date_end': date.today() + relativedelta(days=3)
-        })
-        punto_accesso_id = self.env['ca.punto_accesso'].create({
-            'ca_spazio_id': self.spazio_3.id,
-            'ca_lettore_id': self.lettore_3.id,
-            'typology': 'stamping',
-            'enable_sync': False,
-            'date_start': date.today(),
-            'date_end': date.today() + relativedelta(days=30),
-            'ca_tag_lettore_ids': [(6, 0, [ca_tag_lettore.id])]
-        })
-        tag_persona_id = self.env['ca.tag_persona'].search([
-            ('ca_tag_id', '=', ca_tag_lettore.ca_tag_id.id)
+        ca_tag_lettore = self.env['ca.tag_lettore'].with_user(
+            self.user_1).search([
+            ('ca_lettore_id', "=", self.lettore_2.id),
+            ('ca_tag_id', "=", self.tag_8.id),
         ])
-        self.env['ca.lettore_persona'].create({
-            'ca_tag_lettore_id': ca_tag_lettore.id,
-            'ca_lettore_id': self.lettore_3.id,
-            'ca_tag_persona': tag_persona_id.id,
-            'date': date.today(),
-            'state': 'active'
-        })
-        self.assertTrue(punto_accesso_id)
 
-        # - Commentati da Alessio Gerace 23-10-2024
-        #
-        # with self.assertRaises(UserError):
-        #     self.env['ca.anag_registro_accesso'].aggiungi_riga_accesso(
-        #         punto_accesso_id, self.tag_persona_1, datetime.now())
-        # # 3
-        # self.env = self.env(user=self.user_4)
-        # self.cr = self.env.cr
-        # with self.assertRaises(UserError):
-        #     self.env['ca.anag_registro_accesso'].aggiungi_riga_accesso(
-        #         punto_accesso_id, self.tag_persona_1, datetime.now())
-        #
-        # - Commentati da Alessio Gerace 23-10-2024
-
-        # 4
-        self.env = self.env(user=self.user_1)
-        self.cr = self.env.cr
-        punto_accesso_id.commuta_abilitazione()
-        self.assertTrue(punto_accesso_id.enable_sync)
+        self.assertTrue(self.punto_accesso_2.enable_sync)
         # 5
-        punto_accesso_persona = self.env['ca.lettore_persona'].search([
+        tag_persona_id = self.env['ca.tag_persona'].with_user(
+            self.user_1).search([
+            ('ca_tag_id', '=', self.tag_8.id)
+        ])
+        self.assertTrue(tag_persona_id.ca_tag_id.id, self.tag_8.id)
+
+        lettore_persona = self.env['ca.lettore_persona'].with_user(
+            self.user_1).search([
             ('ca_tag_lettore_id', '=', ca_tag_lettore.id),
             ('ca_tag_persona', '=', tag_persona_id.id)
         ])
-        self.assertEqual(punto_accesso_persona.state, 'active')
-        punto_accesso_id.elabora_persone_abilitate()
-        self.assertEqual(punto_accesso_persona.state, 'active')
+
+        self.assertEqual(lettore_persona.state, 'active')
         # 6
-        self.env = self.env(user=self.user_4)
-        self.cr = self.env.cr
         anag_registro_accesso_id = self.env[
-            'ca.anag_registro_accesso'].aggiungi_riga_accesso(
-            punto_accesso_id, self.tag_persona_1, datetime.now())
+            'ca.anag_registro_accesso'].with_user(
+            self.user_1).aggiungi_riga_accesso(
+            self.punto_accesso_2, self.tag_persona_1, datetime.now())
         self.assertTrue(anag_registro_accesso_id)
 
     # Test 8
@@ -212,21 +187,69 @@ class TestInrim(TestCommon):
             1. Esiste il nuovo record
             2. Si aggiornano i record in Lettore Persona
         """
-        self.env = self.env(user=self.user_1)
-        self.cr = self.env.cr
+
+        self.punto_accesso_1.commuta_abilitazione()
         # 1
-        tag_persona = self.env['ca.tag_persona'].create({
+        tag_persona = self.env['ca.tag_persona'].with_user(
+            self.user_1).create({
             'ca_persona_id': self.persona_3.id,
             'ca_tag_id': self.tag_9.id,
-            'date_start': date.today() - timedelta(days=1),
-            'date_end': date.today() + relativedelta(days=3)
+            'date_start': fields.Datetime.today() - timedelta(days=1),
+            'date_end': fields.Datetime.today() + relativedelta(days=3)
         })
+
         self.assertTrue(tag_persona)
         # 2
-        self.assertFalse(self.punto_accesso_1.elabora_persone_abilitate())
-
+        self.assertTrue(self.punto_accesso_1.elabora_persone_abilitate())
 
     def test_9(self):
+        """
+        Descrizione:
+            Credo un punto accesso locale e provo ad attivare un tag senza averlo associato ad una persona
+
+        :return: non viene attivato il tag-lettore
+        """
+        self.punto_accesso_3.commuta_abilitazione()
+        self.assertFalse(self.punto_accesso_3.local_access_attach(self.tag_4))
+
+    def test_90(self):
+        """
+        Descrizione:
+            Credo Tag pesrona -> viene attivato il tag-lettore per l'accesso
+            Disattivo la pesrona -> viene disattivato il tag-lettore per l'accesso
+
+        :return:
+        """
+        # portineria consegns il tag e lo disassocia
+        tag_p = self.env['ca.tag_persona'].with_user(
+            self.user_1).create({
+            'ca_persona_id': self.persona_3.id,
+            'ca_tag_id': self.tag_9.id,
+            'date_start': fields.Datetime.today() - timedelta(days=1),
+            'date_end': fields.Datetime.today() + relativedelta(days=3)
+        })
+        tag_lettore = self.env['ca.tag_lettore'].search(
+            [
+                ('ca_tag_id', '=', self.tag_9.id),
+                ('ca_lettore_id', "=", self.lettore_3.id)
+            ], limit=1)
+        self.assertFalse(tag_lettore)
+        self.assertTrue(self.punto_accesso_3.local_access_attach(self.tag_9))
+        tag_lettore = self.env['ca.tag_lettore'].search(
+            [
+                ('ca_tag_id', '=', self.tag_9.id),
+                ('ca_lettore_id', "=", self.lettore_3.id)
+            ], limit=1)
+        self.assertTrue(tag_lettore)
+        self.assertTrue(self.punto_accesso_3.remote_update)
+        # portineria riprende il tag e lo disassocia
+        tag_p.set_retuned()
+        self.punto_accesso_3.remote_update = False
+        self.punto_accesso_3.local_access_detach(self.persona_3)
+        self.assertTrue(self.punto_accesso_3.remote_update)
+        self.assertFalse(self.punto_accesso_3.local_access_attach(self.tag_9))
+
+    def test_91(self):
         """
         Descrizione:
             Verifica che non si possano aggiungere 2 ingressi nello stesso giorno con differenza inferiore a ca.delta_min_riga_accesso
@@ -242,17 +265,20 @@ class TestInrim(TestCommon):
             'datetime_event': today
         }
         self.assertTrue(
-            self.env['ca.richiesta_riga_accesso_sede'].create(vals)
+            self.env['ca.richiesta_riga_accesso_sede'].with_user(
+                self.user_1).create(vals)
         )
         with self.assertRaises(ValidationError):
-            self.env['ca.richiesta_riga_accesso_sede'].create(vals)
+            self.env['ca.richiesta_riga_accesso_sede'].with_user(
+                self.user_1).create(vals)
         delta_min_riga_accesso = float(
             self.env[
                 'ir.config_parameter'
             ].sudo().get_param('ca.delta_min_riga_accesso', default=0.0)
         )
         self.assertTrue(
-            self.env['ca.richiesta_riga_accesso_sede'].create({
+            self.env['ca.richiesta_riga_accesso_sede'].with_user(
+                self.user_1).create({
                 'persona_id': self.persona_1.id,
                 'ente_azienda_id': self.ente_azienda_1.id,
                 'punto_accesso_id': self.punto_accesso_1.id,
@@ -261,7 +287,8 @@ class TestInrim(TestCommon):
             })
         )
         with self.assertRaises(ValidationError):
-            self.env['ca.richiesta_riga_accesso_sede'].create({
+            self.env['ca.richiesta_riga_accesso_sede'].with_user(
+                self.user_1).create({
                 'persona_id': self.persona_1.id,
                 'ente_azienda_id': self.ente_azienda_1.id,
                 'punto_accesso_id': self.punto_accesso_1.id,

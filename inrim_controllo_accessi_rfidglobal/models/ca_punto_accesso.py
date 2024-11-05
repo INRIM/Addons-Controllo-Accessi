@@ -66,8 +66,8 @@ class CaPuntoAccesso(models.Model):
 
     def update_reader_clock(self):
         self.ensure_one()
-        if not self.remote_update or not self.enable_sync:
-            logger.info(f"No Tags to update for reader")
+        if not self.enable_sync:
+            logger.info(f"Punto accesso non abilitato")
             return False
         reader = self.load_reader()
         ret = False

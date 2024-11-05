@@ -59,16 +59,17 @@ class CaTag(models.Model):
     revoked = fields.Boolean(compute="_compute_properties", store=True)
 
     def compute_properties(self):
-        record.revoked = False
-        record.temp = False
-        if record.ca_proprieta_tag_ids:
+        self.ensure_one()
+        self.revoked = False
+        self.temp = False
+        if self.ca_proprieta_tag_ids:
             if self.env.ref(
-                    'inrim_anagrafiche.proprieta_tag_revocato') in record.ca_proprieta_tag_ids:
-                record.revoked = True
-        if record.ca_proprieta_tag_ids:
+                    'inrim_anagrafiche.proprieta_tag_revocato') in self.ca_proprieta_tag_ids:
+                self.revoked = True
+        if self.ca_proprieta_tag_ids:
             if self.env.ref(
-                    'inrim_anagrafiche.proprieta_tag_temporaneo') in record.ca_proprieta_tag_ids:
-                record.temp = True
+                    'inrim_anagrafiche.proprieta_tag_temporaneo') in self.ca_proprieta_tag_ids:
+                self.temp = True
 
     @api.depends('ca_proprieta_tag_ids')
     def _compute_properties(self):

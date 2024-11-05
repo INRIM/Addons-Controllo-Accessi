@@ -81,11 +81,11 @@ class RfidTestCommon(TestCommon):
 
         device = '10.10.10.1'
         device_id = self.info_data['info']['deviceId']
+        self.punto_accesso_1.commuta_abilitazione()
         punto_accesso_id = self.env['ca.punto_accesso'].search([
             ('ca_lettore_id.reader_ip', '=', device)
         ], limit=1)
         punto_accesso_id.load_reader()
-
         self.assertEqual(device_id, punto_accesso_id.ca_lettore_id.device_id)
         self.assertEqual(self.status_data['diagnostic']['event_cnt'],
                          punto_accesso_id.ca_lettore_id.available_events)
@@ -131,6 +131,7 @@ class RfidTestCommon(TestCommon):
         punto_accesso_id = self.env['ca.punto_accesso'].search([
             ('ca_lettore_id.reader_ip', '=', device)
         ], limit=1)
+        punto_accesso_id.commuta_abilitazione()
         code = punto_accesso_id.save_events_to_json()
         self.localfilename = f"{code}_{punto_accesso_id.events_to_read_num}.json"
         file_path = Path(f"{self.path_files}/TODO/{self.localfilename}")
@@ -169,7 +170,6 @@ class RfidTestCommon(TestCommon):
             ('ca_lettore_id.reader_ip', '=', device)
         ], limit=1)
         punto_accesso_id.events_process_todo()
-        # self.assertTrue(log_integrazione_lettori)
         res = self.env['ca.anag_registro_accesso'].search([
             ('ca_punto_accesso_id', '=', punto_accesso_id.id),
             ('ca_tag_persona_id', '=', self.tag_persona_id.id),
@@ -214,9 +214,8 @@ class RfidTestCommon(TestCommon):
         punto_accesso_id = self.env['ca.punto_accesso'].search([
             ('ca_lettore_id.reader_ip', '=', device)
         ], limit=1)
-        with self.assertRaises(Exception):
-            res = punto_accesso_id.update_reader_tags()
-            self.assertFalse(res)
+        res = punto_accesso_id.update_reader_tags()
+        self.assertFalse(res)
 
     # Test Add Tag event count == 0
     @respx.mock
@@ -304,5 +303,6 @@ class RfidTestCommon(TestCommon):
         punto_accesso_id = self.env['ca.punto_accesso'].search([
             ('ca_lettore_id.reader_ip', '=', device)
         ], limit=1)
+        punto_accesso_id.commuta_abilitazione()
         result = punto_accesso_id.update_reader_clock()
         self.assertTrue(result)

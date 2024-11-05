@@ -111,7 +111,8 @@ class CaPuntoAccesso(models.Model):
         for record in self:
             self.env[
                 'ca.lettore_persona'
-            ].elabora_persone_lettore(record.ca_lettore_id.name)
+            ].elabora_persone(record.ca_lettore_id)
+        return True
 
     def elabora_persone_abilitate_view(self):
         self.elabora_persone_abilitate()
@@ -159,7 +160,7 @@ class CaPuntoAccesso(models.Model):
                 record.enable_sync = False
             else:
                 record.enable_sync = True
-                self.stamping_attach()
+                self.check_and_attach()
 
     def local_access_detach(self, persona):
         """
@@ -172,28 +173,37 @@ class CaPuntoAccesso(models.Model):
         lettore_persona = self.ca_tag_lettore_persona_ids.filtered(
             lambda x: x.ca_persona_id.id == persona.id
         )
-        lettore_persona.ca_tag_lettore_id.unlink()
+        lettore_persona.ca_tag_lettore_id.detach()
         lettore_persona.unlink()
+        self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
 
     def local_access_attach(self, tag):
         """
+        Deve esistere un record Tag/Persona
         Aggiungo Tag - Lettore
         Aggiungo Tag-Persona --> Da restituire
         Aggiungo Lettore-Persona
         :return:
         """
         self.ensure_one()
-        tag_lettore = self.env['ca.tag_lettore'].search(
-            [('ca_tag_id', '=', tag)], limit=1)
-        if not tag_lettore:
-            self.env['ca.tag_lettore'].create({
-                'ca_lettore_id': self.lettore_id.id,
-                'ca_tag_id': tag.id,
-                'date_start': self.date_start,
-                'date_end': self.date_end,
-                'punto_accesso_id': self.id
-            })
-        self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
+        tag_persona_id = self.env['ca.tag_persona'].get_current_by_tag(tag)
+        if tag_persona_id:
+            tag_lettore = self.env['ca.tag_lettore'].search(
+                [
+                    ('ca_tag_id', '=', tag.id),
+                    ('ca_lettore_id', "=", self.ca_lettore_id.id)
+                ], limit=1)
+            if not tag_lettore:
+                self.env['ca.tag_lettore'].create({
+                    'ca_lettore_id': self.ca_lettore_id.id,
+                    'ca_tag_id': tag.id,
+                    'date_start': self.date_start,
+                    'date_end': self.date_end,
+                    'ca_punto_accesso_id': self.id
+                })
+            self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
+            return True
+        return False
 
     def stamping_detach(self, persona):
         """
@@ -208,6 +218,7 @@ class CaPuntoAccesso(models.Model):
         )
         lettore_persona.expired = True
         lettore_persona.active = False
+        self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
 
     def stamping_attach(self):
         """
@@ -223,22 +234,24 @@ class CaPuntoAccesso(models.Model):
         ])
         for tag in tags:
             tag_lettore = self.env['ca.tag_lettore'].search(
-                [('ca_tag_id', '=', tag.id)], limit=1)
+                [
+                    ('ca_tag_id', '=', tag.id),
+                    ('ca_lettore_id', "=", self.ca_lettore_id.id)
+                ], limit=1)
             if not tag_lettore:
                 self.env['ca.tag_lettore'].create({
-                    'ca_lettore_id': self.lettore_id.id,
+                    'ca_lettore_id': self.ca_lettore_id.id,
                     'ca_tag_id': tag.id,
                     'date_start': self.date_start,
                     'date_end': self.date_end,
-                    'punto_accesso_id': self.id
+                    'ca_punto_accesso_id': self.id
                 })
+
         self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
 
     def check_and_attach(self):
         if self.typology == 'stamping':
-            self.stamping_attach_tags_readers()
-        elif self.typology == 'local_access':
-            self.local_access_attach()
+            self.stamping_attach()
 
     def sposta_punto_accesso(self, ca_spazio_id):
         self.active = False

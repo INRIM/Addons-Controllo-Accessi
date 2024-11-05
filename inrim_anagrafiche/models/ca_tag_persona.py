@@ -89,6 +89,8 @@ class CaTagPersona(models.Model):
 
     def set_retuned(self):
         self.date_end = fields.Datetime.now()
+        self.ca_tag_id.in_use = False
+        self.state = 'returned'
 
     def check_update_record_by_date_valididty(self):
         now = fields.Datetime.now()
@@ -140,3 +142,13 @@ class CaTagPersona(models.Model):
         if tag_persona_id:
             self.get_token()
         return token
+
+    @api.model
+    def get_current_by_tag(self, tag):
+        now = fields.Datetime.now()
+        return self.env['ca.tag_persona'].search([
+            ('ca_tag_id', '=', tag.id),
+            ('date_start', '<=', now),
+            ('date_end', '>=', now),
+            ('state', '=', 'to_give_back')
+        ], limit=1)
