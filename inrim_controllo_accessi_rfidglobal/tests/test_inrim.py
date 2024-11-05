@@ -169,6 +169,7 @@ class RfidTestCommon(TestCommon):
         punto_accesso_id = self.env['ca.punto_accesso'].search([
             ('ca_lettore_id.reader_ip', '=', device)
         ], limit=1)
+        punto_accesso_id.commuta_abilitazione()
         punto_accesso_id.events_process_todo()
         res = self.env['ca.anag_registro_accesso'].search([
             ('ca_punto_accesso_id', '=', punto_accesso_id.id),
