@@ -13,6 +13,7 @@
         'wizard/ca_aggiungi_movimento_accesso_views.xml',
         'views/ca_tag_lettore_views.xml',
         'views/ca_punto_accesso_persona_views.xml',
+        'views/punto_accesso_category_view.xml',
         'views/ca_punto_accesso_views.xml',
         'views/ca_persona_view.xml',
         'views/ca_anag_registro_accesso_views.xml',

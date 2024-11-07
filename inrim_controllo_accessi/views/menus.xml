@@ -3,13 +3,27 @@
 
     <menuitem
             id="ca_punto_accesso_menu"
-            name="Access Points"
+            name="Access"
             groups="controllo_accessi.ca_ca"
-            action="ca_punto_accesso_action"
             parent="inrim_anagrafiche.ca_controllo_accessi_root"
             sequence="1"
     />
-
+    <menuitem
+            id="ca_punto_accesso_category_menu"
+            name="Access Points"
+            action="ca_punto_accesso_category_action"
+            groups="controllo_accessi.ca_ca"
+            parent="ca_punto_accesso_menu"
+            sequence="1"
+    />
+    <menuitem
+            id="ca_base_punto_accesso_menu"
+            name="Access Point"
+            groups="controllo_accessi.ca_ca"
+            action="ca_punto_accesso_action"
+            parent="ca_punto_accesso_menu"
+            sequence="2"
+    />
     <menuitem
             id="access_data_management_menu"
             name="Access Data Management"
@@ -18,23 +32,6 @@
             sequence="2"
     />
 
-    <menuitem
-            id="ca_tag_lettore_menu"
-            name="Reader Tag"
-            action="ca_tag_lettore_action"
-            groups="controllo_accessi.ca_ca"
-            parent="access_data_management_menu"
-            sequence="5"
-    />
-
-    <menuitem
-            id="ca_punto_accesso_persona_menu"
-            name="Reader Person"
-            action="ca_punto_accesso_persona_action"
-            groups="controllo_accessi.ca_ca"
-            parent="access_data_management_menu"
-            sequence="10"
-    />
 
     <menuitem
             id="ca_anag_registro_accesso_menu"
@@ -72,5 +69,24 @@
             parent="ca_punto_accesso_menu"
             sequence="20"
     />
+
+    <!--    Config-->
+    <menuitem
+            id="ca_tag_lettore_menu"
+            name="Reader Tag"
+            action="ca_tag_lettore_action"
+            groups="controllo_accessi.ca_config"
+            parent="inrim_anagrafiche.inrim_ca_configuration_menu"
+            sequence="15"
+    />
+    <menuitem
+            id="ca_punto_accesso_persona_menu"
+            name="Reader Person"
+            action="ca_punto_accesso_persona_action"
+            groups="controllo_accessi.ca_config"
+            parent="inrim_anagrafiche.inrim_ca_configuration_menu"
+            sequence="20"
+    />
+
 
 </odoo>

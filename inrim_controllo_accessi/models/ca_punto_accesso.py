@@ -4,6 +4,21 @@ from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
 
+
+
+class CaPuntoAccessoCategory(models.Model):
+    _name = 'ca.punto_accesso_category'
+    _inherit = "ca.model.base.mixin"
+    _description = 'Punto Accesso Category'
+
+    name = fields.Char(required=True)
+    code = fields.Char()
+    description = fields.Char()
+    ca_access_point_ids = fields.One2many('ca.punto_accesso', 'ca_category')
+    ca_tag_persona_ids = fields.Many2many('ca.tag_persona')
+    active = fields.Boolean(default=True)
+
+
 class CaPuntoAccesso(models.Model):
     _name = 'ca.punto_accesso'
     _inherit = "ca.model.base.mixin"
@@ -19,6 +34,7 @@ class CaPuntoAccesso(models.Model):
         string="Headquarters Location"
     )
     ca_lettore_id = fields.Many2one('ca.lettore', required=True)
+    ca_category = fields.Many2one('ca.punto_accesso_category', string="Cluster")
     system_error = fields.Boolean(related="ca_lettore_id.system_error", store=True,
                                   string="Reader Error")
     direction = fields.Selection(related="ca_lettore_id.direction")
@@ -49,11 +65,6 @@ class CaPuntoAccesso(models.Model):
     recursive_read_events = fields.Boolean(string='Recursive Read Events', default=False)
     tz = fields.Selection(
         related='ente_azienda_id.tz', store=True, string="Timezone", readonly=True)
-
-    # TODO: typology = stamping carica sul lettore tutti i TAG e lavora solo TAG <-> Persona
-    #      ( se persona ospite o tag jlly) se tag viene restituito il Tag.in_suo = False
-    # TODO: typology = local_access associa un tag al lettore e lo disassocia e aggiorna il flag enable_sync
-    # TODO: Aggiungere la categoria per raggruppare i Punti Accesso
 
     @api.constrains('date_start', 'date_end')
     def _check_date(self):

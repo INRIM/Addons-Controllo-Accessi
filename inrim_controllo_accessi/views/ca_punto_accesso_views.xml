@@ -103,6 +103,7 @@
                                    options="{'no_create': True}"
                                    readonly="enable_sync"/>
                             <field name="typology" readonly="enable_sync"/>
+                             <field name="ca_category" required="typology == 'stamping'"/>
                         </group>
                         <group>
                             <field name="events_to_read_num"/>
@@ -132,7 +133,11 @@
                                domain="[('type_ids', 'in', type_ids)]"/>
                         <notebook>
                             <page name="people" string="People">
-                                <field name="ca_tag_lettore_persona_ids" readonly="1" />
+                                <field name="ca_tag_lettore_persona_ids" >
+                                    <tree default_order="display_name asc">
+
+                                    </tree>
+                                </field>
                             </page>
                             <page name="tags" string="Tags">
                                 <field name="ca_tag_lettore_ids"
