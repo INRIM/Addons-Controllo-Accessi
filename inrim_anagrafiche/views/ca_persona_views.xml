@@ -219,6 +219,10 @@
                             </group>
                         </group>
                         <notebook>
+                            <page name="person_tags" string="List Cards">
+                                <field name="ca_tag_ids"
+                                       options="{'no_create': True}"/>
+                            </page>
                             <page name="identity_documents"
                                   string="List of Identity Documents"
                                   invisible="not is_external"
@@ -266,10 +270,7 @@
                                     </tree>
                                 </field>
                             </page>
-                            <page name="person_tags" string="List Cards">
-                                <field name="ca_tag_ids"
-                                       options="{'no_create': True}"/>
-                            </page>
+
                         </notebook>
                     </sheet>
                 </t>
