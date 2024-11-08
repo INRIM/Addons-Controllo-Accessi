@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_registra_ospite_form" model="ir.ui.view">
+        <field name="name">ca.registra.ospite.view.form</field>
+        <field name="model">ca.registra_ospite</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <separator string="Azienda"/>
+                    <field name="ca_ente_id" invisible="1"/>
+                    <group>
+                        <field name="vat"/>
+                        <group>
+                            <field name="ca_ente_name"/>
+                        </group>
+                        <group>
+                            <field name="tipo_ente_azienda_id"/>
+                        </group>
+                    </group>
+                    <separator string="Referente"/>
+
+                    <field name="parent_id" required="1"/>
+                    <separator string="Nominativo"/>
+                    <field name="persona_id" invisible="1"/>
+                    <group>
+                        <field name="fiscalcode"/>
+                        <group>
+                            <field name="lastname" string="Cognome"/>
+                            <field name="email"/>
+                            <field name="date_start"/>
+                        </group>
+                        <group>
+                            <field name="name" string="Nome"/>
+                            <field name="freshman"/>
+                            <field name="date_end"/>
+                        </group>
+                        <field name="available_tags_ids" column_invisible="1"/>
+                        <field name="ca_tag_id"
+                               options="{'no_create': True}"
+                               domain="[('id', 'in', available_tags_ids)]"/>
+                    </group>
+
+                </sheet>
+                <footer>
+                    <button
+                            name="action_confirm"
+                            string="Avanti"
+                            class="btn-primary"
+                            type="object"
+                    />
+                    <button
+                            string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="ca_registra_ospite_action" model="ir.actions.act_window">
+        <field name="name">Registra Ospite</field>
+        <field name="res_model">ca.registra_ospite</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

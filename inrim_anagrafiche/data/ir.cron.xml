@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="ir_cron_check_document_availability" model="ir.cron">
-        <field name="name">Check Document Availability</field>
-        <field name="model_id" ref="model_ca_documento"/>
-        <field name="type">ir.action.server</field>
-        <field name="code">model._cron_check_ca_stato_documento_id()</field>
-        <field name="interval_type">hours</field>
-        <field name="numbercall">-1</field>
-        <field name="priority">5</field>
-        <field name="doall">False</field>
-        <field name="active">True</field>
-        <field name="interval_number">1</field>
-    </record>
+    <data noupdate="1">
+        <record id="ir_cron_check_document_availability" model="ir.cron">
+            <field name="name">Check Document Availability</field>
+            <field name="model_id" ref="model_ca_documento"/>
+            <field name="type">ir.action.server</field>
+            <field name="code">model._cron_check_ca_stato_documento_id()
+            </field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="priority">5</field>
+            <field name="doall">False</field>
+            <field name="active">True</field>
+            <field name="interval_number">1</field>
+        </record>
 
-    <record id="ir_cron_check_tag_validity" model="ir.cron">
-        <field name="name">Check Tag Validity</field>
-        <field name="model_id" ref="model_ca_tag_persona"/>
-        <field name="type">ir.action.server</field>
-        <field name="code">model._cron_check_validity_tag()</field>
-        <field name="interval_type">minutes</field>
-        <field name="numbercall">-1</field>
-        <field name="priority">5</field>
-        <field name="doall">False</field>
-        <field name="active">True</field>
-        <field name="interval_number">5</field>
-    </record>
+        <record id="ir_cron_check_tag_validity" model="ir.cron">
+            <field name="name">Check Tag Validity</field>
+            <field name="model_id" ref="model_ca_tag_persona"/>
+            <field name="type">ir.action.server</field>
+            <field name="code">model._cron_check_validity_tag()</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="priority">5</field>
+            <field name="doall">False</field>
+            <field name="active">True</field>
+            <field name="interval_number">5</field>
+        </record>
+    </data>
 </odoo>

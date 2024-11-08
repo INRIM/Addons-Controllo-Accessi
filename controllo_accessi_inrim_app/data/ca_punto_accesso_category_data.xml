@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="punto_accesso_category_portineria_cacce" model="ca.punto_accesso_category">
-        <field name="name">Portineria Campus</field>
-    </record>
+    <data noupdate="1">
+        <record id="punto_accesso_category_portineria_cacce"
+                model="ca.punto_accesso_category">
+            <field name="name">Portineria Campus</field>
+        </record>
 
-    <record id="punto_accesso_category_portineria_mda" model="ca.punto_accesso_category">
-        <field name="name">Portineria MdA</field>
-    </record>
+        <record id="punto_accesso_category_portineria_mda"
+                model="ca.punto_accesso_category">
+            <field name="name">Portineria MdA</field>
+        </record>
 
-    <record id="punto_accesso_category_pertineria_pavia" model="ca.punto_accesso_category">
-        <field name="name">Portineria Pavia</field>
-    </record>
+        <record id="punto_accesso_category_pertineria_pavia"
+                model="ca.punto_accesso_category">
+            <field name="name">Portineria Pavia</field>
+        </record>
 
-    <record id="punto_accesso_category_portineria_lens" model="ca.punto_accesso_category">
-        <field name="name">Portineria Lens</field>
-    </record>
+        <record id="punto_accesso_category_portineria_lens"
+                model="ca.punto_accesso_category">
+            <field name="name">Portineria Lens</field>
+        </record>
 
-    <record id="punto_accesso_category_matera" model="ca.punto_accesso_category">
-        <field name="name">Portineria Matera</field>
-    </record>
+        <record id="punto_accesso_category_matera"
+                model="ca.punto_accesso_category">
+            <field name="name">Portineria Matera</field>
+        </record>
+    </data>
 </odoo>

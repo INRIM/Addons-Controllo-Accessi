@@ -25,6 +25,7 @@
             >
                 <field name="display_name"/>
                 <field name="type_ids" widget="many2many_tags"/>
+                <field name="title_ids" widget="many2many_tags"/>
                 <field name="parent_id"/>
                 <field name="present"/>
                 <field name="token" optional="hide"/>
@@ -109,6 +110,8 @@
                                 <field name="type_ids" widget="many2many_tags"
                                        options="{'no_create': True}"
                                        required="True"/>
+                                <field name="title_ids" widget="many2many_tags"
+                                       options="{'no_create': True}"/>
                                 <field name="parent_id"
                                        widget="res_partner_many2one"
                                        required="is_external"/>

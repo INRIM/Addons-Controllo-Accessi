@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 
 get_addressbook_path = "/api/get_addressbook"
 get_personal_types = "/api/getpersonaltypes"
+get_job_titles = "/api/get_job_titles"
 
 
 class CaPersona(models.Model):
@@ -41,12 +42,35 @@ class CaPersona(models.Model):
     @api.model
     def _cron_people_get_addressbook(self):
         with self.env.cr.savepoint():
-            tipo_data = self.get_people_data(get_personal_types)
-            if tipo_data:
-                self.update_tipo_persona(tipo_data)
-            data = self.get_people_data(get_addressbook_path)
-            if data:
-                self.get_addressbook_data(data)
+            for upath in [get_personal_types, get_job_titles, get_addressbook_path]:
+                data = self.get_people_data(upath)
+                if data and upath == get_personal_types:
+                    self.update_tipo_persona(data)
+                if data and upath == get_job_titles:
+                    self.update_titolo_persona(data)
+                if data and upath == get_personal_types:
+                    self.get_addressbook_data(data)
+
+    def update_titolo_persona(self, data):
+        logger.info("Update titolo persona")
+        with self.env.cr.savepoint():
+            try:
+                for dt in data:
+                    if dt.get('code') and dt.get('name'):
+                        titolo_persona_id = self.env['ca.titolo_persona'].search([
+                            ('code', '=', dt.get('code'))
+                        ])
+                        if not titolo_persona_id:
+                            vals = {
+                                'name': dt['name'],
+                                'code': dt['code'],
+                                'structured': True
+                            }
+                            self.env['ca.titolo_persona'].create(vals)
+                        else:
+                            titolo_persona_id.name = dt['name']
+            except Exception as e:
+                logger.error(f"Error: {e}", exc_info=True)
 
     def update_tipo_persona(self, data):
         logger.info("Update tipo persona")
@@ -97,6 +121,7 @@ class CaPersona(models.Model):
                                     dt['data_di_nascita'], '%Y-%m-%d').date()
                             if dt.get('nome') and dt.get('cognome'):
                                 vals = {
+                                    'uid': dt['uid'],
                                     'name': dt['nome'],
                                     'lastname': dt['cognome'],
                                     'type_ids': self.env.ref(

@@ -11,6 +11,7 @@
         'data/ir_config_parameter_data.xml',
         'wizard/ca_sposta_punto_accesso_views.xml',
         'wizard/ca_aggiungi_movimento_accesso_views.xml',
+        'wizard/ca_registra_ospite_views.xml',
         'views/ca_tag_lettore_views.xml',
         'views/ca_punto_accesso_persona_views.xml',
         'views/punto_accesso_category_view.xml',

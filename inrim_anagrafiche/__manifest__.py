@@ -10,6 +10,7 @@
     'data': [
         'security/ir.model.access.csv',
         'security/security.xml',
+        'data/ca_titolo_persona_data.xml',
         'data/ca_tipo_persona_data.xml',
         'data/ca_tipo_doc_ident_data.xml',
         'data/ca_tipo_ente_azienda_data.xml',

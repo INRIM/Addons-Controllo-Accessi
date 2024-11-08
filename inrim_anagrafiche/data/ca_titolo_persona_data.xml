@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="titolo_persona_service" model="ca.titolo_persona">
+            <field name="name">Servizio</field>
+            <field name="code">servizio</field>
+        </record>
+
+        <record id="titolo_persona_guest" model="ca.titolo_persona">
+            <field name="name">Ospite</field>
+            <field name="code">ospite</field>
+        </record>
+
+
+    </data>
+</odoo>

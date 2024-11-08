@@ -18,6 +18,14 @@ class CaPuntoAccessoCategory(models.Model):
     ca_tag_persona_ids = fields.Many2many('ca.tag_persona')
     active = fields.Boolean(default=True)
 
+    def action_add_guest(self):
+        return {
+            'name': _('Add Guest'),
+            'type': 'ir.actions.act_window',
+            'action': 'controllo_accessi.ca_registra_ospite_action',
+            'res_model': 'ca.registra_ospite',
+            'view_mode': "form"
+        }
 
 class CaPuntoAccesso(models.Model):
     _name = 'ca.punto_accesso'
