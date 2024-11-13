@@ -149,8 +149,6 @@ class CaPersona(models.Model):
                                 massive_create=True).get_by_login_uid(
                                 dt.get("responsabile_uid"))
                         if work_info_type_id:
-                            logger.info(
-                                f"{work_info_type_id.name} , {work_info_type_id.code}, {work_info_type_id.code in internal_types}")
                             if work_info_type_id.code in internal_types:
                                 type_ids.append(interno)
                                 azienda_ids.append(base_institute.id)

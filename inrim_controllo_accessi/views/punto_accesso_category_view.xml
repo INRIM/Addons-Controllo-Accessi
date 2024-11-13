@@ -18,8 +18,7 @@
 
                     <div class="oe_title">
                         <h1>
-                            <field name="name"
-                                   readonly="ca_access_point_ids != []"/>
+                            <field name="name"/>
                         </h1>
                     </div>
                     <field name="description"/>

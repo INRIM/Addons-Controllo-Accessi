@@ -28,7 +28,7 @@ class CaPersona(models.Model):
     istat_code = fields.Char(groups="controllo_accessi.ca_gdpr")
     parent_id = fields.Many2one(
         'ca.persona', string='Reference person', index=True,
-        domain=[('is_internal', '=', True), ('is_structured', '=', True)]
+        domain=[('is_internal', '=', True)]
     )
     child_ids = fields.One2many(
         'ca.persona', 'parent_id', string='Contact',

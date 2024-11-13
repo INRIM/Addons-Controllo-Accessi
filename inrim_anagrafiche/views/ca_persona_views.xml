@@ -10,6 +10,7 @@
                 <filter string="External" name="external"
                         domain="[('type_ids', 'ilike', 'esterno')]"/>
                 <filter name="type_ids"/>
+                <filter name="display_name"/>
             </search>
         </field>
     </record>
@@ -130,7 +131,6 @@
                                        options="{'no_create': True}"
                                        required="True"/>
                                 <field name="parent_id"
-                                       widget="res_partner_many2one"
                                        required="is_external"/>
                                 <field name="associated_user_id"
                                        options="{'no_create': True}"/>
