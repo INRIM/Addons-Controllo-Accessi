@@ -1,6 +1,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
+
 class CaTitoloPersona(models.Model):
     _name = 'ca.titolo_persona'
     _inherit = "ca.model.base.mixin"
@@ -24,7 +25,7 @@ class CaTitoloPersona(models.Model):
                         _('Data fine deve essere maggiore della data di inizio'))
 
     @api.constrains('code', 'active')
-    def _check_unique_fiscalcode(self):
+    def _check_unique_code(self):
         for record in self:
             if record.code:
                 tags = self.env['ca.tipo_persona'].with_context(
@@ -40,6 +41,29 @@ class CaTitoloPersona(models.Model):
                         msg = f"{record.code} Risulta disattivato, riattivare per utilizzare"
                     raise UserError(
                         _(msg))
+
+    @api.constrains('name', 'active')
+    def _check_unique_name(self):
+        for record in self:
+            if record.name:
+                tags = self.env['ca.titolo_persona'].with_context(
+                    active_test=False).search(
+                    [
+                        ('id', '!=', record.id),
+                        ('name', '=', record.name)
+                    ]
+                )
+                if tags:
+                    msg = f'Esiste già questa tipologia: {record.name}'
+                    if not record.active:
+                        msg = f"{record.name} Risulta disattivato, riattivare per utilizzare"
+                    raise UserError(_(msg))
+
+    @api.model
+    def get_by_name(self, name):
+        return self.env['ca.titolo_persona'].search([
+            ('name', '=', name)
+        ], limit=1)
 
     def rest_boby_hint(self):
         return {
@@ -66,6 +90,7 @@ class CaTitoloPersona(models.Model):
             ])
         return body, msg
 
+
 class CaTipoPersona(models.Model):
     _name = 'ca.tipo_persona'
     _inherit = "ca.model.base.mixin"
@@ -89,7 +114,7 @@ class CaTipoPersona(models.Model):
                         _('Data fine deve essere maggiore della data di inizio'))
 
     @api.constrains('code', 'active')
-    def _check_unique_fiscalcode(self):
+    def _check_unique_code(self):
         for record in self:
             if record.code:
                 tags = self.env['ca.tipo_persona'].with_context(
@@ -103,8 +128,7 @@ class CaTipoPersona(models.Model):
                     msg = f'Esiste già questa tipologia: {record.code}'
                     if not record.active:
                         msg = f"{record.code} Risulta disattivato, riattivare per utilizzare"
-                    raise UserError(
-                        _(msg))
+                    raise UserError(_(msg))
 
     def rest_boby_hint(self):
         return {

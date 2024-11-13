@@ -25,6 +25,7 @@ class CaTagPersona(models.Model):
         [
             ('to_give_back', 'To Give Back'),
             ('returned', 'Returned'),
+            ('scheduled', 'Secheduled'),
         ], default='returned',
         string='State', readonly=True)
     available_tags_ids = fields.Many2many('ca.tag', compute="_compute_available_tags")
@@ -92,12 +93,21 @@ class CaTagPersona(models.Model):
         self.ca_tag_id.in_use = False
         self.state = 'returned'
 
+    @api.onchange('date_start', 'date_end')
+    def check_date(self):
+        for record in self:
+            record.check_update_record_by_date_valididty()
+
+
     def check_update_record_by_date_valididty(self):
         now = fields.Datetime.now()
         self.ensure_one()
         if self.date_start <= now <= self.date_end:
             self.ca_tag_id.in_use = True
             self.state = 'to_give_back'
+        elif self.date_start > now:
+            self.ca_tag_id.in_use = True
+            self.state = 'scheduled'
         else:
             self.ca_tag_id.in_use = False
             self.state = 'returned'
@@ -106,6 +116,9 @@ class CaTagPersona(models.Model):
         for tag_persona in self.search([]):
             if tag_persona:
                 tag_persona.check_update_record_by_date_valididty()
+
+    def _cron_check_validity_tag(self):
+        self.check_update_by_date_valididty()
 
     @api.model_create_multi
     def create(self, vals):
@@ -131,9 +144,6 @@ class CaTagPersona(models.Model):
                 record.ca_tag_id.in_use = False
         res = super(CaTagPersona, self).unlink()
         return res
-
-    def _cron_check_validity_tag(self):
-        self.check_update_by_date_valididty()
 
     def get_token(self):
         characters = string.ascii_letters + string.digits

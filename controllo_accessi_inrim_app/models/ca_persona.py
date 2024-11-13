@@ -1,8 +1,9 @@
+import json
 import logging
 from datetime import datetime
 
 import requests
-from odoo import models, api
+from odoo import models, api, fields
 
 logger = logging.getLogger(__name__)
 
@@ -45,11 +46,34 @@ class CaPersona(models.Model):
             for upath in [get_personal_types, get_job_titles, get_addressbook_path]:
                 data = self.get_people_data(upath)
                 if data and upath == get_personal_types:
-                    self.update_tipo_persona(data)
+                    self.update_work_info_type(data)
                 if data and upath == get_job_titles:
                     self.update_titolo_persona(data)
-                if data and upath == get_personal_types:
+                if data and upath == get_addressbook_path:
                     self.get_addressbook_data(data)
+
+    def update_work_info_type(self, data):
+        logger.info("Update tipo persona work_info_type")
+        ext_company = 'ditteesterne_tipopersonale'
+        ext_entity = 'entiesterni_tipopersonale'
+        with self.env.cr.savepoint():
+            try:
+                for dt in data:
+                    if dt.get('code') and dt.get('name'):
+                        work_info_type_id = self.env['ca.work_info_type'].search([
+                            ('code', '=', dt.get('code'))
+                        ], limit=1)
+                        if not work_info_type_id:
+                            vals = {
+                                'name': dt['name'],
+                                'code': dt['code'],
+                                'structured': dt['code'] not in [ext_company, ext_entity]
+                            }
+                            res = self.env['ca.work_info_type'].create(vals)
+                        else:
+                            work_info_type_id.name = dt['name']
+            except Exception as e:
+                logger.error(f"Error: {e}", exc_info=True)
 
     def update_titolo_persona(self, data):
         logger.info("Update titolo persona")
@@ -59,7 +83,7 @@ class CaPersona(models.Model):
                     if dt.get('code') and dt.get('name'):
                         titolo_persona_id = self.env['ca.titolo_persona'].search([
                             ('code', '=', dt.get('code'))
-                        ])
+                        ], limit=1)
                         if not titolo_persona_id:
                             vals = {
                                 'name': dt['name'],
@@ -72,36 +96,38 @@ class CaPersona(models.Model):
             except Exception as e:
                 logger.error(f"Error: {e}", exc_info=True)
 
-    def update_tipo_persona(self, data):
-        logger.info("Update tipo persona")
-        with self.env.cr.savepoint():
-            try:
-                for dt in data:
-                    if dt.get('code') and dt.get('name'):
-                        tipo_persona_id = self.env['ca.tipo_persona'].search([
-                            ('code', '=', dt.get('code'))
-                        ])
-                        if not tipo_persona_id:
-                            vals = {
-                                'name': dt['name'],
-                                'code': dt['code'],
-                                'structured': True
-                            }
-                            self.env['ca.tipo_persona'].create(vals)
-                        else:
-                            tipo_persona_id.name = dt['name']
-            except Exception as e:
-                logger.error(f"Error: {e}", exc_info=True)
-
     def get_addressbook_data(self, data):
         logger.info("Update persona")
+        # internal_types = self.env.ref('default_ca.internal_people_types')
+
+        internal_types = json.loads(self.env['ir.config_parameter'].sudo().get_param(
+            'default_ca.internal_people_types'))
+        ext_company = 'ditteesterne_tipopersonale'
+        ext_entity = 'entiesterni_tipopersonale'
+        base_institute = self.env.ref(
+            'controllo_accessi_inrim_app.inrim_campus_cacce')
+        base_default_ente_todo = self.env.ref(
+            'controllo_accessi_inrim_app.inrim_ente_esterno_da_gestire')
+        base_default_azienda_todo = self.env.ref(
+            'controllo_accessi_inrim_app.inrim_azienda_esterna_da_gestire')
+        interno = self.env.ref(
+            'inrim_anagrafiche.tipo_persona_interno').id
+        esterno = self.env.ref(
+            'inrim_anagrafiche.tipo_persona_esterno').id
+        date_end_forever = self.env.ref(
+            'inrim_controllo_accessi.inrim_ir_config_parameter_forever').value
         with self.env.cr.savepoint():
-            try:
-                for dt in data:
-                    if dt.get('uid') and dt.get('name'):
+            for dt in data:
+                try:
+                    azienda_ids = []
+                    if dt.get('uid') and dt.get('name') and dt.get(
+                            'tipo_personale') != "":
                         user_id = self.env['res.users'].search([
                             ('login', '=', dt['uid'])
-                        ])
+                        ], limit=1)
+                        type_ids = []
+                        title_ids = []
+
                         if not user_id:
                             user_id = self.env['res.users'].create({
                                 'name': dt['name'],
@@ -110,10 +136,31 @@ class CaPersona(models.Model):
                                 'lang': 'it_IT',
                                 "tz": "Europe/Rome"
                             })
-                        persona_id = self.env['ca.persona'].search([
-                            ('freshman', '=', dt['matricola']),
+                        work_info_type_id = self.env['ca.work_info_type'].get_by_name(
+                            dt.get('tipo_personale'))
+
+                        persona_id = self.env['ca.persona'].with_context(
+                            massive_create=True).search([
                             ('fiscalcode', '=', dt['codicefiscale'])
-                        ])
+                        ], limit=1)
+                        resp_id = self.get_by_login_uid(dt.get("referente_uid"))
+                        if not resp_id:
+                            resp_id = self.with_context(
+                                massive_create=True).get_by_login_uid(
+                                dt.get("responsabile_uid"))
+                        if work_info_type_id:
+                            logger.info(
+                                f"{work_info_type_id.name} , {work_info_type_id.code}, {work_info_type_id.code in internal_types}")
+                            if work_info_type_id.code in internal_types:
+                                type_ids.append(interno)
+                                azienda_ids.append(base_institute.id)
+                            else:
+                                type_ids.append(esterno)
+                                if work_info_type_id.code == ext_company:
+                                    azienda_ids.append(base_default_azienda_todo.id)
+                                elif work_info_type_id.code == ext_entity:
+                                    azienda_ids.append(base_default_ente_todo.id)
+
                         if not persona_id:
                             birth_date = ''
                             if dt.get('data_di_nascita'):
@@ -124,26 +171,55 @@ class CaPersona(models.Model):
                                     'uid': dt['uid'],
                                     'name': dt['nome'],
                                     'lastname': dt['cognome'],
-                                    'type_ids': self.env.ref(
-                                        'inrim_anagrafiche.tipo_persona_interno').ids,
+                                    'email': dt['mail'],
+                                    'mobile': dt['cell_phone_service'],
+                                    'private_mobile': dt['private_cell_phone'],
+                                    'phone': dt['telephonNumber'],
+                                    'type_ids': type_ids,
                                     'birth_date': birth_date,
-                                    'associated_user_id': user_id.id
+                                    'ca_ente_azienda_ids': azienda_ids,
+                                    'associated_user_id': user_id.id,
+                                    'parent_id': resp_id.id if resp_id else False
                                 }
                                 if dt.get('matricola'):
                                     vals['freshman'] = dt['matricola']
                                 if dt.get('codicefiscale'):
                                     vals['fiscalcode'] = dt['codicefiscale']
-                                persona_id = self.create(vals)
+                                persona_id = self.with_context(
+                                    massive_create=True).create(vals)
                                 persona_id.action_completed()
+
                         else:
-                            tipo_persona_id = self.env['ca.tipo_persona'].search([
-                                ('name', '=', dt.get('tipo_personale'))
-                            ])
-                            if tipo_persona_id:
-                                persona_id.type_ids = [
-                                    self.env.ref(
-                                        'inrim_anagrafiche.tipo_persona_interno').id,
-                                    tipo_persona_id.id
-                                ]
-            except Exception as e:
-                logger.error(f"Error: {e}", exc_info=True)
+                            if not persona_id.parent_id:
+                                resp_id = self.with_context(
+                                    massive_create=True).get_by_login_uid(
+                                    dt.get("referente_uid"))
+                                if not resp_id:
+                                    resp_id = self.with_context(
+                                        massive_create=True).get_by_login_uid(
+                                        dt.get("responsabile_uid"))
+                                persona_id.parent_id = resp_id.id if resp_id else False
+                        title_id = self.env['ca.titolo_persona'].get_by_name(
+                            dt.get('qualifica'))
+                        vals = {
+                            'ca_persona_id': persona_id.id,
+                            'work_id_number': dt['matricola'],
+                            'ca_div_uo_code': dt['divisione_code'],
+                            'ca_work_info_type_id': work_info_type_id.id if work_info_type_id else False,
+                            'ca_title_id': title_id.id if title_id else False,
+                        }
+                        if dt.get('data_inizio'):
+                            vals['date_start'] = fields.Date.to_date(
+                                dt['data_inizio'])
+                        if not dt.get('data_fine'):
+                            vals['date_end'] = fields.Date.to_date(
+                                date_end_forever.split(" ")[0])
+                        else:
+                            vals['date_end'] = fields.Date.to_date(
+                                dt['data_fine'])
+
+                        persona_id.with_context(
+                            massive_create=True).update_work_info(vals)
+                except Exception as e:
+                    logger.error(
+                        f"Error Skip {dt.get('uid')}: {e}", exc_info=True)

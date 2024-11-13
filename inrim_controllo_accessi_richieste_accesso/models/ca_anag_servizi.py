@@ -128,8 +128,7 @@ class CaAnagServizi(models.Model):
 
     def default_type_ids(self):
         type_ids = [(6, 0, [
-            self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_ti').id,
-            self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_td').id
+            self.env.ref('inrim_anagrafiche.tipo_persona_interno').id
         ])]
         return type_ids
 
@@ -138,9 +137,7 @@ class CaAnagServizi(models.Model):
         res = super(CaAnagServizi, self).create(vals)
         for record in res:
             record.type_ids = [(6, 0, [
-                self.env.ref('inrim_anagrafiche.tipo_persona_interno').id, 
-                self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_ti').id,
-                self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_td').id
+                self.env.ref('inrim_anagrafiche.tipo_persona_interno').id
             ])]
             if not record.date_start:
                 record.date_start = fields.date.today()
@@ -153,9 +150,7 @@ class CaAnagServizi(models.Model):
         res = super(CaAnagServizi, self).write(vals)
         for record in self:
             vals['type_ids']= [(6, 0, [
-                self.env.ref('inrim_anagrafiche.tipo_persona_interno').id, 
-                self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_ti').id,
-                self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_td').id
+                self.env.ref('inrim_anagrafiche.tipo_persona_interno').id
             ])]
             if not record.date_start:
                 record.date_start = fields.date.today()

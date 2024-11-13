@@ -19,8 +19,9 @@ class CaPersona(models.Model):
     fiscalcode = fields.Char(groups="controllo_accessi.ca_gdpr")
     vat = fields.Char()
     type_ids = fields.Many2many('ca.tipo_persona')
-    title_ids = fields.Many2many('ca.titolo_persona')
     freshman = fields.Char(groups="controllo_accessi.ca_gdpr")
+    work_id_number = fields.Char(string="A.C. ID Numeber",
+                                 groups="controllo_accessi.ca_gdpr")
     nationality = fields.Many2one('res.country', groups="controllo_accessi.ca_gdpr")
     birth_date = fields.Date(groups="controllo_accessi.ca_gdpr")
     birth_place = fields.Char(groups="controllo_accessi.ca_gdpr")
@@ -36,6 +37,7 @@ class CaPersona(models.Model):
     email = fields.Char()
     phone = fields.Char()
     mobile = fields.Char()
+    private_mobile = fields.Char()
     residence_street = fields.Char()
     residence_street2 = fields.Char()
     residence_city = fields.Char(
@@ -103,6 +105,7 @@ class CaPersona(models.Model):
         store=True,
     )
     domicile_other_than_residence = fields.Boolean()
+    ca_workinfo_ids = fields.One2many('ca.work_info', 'ca_persona_id')
     ca_documento_ids = fields.One2many('ca.documento', 'ca_persona_id')
     ca_stato_anag_id = fields.Many2one('ca.stato_anag', default=lambda
         self: self.default_ca_stato_anag_id(), required=True)
@@ -114,6 +117,7 @@ class CaPersona(models.Model):
         ('no', 'No')
     ], default='no', readonly=True)
     uid = fields.Char()
+    note = fields.Text()
     trust_level = fields.Integer("Trust Level", default=1)
     is_external = fields.Boolean(compute="_compute_bool", store=True)
     is_internal = fields.Boolean(compute="_compute_bool", store=True)
@@ -133,10 +137,34 @@ class CaPersona(models.Model):
         )
         tag.state = 'returned'
 
+    def btn_presence(self):
+        ...
+
+    def get_current_winfo(self):
+        winfo = self.env['ca.work_info'].search([
+            ('ca_persona_id', '=', self.id), ('state', '=', 'active')])
+        return winfo
+
+    def update_work_info(self, vals):
+        winfo = self.get_current_winfo()
+        create_enable = False
+        if winfo:
+            if vals.get("date_start") and vals.get("date_start") > winfo.date_end:
+                create_enable = True
+            else:
+                self.env['ca.work_info'].write(vals)
+                winfo.check_update_state()
+        if not winfo or create_enable:
+            self.env['ca.work_info'].create(vals)
+
     @api.constrains('is_external', 'parent_id')
     def _check_external_and_parent_id(self):
         for record in self:
-            if record.is_external and not record.parent_id:
+            if (
+                    record.is_external and
+                    not record.parent_id and
+                    not self.env.context.get("massive_create")
+            ):
                 raise ValidationError(
                     _("For External person Internal reference is required "))
 
@@ -173,8 +201,9 @@ class CaPersona(models.Model):
     def _check_external_documento_ids(self):
         for record in self:
             if len(record.ca_documento_ids) == 0 and record.is_external:
-                raise UserError(_(
-                    'Per una persona esterna è obbligatorio caricare i documenti'))
+                if not self.env.context.get("massive_create"):
+                    raise UserError(_(
+                        'Per una persona esterna è obbligatorio caricare i documenti'))
 
     @api.onchange('domicile_state_id')
     def _onchange_domicile_state_id(self):
@@ -195,9 +224,8 @@ class CaPersona(models.Model):
             esterno_id = self.env.ref('inrim_anagrafiche.tipo_persona_esterno').id
             if interno_id in record.type_ids.ids:
                 record.is_internal = True
-            if (
-                    not interno_id in record.type_ids.ids or
-                    esterno_id in record.type_ids.ids
+            elif (
+                esterno_id in record.type_ids.ids
             ):
                 record.is_external = True
 
@@ -277,6 +305,17 @@ class CaPersona(models.Model):
         if persona_id:
             self.get_token()
         return token
+
+    def get_by_login_uid(self, uid):
+        if uid:
+            user_id = self.env['res.users'].search([
+                ('login', '=', uid)
+            ], limit=1)
+            person_id = self.env['ca.persona'].search([
+                ('associated_user_id', '=', user_id.id)
+            ], limit=1)
+            return person_id
+        return False
 
     # DOMICILE
     @api.depends("domicile_state_id", "domicile_country_id", "domicile_city_id",

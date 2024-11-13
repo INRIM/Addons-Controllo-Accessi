@@ -3,42 +3,64 @@
     <record id="ca_persona_view_form_inherit_geolocation" model="ir.ui.view">
         <field name="name">ca.persona.view.form.inherit</field>
         <field name="model">ca.persona</field>
-        <field name="inherit_id" ref="inrim_controllo_accessi.ca_persona_view_ca_form_inherit"/>
+        <field name="inherit_id"
+               ref="inrim_controllo_accessi.ca_persona_view_ca_form_inherit"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='person_access']" position="after">
-                <page string="Partner Geolocation" name="geo_location" groups="controllo_accessi.ca_config_tech">
-                    <group>
-                        <group string="Domicile Geolocation">
-                            <label for="domicile_date_localization" string="Domicile Geolocation"/>
-                            <div>
-                                <span>Lat : <field name="domicile_partner_latitude" readonly="1" nolabel="1" class="oe_inline"/></span>
+            <xpath expr="//page[@name='address']/group" position="after">
+                <group groups="controllo_accessi.ca_config_tech">
+                    <group string="Domicile Geolocation">
+                        <label for="domicile_date_localization"
+                               string="Domicile Geolocation"/>
+                        <div>
+                            <span>Lat :
+                                <field name="domicile_partner_latitude"
+                                       readonly="1" nolabel="1"
+                                       class="oe_inline"/>
+                            </span>
+                            <br/>
+                            <span>Long:
+                                <field name="domicile_partner_longitude"
+                                       readonly="1" nolabel="1"
+                                       class="oe_inline"/>
+                            </span>
+                            <br/>
+                            <span invisible="not domicile_date_localization">
+                                Updated on:
+                                <field name="domicile_date_localization"
+                                       nolabel="1" readonly="1"
+                                       class="oe_inline"/>
                                 <br/>
-                                <span>Long: <field name="domicile_partner_longitude" readonly="1" nolabel="1" class="oe_inline"/></span>
-                                <br/>
-                                <span invisible="not domicile_date_localization">Updated on:
-                                    <field name="domicile_date_localization" nolabel="1" readonly="1" class="oe_inline"/>
-                                    <br/>
-                                </span>
-                            </div>
-                        </group>
-                        <group string="Residence Geolocation" invisible="not domicile_other_than_residence">
-                            <label for="residence_date_localization" string="Residence Geolocation"/>
-                            <div>
-                                <span>Lat : <field name="residence_partner_latitude" readonly="1" nolabel="1" class="oe_inline"/></span>
-                                <br/>
-                                <span>Long: <field name="residence_partner_longitude" readonly="1" nolabel="1" class="oe_inline"/></span>
-                                <br/>
-                                <span invisible="not residence_date_localization">Updated on:
-                                    <field name="residence_date_localization" nolabel="1" readonly="1" class="oe_inline"/>
-                                    <br/>
-                                </span>
-                            </div>
-                        </group>
+                            </span>
+                        </div>
                     </group>
-                </page>
+                    <group string="Residence Geolocation"
+                           invisible="not domicile_other_than_residence">
+                        <label for="residence_date_localization"
+                               string="Residence Geolocation"/>
+                        <div>
+                            <span>Lat :
+                                <field name="residence_partner_latitude"
+                                       readonly="1" nolabel="1"
+                                       class="oe_inline"/>
+                            </span>
+                            <br/>
+                            <span>Long:
+                                <field name="residence_partner_longitude"
+                                       readonly="1" nolabel="1"
+                                       class="oe_inline"/>
+                            </span>
+                            <br/>
+                            <span invisible="not residence_date_localization">
+                                Updated on:
+                                <field name="residence_date_localization"
+                                       nolabel="1" readonly="1"
+                                       class="oe_inline"/>
+                                <br/>
+                            </span>
+                        </div>
+                    </group>
+                </group>
             </xpath>
         </field>
     </record>
-
-
 </odoo>

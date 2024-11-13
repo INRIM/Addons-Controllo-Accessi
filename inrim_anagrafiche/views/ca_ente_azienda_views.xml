@@ -31,170 +31,82 @@
         <field name="name">ca.ente.azienda.form</field>
         <field name="model">ca.ente_azienda</field>
         <field name="arch" type="xml">
-            <form>
-                <t groups="controllo_accessi.ca_base, !controllo_accessi.ca_ca">
-                    <sheet>
-                        <div class="oe_title">
-                            <label for="name"/>
-                            <h1>
-                                <field name="name"
-                                       placeholder="e.g. My Company"
-                                       readonly="True"/>
-                            </h1>
-                        </div>
-                        <notebook>
-                            <page name="general_info"
-                                  string="General Information">
+            <form edit="lock">
+                <sheet>
+                    <field name="lock" invisible="1"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name"
+                                   placeholder="e.g. My Company"/>
+                        </h1>
+                    </div>
+                    <notebook>
+                        <page name="general_info"
+                              string="General Information">
+                            <group>
                                 <group>
-                                    <group>
-                                        <field name="parent_id"
-                                               options="{'no_create': True}"
-                                               domain="[('id', '!=', id)]"
-                                               readonly="True"/>
-                                        <field name="all_child_ids"
-                                               options="{'no_create': True}"
-                                               invisible="1" readonly="True"/>
-                                        <field name="parent_path"
-                                               readonly="True" invisible="1"/>
-                                        <span class="o_form_label o_td_label"
-                                              name="address_name">
-                                            <b>Address</b>
-                                        </span>
-                                        <div class="o_address_format">
-                                            <field name="street"
-                                                   placeholder="Street..."
-                                                   class="o_address_street"
-                                                   readonly="True"/>
-                                            <field name="street2"
-                                                   placeholder="Street 2..."
-                                                   class="o_address_street"
-                                                   readonly="True"/>
-                                            <field
-                                                    name="zip_id"
-                                                    options="{'create_name_field': 'city', 'no_open': True, 'no_create': True}"
-                                                    placeholder="City completion"
-                                            />
-                                            <field name="city"
-                                                   placeholder="City"
-                                                   class="o_address_city"
-                                                   readonly="True"/>
-                                            <field name="state_id"
-                                                   class="o_address_state"
-                                                   placeholder="State"
-                                                   readonly="True"/>
-                                            <field name="zip" placeholder="ZIP"
-                                                   class="o_address_zip"
-                                                   readonly="True"/>
-                                            <div name="partner_address_country"
-                                                 class="d-flex justify-content-between">
-                                                <field name="country_id"
-                                                       placeholder="Country"
-                                                       class="o_address_country"
-                                                       readonly="True"/>
-                                            </div>
+                                    <field name="parent_id"
+                                           options="{'no_create': True}"
+                                           domain="[('id', '!=', id)]"/>
+                                    <field name="all_child_ids"
+                                           options="{'no_create': True}"
+                                           invisible="1"/>
+                                    <field name="parent_path"
+                                           invisible="1"/>
+                                    <span class="o_form_label o_td_label"
+                                          name="address_name">
+                                        <b>Address</b>
+                                    </span>
+                                    <div class="o_address_format">
+                                        <field name="street"
+                                               placeholder="Street..."
+                                               class="o_address_street"/>
+                                        <field name="street2"
+                                               placeholder="Street 2..."
+                                               class="o_address_street"/>
+                                        <field
+                                                name="zip_id"
+                                                options="{'create_name_field': 'city', 'no_open': True, 'no_create': True}"
+                                                placeholder="City completion"
+                                        />
+                                        <field name="city"
+                                               placeholder="City"
+                                               class="o_address_city"/>
+                                        <field name="state_id"
+                                               class="o_address_state"
+                                               placeholder="State"/>
+                                        <field name="zip" placeholder="ZIP"
+                                               class="o_address_zip"/>
+                                        <div name="partner_address_country"
+                                             class="d-flex justify-content-between">
+                                            <field name="country_id"
+                                                   placeholder="Country"
+                                                   class="o_address_country"/>
                                         </div>
-                                        <field name="vat" readonly="True"/>
-                                        <field name="tz" readonly="True"/>
-                                        <field name="note" readonly="True"/>
-                                    </group>
-                                    <group>
-                                        <field name="email" readonly="True"/>
-                                        <field name="phone" readonly="True"/>
-                                        <field name="mobile" readonly="True"/>
-                                        <field name="website" readonly="True"/>
-                                        <field name="pec" readonly="True"/>
-                                        <field name="company_id"
-                                               options="{'no_create': True}"
-                                               readonly="True"/>
-                                        <field name="tipo_ente_azienda_id"
-                                               options="{'no_create': True}"
-                                               readonly="True"/>
-                                        <field name="ca_persona_ids"
-                                               widget="many2many_tags"
-                                               options="{'no_create': True}"
-                                               readonly="True"/>
-                                    </group>
+                                    </div>
+                                    <field name="vat"/>
+                                    <field name="tz"/>
+                                    <field name="note"/>
                                 </group>
-                            </page>
-                        </notebook>
-                    </sheet>
-                </t>
-                <t groups="controllo_accessi.ca_ca">
-                    <sheet>
-                        <div class="oe_title">
-                            <label for="name"/>
-                            <h1>
-                                <field name="name"
-                                       placeholder="e.g. My Company"/>
-                            </h1>
-                        </div>
-                        <notebook>
-                            <page name="general_info"
-                                  string="General Information">
                                 <group>
-                                    <group>
-                                        <field name="parent_id"
-                                               options="{'no_create': True}"
-                                               domain="[('id', '!=', id)]"/>
-                                        <field name="all_child_ids"
-                                               options="{'no_create': True}"
-                                               invisible="1"/>
-                                        <field name="parent_path"
-                                               invisible="1"/>
-                                        <span class="o_form_label o_td_label"
-                                              name="address_name">
-                                            <b>Address</b>
-                                        </span>
-                                        <div class="o_address_format">
-                                            <field name="street"
-                                                   placeholder="Street..."
-                                                   class="o_address_street"/>
-                                            <field name="street2"
-                                                   placeholder="Street 2..."
-                                                   class="o_address_street"/>
-                                            <field
-                                                    name="zip_id"
-                                                    options="{'create_name_field': 'city', 'no_open': True, 'no_create': True}"
-                                                    placeholder="City completion"
-                                            />
-                                            <field name="city"
-                                                   placeholder="City"
-                                                   class="o_address_city"/>
-                                            <field name="state_id"
-                                                   class="o_address_state"
-                                                   placeholder="State"/>
-                                            <field name="zip" placeholder="ZIP"
-                                                   class="o_address_zip"/>
-                                            <div name="partner_address_country"
-                                                 class="d-flex justify-content-between">
-                                                <field name="country_id"
-                                                       placeholder="Country"
-                                                       class="o_address_country"/>
-                                            </div>
-                                        </div>
-                                        <field name="vat"/>
-                                        <field name="tz"/>
-                                        <field name="note"/>
-                                    </group>
-                                    <group>
-                                        <field name="email"/>
-                                        <field name="phone"/>
-                                        <field name="mobile"/>
-                                        <field name="website"/>
-                                        <field name="pec"/>
-                                        <field name="company_id"
-                                               options="{'no_create': True}"/>
-                                        <field name="tipo_ente_azienda_id"
-                                               options="{'no_create': True}"/>
-                                        <field name="ca_persona_ids"
-                                               widget="many2many_tags"
-                                               options="{'no_create': True}"/>
-                                    </group>
+                                    <field name="email"/>
+                                    <field name="phone"/>
+                                    <field name="mobile"/>
+                                    <field name="website"/>
+                                    <field name="pec"/>
+                                    <field name="company_id"
+                                           options="{'no_create': True}"/>
+                                    <field name="tipo_ente_azienda_id"
+                                           options="{'no_create': True}"/>
+                                    <field name="ca_persona_ids"
+                                           widget="many2many_tags"
+                                           options="{'no_create': True}"/>
                                 </group>
-                            </page>
-                        </notebook>
-                    </sheet>
-                </t>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
             </form>
         </field>
     </record>

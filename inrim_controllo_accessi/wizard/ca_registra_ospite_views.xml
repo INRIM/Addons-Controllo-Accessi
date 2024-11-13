@@ -6,38 +6,52 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <separator string="Azienda"/>
-                    <field name="ca_ente_id" invisible="1"/>
+                    <field name="persona_id" invisible="0"/>
+                    <field name="ente_azienda" invisible="0"/>
+                    <field name="ente_interno" invisible="0"/>
                     <group>
-                        <field name="vat"/>
+
                         <group>
-                            <field name="ca_ente_name"/>
+                            <separator string="Nominativo"/>
+                            <field name="fiscalcode" class=""/>
+                            <field name="lastname" string="Cognome"/>
+                            <field name="name" string="Nome"/>
+                            <field name="freshman"/>
+                            <field name="email"/>
+                            <field name="mobile"/>
                         </group>
                         <group>
+                            <separator string="Azienda"/>
+                            <field name="vat"
+                                   required="not ente_interno"
+                                   invisible="ente_interno"
+                            />
+                            <field name="ca_ente_name"/>
                             <field name="tipo_ente_azienda_id"/>
                         </group>
                     </group>
                     <separator string="Referente"/>
-
-                    <field name="parent_id" required="1"/>
-                    <separator string="Nominativo"/>
-                    <field name="persona_id" invisible="1"/>
                     <group>
-                        <field name="fiscalcode"/>
+                        <field name="parent_id"
+                               required="not persona_id or persona_id.is_external == True"/>
+                    </group>
+                    <separator string="Dati Accesso"/>
+
+                    <group>
                         <group>
-                            <field name="lastname" string="Cognome"/>
-                            <field name="email"/>
+                            <field name="ca_work_info_type_id"/>
                             <field name="date_start"/>
+                            <field name="ca_tag_id"
+                                   options="{'no_create': True}"
+                                   domain="[('id', 'in', available_tags_ids)]"/>
                         </group>
                         <group>
-                            <field name="name" string="Nome"/>
-                            <field name="freshman"/>
+                            <field name="ca_title_id"/>
                             <field name="date_end"/>
+                            <field name="work_id_number"/>
+                            <field name="available_tags_ids" invisible="1"/>
+
                         </group>
-                        <field name="available_tags_ids" column_invisible="1"/>
-                        <field name="ca_tag_id"
-                               options="{'no_create': True}"
-                               domain="[('id', 'in', available_tags_ids)]"/>
                     </group>
 
                 </sheet>

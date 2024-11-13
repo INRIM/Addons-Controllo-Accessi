@@ -73,6 +73,7 @@ class CaEnteAzienda(models.Model):
              "If the timezone is not set, UTC (Coordinated Universal Time) is used.\n"
              "Anywhere else, time values are computed according to the time offset of your web client."
     )
+    lock = fields.Boolean(default=False)
 
     @api.depends("state_id", "country_id", "city_id", "zip")
     def _compute_zip_id(self):
@@ -166,6 +167,22 @@ class CaEnteAzienda(models.Model):
                     )
                     % error_dict
                 )
+
+    @api.constrains("vat", 'parent_id')
+    def _check_vat(self):
+        for record in self:
+            if record.vat:
+                if not record.vat and not record.parent_id:
+                    raise ValidationError(
+                        _('Partita Iva/Codice Fiscale campo obbligatorio'))
+                persona_id = self.env['ca.ente_azienda'].search([
+                    ('id', '!=', record.id),
+                    ('vat', '=', record.vat),
+                    ('parent_id', '=', False),
+                ])
+                if persona_id:
+                    raise ValidationError(
+                        _('Esiste già una Azienda con questa Partita Iva/Codice Fiscale'))
 
     def rest_boby_hint(self):
         return {

@@ -1,0 +1,48 @@
+<odoo>
+
+    <record id="titolo_persona_dipendente"
+            model="ca.titolo_persona">
+        <field name="name">Dipendente</field>
+        <field name="code">dipendente_jobtitles</field>
+    </record>
+
+    <record id="titolo_persona_servzio"
+            model="ca.titolo_persona">
+        <field name="name">Servizio</field>
+        <field name="code">servizio_jobtitles</field>
+    </record>
+
+
+
+    <record id="titolo_persona_ospite" model="ca.titolo_persona">
+        <field name="name">Ospite</field>
+        <field name="code">Ospite</field>
+    </record>
+
+    <record id="titolo_persona_soministrazione" model="ca.titolo_persona">
+        <field name="name">in Somminitsrazione</field>
+        <field name="code">inSomminitsrazione</field>
+    </record>
+
+    <record id="titolo_persona_tirocinio" model="ca.titolo_persona">
+        <field name="name">Tirocinio</field>
+        <field name="code">Tirocinio</field>
+    </record>
+
+    <record id="titolo_persona_servizi_igiene" model="ca.titolo_persona">
+        <field name="name">Servizi Igiene</field>
+        <field name="code">ServiziIgiene</field>
+    </record>
+
+    <record id="titolo_persona_servizi" model="ca.titolo_persona">
+        <field name="name">Servizi</field>
+        <field name="code">Servizi</field>
+    </record>
+
+    <record id="titolo_persona_servizi_mensa_ristorazione"
+            model="ca.titolo_persona">
+        <field name="name">Servizi Mensa Ristorazione</field>
+        <field name="code">ServiziMensaRistorazione</field>
+    </record>
+
+</odoo>

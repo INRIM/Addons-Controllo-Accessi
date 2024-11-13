@@ -8,6 +8,7 @@
             ref('inrim_anagrafiche.proprieta_tag_visitatore'), 
             ref('inrim_anagrafiche.proprieta_tag_valido')
         ])]"/>
+        <field name="default_id_number">00000000</field>
     </record>
 
     <record id="inrim_demo_ca_tag_2" model="ca.tag">
@@ -18,6 +19,7 @@
             ref('inrim_anagrafiche.proprieta_tag_jolly'), 
             ref('inrim_anagrafiche.proprieta_tag_valido')
         ])]"/>
+        <field name="default_id_number">00000001</field>
     </record>
 
     <record id="inrim_demo_ca_tag_3" model="ca.tag">
@@ -54,6 +56,7 @@
             ref('inrim_anagrafiche.proprieta_tag_temporaneo'),
             ref('inrim_anagrafiche.proprieta_tag_revocato')
         ])]"/>
+        <field name="default_id_number">00000002</field>
     </record>
 
     <record id="inrim_demo_ca_tag_7" model="ca.tag">
@@ -64,6 +67,7 @@
             ref('inrim_anagrafiche.proprieta_tag_visitatore'),
             ref('inrim_anagrafiche.proprieta_tag_valido')
         ])]"/>
+        <field name="default_id_number">00000004</field>
     </record>
 
     <record id="inrim_demo_ca_tag_8" model="ca.tag">
@@ -74,6 +78,7 @@
             ref('inrim_anagrafiche.proprieta_tag_visitatore'),
             ref('inrim_anagrafiche.proprieta_tag_valido')
         ])]"/>
+        <field name="default_id_number">00000005</field>
     </record>
 
     <record id="inrim_demo_ca_tag_9" model="ca.tag">
@@ -84,5 +89,6 @@
             ref('inrim_anagrafiche.proprieta_tag_visitatore'),
             ref('inrim_anagrafiche.proprieta_tag_valido')
         ])]"/>
+        <field name="default_id_number">00000006</field>
     </record>
 </odoo>

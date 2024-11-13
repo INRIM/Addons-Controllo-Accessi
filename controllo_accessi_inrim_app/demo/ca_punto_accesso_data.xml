@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inrim_controllo_accessi.ca_punto_accesso_1p001"
+            model="ca.punto_accesso">
+        <field name="ca_category"
+               ref="controllo_accessi_inrim_app.punto_accesso_category_portineria_cacce"/>
+        <field name="codice_lettore_grum">20</field>
+    </record>
+
+    <record id="inrim_controllo_accessi.ca_punto_accesso_1p002"
+            model="ca.punto_accesso">
+        <field name="ca_category"
+               ref="controllo_accessi_inrim_app.punto_accesso_category_portineria_cacce"/>
+        <field name="codice_lettore_grum">21</field>
+    </record>
+
+</odoo>

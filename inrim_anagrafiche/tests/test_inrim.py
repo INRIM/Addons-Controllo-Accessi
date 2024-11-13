@@ -1,11 +1,11 @@
 import base64
-from datetime import date, datetime
+from datetime import date
 
 from dateutil.relativedelta import relativedelta
+from odoo import fields
 from odoo.addons.inrim_anagrafiche.tests.common import TestCommon
 from odoo.exceptions import UserError
 from odoo.tests import tagged
-from odoo import fields
 
 
 @tagged("post_install", "-at_install", "inrim")
@@ -75,14 +75,11 @@ class TestInrim(TestCommon):
         ca_persona_id = self.env['ca.persona'].create({
             'name': 'Persona',
             'lastname': '6',
-            'type_ids': [(6, 0,
-                          [
-                              self.env.ref(
-                                  'inrim_anagrafiche.tipo_persona_esterno').id,
-                              self.env.ref(
-                                  'inrim_anagrafiche.tipo_persona_servizi').id
-                          ]
-                          )],
+            'type_ids': [
+                (6, 0, [
+                    self.env.ref(
+                        'inrim_anagrafiche.tipo_persona_esterno').id
+                ])],
             'ca_ente_azienda_ids': [(6, 0, [self.ente_azienda_3.id])],
             'ca_documento_ids': self.env['ca.documento'].create({
                 'tipo_documento_id': self.env.ref(

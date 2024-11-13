@@ -4,25 +4,42 @@
         <record id="inrim_ir_config_parameter_people_key"
                 model="ir.config_parameter">
             <field name="key">people.key</field>
-            <field name="value">In base al sistema</field>
+            <field name="value"></field>
         </record>
 
         <record id="inrim_ir_config_parameter_people_url"
                 model="ir.config_parameter">
             <field name="key">people.url</field>
-            <field name="value">In base al sistema</field>
+            <field name="value">https://people.ininrim.it</field>
         </record>
 
         <record id="inrim_ir_config_parameter_iam_key"
                 model="ir.config_parameter">
             <field name="key">iam.key</field>
-            <field name="value">In base al sistema</field>
+            <field name="value"></field>
         </record>
 
         <record id="inrim_ir_config_parameter_iam_url"
                 model="ir.config_parameter">
             <field name="key">iam.url</field>
-            <field name="value">In base al sistema</field>
+            <field name="value">https://iam.ininrim.it</field>
+        </record>
+
+
+        <record id="inrim_controllo_accessi_rfidglobal.inrim_ir_config_parameter_service_reader_url"
+                model="ir.config_parameter">
+            <field name="value">https://access-reader.docker.ininrim.it</field>
+        </record>
+
+        <record id="inrim_ir_config_parameter_default_internal_people_types"
+                model="ir.config_parameter">
+            <field name="key">default_ca.internal_people_types</field>
+            <field name="value">
+                ["dipendentit.d._employeetype","assegni_employeetype","dipendentit.i._employeetype","tesisti_employeetype","associazionitipoa_tipopersonale","associazionitipob_tipopersonale",
+                "associazionitipoc_tipopersonale",
+                "borse_employeetype","dottorandi_employeetype",
+                "stage_employeetype"]
+            </field>
         </record>
 
     </data>

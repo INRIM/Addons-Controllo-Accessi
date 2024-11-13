@@ -15,6 +15,7 @@ class CaTagLettore(models.Model):
     date_end = fields.Date(required=True)
     temp = fields.Boolean(related='ca_tag_id.temp')
     expired = fields.Boolean(compute="_compute_expired", store=True)
+    scheduled = fields.Boolean(compute="_compute_scheduled", store=True)
     active = fields.Boolean(default=True)
     ca_punto_accesso_id = fields.Many2one('ca.punto_accesso')
     access_point_typology = fields.Selection(related="ca_punto_accesso_id.typology",
@@ -113,6 +114,13 @@ class CaTagLettore(models.Model):
             record.expired = False
             if record.date_end and fields.date.today() > record.date_end:
                 record.expired = True
+
+    @api.onchange('date_start', 'active')
+    def _compute_scheduled(self):
+        for record in self:
+            record.scheduled = False
+            if record.date_start > fields.date.today():
+                record.scheduled = True
 
     @api.depends('ca_lettore_id', 'ca_tag_id')
     def _compute_name(self):

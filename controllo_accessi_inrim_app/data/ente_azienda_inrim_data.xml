@@ -10,9 +10,11 @@
             <field name="country_id" ref="base.it"/>
             <field name="tipo_ente_azienda_id"
                    ref="inrim_anagrafiche.tipo_ente_azienda_sede"/>
+            <field name="vat">09261710017</field>
             <field name="note">Campus</field>
             <field name="tz">Europe/Rome</field>
             <field name="ref">cacce</field>
+            <field name="lock" eval="True"/>
         </record>
 
         <record id="inrim_sede_mda" model="ca.ente_azienda">
@@ -27,6 +29,7 @@
                    eval="ref('inrim_anagrafiche.tipo_ente_azienda_sede_distaccata')"/>
             <field name="note">Sede Storica</field>
             <field name="tz">Europe/Rome</field>
+            <field name="lock" eval="True"/>
         </record>
 
         <record id="inrim_sede_fi" model="ca.ente_azienda">
@@ -41,6 +44,7 @@
                    eval="ref('inrim_anagrafiche.tipo_ente_azienda_sede_distaccata')"/>
             <field name="note">Lens</field>
             <field name="tz">Europe/Rome</field>
+            <field name="lock" eval="True"/>
         </record>
 
         <record id="inrim_sede_pv" model="ca.ente_azienda">
@@ -55,6 +59,39 @@
                    eval="ref('inrim_anagrafiche.tipo_ente_azienda_sede_distaccata')"/>
             <field name="note">Pavia</field>
             <field name="tz">Europe/Rome</field>
+            <field name="lock" eval="True"/>
         </record>
+
+
+        <record id="inrim_azienda_esterna_da_gestire" model="ca.ente_azienda">
+            <field name="name">Azienda estena da Gestire</field>
+            <field name="street">Strada delle Cacce, 91</field>
+            <field name="zip">10135</field>
+            <field name="state_id" ref="base.state_it_to"/>
+            <field name="country_id" ref="base.it"/>
+            <field name="tipo_ente_azienda_id"
+                   ref="inrim_anagrafiche.tipo_ente_azienda_azienda_todo"/>
+            <field name="note">Azienda Esterna Defaulta da Gestire su persona
+            </field>
+            <field name="tz">Europe/Rome</field>
+            <field name="ref">azienda_esterna_da_gestire</field>
+            <field name="lock" eval="True"/>
+        </record>
+
+        <record id="inrim_ente_esterno_da_gestire" model="ca.ente_azienda">
+            <field name="name">Azienda estena da Gestire</field>
+            <field name="street">Strada delle Cacce, 91</field>
+            <field name="zip">10135</field>
+            <field name="state_id" ref="base.state_it_to"/>
+            <field name="country_id" ref="base.it"/>
+            <field name="tipo_ente_azienda_id"
+                   ref="inrim_anagrafiche.tipo_ente_azienda_ente_todo"/>
+            <field name="note">Ente Esterno Defaulta da Gestire su persona
+            </field>
+            <field name="tz">Europe/Rome</field>
+            <field name="ref">ente_esterno_da_gestire</field>
+            <field name="lock" eval="True"/>
+        </record>
+
     </data>
 </odoo>

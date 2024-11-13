@@ -55,6 +55,7 @@ class CaTag(models.Model):
     ca_proprieta_tag_ids = fields.Many2many('ca.proprieta_tag')
     in_use = fields.Boolean(readonly=True)
     active = fields.Boolean(default=True)
+    default_id_number = fields.Char()
     temp = fields.Boolean(compute="_compute_properties", store=True)
     revoked = fields.Boolean(compute="_compute_properties", store=True)
 
@@ -88,9 +89,27 @@ class CaTag(models.Model):
                     ]
                 )
                 if tags:
-                    msg = f'Esiste già questo Tag: {record.tag_code}'
+                    msg = f'Esiste già questo Tag: {record.tag_code} in {record.name}'
                     if not record.active:
                         msg = f"{record.tag_code} Risulta disattivato, riattivare per utilizzare"
+                    raise UserError(
+                        _(msg))
+
+    @api.constrains('default_id_number', 'active')
+    def _check_unique_default_id_number(self):
+        for record in self:
+            if record.default_id_number:
+                tags = self.env['ca.tag'].with_context(
+                    active_test=False).search(
+                    [
+                        ('id', '!=', record.id),
+                        ('default_id_number', '=', record.default_id_number)
+                    ]
+                )
+                if tags:
+                    msg = f'Esiste già questo Seriale: {record.default_id_number} {record.name}'
+                    if not record.active:
+                        msg = f"{record.name} Risulta disattivato, riattivare per utilizzare"
                     raise UserError(
                         _(msg))
 

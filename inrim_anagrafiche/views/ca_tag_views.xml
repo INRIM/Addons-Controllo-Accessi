@@ -18,7 +18,9 @@
                 <field name="name"/>
                 <field name="tag_code"/>
                 <field name="ca_proprieta_tag_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                <field name="default_id_number"/>
                 <field name="in_use"/>
+                <field name="temp"/>
             </tree>
         </field>
     </record>
@@ -33,10 +35,12 @@
                         <group>
                             <field name="name"/>
                             <field name="tag_code"/>
+                            <field name="default_id_number"/>
                         </group>
                         <group>
                             <field name="ca_proprieta_tag_ids" widget="many2many_tags" options="{'no_create': True}"/>
                             <field name="in_use"/>
+                            <field name="temp" readonly="1"/>
                         </group>
                     </group>
                 </sheet>

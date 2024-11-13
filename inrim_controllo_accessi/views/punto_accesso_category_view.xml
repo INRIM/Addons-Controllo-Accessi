@@ -11,7 +11,7 @@
                                 name="action_add_guest"
                                 type="object"
                                 icon="oi-smile-add"
-                                string="Add Geust"
+                                string="Add Card Person"
                                 groups="controllo_accessi.ca_ca"
                         />
                     </div>

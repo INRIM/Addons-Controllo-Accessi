@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="work_info_type_dipendente_ti"
+            model="ca.work_info_type">
+        <field name="name">DIPENDENTI T.I.</field>
+        <field name="code">dipendentit.i._employeetype</field>
+        <field name="structured" eval="True"/>
+    </record>
+
+    <record id="work_info_type_dipendente_td"
+            model="ca.work_info_type">
+        <field name="name">DIPENDENTI T.D.</field>
+        <field name="code">dipendentit.d._employeetype</field>
+        <field name="structured" eval="True"/>
+    </record>
+
+    <record id="work_info_type_enti_esterni"
+            model="ca.work_info_type">
+        <field name="name">ENTI ESTERNI</field>
+        <field name="code">entiesterni_tipopersonale</field>
+    </record>
+
+    <record id="work_info_type_ditte_esterne"
+            model="ca.work_info_type">
+        <field name="name">DITTE ESTERNE</field>
+        <field name="code">ditteesterne_tipopersonale</field>
+    </record>
+
+
+</odoo>

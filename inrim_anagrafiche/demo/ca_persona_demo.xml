@@ -9,8 +9,15 @@
             <field name="fiscalcode">Fiscalcode 4</field>
             <field name="type_ids" eval="[(6, 0, [
                 ref('inrim_anagrafiche.tipo_persona_interno'),
-                ref('inrim_anagrafiche.tipo_persona_dipendente_ti')
             ])]"/>
+            <field name="ca_workinfo_ids" eval="[
+            Command.create({
+                'work_id_number': 12345,
+                'ca_work_info_type_id': ref('inrim_anagrafiche.work_info_type_dipendente_ti'),
+                'ca_title_id': ref('inrim_anagrafiche.titolo_persona_dipendente'),
+                'date_start': str(datetime.now().year)+'-01-01',
+                'date_end': str(datetime.now().year+10)+'-06-20'
+            })]"/>
         </record>
 
         <!-- Persona 1 -->
@@ -19,10 +26,19 @@
             <field name="name">Persona</field>
             <field name="lastname">1</field>
             <field name="fiscalcode">Fiscalcode 1</field>
-            <field name="parent_id" ref="inrim_anagrafiche.inrim_demo_ca_persona_4"/>
+            <field name="parent_id"
+                   ref="inrim_anagrafiche.inrim_demo_ca_persona_4"/>
             <field name="type_ids" eval="[(6, 0, [
                 ref('inrim_anagrafiche.tipo_persona_esterno')
             ])]"/>
+            <field name="ca_workinfo_ids" eval="[
+            Command.create({
+                'work_id_number': 9000,
+                'ca_work_info_type_id': ref('inrim_anagrafiche.work_info_type_enti_esterni'),
+                'ca_title_id': ref('inrim_anagrafiche.titolo_persona_soministrazione'),
+                'date_start': str(datetime.now().year)+'-01-01',
+                'date_end': str(datetime.now().year+1)+'-06-20'
+            })]"/>
             <field name="ca_documento_ids" eval="[
             Command.create({
                 'tipo_documento_id': ref('inrim_anagrafiche.tipo_doc_ident_carta_identita'),
@@ -49,11 +65,19 @@
             <field name="name">Persona</field>
             <field name="lastname">2</field>
             <field name="fiscalcode">Fiscalcode 2</field>
-            <field name="parent_id" ref="inrim_anagrafiche.inrim_demo_ca_persona_4"/>
+            <field name="parent_id"
+                   ref="inrim_anagrafiche.inrim_demo_ca_persona_4"/>
             <field name="type_ids" eval="[(6, 0, [
                 ref('inrim_anagrafiche.tipo_persona_esterno'),
-                ref('inrim_anagrafiche.tipo_persona_servizi_mensa_ristorazione')
             ])]"/>
+            <field name="ca_workinfo_ids" eval="[
+            Command.create({
+                'work_id_number': 9001,
+                'ca_work_info_type_id': ref('inrim_anagrafiche.work_info_type_ditte_esterne'),
+                'ca_title_id': ref('inrim_anagrafiche.titolo_persona_soministrazione'),
+                'date_start': str(datetime.now().year)+'-01-01',
+                'date_end': str(datetime.now().year+1)+'-06-20'
+            })]"/>
             <field name="ca_documento_ids" eval="[
             Command.create({
                 'tipo_documento_id': ref('inrim_anagrafiche.tipo_doc_ident_carta_identita'),
@@ -75,11 +99,19 @@
             <field name="name">Persona</field>
             <field name="lastname">3</field>
             <field name="fiscalcode">Fiscalcode 3</field>
-            <field name="parent_id" ref="inrim_anagrafiche.inrim_demo_ca_persona_4"/>
+            <field name="parent_id"
+                   ref="inrim_anagrafiche.inrim_demo_ca_persona_4"/>
             <field name="type_ids" eval="[(6, 0, [
                 ref('inrim_anagrafiche.tipo_persona_esterno'),
-                ref('inrim_anagrafiche.tipo_persona_servizi')
             ])]"/>
+            <field name="ca_workinfo_ids" eval="[
+            Command.create({
+                'work_id_number': 9002,
+                'ca_work_info_type_id': ref('inrim_anagrafiche.work_info_type_enti_esterni'),
+                'ca_title_id': ref('inrim_anagrafiche.titolo_persona_servizi'),
+                'date_start': str(datetime.now().year)+'-01-01',
+                'date_end': str(datetime.now().year+1)+'-06-20',
+            })]"/>
             <field name="ca_documento_ids" eval="[
             Command.create({
                 'tipo_documento_id': ref('inrim_anagrafiche.tipo_doc_ident_carta_identita'),
@@ -104,8 +136,15 @@
             <field name="fiscalcode">Fiscalcode 5</field>
             <field name="type_ids" eval="[(6, 0, [
                 ref('inrim_anagrafiche.tipo_persona_interno'),
-                ref('inrim_anagrafiche.tipo_persona_dipendente_td')
             ])]"/>
+            <field name="ca_workinfo_ids" eval="[
+            Command.create({
+                'work_id_number': 12346,
+                'ca_work_info_type_id': ref('inrim_anagrafiche.work_info_type_dipendente_td'),
+                'ca_title_id': ref('inrim_anagrafiche.titolo_persona_dipendente'),
+                'date_start': str(datetime.now().year)+'-01-01',
+                'date_end': str(datetime.now().year)+'-12-31',
+            })]"/>
         </record>
 
         <!-- Persona 6 -->
@@ -114,14 +153,22 @@
             <field name="name">Persona</field>
             <field name="lastname">6</field>
             <field name="fiscalcode">Fiscalcode 6</field>
-            <field name="parent_id" ref="inrim_anagrafiche.inrim_demo_ca_persona_4"/>
+            <field name="parent_id"
+                   ref="inrim_anagrafiche.inrim_demo_ca_persona_4"/>
             <field name="type_ids" eval="[(6, 0, [
                 ref('inrim_anagrafiche.tipo_persona_esterno'),
-                ref('inrim_anagrafiche.tipo_persona_servizi')
             ])]"/>
             <field name="ca_ente_azienda_ids" eval="[(6, 0, [
                 ref('inrim_anagrafiche.inrim_demo_ca_ente_azienda_3')
             ])]"/>
+            <field name="ca_workinfo_ids" eval="[
+            Command.create({
+                'work_id_number': 9003,
+                'ca_work_info_type_id': ref('inrim_anagrafiche.work_info_type_enti_esterni'),
+                'ca_title_id': ref('inrim_anagrafiche.titolo_persona_servizi'),
+                'date_start': str(datetime.now().year)+'-01-01',
+                'date_end': str(datetime.now().year +1)+'-06-20',
+            })]"/>
             <field name="ca_documento_ids" eval="[
             Command.create({
                 'tipo_documento_id': ref('inrim_anagrafiche.tipo_doc_ident_carta_identita'),

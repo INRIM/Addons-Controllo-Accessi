@@ -4,8 +4,6 @@ from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
 
-
-
 class CaPuntoAccessoCategory(models.Model):
     _name = 'ca.punto_accesso_category'
     _inherit = "ca.model.base.mixin"
@@ -15,17 +13,37 @@ class CaPuntoAccessoCategory(models.Model):
     code = fields.Char()
     description = fields.Char()
     ca_access_point_ids = fields.One2many('ca.punto_accesso', 'ca_category')
-    ca_tag_persona_ids = fields.Many2many('ca.tag_persona')
+    ca_tag_persona_ids = fields.Many2many(
+        'ca.tag_persona', compute="compute_ca_tag_persona_ids")
     active = fields.Boolean(default=True)
 
     def action_add_guest(self):
         return {
-            'name': _('Add Guest'),
+            'name': _('Add Card Person'),
             'type': 'ir.actions.act_window',
-            'action': 'controllo_accessi.ca_registra_ospite_action',
             'res_model': 'ca.registra_ospite',
-            'view_mode': "form"
+            'view_id': self.env.ref(
+                'inrim_controllo_accessi.ca_registra_ospite_form').id,
+            'target': 'new',
+            'view_mode': "form",
+            'context': {
+                'default_record_id': self.id  # Passiamo l'ID del record corrente
+            },
+
         }
+
+    def compute_ca_tag_persona_ids(self):
+        self.ensure_one()
+        # Ottieni i record di model_b associati al record corrente di model_a tramite field_b
+        access_point_ids = self.ca_access_point_ids
+
+        # Prendi gli IDs di model_c relativi ai record di model_b
+        tag_persona_ids = access_point_ids.mapped(
+            'ca_tag_lettore_persona_ids.ca_tag_persona').ids  # 'field_c_related' è il campo Many2many in ModelB
+
+        # Popola field_c in model_a con gli IDs di model_c
+        self.ca_tag_persona_ids = [(6, 0, tag_persona_ids)]
+
 
 class CaPuntoAccesso(models.Model):
     _name = 'ca.punto_accesso'
@@ -152,8 +170,7 @@ class CaPuntoAccesso(models.Model):
     def _compute_type_ids(self):
         for record in self:
             record.type_ids = [(6, 0, [
-                self.env.ref('inrim_anagrafiche.tipo_persona_interno').id,
-                self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_ti').id
+                self.env.ref('inrim_anagrafiche.tipo_persona_interno').id
             ])]
 
     @api.depends('ca_spazio_id', 'ca_lettore_id')

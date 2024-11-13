@@ -122,8 +122,7 @@ class CaRichiestaAccessoPersona(models.Model):
 
     def default_type_ids(self):
         type_ids = [(6, 0, [
-            self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_ti').id,
-            self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_td').id
+            self.env.ref('inrim_anagrafiche.tipo_persona_interno').id
         ])]
         return type_ids
     
@@ -132,9 +131,7 @@ class CaRichiestaAccessoPersona(models.Model):
         res = super(CaRichiestaAccessoPersona, self).create(vals)
         for record in res:
             record.type_ids = [(6, 0, [
-                self.env.ref('inrim_anagrafiche.tipo_persona_interno').id, 
-                self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_ti').id,
-                self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_td').id
+                self.env.ref('inrim_anagrafiche.tipo_persona_interno').id
             ])]
         return res
     
@@ -142,9 +139,7 @@ class CaRichiestaAccessoPersona(models.Model):
         res = super(CaRichiestaAccessoPersona, self).write(vals_list)
         for record in self:
             vals_list['type_ids'] = [(6, 0, [
-                self.env.ref('inrim_anagrafiche.tipo_persona_interno').id, 
-                self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_ti').id,
-                self.env.ref('inrim_anagrafiche.tipo_persona_dipendente_td').id
+                self.env.ref('inrim_anagrafiche.tipo_persona_interno').id
             ])]
         return res
 
