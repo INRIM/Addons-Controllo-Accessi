@@ -26,7 +26,7 @@ class CaRegistraOspite(models.TransientModel):
     date_end = fields.Datetime(required=True)
     parent_id = fields.Many2one(
         'ca.persona', string='Reference person', index=True,
-        domain=[('is_internal', '=', True), ('is_structured', '=', True)]
+        domain=[('is_internal', '=', True)]
     )
     ca_tag_id = fields.Many2one('ca.tag', required=True)
     available_tags_ids = fields.Many2many('ca.tag', compute="_compute_available_tags")
