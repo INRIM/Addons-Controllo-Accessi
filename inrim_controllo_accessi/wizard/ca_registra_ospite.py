@@ -79,6 +79,7 @@ class CaRegistraOspite(models.TransientModel):
         self.name = rec.name
         self.lastname = rec.lastname
         self.freshman = rec.freshman
+        self.fiscalcode = rec.fiscalcode
         self.email = rec.email
         self.persona_id = rec.id
         self.compute_available_tags()
@@ -127,7 +128,7 @@ class CaRegistraOspite(models.TransientModel):
             if not record.fiscalcode:
                 return
             persona_id = self.env['ca.persona'].search([
-                ('fiscalcode', 'ilike', record.fiscalcode)], limit=1)
+                ('fiscalcode', '=', record.fiscalcode)], limit=1)
             if persona_id:
                 self.populate_person(persona_id)
             else:
