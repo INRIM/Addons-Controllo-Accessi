@@ -86,7 +86,7 @@ class CaRegistraOspite(models.TransientModel):
             rec.ca_ente_azienda_ids.ids[0] if rec.ca_ente_azienda_ids else []
         )
         current_winfo = self.persona_id.get_current_winfo()
-        self.ca_work_info_type_id = current_winfo.work_info_type_id.id
+        self.ca_work_info_type_id = current_winfo.ca_work_info_type_id.id
         self.ca_title_id = current_winfo.ca_title_id.id
 
     def reset_person(self):
