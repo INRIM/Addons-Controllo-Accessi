@@ -6,16 +6,16 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <field name="persona_id" invisible="0"/>
+
                     <field name="ente_azienda" invisible="0"/>
                     <field name="ente_interno" invisible="0"/>
                     <group>
-
                         <group>
+                            <field name="persona_id"/>
                             <separator string="Nominativo"/>
-                            <field name="fiscalcode" class=""/>
                             <field name="lastname" string="Cognome"/>
                             <field name="name" string="Nome"/>
+                            <field name="fiscalcode" class=""/>
                             <field name="freshman"/>
                             <field name="email"/>
                             <field name="mobile"/>

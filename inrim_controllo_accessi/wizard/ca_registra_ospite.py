@@ -85,6 +85,9 @@ class CaRegistraOspite(models.TransientModel):
         self.eval_ente_azienda_id(
             rec.ca_ente_azienda_ids.ids[0] if rec.ca_ente_azienda_ids else []
         )
+        current_winfo = self.persona_id.get_current_winfo()
+        self.ca_work_info_type_id = current_winfo.work_info_type_id.id
+        self.ca_title_id = current_winfo.ca_title_id.id
 
     def reset_person(self):
         self.ensure_one()
@@ -135,13 +138,19 @@ class CaRegistraOspite(models.TransientModel):
         for record in self:
             record.work_id_number = record.ca_tag_id.default_id_number
 
+    @api.onchange('persona_id')
+    def _compute_tag_id_number(self):
+        for record in self:
+            if record.persona_id:
+                self.populate_person(record.persona_id)
+
     @api.onchange('email')
     def _compute_available_email(self):
         for record in self:
             if not record.email:
                 return
             persona_ids = self.env['ca.persona'].search([
-                ('email', 'ilike', record.email)])
+                ('email', 'ilike', record.email)], limit=1)
             if len(persona_ids) == 1:
                 self.populate_person(persona_ids[0])
             else:
@@ -176,6 +185,16 @@ class CaRegistraOspite(models.TransientModel):
                     "email": self.email,
                     "parent_id": self.parent_id.id,
                     "ca_ente_azienda_ids": self.ente_azienda.ids
+                }
+            )
+            self.env['ca.work_info'].create(
+                {
+                    'ca_persona_id': self.persona_id.id,
+                    'work_id_number': self.freshman,
+                    'ca_work_info_type_id': self.ca_work_info_type_id.id,
+                    'ca_title_id': self.ca_title_id.id,
+                    'date_start':self.date_start.split(" ")[0],
+                    'date_end':self.date_end.split(" ")[0]
                 }
             )
         else:

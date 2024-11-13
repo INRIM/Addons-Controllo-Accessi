@@ -11,6 +11,7 @@
                         domain="[('type_ids', 'ilike', 'esterno')]"/>
                 <filter name="type_ids"/>
                 <filter name="display_name"/>
+                <filter name="fiscalcode"/>
             </search>
         </field>
     </record>
