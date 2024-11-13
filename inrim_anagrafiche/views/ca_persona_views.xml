@@ -9,9 +9,9 @@
                         domain="[('type_ids', 'ilike', 'interno')]"/>
                 <filter string="External" name="external"
                         domain="[('type_ids', 'ilike', 'esterno')]"/>
-                <filter name="type_ids"/>
-                <filter name="display_name"/>
-                <filter name="fiscalcode"/>
+                <field name="type_ids"/>
+                <field name="display_name"/>
+                <field name="fiscalcode"/>
             </search>
         </field>
     </record>
