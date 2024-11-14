@@ -16,7 +16,7 @@ class CaAnagRegistroAccesso(models.Model):
     codice_lettore_grum = fields.Integer(
         string='Codice Lettore GRUM',
     )
-    work_id_number = fiels.Char(string='ID Number')
+    work_id_number = fields.Char(string='ID Number')
     state = fields.Selection([
         ('to_sync', 'To Sync'),
         ('sync_done', 'Sync Done'),

@@ -17,6 +17,7 @@
         'data/ir_cron.xml',
         'views/users_ldap.xml',
         'views/ca_punto_accesso_views.xml',
+        'views/ca_registro_accesso_views.xml',
     ],
     'demo': [
         "demo/ca_punto_accesso_data.xml",
