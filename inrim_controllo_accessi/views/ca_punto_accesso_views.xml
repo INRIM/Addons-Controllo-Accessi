@@ -103,7 +103,8 @@
                                    options="{'no_create': True}"
                                    readonly="enable_sync"/>
                             <field name="typology" readonly="enable_sync"/>
-                             <field name="ca_category" required="typology == 'stamping'"/>
+                            <field name="ca_category"
+                                   required="typology == 'stamping'"/>
                         </group>
                         <group>
                             <field name="events_to_read_num"/>
@@ -133,9 +134,13 @@
                                domain="[('type_ids', 'in', type_ids)]"/>
                         <notebook>
                             <page name="people" string="People">
-                                <field name="ca_tag_lettore_persona_ids" >
-                                    <tree default_order="display_name asc">
-
+                                <field name="ca_tag_lettore_persona_ids">
+                                    <tree default_order="ca_lettore_id asc">
+                                        <field name="ca_lettore_id" column_invisible="1"/>
+                                        <field name="ca_persona_id"/>
+                                        <field name="date_start"/>
+                                        <field name="date_end"/>
+                                        <field name="state"/>
                                     </tree>
                                 </field>
                             </page>
@@ -146,6 +151,7 @@
                                     <form>
                                         <group>
                                             <group>
+                                                <field name="state" widget="statusbar"/>
                                                 <field name="name"
                                                        readonly="True"/>
                                                 <field name="ca_lettore_id"
@@ -153,6 +159,10 @@
                                                        readonly="1"/>
                                                 <field name="ca_tag_id"
                                                        options="{'no_create': True}"/>
+                                                <field name="date_start"
+                                                       readonly="False"/>
+                                                <field name="date_end"
+                                                       readonly="False"/>
                                                 <field name="tag_in_use"/>
                                             </group>
                                             <group>
@@ -161,7 +171,7 @@
                                                 <field name="date_end"
                                                        readonly="False"/>
                                                 <field name="temp"/>
-                                                <field name="expired"/>
+
                                             </group>
                                         </group>
                                     </form>

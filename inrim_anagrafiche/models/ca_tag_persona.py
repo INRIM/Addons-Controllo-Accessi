@@ -108,9 +108,7 @@ class CaTagPersona(models.Model):
         elif self.date_start > now:
             self.ca_tag_id.in_use = True
             self.state = 'scheduled'
-        else:
-            self.ca_tag_id.in_use = False
-            self.state = 'returned'
+
 
     def check_update_by_date_valididty(self):
         for tag_persona in self.search([]):

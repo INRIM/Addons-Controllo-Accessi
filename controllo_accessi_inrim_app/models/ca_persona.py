@@ -54,8 +54,8 @@ class CaPersona(models.Model):
 
     def update_work_info_type(self, data):
         logger.info("Update tipo persona work_info_type")
-        ext_company = 'ditteesterne_tipopersonale'
-        ext_entity = 'entiesterni_tipopersonale'
+        payrolls = json.loads(self.env['ir.config_parameter'].sudo().get_param(
+            'inrim_payroll_types'))
         with self.env.cr.savepoint():
             try:
                 for dt in data:
@@ -67,11 +67,12 @@ class CaPersona(models.Model):
                             vals = {
                                 'name': dt['name'],
                                 'code': dt['code'],
-                                'structured': dt['code'] not in [ext_company, ext_entity]
+                                'structured': dt['code'] not in payrolls
                             }
                             res = self.env['ca.work_info_type'].create(vals)
                         else:
                             work_info_type_id.name = dt['name']
+                            work_info_type_id.structured = dt['code'] not in payrolls
             except Exception as e:
                 logger.error(f"Error: {e}", exc_info=True)
 

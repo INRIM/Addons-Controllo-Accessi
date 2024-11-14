@@ -11,8 +11,7 @@
                 <field name="tag_in_use"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
-                <field name="temp"/>
-                <field name="expired"/>
+                <field name="state"/>
             </tree>
         </field>
     </record>
@@ -23,17 +22,21 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
+                    <field name="state" readonly="1"
+                           widget="statusbar"/>
                     <group>
                         <group>
                             <field name="name" readonly="True"/>
-                            <field name="ca_lettore_id" options="{'no_create': True}"/>
-                            <field name="ca_tag_id" options="{'no_create': True}"/>
+                            <field name="ca_lettore_id"
+                                   options="{'no_create': True}"/>
+                            <field name="ca_tag_id"
+                                   options="{'no_create': True}"/>
                             <field
-                                name="ca_punto_accesso_id"
-                                options="{'no_create': True}"
-                                required="True"
-                                domain="[('ca_lettore_id', '=', ca_lettore_id)]"
-                                readonly="not ca_lettore_id"
+                                    name="ca_punto_accesso_id"
+                                    options="{'no_create': True}"
+                                    required="True"
+                                    domain="[('ca_lettore_id', '=', ca_lettore_id)]"
+                                    readonly="not ca_lettore_id"
                             />
                             <field name="tag_in_use"/>
                         </group>
@@ -41,7 +44,6 @@
                             <field name="date_start" readonly="False"/>
                             <field name="date_end" readonly="False"/>
                             <field name="temp"/>
-                            <field name="expired"/>
                         </group>
                     </group>
                 </sheet>
@@ -58,28 +60,38 @@
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click">
                             <strong>
-                                <field name="name"/><br/>
+                                <field name="name"/>
+                                <br/>
                             </strong>
                             <span name="ca_lettore_id">
-                                Reader: <field name="ca_lettore_id"/><br/>
+                                Reader:
+                                <field name="ca_lettore_id"/>
+                                <br/>
                             </span>
                             <span name="ca_tag_id">
-                                Tag: <field name="ca_tag_id"/><br/>
+                                Tag:
+                                <field name="ca_tag_id"/>
+                                <br/>
                             </span>
                             <span name="tag_in_use">
-                                Tag In Use: <field name="tag_in_use"/><br/>
+                                Tag In Use:
+                                <field name="tag_in_use"/>
+                                <br/>
                             </span>
                             <span name="date_start">
-                                Date Start: <field name="date_start"/><br/>
+                                Date Start:
+                                <field name="date_start"/>
+                                <br/>
                             </span>
                             <span name="date_end">
-                                Date End: <field name="date_end"/><br/>
+                                Date End:
+                                <field name="date_end"/>
+                                <br/>
                             </span>
                             <span name="temp">
-                                Temp: <field name="temp"/><br/>
-                            </span>
-                            <span name="expired">
-                                Expired: <field name="expired"/><br/>
+                                Temp:
+                                <field name="temp"/>
+                                <br/>
                             </span>
                         </div>
                     </t>

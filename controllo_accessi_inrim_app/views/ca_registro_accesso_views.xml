@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_anag_registro_accesso_view_tree_inherit" model="ir.ui.view">
+        <field name="name">ca.registro_accesso.view.tree.inherit</field>
+        <field name="model">ca.anag_registro_accesso</field>
+        <field name="inherit_id"
+               ref="inrim_controllo_accessi.ca_anag_registro_accesso_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ca_punto_accesso_id']"
+                   position="after">
+                <field name="codice_lettore_grum"/>
+            </xpath>
+            <xpath expr="//field[@name='person_display_name']"
+                   position="after">
+                <field name="work_id_number"/>
+            </xpath>
+            <xpath expr="//field[@name='system_error']"
+                   position="after">
+                <field name="state"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

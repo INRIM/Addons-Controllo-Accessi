@@ -20,7 +20,7 @@ class CaPersona(models.Model):
     vat = fields.Char()
     type_ids = fields.Many2many('ca.tipo_persona')
     freshman = fields.Char(groups="controllo_accessi.ca_gdpr")
-    work_id_number = fields.Char(string="A.C. ID Numeber",
+    work_id_number = fields.Char(string="A.C. ID Number",
                                  groups="controllo_accessi.ca_gdpr")
     nationality = fields.Many2one('res.country', groups="controllo_accessi.ca_gdpr")
     birth_date = fields.Date(groups="controllo_accessi.ca_gdpr")

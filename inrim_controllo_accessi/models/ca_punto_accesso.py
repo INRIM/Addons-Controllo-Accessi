@@ -272,16 +272,18 @@ class CaPuntoAccesso(models.Model):
             tag_lettore = self.env['ca.tag_lettore'].search(
                 [
                     ('ca_tag_id', '=', tag.id),
-                    ('ca_lettore_id', "=", self.ca_lettore_id.id)
+                    ('ca_lettore_id', "=", self.ca_lettore_id.id),
+                    ('state', '=', 'active')
                 ], limit=1)
             if not tag_lettore:
-                self.env['ca.tag_lettore'].create({
+                tag_lettore = self.env['ca.tag_lettore'].create({
                     'ca_lettore_id': self.ca_lettore_id.id,
                     'ca_tag_id': tag.id,
                     'date_start': self.date_start,
                     'date_end': self.date_end,
                     'ca_punto_accesso_id': self.id
                 })
+                tag_lettore.check_update_state()
 
         self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
 

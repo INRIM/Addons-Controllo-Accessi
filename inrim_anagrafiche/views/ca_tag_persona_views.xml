@@ -27,7 +27,7 @@
                 <field name="date_start"/>
                 <field name="date_end"/>
                 <field name="temp"/>
-                <field name="state" readonly="1"/>
+                <field name="state"/>
             </tree>
         </field>
     </record>
@@ -41,6 +41,8 @@
                     <group>
                         <group>
                             <field name="token" invisible="1"/>
+                            <field name="state" readonly="1"
+                                               widget="statusbar"/>
                             <field name="ca_persona_id"
                                    options="{'no_create': True}"/>
                             <field name="available_tags_ids" invisible="1"/>

@@ -206,7 +206,7 @@ class CaPuntoAccesso(models.Model):
                         if tag:
                             tag_persona = self.env['ca.tag_persona'].search([
                                 ('ca_tag_id.id', '=', tag.id),
-                                ('tag_in_use', '=', True)])
+                                ('state', '=', 'to_give_back')])
                             if tag_persona:
                                 riga_accesso_model.aggiungi_riga_accesso(
                                     self, tag_persona,
@@ -218,7 +218,7 @@ class CaPuntoAccesso(models.Model):
                                 return True
                             else:
                                 logger.error(
-                                    f"tag {record.idd} not associated with no one ")
+                                    f"tag {record.idd} associated with no one ")
                                 return False
                         else:
                             logger.error(

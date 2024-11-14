@@ -155,6 +155,8 @@ class TestInrim(TestCommon):
             ('ca_tag_id', "=", self.tag_8.id),
         ])
 
+        self.assertEqual(ca_tag_lettore.state, 'active')
+
         self.assertTrue(self.punto_accesso_2.enable_sync)
         # 5
         tag_persona_id = self.env['ca.tag_persona'].with_user(

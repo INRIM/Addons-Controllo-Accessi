@@ -66,13 +66,14 @@ class CaWorkInfoType(models.Model):
             'name': self.name,
             'code': self.code,
             'description': self.description,
+            'structured': self.structured,
         }
         return vals
 
     def rest_eval_body(self, body):
         body, msg = super().rest_eval_body(
             body, [
-                'name', 'code'
+                'name', 'code', 'structured'
             ])
         return body, msg
 
@@ -86,8 +87,7 @@ class CaWorkInfo(models.Model):
     ca_persona_id = fields.Many2one(
         'ca.persona', required=True)
 
-    work_id_number = fields.Char(
-        string="A.C. ID Numeber", groups="controllo_accessi.ca_gdpr")
+    work_id_number = fields.Char(string="ID Number")
 
     ca_work_info_type_id = fields.Many2one(
         'ca.work_info_type', ondelete='cascade')
@@ -126,7 +126,7 @@ class CaWorkInfo(models.Model):
             self.state = 'expired'
 
     def check_update_by_date_valididty(self):
-        for winfo_persona in self.search([]):
+        for winfo_persona in self.env['ca.work_info'].search([]):
             if winfo_persona:
                 winfo_persona.check_update_state()
 

@@ -16,7 +16,7 @@
         </record>
 
         <record id="ir_cron_check_tag_validity" model="ir.cron">
-            <field name="name">INRIM: Check Tag Validity</field>
+            <field name="name">INRIM: Check Tag Persona Validity</field>
             <field name="model_id" ref="model_ca_tag_persona"/>
             <field name="type">ir.action.server</field>
             <field name="code">model._cron_check_validity_tag()</field>
@@ -26,6 +26,19 @@
             <field name="doall">False</field>
             <field name="active">True</field>
             <field name="interval_number">5</field>
+        </record>
+
+        <record id="ir_cron_check_workinfo_validity" model="ir.cron">
+            <field name="name">INRIM: Check Work Info Validity</field>
+            <field name="model_id" ref="model_ca_work_info"/>
+            <field name="type">ir.action.server</field>
+            <field name="code">model._cron_check_validity_winfo()</field>
+            <field name="interval_type">hours</field>
+            <field name="interval_number">12</field>
+            <field name="numbercall">-1</field>
+            <field name="priority">5</field>
+            <field name="doall">False</field>
+            <field name="active">True</field>
         </record>
     </data>
 </odoo>

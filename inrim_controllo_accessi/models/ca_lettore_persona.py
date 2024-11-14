@@ -18,17 +18,16 @@ class CaLettorePersona(models.Model):
     ca_persona_id = fields.Many2one(
         related="ca_tag_persona.ca_persona_id", store=True, readonly=True)
 
+    date_start = fields.Datetime(
+        related="ca_tag_persona.date_start", readonly=True, store=True)
+    date_end = fields.Datetime(
+        related="ca_tag_persona.date_end", readonly=True, store=True)
+
     state = fields.Selection([
         ('active', 'Active'),
         ('expired', 'Expired'),
         ('scheduled', 'Scheduled')
     ], readonly=True)
-
-    date = fields.Date(readonly=True)
-    date_start = fields.Datetime(
-        related="ca_tag_persona.date_start", readonly=True, store=True)
-    date_end = fields.Datetime(
-        related="ca_tag_persona.date_end", readonly=True, store=True)
 
     active = fields.Boolean(default=True)
 
@@ -44,35 +43,31 @@ class CaLettorePersona(models.Model):
                 ('ca_tag_persona', '=', record.ca_tag_persona.id),
                 ('date_start', '<=', record.date_start),
                 ('date_end', '>=', record.date_end),
-                ('state', '=', 'active')
+                ('state', 'not in', ['expired'])
             ])
             if punto_accesso_persona_id:
                 raise UserError(
                     _('Puo’ esistere solo una configurazione per tag lettore, tag persona, data, in stato attivo'))
 
+    @api.onchange('date_start', 'date_end')
+    def _compute_expired(self):
+        for record in self:
+            record.check_update_state()
+
     def elabora_persone(self, lettore_id):
         vals = []
         ca_tag_lettore_ids = self.env['ca.tag_lettore'].search([
-            ('ca_lettore_id', '=', lettore_id.id), ('expired', '=', False),
+            ('ca_lettore_id', '=', lettore_id.id), ('state', 'not in', ['expired']),
         ])
 
         if ca_tag_lettore_ids:
             for tag_lettore in ca_tag_lettore_ids:
-                tag_lettore._compute_expired()
-                tag_lettore._compute_scheduled()
-                if not tag_lettore.expired and not tag_lettore.scheduled:
+                tag_lettore.check_update_state()
+                if tag_lettore.state == 'active':
                     now = fields.Datetime.now()
                     tag_persona_id = self.env['ca.tag_persona'].get_current_by_tag(
                         tag_lettore.ca_tag_id)
                     if tag_persona_id:
-                        old_lettore_persona_id = self.env[
-                            'ca.lettore_persona'
-                        ].search([
-                            ('ca_tag_lettore_id', '=', tag_lettore.id),
-                            ('ca_tag_persona', '=', tag_persona_id.id),
-                            ('date_end', '<', now),
-                            ('state', '=', 'active')
-                        ])
                         lettore_persona_id = self.env[
                             'ca.lettore_persona'
                         ].search([
@@ -80,19 +75,16 @@ class CaLettorePersona(models.Model):
                             ('ca_tag_persona', '=', tag_persona_id.id),
                             ('date_start', '<=', now),
                             ('date_end', '>=', now),
-                            ('state', '=', 'active')
+                            ('state', 'not in', ['expired'])
                         ])
-                        if old_lettore_persona_id:
-                            old_lettore_persona_id.state = 'expired'
                         if not lettore_persona_id:
                             new_lettore_persona_id = self.env[
                                 'ca.lettore_persona'
                             ].create({
                                 'ca_tag_lettore_id': tag_lettore.id,
-                                'ca_tag_persona': tag_persona_id.id,
-                                'date': fields.date.today(),
-                                'state': 'active'
+                                'ca_tag_persona': tag_persona_id.id
                             })
+                            new_lettore_persona_id.check_update_state()
                             vals.append(new_lettore_persona_id)
         return vals
 
@@ -104,3 +96,21 @@ class CaLettorePersona(models.Model):
             return self.elabora_persone(lettore_id)
         else:
             return None
+
+    def check_update_state(self):
+        now = fields.Datetime.now()
+        self.ensure_one()
+        if self.date_start <= now <= self.date_end:
+            self.state = 'active'
+        elif self.date_start > now:
+            self.state = 'scheduled'
+        elif self.date_end <= now:
+            self.state = 'expired'
+
+    def check_update_by_date_valididty(self):
+        for person_reader in self.env['ca.lettore_persona'].search([]):
+            if person_reader:
+                person_reader.check_update_state()
+
+    def _cron_check_validity_winfo(self):
+        self.check_update_by_date_valididty()

@@ -32,7 +32,7 @@ class CaRegistraOspite(models.TransientModel):
     available_tags_ids = fields.Many2many('ca.tag', compute="_compute_available_tags")
     ente_interno = fields.Boolean(string="Interno")
     work_id_number = fields.Char(
-        string="A.C. ID Numeber", groups="controllo_accessi.ca_gdpr")
+        string="ID Number", groups="controllo_accessi.ca_gdpr")
 
     def ente_azienda_domain(self):
         return [

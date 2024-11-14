@@ -14,12 +14,15 @@ class CaTagLettore(models.Model):
     date_start = fields.Date(required=True)
     date_end = fields.Date(required=True)
     temp = fields.Boolean(related='ca_tag_id.temp')
-    expired = fields.Boolean(compute="_compute_expired", store=True)
-    scheduled = fields.Boolean(compute="_compute_scheduled", store=True)
-    active = fields.Boolean(default=True)
+    state = fields.Selection([
+        ('active', 'Active'),
+        ('expired', 'Expired'),
+        ('scheduled', 'Scheduled')
+    ], readonly=True)
     ca_punto_accesso_id = fields.Many2one('ca.punto_accesso')
-    access_point_typology = fields.Selection(related="ca_punto_accesso_id.typology",
-                                             store=True)
+    access_point_typology = fields.Selection(
+        related="ca_punto_accesso_id.typology", store=True)
+    active = fields.Boolean(default=True)
 
     def rest_boby_hint(self):
         return {
@@ -83,7 +86,7 @@ class CaTagLettore(models.Model):
         self.ensure_one()
         if self.ca_punto_accesso_id:
             self.ca_punto_accesso_id.remote_update = True
-        self.expired = True
+        self.state = 'expired'
         self.active = False
 
     @api.onchange('ca_lettore_id')
@@ -108,19 +111,28 @@ class CaTagLettore(models.Model):
                     record.date_start = tag_persona_id.date_start
                     record.date_end = tag_persona_id.date_end
 
-    @api.onchange('date_end')
-    def _compute_expired(self):
-        for record in self:
-            record.expired = False
-            if record.date_end and fields.date.today() > record.date_end:
-                record.expired = True
-
-    @api.onchange('date_start', 'active')
+    @api.onchange('date_start', 'date_end')
     def _compute_scheduled(self):
         for record in self:
-            record.scheduled = False
-            if record.date_start > fields.date.today():
-                record.scheduled = True
+            record.check_update_state()
+
+    def check_update_state(self):
+        now = fields.Date.today()
+        self.ensure_one()
+        if self.date_start <= now <= self.date_end:
+            self.state = 'active'
+        elif self.date_start > now:
+            self.state = 'scheduled'
+        elif self.date_end <= now:
+            self.state = 'expired'
+
+    def check_update_by_date_valididty(self):
+        for tag_reader in self.env['ca.tag_lettore'].search([]):
+            if tag_reader:
+                tag_reader.check_update_state()
+
+    def _cron_check_validity_winfo(self):
+        self.check_update_by_date_valididty()
 
     @api.depends('ca_lettore_id', 'ca_tag_id')
     def _compute_name(self):
@@ -136,7 +148,7 @@ class CaTagLettore(models.Model):
                 ('id', '!=', record.id),
                 ('ca_lettore_id', '=', record.ca_lettore_id.id),
                 ('ca_tag_id', '=', record.ca_tag_id.id),
-                ('expired', '=', False),
+                ('state', 'not in', ['expired']),
                 ('active', '=', True)
             ])
             if tag_lettore_id:

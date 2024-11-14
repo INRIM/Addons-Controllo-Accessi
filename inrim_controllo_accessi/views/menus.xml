@@ -14,7 +14,7 @@
             action="ca_punto_accesso_category_action"
             groups="controllo_accessi.ca_ca"
             parent="ca_punto_accesso_menu"
-            sequence="1"
+            sequence="2"
     />
     <menuitem
             id="ca_base_punto_accesso_menu"
@@ -22,14 +22,14 @@
             groups="controllo_accessi.ca_ca"
             action="ca_punto_accesso_action"
             parent="ca_punto_accesso_menu"
-            sequence="2"
+            sequence="3"
     />
     <menuitem
             id="access_data_management_menu"
             name="Access Data Management"
             groups="controllo_accessi.ca_utente"
             parent="inrim_anagrafiche.ca_controllo_accessi_root"
-            sequence="2"
+            sequence="4"
     />
 
 
