@@ -13,17 +13,12 @@ class CaRestituisciBadge(models.TransientModel):
     available_tags_ids = fields.Many2many('ca.tag', compute="_compute_available_tags")
 
     def _compute_available_tags(self):
-        self.compute_available_tags()
-
-    def compute_available_tags(self):
-        self.ensure_one()
         self.available_tags_ids = self.env['ca.tag'].search([
-            ('in_use', '=', True),
-            ('revoked', '=', False)
+            ("in_use", "=", True)
         ])
 
     def action_confirm(self):
-        tag_persona = self.env['ca.tag_persona'].get_current_by_tag(tag)
+        tag_persona = self.env['ca.tag_persona'].get_current_by_tag(self.ca_tag_id)
         logger.info(f"wizard eval detach {tag_persona}")
         for access_point_group in self.env['ca.punto_accesso_category'].search([]):
             for access_point in access_point_group.ca_access_point_ids:

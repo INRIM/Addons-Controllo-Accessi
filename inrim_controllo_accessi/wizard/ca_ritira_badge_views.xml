@@ -7,7 +7,6 @@
             <form>
                 <sheet>
                     <separator string="Dati Badge"/>
-
                     <group>
                         <group>
                             <field name="ca_tag_id"
