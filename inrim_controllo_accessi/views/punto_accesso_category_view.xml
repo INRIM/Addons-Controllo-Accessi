@@ -17,7 +17,7 @@
                         <button
                                 name="action_restituisci_badge"
                                 type="object"
-                                icon="fa fa-id-badge"
+                                icon="fa-id-badge"
                                 string="Give Back Badge"
                                 groups="controllo_accessi.ca_ca"
                         />
