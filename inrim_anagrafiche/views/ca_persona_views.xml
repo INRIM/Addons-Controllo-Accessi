@@ -247,8 +247,7 @@
                             </page>
                             <page name="work_info" string="List of Work Info">
                                 <field name="ca_workinfo_ids"
-                                       context="{'default_ca_persona_id': active_id, 'no_create': True}"
-                                       readonly="1">
+                                       context="{'default_ca_persona_id': active_id, 'no_create': True}">
                                     <form edit="0">
                                         <field name="state" readonly="1"
                                                widget="statusbar"/>
