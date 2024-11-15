@@ -27,7 +27,6 @@
                 <field name="ca_ente_azienda_id"/>
                 <field name="person_display_name"/>
                 <field name="datetime_event"/>
-                <field name="tz"/>
                 <field name="typology"/>
                 <field name="direction"/>
                 <field name="access_allowed"/>

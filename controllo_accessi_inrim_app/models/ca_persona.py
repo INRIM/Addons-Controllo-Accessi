@@ -216,9 +216,14 @@ class CaPersona(models.Model):
                         else:
                             vals['date_end'] = fields.Date.to_date(
                                 dt['data_fine'])
-
-                        persona_id.with_context(
-                            massive_create=True).update_work_info(vals)
+                        curr_winfo = persona_id.get_current_winfo()
+                        if (
+                                not curr_winfo or
+                                not curr_winfo.ca_work_info_type_id == work_info_type_id or
+                                not curr_winfo.ca_title_id == title_id.id
+                        ):
+                            persona_id.with_context(
+                                massive_create=True).update_work_info(vals)
                 except Exception as e:
                     logger.error(
                         f"Error Skip {dt.get('uid')}: {e}", exc_info=True)
