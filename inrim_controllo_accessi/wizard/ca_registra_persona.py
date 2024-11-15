@@ -103,6 +103,7 @@ class CaRegistraPersona(models.TransientModel):
         self.persona_id = False
 
     def _compute_available_tags(self):
+
         self.compute_available_tags()
 
     def compute_available_tags(self):

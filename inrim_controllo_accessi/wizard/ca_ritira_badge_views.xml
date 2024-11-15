@@ -11,11 +11,7 @@
                         <group>
                             <field name="ca_tag_id"
                                    options="{'no_create': True, 'no_quick_create': True}"
-                                   domain="[('id', 'in', available_tags_ids)]"/>
-                        </group>
-                        <group>
-                            <field name="available_tags_ids" invisible="1"/>
-
+                                   domain="[('in_use', '=', True)]"/>
                         </group>
                     </group>
 
