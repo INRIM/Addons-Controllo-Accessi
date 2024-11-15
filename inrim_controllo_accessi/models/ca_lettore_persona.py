@@ -73,8 +73,6 @@ class CaLettorePersona(models.Model):
                         ].search([
                             ('ca_tag_lettore_id', '=', tag_lettore.id),
                             ('ca_tag_persona', '=', tag_persona_id.id),
-                            ('date_start', '<=', now),
-                            ('date_end', '>=', now),
                             ('state', 'not in', ['expired'])
                         ])
                         if not lettore_persona_id:
