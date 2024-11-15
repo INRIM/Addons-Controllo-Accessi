@@ -222,7 +222,7 @@ class TestInrim(TestCommon):
 
         :return:
         """
-        # portineria consegns il tag e lo disassocia
+        # portineria consegna il tag e lo disassocia
         tag_p = self.env['ca.tag_persona'].with_user(
             self.user_1).create({
             'ca_persona_id': self.persona_3.id,
@@ -245,9 +245,9 @@ class TestInrim(TestCommon):
         self.assertTrue(tag_lettore)
         self.assertTrue(self.punto_accesso_3.remote_update)
         # portineria riprende il tag e lo disassocia
-        tag_p.set_retuned()
         self.punto_accesso_3.remote_update = False
-        self.punto_accesso_3.local_access_detach(self.persona_3)
+        self.punto_accesso_3.local_access_detach(tag_p)
+        tag_p.set_retuned()
         self.assertTrue(self.punto_accesso_3.remote_update)
         self.assertFalse(self.punto_accesso_3.local_access_attach(self.tag_9))
 

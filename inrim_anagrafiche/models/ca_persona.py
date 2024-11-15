@@ -127,14 +127,11 @@ class CaPersona(models.Model):
 
     def get_current_tag(self):
         tag = self.ca_tag_ids.filtered(
-            lambda t: not t.state == "to_give_back"
+            lambda t: t.state == "to_give_back"
         )
         return tag
 
     def set_tag_returned(self):
-        tag = self.ca_tag_ids.filtered(
-            lambda t: not t.state == "to_give_back"
-        )
         tag.state = 'returned'
 
     def btn_presence(self):

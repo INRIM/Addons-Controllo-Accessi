@@ -1,0 +1,32 @@
+import logging
+
+from odoo import models, fields
+
+logger = logging.getLogger(__name__)
+
+
+class CaRestituisciBadge(models.TransientModel):
+    _name = 'ca.restituisci_badge'
+    _description = 'Restituisci Badge'
+
+    ca_tag_id = fields.Many2one('ca.tag', required=True)
+    available_tags_ids = fields.Many2many('ca.tag', compute="_compute_available_tags")
+
+    def _compute_available_tags(self):
+        self.compute_available_tags()
+
+    def compute_available_tags(self):
+        self.ensure_one()
+        self.available_tags_ids = self.env['ca.tag'].search([
+            ('in_use', '=', True),
+            ('revoked', '=', False)
+        ])
+
+    def action_confirm(self):
+        tag_persona = self.env['ca.tag_persona'].get_current_by_tag(tag)
+        logger.info(f"wizard eval detach {tag_persona}")
+        for access_point_group in self.env['ca.punto_accesso_category'].search([]):
+            for access_point in access_point_group.ca_access_point_ids:
+                access_point.check_and_detach(tag_persona)
+        tag_persona.set_retuned()
+        return res

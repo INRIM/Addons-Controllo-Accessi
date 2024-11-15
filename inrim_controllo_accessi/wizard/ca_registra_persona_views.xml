@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="ca_registra_ospite_form" model="ir.ui.view">
+    <record id="ca_registra_persona_form" model="ir.ui.view">
         <field name="name">ca.registra.ospite.view.form</field>
-        <field name="model">ca.registra_ospite</field>
+        <field name="model">ca.registra_persona</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
@@ -42,7 +42,7 @@
                         <group>
                             <field name="ca_work_info_type_id" options="{'no_create': True, 'no_quick_create': True}"/>
                             <field name="date_start"/>
-                            <field name="ca_tag_id"
+                            <field name="ca_tag_id" string="Badge"
                                    options="{'no_create': True, 'no_quick_create': True}"
                                    domain="[('id', 'in', available_tags_ids)]"/>
                         </group>
@@ -73,9 +73,9 @@
         </field>
     </record>
 
-    <record id="ca_registra_ospite_action" model="ir.actions.act_window">
+    <record id="ca_registra_persona_action" model="ir.actions.act_window">
         <field name="name">Registra Ospite</field>
-        <field name="res_model">ca.registra_ospite</field>
+        <field name="res_model">ca.registra_persona</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>

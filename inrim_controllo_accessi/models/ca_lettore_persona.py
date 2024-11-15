@@ -112,5 +112,5 @@ class CaLettorePersona(models.Model):
             if person_reader:
                 person_reader.check_update_state()
 
-    def _cron_check_validity_winfo(self):
+    def _cron_check_validity_person_reader(self):
         self.check_update_by_date_valididty()

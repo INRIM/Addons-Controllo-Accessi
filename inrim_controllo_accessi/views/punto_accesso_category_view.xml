@@ -8,10 +8,17 @@
                 <sheet>
                     <div name="button_box">
                         <button
-                                name="action_add_guest"
+                                name="action_add_person"
                                 type="object"
                                 icon="oi-smile-add"
-                                string="Add Card Person"
+                                string="Add Badge Person"
+                                groups="controllo_accessi.ca_ca"
+                        />
+                        <button
+                                name="action_restituisci_badge"
+                                type="object"
+                                icon="fa fa-id-badge"
+                                string="Give Back Badge"
                                 groups="controllo_accessi.ca_ca"
                         />
                     </div>

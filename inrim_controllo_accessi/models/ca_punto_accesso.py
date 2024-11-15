@@ -20,13 +20,27 @@ class CaPuntoAccessoCategory(models.Model):
         'ca.tag_persona', compute="compute_ca_tag_persona_ids")
     active = fields.Boolean(default=True)
 
-    def action_add_guest(self):
+    def action_add_person(self):
         return {
             'name': _('Add Card Person'),
             'type': 'ir.actions.act_window',
-            'res_model': 'ca.registra_ospite',
+            'res_model': 'ca.registra_persona',
             'view_id': self.env.ref(
-                'inrim_controllo_accessi.ca_registra_ospite_form').id,
+                'inrim_controllo_accessi.ca_registra_persona_form').id,
+            'target': 'new',
+            'view_mode': "form",
+            'context': {
+                'default_record_id': self.id  # Passiamo l'ID del record corrente
+            },
+
+        }
+    def action_restituisci_badge(self):
+        return {
+            'name': _('Give Back Badge'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'ca.restituisci_badge',
+            'view_id': self.env.ref(
+                'inrim_controllo_accessi.ca_restituisci_badge_form').id,
             'target': 'new',
             'view_mode': "form",
             'context': {
@@ -160,10 +174,10 @@ class CaPuntoAccesso(models.Model):
             'view_mode': 'tree,form',
             'res_model': 'ca.lettore_persona',
             'domain': [
-                ('date', '=', fields.date.today()),
+                ('date_start', '>=', fields.Datetime.now),
+                ('date_end', '<=', fields.Datetime.now),
                 ('ca_tag_lettore_id', 'in', self.ca_tag_lettore_ids.ids),
                 ('state', '=', 'active')
-
             ],
         }
 
@@ -198,16 +212,16 @@ class CaPuntoAccesso(models.Model):
                 record.enable_sync = True
                 self.check_and_attach()
 
-    def local_access_detach(self, persona):
+    def local_access_detach(self, tag_persona):
         """
         Rimuovo Lettore-Persona
         Impost Tag_persona --> restituito o scaduto
         rimuove link tag - lettore
         sync
         """
-        persona.set_tag_returned()
+
         lettore_persona = self.ca_tag_lettore_persona_ids.filtered(
-            lambda x: x.ca_persona_id.id == persona.id
+            lambda x: x.ca_persona_id.id == tag_persona.ca_persona_id.id
         )
         lettore_persona.ca_tag_lettore_id.detach()
         lettore_persona.unlink()
@@ -241,19 +255,18 @@ class CaPuntoAccesso(models.Model):
             return True
         return False
 
-    def stamping_detach(self, persona):
+    def stamping_detach(self, tag_persona):
         """
         Impost Tag_persona --> restituito o scaduto
         Rimuovo Lettore-Persona
 
         :return:
         """
-        logger.info(f"Detach {persona.name}")
-        tag = persona.get_current_tag()
+
         lettore_persona = self.ca_tag_lettore_persona_ids.filtered(
-            lambda x: x.ca_persona_id.id == persona.id
+            lambda x: x.ca_persona_id.id == tag_persona.ca_persona_id.id
         )
-        lettore_persona.expired = True
+        lettore_persona.state = 'expired'
         lettore_persona.active = False
         self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
 
@@ -294,6 +307,12 @@ class CaPuntoAccesso(models.Model):
         if self.typology == 'stamping':
             self.stamping_attach()
 
+    def check_and_detach(self, tag_persona):
+        if self.typology == 'stamping':
+            self.stamping_detach(tag)
+        elif self.typology == 'accesss':
+            self.local_access_detach(tag)
+
     def sposta_punto_accesso(self, ca_spazio_id):
         self.active = False
         vals = {
@@ -320,7 +339,10 @@ class CaPuntoAccesso(models.Model):
             'view_type': 'form',
             'view_mode': 'tree,form',
             'res_model': 'ca.lettore_persona',
-            'domain': [('date', '=', fields.date.today())],
+            'domain': [
+                ('date_start', '>=', fields.Datetime.now),
+                ('date_end', '<=', fields.Datetime.now)
+            ],
         }
 
     def check_readers(self):

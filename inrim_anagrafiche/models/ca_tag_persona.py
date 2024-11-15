@@ -102,12 +102,13 @@ class CaTagPersona(models.Model):
     def check_update_record_by_date_valididty(self):
         now = fields.Datetime.now()
         self.ensure_one()
-        if self.date_start <= now <= self.date_end:
-            self.ca_tag_id.in_use = True
-            self.state = 'to_give_back'
-        elif self.date_start > now:
-            self.ca_tag_id.in_use = True
-            self.state = 'scheduled'
+        if self.date_start and self.date_end:
+            if self.date_start <= now <= self.date_end:
+                self.ca_tag_id.in_use = True
+                self.state = 'to_give_back'
+            elif self.date_start > now:
+                self.ca_tag_id.in_use = True
+                self.state = 'scheduled'
 
 
     def check_update_by_date_valididty(self):
@@ -153,10 +154,7 @@ class CaTagPersona(models.Model):
 
     @api.model
     def get_current_by_tag(self, tag):
-        now = fields.Datetime.now()
         return self.env['ca.tag_persona'].search([
             ('ca_tag_id', '=', tag.id),
-            ('date_start', '<=', now),
-            ('date_end', '>=', now),
             ('state', '=', 'to_give_back')
         ], limit=1)

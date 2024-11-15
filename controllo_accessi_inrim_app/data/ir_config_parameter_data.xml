@@ -31,14 +31,6 @@
             <field name="value">https://access-reader.docker.ininrim.it</field>
         </record>
 
-        <record id="inrim_ir_config_parameter_default_internal_people_types"
-                model="ir.config_parameter">
-            <field name="key">default_ca.internal_people_types</field>
-            <field name="value">
-                ["dipendentit.d._employeetype","assegni_employeetype","dipendentit.i._employeetype","tesisti_employeetype","associazionitipoa_tipopersonale","associazionitipob_tipopersonale",
-                "associazionitipoc_tipopersonale", "borse_employeetype","dottorandi_employeetype", "stage_employeetype"]
-            </field>
-        </record>
 
         <record id="inrim_ir_config_parameter_default_payroll_types"
                 model="ir.config_parameter">

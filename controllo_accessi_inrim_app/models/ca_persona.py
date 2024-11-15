@@ -102,7 +102,7 @@ class CaPersona(models.Model):
         # internal_types = self.env.ref('default_ca.internal_people_types')
 
         internal_types = json.loads(self.env['ir.config_parameter'].sudo().get_param(
-            'default_ca.internal_people_types'))
+            'default_ca.inrim_payroll_types'))
         ext_company = 'ditteesterne_tipopersonale'
         ext_entity = 'entiesterni_tipopersonale'
         base_institute = self.env.ref(

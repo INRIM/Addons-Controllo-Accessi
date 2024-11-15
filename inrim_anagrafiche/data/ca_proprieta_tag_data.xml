@@ -24,5 +24,9 @@
         <record id="proprieta_tag_jolly" model="ca.proprieta_tag">
             <field name="name">Jolly</field>
         </record>
+
+        <record id="proprieta_tag_servizio" model="ca.proprieta_tag">
+            <field name="name">Servizio</field>
+        </record>
     </data>
 </odoo>

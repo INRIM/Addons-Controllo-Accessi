@@ -5,9 +5,9 @@ from odoo import models, fields, api, _
 logger = logging.getLogger(__name__)
 
 
-class CaRegistraOspite(models.TransientModel):
-    _name = 'ca.registra_ospite'
-    _description = 'Registra Ospite'
+class CaRegistraPersona(models.TransientModel):
+    _name = 'ca.registra_persona'
+    _description = 'Registra Persona'
 
     vat = fields.Char()
     ca_ente_name = fields.Char("Company Name", required=True)
@@ -112,17 +112,19 @@ class CaRegistraOspite(models.TransientModel):
                 ('in_use', '=', False),
                 ('revoked', '=', False),
                 ('temp', '=', True),
-                ('ca_proprieta_tag_ids', 'not in', [
-                    self.env.ref('inrim_anagrafiche.proprieta_tag_jolly').id,
+                ('ca_proprieta_tag_ids', 'in', [
+                    self.env.ref('inrim_anagrafiche.proprieta_tag_temporaneo').id,
+                    self.env.ref('inrim_anagrafiche.proprieta_tag_visitatore').id,
+                    self.env.ref('inrim_anagrafiche.proprieta_tag_servizio').id,
                 ])
             ])
         elif self.persona_id.is_internal:
             self.available_tags_ids = self.env['ca.tag'].search([
                 ('in_use', '=', False),
                 ('revoked', '=', False),
-                ('temp', '=', True),
                 ('ca_proprieta_tag_ids', 'in', [
                     self.env.ref('inrim_anagrafiche.proprieta_tag_jolly').id,
+                    self.env.ref('inrim_anagrafiche.proprieta_tag_definitivo').id,
                 ])
             ])
 
