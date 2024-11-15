@@ -1,10 +1,11 @@
+import logging
 from datetime import datetime
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
-import logging
 
 logger = logging.getLogger(__name__)
+
 
 class CaPuntoAccessoCategory(models.Model):
     _name = 'ca.punto_accesso_category'
@@ -267,14 +268,15 @@ class CaPuntoAccesso(models.Model):
         logger.info("Stamping Attach")
         self.ensure_one()
         tags = self.env['ca.tag'].search([
-            ('name', 'in', [self.env.ref('inrim_anagrafiche.proprieta_tag_valido')])
+            ("ca_proprieta_tag_ids.name", "ilike", "valido")
         ])
         for tag in tags:
             tag_lettore = self.env['ca.tag_lettore'].search(
                 [
                     ('ca_tag_id', '=', tag.id),
                     ('ca_lettore_id', "=", self.ca_lettore_id.id),
-                    ('state', '=', 'active')
+                    ('state', 'not in', ['expired']),
+                    ('active', '=', True)
                 ], limit=1)
             if not tag_lettore:
                 tag_lettore = self.env['ca.tag_lettore'].create({
