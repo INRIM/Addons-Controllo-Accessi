@@ -220,7 +220,7 @@ class CaRegistraOspite(models.TransientModel):
             'date_end': self.date_end,
         })
         for access_point_group in self.env['ca.punto_accesso_category'].search([]):
-            for access_point in access_point_group.ca_access_point_ids.ids:
+            for access_point in access_point_group.ca_access_point_ids:
                 logger.info(f"wizard eval attach {access_point}")
                 access_point.stamping_attach()
         return res
