@@ -72,7 +72,7 @@ class CaPersona(models.Model):
                             res = self.env['ca.work_info_type'].create(vals)
                         else:
                             work_info_type_id.name = dt['name']
-                            work_info_type_id.structured = dt['code'] not in payrolls
+                            work_info_type_id.structured = dt['code'] in payrolls
             except Exception as e:
                 logger.error(f"Error: {e}", exc_info=True)
 
