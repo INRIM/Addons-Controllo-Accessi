@@ -2,7 +2,9 @@ from datetime import datetime
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
+import logging
 
+logger = logging.getLogger(__name__)
 
 class CaPuntoAccessoCategory(models.Model):
     _name = 'ca.punto_accesso_category'
@@ -34,14 +36,11 @@ class CaPuntoAccessoCategory(models.Model):
 
     def compute_ca_tag_persona_ids(self):
         self.ensure_one()
-        # Ottieni i record di model_b associati al record corrente di model_a tramite field_b
-        access_point_ids = self.ca_access_point_ids
 
-        # Prendi gli IDs di model_c relativi ai record di model_b
+        access_point_ids = self.ca_access_point_ids
         tag_persona_ids = access_point_ids.mapped(
             'ca_tag_lettore_persona_ids.ca_tag_persona').ids  # 'field_c_related' è il campo Many2many in ModelB
 
-        # Popola field_c in model_a con gli IDs di model_c
         self.ca_tag_persona_ids = [(6, 0, tag_persona_ids)]
 
 
@@ -248,6 +247,7 @@ class CaPuntoAccesso(models.Model):
 
         :return:
         """
+        logger.info(f"Detach {persona.name}")
         tag = persona.get_current_tag()
         lettore_persona = self.ca_tag_lettore_persona_ids.filtered(
             lambda x: x.ca_persona_id.id == persona.id
@@ -264,6 +264,7 @@ class CaPuntoAccesso(models.Model):
         - aggiorno l'elenco delle persone collegate al lettore e quindi al punto accesso
         :return:
         """
+        logger.info("Stamping Attach")
         self.ensure_one()
         tags = self.env['ca.tag'].search([
             ('name', 'in', [self.env.ref('inrim_anagrafiche.proprieta_tag_valido')])

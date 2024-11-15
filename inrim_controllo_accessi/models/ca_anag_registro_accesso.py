@@ -1,5 +1,8 @@
 import pytz
 from odoo import models, fields
+import logging
+
+logger = logging.getLogger(__name__)
 
 _tzs = [(tz, tz) for tz in sorted(
     pytz.all_timezones, key=lambda tz: tz if not tz.startswith('Etc/') else '_')]

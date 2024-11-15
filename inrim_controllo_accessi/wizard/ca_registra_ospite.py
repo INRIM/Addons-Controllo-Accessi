@@ -1,4 +1,8 @@
+import logging
+
 from odoo import models, fields, api, _
+
+logger = logging.getLogger(__name__)
 
 
 class CaRegistraOspite(models.TransientModel):
@@ -194,8 +198,8 @@ class CaRegistraOspite(models.TransientModel):
                     'work_id_number': self.freshman,
                     'ca_work_info_type_id': self.ca_work_info_type_id.id,
                     'ca_title_id': self.ca_title_id.id,
-                    'date_start':self.date_start.split(" ")[0],
-                    'date_end':self.date_end.split(" ")[0]
+                    'date_start': self.date_start.split(" ")[0],
+                    'date_end': self.date_end.split(" ")[0]
                 }
             )
         else:
@@ -216,6 +220,7 @@ class CaRegistraOspite(models.TransientModel):
             'date_end': self.date_end,
         })
         for access_point_group in self.env['ca.punto_accesso_category'].search([]):
-            for access_point in access_point_group.ca_access_point_ids:
+            for access_point in access_point_group.ca_access_point_ids.ids:
+                logger.info(f"wizard eval attach {access_point}")
                 access_point.stamping_attach()
         return res
