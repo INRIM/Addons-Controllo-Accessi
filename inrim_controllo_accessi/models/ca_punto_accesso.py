@@ -309,9 +309,9 @@ class CaPuntoAccesso(models.Model):
 
     def check_and_detach(self, tag_persona):
         if self.typology == 'stamping':
-            self.stamping_detach(tag)
+            self.stamping_detach(tag_persona)
         elif self.typology == 'accesss':
-            self.local_access_detach(tag)
+            self.local_access_detach(tag_persona)
 
     def sposta_punto_accesso(self, ca_spazio_id):
         self.active = False
