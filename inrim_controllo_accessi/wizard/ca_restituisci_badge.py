@@ -18,4 +18,4 @@ class CaRestituisciBadge(models.TransientModel):
             for access_point in access_point_group.ca_access_point_ids:
                 access_point.check_and_detach(tag_persona)
         tag_persona.set_retuned()
-        return res
+        return True
