@@ -45,7 +45,7 @@ class CaAnagRegistroAccesso(models.Model):
         vals = {
             "codice_lettore_grum": self.codice_lettore_grum,
             "datetime_event": self.f_datetime(self.datetime_event),
-            "direction": self.f.selection('direction', self.direction),
+            "direction": self.f_selection('direction', self.direction),
             "work_id_number": self.work_id_number,
             "state": self.f_selection("state", self.state)
         }
