@@ -103,7 +103,7 @@ class CaModelBase(models.AbstractModel):
 
     def f_selection(self, fieldname, value):
         name = value
-        label = dict(self._fields[fieldname].selection).get(value)
+        label = self._fields[fieldname].convert_to_export(value, self)
         return {"name": name, "label": label}
 
     @classmethod
