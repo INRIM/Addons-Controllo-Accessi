@@ -1,6 +1,7 @@
+import logging
+
 import pytz
 from odoo import models, fields
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -88,3 +89,49 @@ class CaAnagRegistroAccesso(models.Model):
             if res.direction == "in" and res.access_allowed:
                 res.ca_persona_id.present = "yes"
         return res
+
+    def rest_boby_hint(self):
+        return {
+            "ca_punto_accesso_id": 0,
+            "ca_tag_persona_id": 0,
+            "datetime_event": "2020-01-01 00:00:00",
+            "access_allowed": True,
+            "type": "manual",
+            "tz": "Europe/Rome",
+        }
+
+    def rest_get_record(self):
+        vals = {
+            'id': self.id,
+            "ca_punto_accesso_id": self.f_m2o(self.ca_punto_accesso_id),
+            "ca_tag_persona_id": self.f_m2o(self.ca_tag_persona_id),
+            "ca_persona_id": self.f_m2o(self.ca_persona_id),
+            "person_display_name": self.person_display_name,
+            "person_freshman": self.person_freshman,
+            "ca_lettore_id": self.f_m2o(self.ca_lettore_id),
+            "ca_spazio_id": self.f_m2o(self.ca_spazio_id),
+            "ca_tipo_spazio_id": self.f_m2o(self.ca_tipo_spazio_id),
+            "ca_ente_azienda_id": self.f_m2o(self.ca_ente_azienda_id),
+            "datetime_event": self.f_datetime(self.datetime_event),
+            "typology": self.f.selection('typology', self.typology),
+            "direction": self.f.selection('direction', self.direction),
+            "type": self.f.selection('type', self.type),
+            "tz": self.f.selection('tz', self.tz),
+            "system_error": self.system_error,
+            "access_allowed": self.access_allowed,
+            "error_code": self.error_code
+        }
+        return vals
+
+    def rest_eval_body(self, body):
+        body, msg = super().rest_eval_body(
+            body, [
+                'ca_punto_accesso_id', 'ca_tag_persona_id', 'datetime_event',
+                'access_allowed', 'type'
+            ])
+        return body, msg
+
+    def rest_post(self, body: dict):
+        return False, f"Non consentito"
+
+

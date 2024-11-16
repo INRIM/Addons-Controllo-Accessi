@@ -40,3 +40,31 @@ class CaAnagRegistroAccesso(models.Model):
                 todo['state'] = 'to_sync'
             res.write(todo)
         return res
+
+    def rest_get_record(self):
+        vals = {
+            "codice_lettore_grum": self.codice_lettore_grum,
+            "datetime_event": self.f_datetime(self.datetime_event),
+            "direction": self.f.selection('direction', self.direction),
+            "work_id_number": self.work_id_number,
+            "state": self.f_selection("state", self.state)
+        }
+        return vals
+
+    def rest_eval_body(self, body):
+        body, msg = super().rest_eval_body(
+            body, [
+                'ca_punto_accesso_id', 'ca_tag_persona_id', 'datetime_event',
+                'access_allowed', 'type', 'state'
+            ])
+        return body, msg
+
+    def rest_put(self, body: dict):
+        if body.get('state'):
+            new_body = {}
+            for item in body.keys():
+                if item in ('id', 'state'):
+                    new_body[item] = body[item]
+            return super().rest_put(new_body)
+        else:
+            return False, "Not Allowed"

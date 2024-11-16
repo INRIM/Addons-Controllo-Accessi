@@ -44,8 +44,7 @@ class CaTipoDocIdent(models.Model):
             body, [
                 'name', 'date_start', 'date_end'
             ])
-        if not res:
-            return res, msg
+        return body, msg
 
 
 class CaStatoDocumento(models.Model):
