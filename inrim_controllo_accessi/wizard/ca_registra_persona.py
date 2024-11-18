@@ -49,11 +49,12 @@ class CaRegistraPersona(models.TransientModel):
         ]
 
     def eval_ente_azienda_id(self, ente_az_id):
+        self.ensure_one()
         ente_az_found = self.env['ca.ente_azienda'].browse(ente_az_id)
-        self.ente_azienda = ente_az_found
+        self.ente_azienda = ente_az_found.id
         self.ca_ente_name = ente_az_found.name
         self.tipo_ente_azienda_id = ente_az_found.tipo_ente_azienda_id
-        self.ente_azienda = ente_az_found.id
+        self.vat = ente_az_found.vat
         self.ente_interno = ente_az_found.tipo_ente_azienda_id.id in [
             self.env.ref('inrim_anagrafiche.tipo_ente_azienda_sede').id,
             self.env.ref('inrim_anagrafiche.tipo_ente_azienda_sede_distaccata').id,
@@ -62,19 +63,24 @@ class CaRegistraPersona(models.TransientModel):
     def reset_ente_azienda_id(self, ):
         self.ente_azienda = False
         self.ca_ente_name = ""
+        self.vat = ""
         self.tipo_ente_azienda_id = False
         self.ente_azienda = False
         self.ente_interno = False
 
     @api.onchange('vat')
     def _compute_eval_vat(self):
+        if self._context.get("no_change_vat"):
+            return
         for record in self:
             if not record.vat:
                 return
             ente_az_found = self.env['ca.ente_azienda'].search([
                 ('vat', 'ilike', record.vat)], limit=1)
             if ente_az_found:
-                self.eval_ente_azienda_id(ente_az_found)
+                if record.ente_azienda.id != ente_az_found.id:
+                    self.with_context(
+                        no_change_vat=True).eval_ente_azienda_id(ente_az_found.id)
             else:
                 self.reset_ente_azienda_id()
 
@@ -87,9 +93,8 @@ class CaRegistraPersona(models.TransientModel):
         self.email = rec.email
         self.persona_id = rec.id
         self.compute_available_tags()
-        self.eval_ente_azienda_id(
-            rec.ca_ente_azienda_ids.ids[0] if rec.ca_ente_azienda_ids else []
-        )
+        ent_az_id = rec.ca_ente_azienda_ids.ids[0] if rec.ca_ente_azienda_ids else []
+        self.eval_ente_azienda_id(ent_az_id)
         current_winfo = self.persona_id.get_current_winfo()
         self.ca_work_info_type_id = current_winfo.ca_work_info_type_id.id
         self.ca_title_id = current_winfo.ca_title_id.id
@@ -131,13 +136,18 @@ class CaRegistraPersona(models.TransientModel):
 
     @api.onchange('fiscalcode')
     def _compute_eval_fiscalcode(self):
+        if self._context.get("no_change_person"):
+            return
         for record in self:
             if not record.fiscalcode:
                 return
             persona_id = self.env['ca.persona'].search([
                 ('fiscalcode', '=', record.fiscalcode)], limit=1)
             if persona_id:
-                self.populate_person(persona_id)
+                if record.persona_id.id != persona_id.id:
+                    self.with_context(
+                        no_change_person=True,
+                        no_change_vat=True).populate_person(persona_id)
             else:
                 self.reset_person()
 
@@ -148,19 +158,28 @@ class CaRegistraPersona(models.TransientModel):
 
     @api.onchange('persona_id')
     def _compute_tag_id_number(self):
+        if self._context.get("no_change_person"):
+            return
         for record in self:
             if record.persona_id:
-                self.populate_person(record.persona_id)
+                self.with_context(
+                    no_change_person=True,
+                    no_change_vat=True).populate_person(record.persona_id)
 
     @api.onchange('email')
     def _compute_available_email(self):
+        if self._context.get("no_change_person"):
+            return
         for record in self:
             if not record.email:
                 return
             persona_ids = self.env['ca.persona'].search([
                 ('email', 'ilike', record.email)], limit=1)
             if len(persona_ids) == 1:
-                self.populate_person(persona_ids[0])
+                if record.persona_id.id != persona_ids[0].id:
+                    self.with_context(
+                        no_change_person=True,
+                        no_change_vat=True).populate_person(persona_ids[0])
             else:
                 self.reset_person()
 

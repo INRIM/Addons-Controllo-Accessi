@@ -7,9 +7,6 @@ class CaAggiungiMovimentoAccesso(models.TransientModel):
     ca_ente_azienda_id = fields.Many2one('ca.ente_azienda', string="Position")
     ca_punto_accesso = fields.Many2one('ca.punto_accesso', required=True)
     ca_tag_persona_id = fields.Many2one('ca.tag_persona', required=True)
-    ca_tag_persona_ids = fields.Many2many(
-        'ca.tag_persona', compute="_compute_ca_tag_persona_ids",
-                                        store=True)
     datetime = fields.Datetime(required=True, default=lambda self:fields.datetime.now())
     type = fields.Selection([
         ('manual', 'Manual'),
@@ -24,13 +21,6 @@ class CaAggiungiMovimentoAccesso(models.TransientModel):
                 self.env.ref('inrim_anagrafiche.tipo_ente_azienda_sede_distaccata').id
             ])]
 
-    @api.depends('ca_punto_accesso')
-    def _compute_ca_tag_persona_ids(self):
-        self.ca_tag_persona_ids = False
-        if self.ca_punto_accesso:
-            for tag in self.ca_punto_accesso.ca_spazio_id.righe_persona_ids:
-                if tag.tag_persona_id:
-                    self.ca_tag_persona_ids += tag.tag_persona_id
 
     @api.onchange('ca_ente_azienda_id')
     def _onchange_ca_ente_azienda_id(self):

@@ -1,7 +1,11 @@
+import json
+import logging
+import urllib.parse
 from datetime import datetime
 
 from odoo import models
-import json
+
+logger = logging.getLogger(__name__)
 
 
 class CaModelBase(models.AbstractModel):
@@ -31,7 +35,8 @@ class CaModelBase(models.AbstractModel):
         return body, ""
 
     def rest_get(self, params: dict):
-        domain: list = json.loads(params.get('domain', '[]'))
+        strparams = urllib.parse.unquote(params.get('domain', '[]'))
+        domain: list = json.loads(strparams)
         offset: int = params.get('offset', None)
         limit: int = params.get('limit', None)
         order: str = params.get('order', None)
@@ -117,7 +122,7 @@ class CaModelBase(models.AbstractModel):
         if record_o:
             return record_o.strftime("%Y-%m-%d")
         return record_o
-    
+
     @classmethod
     def f_datetime(cls, record_o):
         if record_o:

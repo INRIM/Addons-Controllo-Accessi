@@ -92,6 +92,7 @@ class CaTagPersona(models.Model):
         self.date_end = fields.Datetime.now()
         self.ca_tag_id.in_use = False
         self.state = 'returned'
+        self.active = False
 
     @api.onchange('date_start', 'date_end')
     def check_date(self):

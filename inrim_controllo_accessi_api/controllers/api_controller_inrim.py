@@ -71,12 +71,12 @@ class InrimApiController(http.Controller):
         return Response(data, status=200, headers=headers.to_wsgi_list())
 
     def handle_response(self, record, msg="", delete=False, is_list=False):
-        if not record:
-            raise BadRequest(description=msg)
+        if is_list:
+            return self.success_response(record)
         if delete:
             return self.success_response({})
-        elif is_list:
-            return self.success_response(record)
+        elif not record:
+            raise BadRequest(description=msg)
         else:
             return self.success_response(record.rest_get_record())
 

@@ -36,11 +36,10 @@
                         />
                         <field 
                             name="ca_tag_persona_id"
-                            domain="[('id', 'in', ca_tag_persona_ids)]"
+                            domain="[('state', '=', 'to_give_back')]"
                             options="{'no_create': True}"
                             invisible="not ca_punto_accesso"
                         />
-                        <field name="ca_tag_persona_ids" invisible="True"/>
                         <field name="type"/>
                         <field name="datetime"/>
                     </group>

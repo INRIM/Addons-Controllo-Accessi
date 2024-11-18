@@ -43,6 +43,7 @@ class CaAnagRegistroAccesso(models.Model):
 
     def rest_get_record(self):
         vals = {
+            "id": self.id,
             "codice_lettore_grum": self.codice_lettore_grum,
             "datetime_event": self.f_datetime(self.datetime_event),
             "direction": self.f_selection('direction', self.direction),
