@@ -80,7 +80,7 @@ class CaAnagRegistroAccesso(models.Model):
             'ir.config_parameter'
         ].sudo().get_param('labinf_sync_service')
         try:
-            with httpx.Client(timeout=3) as client:
+            with httpx.Client(timeout=40) as client:
                 response = client.get(url)
             if response.status_code == 200:
                 return response.json()
