@@ -22,5 +22,16 @@
             <field name="state">code</field>
             <field name="code">model._cron_people_get_rooms()</field>
         </record>
+
+        <record id="sync_access_register_with_labinf" model="ir.cron">
+            <field name="name">INRiM: Sync to Labinf</field>
+            <field name="model_id" ref="model_ca_anag_registro_accesso"/>
+            <field name="interval_number">2</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="state">code</field>
+            <field name="code">model.run_labinf_sync()</field>
+        </record>
+
     </data>
 </odoo>

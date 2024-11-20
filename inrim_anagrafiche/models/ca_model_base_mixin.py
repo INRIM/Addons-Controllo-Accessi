@@ -2,6 +2,7 @@ import json
 import logging
 import urllib.parse
 from datetime import datetime
+import pytz
 
 from odoo import models
 
@@ -124,9 +125,17 @@ class CaModelBase(models.AbstractModel):
         return record_o
 
     @classmethod
-    def f_datetime(cls, record_o):
+    def f_datetime(cls, record_o, tz=None):
         if record_o:
-            return record_o.strftime("%Y-%m-%dT%H:%M:%S")
+            if tz:
+                tzo = pytz.timezone(tz)
+                dt_naive = datetime.fromisoformat(
+                    record_o.strftime("%Y-%m-%d %H:%M:%S"))
+                dt_utc = pytz.UTC.localize(dt_naive)
+                res = dt_utc.astimezone(tzo).replace(tzinfo=None)
+                return res.strftime("%Y-%m-%dT%H:%M:%S")
+            else:
+                return record_o.strftime("%Y-%m-%dT%H:%M:%S")
         return record_o
 
     @classmethod

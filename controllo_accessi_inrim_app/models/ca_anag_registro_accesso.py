@@ -1,10 +1,13 @@
 import pytz
 from odoo import models, fields
+import httpx
+import logging
 
 _tzs = [(tz, tz) for tz in sorted(pytz.all_timezones,
                                   key=lambda tz: tz if not tz.startswith(
                                       'Etc/') else '_')]
 
+logger = logging.getLogger(__name__)
 
 def _tz_get(self):
     return _tzs
@@ -19,6 +22,7 @@ class CaAnagRegistroAccesso(models.Model):
     work_id_number = fields.Char(string='ID Number')
     state = fields.Selection([
         ('to_sync', 'To Sync'),
+        ('sent', 'Sent'),
         ('sync_done', 'Sync Done'),
         ('sync_error', 'Sync Error'),
     ], string="Sync State", readonly=True)
@@ -45,11 +49,12 @@ class CaAnagRegistroAccesso(models.Model):
         vals = {
             "id": self.id,
             "codice_lettore_grum": self.codice_lettore_grum,
-            "datetime_event": self.f_datetime(self.datetime_event),
+            "datetime_event": self.f_datetime(self.datetime_event, self.tz),
             "direction": self.f_selection('direction', self.direction),
             "work_id_number": self.work_id_number,
             "state": self.f_selection("state", self.state)
         }
+        self.state = "sent"
         return vals
 
     def rest_eval_body(self, body):
@@ -69,3 +74,20 @@ class CaAnagRegistroAccesso(models.Model):
             return super().rest_put(new_body)
         else:
             return False, "Not Allowed"
+
+    def run_labinf_sync(self):
+        url = self.env[
+            'ir.config_parameter'
+        ].sudo().get_param('labinf_sync_service')
+        try:
+            with httpx.Client(timeout=3) as client:
+                response = client.get(url)
+            if response.status_code == 200:
+                return response.json()
+            else:
+                logger.info(
+                    f"{url}, Status Code: {response.status_code}")
+                return {}
+        except Exception as e:
+            logger.error(f"{url}, Error: {e}", exc_info=True)
+            return {}

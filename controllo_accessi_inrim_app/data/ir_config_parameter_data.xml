@@ -40,5 +40,13 @@
             </field>
         </record>
 
+        <record id="inrim_ir_config_parameter_labinf_sync_service"
+                model="ir.config_parameter">
+            <field name="key">labinf_sync_service</field>
+            <field name="value">
+                http://synclabinf/sync
+            </field>
+        </record>
+
     </data>
 </odoo>
