@@ -221,7 +221,9 @@ class Max5010RfidClient:
             return ar
         rest_path = f"{self.base_url}/add-tags"
         res = self.post_request(rest_path, tags_body)
-        return ActionResponse(**res)
+        ret = ActionResponse(**res)
+        ret.message = "OK"
+        return ret
 
     def update_clock(self) -> ActionResponse:
         rest_path = f"{self.base_url}/update-clock"
