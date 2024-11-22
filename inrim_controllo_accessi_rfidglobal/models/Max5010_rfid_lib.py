@@ -130,6 +130,7 @@ class ActionResponse():
     status: bool = False
     diagnostic: DeviceDiagnostic = field(default_factory=DeviceDiagnostic)
     result: bool = False
+    message: str = ""
 
 
 class Max5010RfidClient:
@@ -209,15 +210,15 @@ class Max5010RfidClient:
         return res
 
     def write_tags(self, tags_body: dict) -> ActionResponse:
+        ar = ActionResponse()
         if not tags_body.get('tags') or not tags_body.get('timeZoneTable'):
-            logger.info(
-                f"No Enought Data Tags:{len(tags_body.get('tags'))} , Timezontable: {len(tags_body.get('timeZoneTable'))}")
-            return from_dict(ActionResponse, {})
+            msg=f"No Enought Data Tags:{len(tags_body.get('tags'))} , Timezontable: {len(tags_body.get('timeZoneTable'))}"
+            ar.message = msg
+            return ar
         if self.device.diagnostic.event_cnt > 0:
-            res = ActionResponse()
-            logger.info(
-                f"Download Events before update tags")
-            return res
+            msg=f"Download  { self.device.diagnostic.event_cnt } Events before update tags"
+            ar.message = msg
+            return ar
         rest_path = f"{self.base_url}/add-tags"
         res = self.post_request(rest_path, tags_body)
         return ActionResponse(**res)
