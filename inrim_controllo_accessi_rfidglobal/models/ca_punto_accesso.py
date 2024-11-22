@@ -207,7 +207,7 @@ class CaPuntoAccesso(models.Model):
                         ], limit=1)
                         if tag_lettore:
                             tag_persona = self.env['ca.tag_persona'].search([
-                                ('ca_tag_id.code', '=', record.idd),
+                                ('ca_tag_id.tag_code', '=', record.idd),
                                 ('state', '=', 'to_give_back')])
                             if tag_persona:
                                 riga_accesso_model.aggiungi_riga_accesso(
