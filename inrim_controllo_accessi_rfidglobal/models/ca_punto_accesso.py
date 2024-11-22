@@ -129,9 +129,9 @@ class CaPuntoAccesso(models.Model):
         logger.info(f"Start updateTags Reader, CodAtt: {activity_code} events {reader.device.diagnostic.event_cnt}")
         try:
             with self.env.cr.savepoint():
-                res: ActionResponse = reader.write_tags(body)
-                if not res.result:
-                    msg = f'update_tags, {self.name} Result: {res.result}, {res.message}'
+                res = reader.write_tags(body)
+                if not res.get('result'):
+                    msg = f'update_tags, {self.name} Result: {res.result}, {res.get("message")}'
                     logger.error(msg)
                     self.write_log(
                         activity_code, self.ca_lettore_id.id, msg=msg

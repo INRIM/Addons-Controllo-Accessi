@@ -1,4 +1,3 @@
-import dataclasses
 import json
 import logging
 import os
@@ -209,20 +208,26 @@ class Max5010RfidClient:
         res = self.post_request(rest_path, body)
         return res
 
-    def write_tags(self, tags_body: dict) -> ActionResponse:
-        ar = ActionResponse()
+    def write_tags(self, tags_body: dict) -> dict:
+        ar = {
+            "status": True,
+            "diagnostic": {
+                "event_tab_size": 0,
+                "event_cnt": 0
+            },
+            "result": False
+        }
         if not tags_body.get('tags') or not tags_body.get('timeZoneTable'):
-            msg=f"No Enought Data Tags:{len(tags_body.get('tags'))} , Timezontable: {len(tags_body.get('timeZoneTable'))}"
-            ar.message = msg
+            msg = f"No Enought Data Tags:{len(tags_body.get('tags'))} , Timezontable: {len(tags_body.get('timeZoneTable'))}"
+            ar['message'] = msg
             return ar
         if self.device.diagnostic.event_cnt > 0:
-            msg=f"Download  { self.device.diagnostic.event_cnt } Events before update tags"
-            ar.message = msg
+            msg = f"Download  {self.device.diagnostic.event_cnt} Events before update tags"
+            ar['message'] = msg
             return ar
         rest_path = f"{self.base_url}/add-tags"
         res = self.post_request(rest_path, tags_body)
-        ret = ActionResponse(**res)
-        ret.message = "OK"
+        res['message'] = "OK"
         return ret
 
     def update_clock(self) -> ActionResponse:
