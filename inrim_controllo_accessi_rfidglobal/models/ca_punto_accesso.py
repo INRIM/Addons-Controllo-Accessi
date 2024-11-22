@@ -201,13 +201,13 @@ class CaPuntoAccesso(models.Model):
                 if events.eventRecords:
                     for record in events.eventRecords:
                         self.ca_lettore_id.error_code = record.errorCode
-                        tag = self.env['ca.tag_lettore'].search([
-                            ("ca_punto_accesso_id", '=', self.id),
+                        tag_lettore = self.env['ca.tag_lettore'].search(["&",
+                            ("ca_punto_accesso_id", 'in', [self.id]),
                             ("ca_tag_code", '=', record.idd)
                         ], limit=1)
-                        if tag:
+                        if tag_lettore:
                             tag_persona = self.env['ca.tag_persona'].search([
-                                ('ca_tag_id.id', '=', tag.id),
+                                ('ca_tag_id.code', '=', record.idd),
                                 ('state', '=', 'to_give_back')])
                             if tag_persona:
                                 riga_accesso_model.aggiungi_riga_accesso(
@@ -224,7 +224,7 @@ class CaPuntoAccesso(models.Model):
                                 return False
                         else:
                             logger.error(
-                                f"tag  {record.idd} not found ")
+                                f"tag  {record.idd} not valid for Reader {self.ca_lettore_id.name} ")
                             return False
                 else:
                     logger.error(
