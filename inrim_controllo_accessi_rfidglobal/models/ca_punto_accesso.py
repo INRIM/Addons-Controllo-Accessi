@@ -131,7 +131,7 @@ class CaPuntoAccesso(models.Model):
             with self.env.cr.savepoint():
                 res: ActionResponse = reader.write_tags(body)
                 if not res.result:
-                    msg = f'update_tags, {self.name} Result: {res.result}, hint: check events number'
+                    msg = f'update_tags, {self.name} Result: {res.result}, {res.message}'
                     logger.error(msg)
                     self.write_log(
                         activity_code, self.ca_lettore_id.id, msg=msg
