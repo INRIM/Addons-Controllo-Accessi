@@ -8,7 +8,7 @@
             <field name="interval_type">minutes</field>
             <field name="numbercall">-1</field>
             <field name="state">code</field>
-            <field name="code">model.eval_readers_data()</field>
+            <field name="code">model.load_readers_data()</field>
         </record>
 
         <record id="acess_decode_data_access" model="ir.cron">
@@ -18,7 +18,7 @@
             <field name="interval_type">minutes</field>
             <field name="numbercall">-1</field>
             <field name="state">code</field>
-            <field name="code">model.load_readers_data()</field>
+            <field name="code">model.eval_readers_data()</field>
         </record>
 
         <record id="acces_update_readers_tags" model="ir.cron">
