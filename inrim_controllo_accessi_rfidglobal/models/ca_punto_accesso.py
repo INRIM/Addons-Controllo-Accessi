@@ -201,8 +201,10 @@ class CaPuntoAccesso(models.Model):
                 if events.eventRecords:
                     for record in events.eventRecords:
                         self.ca_lettore_id.error_code = record.errorCode
-                        tag = self.ca_tag_lettore_ids.filtered(
-                            lambda x: x.ca_tag_id.tag_code == record.idd)
+                        tag = self.env['ca.tag_lettore'].search([
+                            ("ca_punto_accesso_id", '=', self.id),
+                            ("ca_tag_code", '=', record.idd)
+                        ], limit=1)
                         if tag:
                             tag_persona = self.env['ca.tag_persona'].search([
                                 ('ca_tag_id.id', '=', tag.id),

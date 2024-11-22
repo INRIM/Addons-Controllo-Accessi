@@ -10,6 +10,7 @@ class CaTagLettore(models.Model):
     name = fields.Char(compute="_compute_name", store=True)
     ca_lettore_id = fields.Many2one('ca.lettore', required=True)
     ca_tag_id = fields.Many2one('ca.tag', required=True)
+    ca_tag_code = fields.Char(related="ca_tag_id.tag_code", store=True)
     tag_in_use = fields.Boolean(related="ca_tag_id.in_use")
     date_start = fields.Date(required=True)
     date_end = fields.Date(required=True)
