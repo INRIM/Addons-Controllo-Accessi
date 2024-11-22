@@ -126,12 +126,13 @@ class CaPuntoAccesso(models.Model):
             return False
         body = self.get_tags_boby()
         activity_code = self.get_code_activity("ADDTAGS")
-        logger.info(f"Start updateTags Reader, CodAtt: {activity_code} events {reader.device.diagnostic.event_cnt}")
+        logger.info(
+            f"Start updateTags Reader, CodAtt: {activity_code} events {reader.device.diagnostic.event_cnt}")
         try:
             with self.env.cr.savepoint():
                 res = reader.write_tags(body)
                 if not res.get('result'):
-                    msg = f'update_tags, {self.name} Result: {res.result}, {res.get("message")}'
+                    msg = f'update_tags, {self.name} Result: {res.get("result")}, {res.get("message")}'
                     logger.error(msg)
                     self.write_log(
                         activity_code, self.ca_lettore_id.id, msg=msg
@@ -202,9 +203,14 @@ class CaPuntoAccesso(models.Model):
                     for record in events.eventRecords:
                         self.ca_lettore_id.error_code = record.errorCode
                         tag_lettore = self.env['ca.tag_lettore'].search(["&",
-                            ("ca_punto_accesso_id", 'in', [self.id]),
-                            ("ca_tag_code", '=', record.idd)
-                        ], limit=1)
+                                                                         (
+                                                                         "ca_punto_accesso_id",
+                                                                         'in',
+                                                                         [self.id]),
+                                                                         ("ca_tag_code",
+                                                                          '=',
+                                                                          record.idd)
+                                                                         ], limit=1)
                         if tag_lettore:
                             tag_persona = self.env['ca.tag_persona'].search([
                                 ('ca_tag_id.tag_code', '=', record.idd),
