@@ -9,6 +9,7 @@
         'security/ir.model.access.csv',
         'security/security.xml',
         'data/ir_config_parameter_data.xml',
+        'data/ir.cron.xml',
         'wizard/ca_sposta_punto_accesso_views.xml',
         'wizard/ca_aggiungi_movimento_accesso_views.xml',
         'wizard/ca_registra_persona_views.xml',
