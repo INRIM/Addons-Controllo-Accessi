@@ -21,11 +21,12 @@ class CaAnagRegistroAccesso(models.Model):
     )
     work_id_number = fields.Char(string='ID Number')
     state = fields.Selection([
+        ('no_sync', 'No Sync'),
         ('to_sync', 'To Sync'),
         ('sent', 'Sent'),
         ('sync_done', 'Sync Done'),
         ('sync_error', 'Sync Error'),
-    ], string="Sync State", readonly=True)
+    ], string="Sync State", readonly=True, default='no_sync')
 
     def aggiungi_riga_accesso(
             self, ca_punto_accesso_id,

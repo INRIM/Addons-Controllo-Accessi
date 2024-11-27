@@ -157,7 +157,7 @@ class Max5010RfidClient:
             events.eventRecords[idx] = EventRecord(**events.eventRecords[idx])
         return events
 
-    def post_request(self, path: str, body: dict) -> dict:
+    def post_request(self, path: str, body: dict) -> (dict, str):
         payload = {"device": self.device_ip}
         payload.update(body)
         self.connction_error = False
@@ -166,16 +166,16 @@ class Max5010RfidClient:
             with httpx.Client(timeout=self.timeout) as client:
                 response = client.post(path, json=payload, headers=self.headers)
             if response.status_code == 200:
-                return response.json()
+                return response.json(), "OK"
             else:
                 self.response_error = True
-                logger.info(
-                    f"{path}, Status Code: {response.status_code}, payload: {payload}")
-                return {}
+                msg = f"Error {path}, Status Code: {response.status_code}, payload: {payload}"
+                logger.info(msg)
+                return {}, msg
         except Exception as e:
-            logger.error(f"{path}, Error: {e}", exc_info=True)
+            msg = f"Exception {path}, Error: {e}"
             self.connction_error = True
-            return {}
+            return {}, msg
 
     def load_info(self) -> Device:
         self.online = False
@@ -226,8 +226,8 @@ class Max5010RfidClient:
             ar['message'] = msg
             return ar
         rest_path = f"{self.base_url}/add-tags"
-        res = self.post_request(rest_path, tags_body)
-        res['message'] = "OK"
+        res, msg = self.post_request(rest_path, tags_body)
+        res['message'] = msg
         return res
 
     def update_clock(self) -> ActionResponse:
