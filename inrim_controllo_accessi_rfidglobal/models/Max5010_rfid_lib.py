@@ -180,7 +180,7 @@ class Max5010RfidClient:
     def load_info(self) -> Device:
         self.online = False
         rest_path = f"{self.base_url}/info"
-        res = self.post_request(rest_path, {})
+        res, msg = self.post_request(rest_path, {})
         self.device = Device(**res)
         self.device.info = DeviceInfo(**res.get('info', {}))
         if self.device.status:
@@ -189,7 +189,7 @@ class Max5010RfidClient:
 
     def load_status(self, ) -> Device:
         rest_path = f"{self.base_url}/status"
-        res = self.post_request(rest_path, {})
+        res, msg = self.post_request(rest_path, {})
         device = Device(**res)
         if self.device.status and device.status:
             self.device.diagnostic = DeviceDiagnostic(**device.diagnostic)
@@ -205,7 +205,7 @@ class Max5010RfidClient:
             "numberEvents": numeber_events
         }
         rest_path = f"{self.base_url}/read-events"
-        res = self.post_request(rest_path, body)
+        res, msg = self.post_request(rest_path, body)
         return res
 
     def write_tags(self, tags_body: dict) -> dict:
@@ -232,7 +232,7 @@ class Max5010RfidClient:
 
     def update_clock(self) -> ActionResponse:
         rest_path = f"{self.base_url}/update-clock"
-        res = self.post_request(rest_path, {})
+        res, msg = self.post_request(rest_path, {})
         return ActionResponse(**res)
 
     def read_and_save_events(
