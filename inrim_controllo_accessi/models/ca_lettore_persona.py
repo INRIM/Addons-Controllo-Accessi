@@ -11,7 +11,7 @@ class CaLettorePersona(models.Model):
     ca_tag_lettore_id = fields.Many2one(
         'ca.tag_lettore', required=True, readonly=True)
     ca_lettore_id = fields.Many2one(
-        related="ca_tag_lettore_id.ca_lettore_id", store=True)
+        related="ca_tag_lettore_id.ca_lettore_id", store=True, auto_join=True)
     ca_tag_persona = fields.Many2one(
         'ca.tag_persona', ondelete='cascade', required=True,
         readonly=True)

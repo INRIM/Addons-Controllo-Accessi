@@ -34,6 +34,7 @@ class CaPuntoAccessoCategory(models.Model):
             },
 
         }
+
     def action_restituisci_badge(self):
         return {
             'name': _('Give Back Badge'),
@@ -100,6 +101,10 @@ class CaPuntoAccesso(models.Model):
         'ca.tag_lettore', 'ca_punto_accesso_id')
     ca_tag_lettore_persona_ids = fields.One2many(
         'ca.lettore_persona', 'ca_lettore_id')
+    ca_tag_lettore_persona_view = fields.One2many(
+        'ca.lettore_persona', 'ca_lettore_id',
+        domain=[("state", "in", ["active", "scheduled"])]
+    )
     remote_update = fields.Boolean(readonly=True)
     active = fields.Boolean(default=True)
     recursive_read_events = fields.Boolean(string='Recursive Read Events', default=False)
@@ -215,7 +220,7 @@ class CaPuntoAccesso(models.Model):
     def local_access_detach(self, tag_persona):
         """
         Rimuovo Lettore-Persona
-        Impost Tag_persona --> restituito o scaduto
+        Imposta Tag_persona --> restituito o scaduto
         rimuove link tag - lettore
         sync
         """

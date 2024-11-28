@@ -202,15 +202,11 @@ class CaPuntoAccesso(models.Model):
                 if events.eventRecords:
                     for record in events.eventRecords:
                         self.ca_lettore_id.error_code = record.errorCode
-                        tag_lettore = self.env['ca.tag_lettore'].search(["&",
-                                                                         (
-                                                                         "ca_punto_accesso_id",
-                                                                         'in',
-                                                                         [self.id]),
-                                                                         ("ca_tag_code",
-                                                                          '=',
-                                                                          record.idd)
-                                                                         ], limit=1)
+                        tag_lettore = self.env['ca.tag_lettore'].search(
+                            ["&",
+                             ("ca_punto_accesso_id",'in',[self.id]),
+                             ("ca_tag_code",'=',record.idd)
+                             ], limit=1)
                         if tag_lettore:
                             tag_persona = self.env['ca.tag_persona'].search([
                                 ('ca_tag_id.tag_code', '=', record.idd),
@@ -267,8 +263,11 @@ class CaPuntoAccesso(models.Model):
                 else:
                     err += 1
                     file_path.rename(err_dst)
-                    logger.error(
-                        f"{code} - File  {file_path.name} error impossible to decode Data moved to {err_dst} ")
+                    msg = f"{code} - File  {file_path.name} error impossible to decode Data moved to {err_dst} "
+                    logger.error(msg)
+                    self.write_log(
+                        code, self.ca_lettore_id.id, msg=msg
+                    )
             else:
                 skip += 1
                 logger.info(
