@@ -10,6 +10,21 @@ class CaRestituisciBadge(models.TransientModel):
     _description = 'Restituisci Badge'
 
     ca_tag_id = fields.Many2one('ca.tag', required=True)
+    temp = fields.Boolean()
+    tag_ids = fields.Many2many('ca.tag', compute="_compute_tag_ids")
+
+    @api.depends('temp')
+    def _compute_tag_ids(self):
+        tag_model = self.env['ca.tag']
+        for record in self:
+            ids = []
+            domain = [('in_use', '=', True)]
+            if record.temp:
+                domain.append(('temp', '=', record.temp))
+            ids.append(
+                tag_model.search(domain).ids
+            )
+            record.type_ids = [(6, 0, ids)]
 
     def action_confirm(self):
         tag_persona = self.env['ca.tag_persona'].get_current_by_tag(self.ca_tag_id)
