@@ -175,6 +175,7 @@ class Max5010RfidClient:
         except Exception as e:
             msg = f"Exception {path}, Error: {e}"
             self.connction_error = True
+            logger.error(msg)
             return {}, msg
 
     def load_info(self) -> Device:

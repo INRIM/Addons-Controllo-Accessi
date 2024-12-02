@@ -61,22 +61,16 @@ class RfidTestCommon(TestCommon):
         :return: I campi vengono scritti correttamente nei campi del lettore
         """
 
-        def info(request, route):
-            return httpx.Response(200, json=self.info_data)
-
-        def status(request, route):
-            return httpx.Response(200, json=self.status_data)
-
         respx.post(
             'http://local-host/info',
         ).mock(
-            side_effect=info
+            return_value=httpx.Response(200, json=self.info_data)
         )
 
         respx.post(
             'http://local-host/status',
         ).mock(
-            side_effect=status
+            return_value=httpx.Response(200, json=self.status_data)
         )
 
         device = '10.10.10.1'
@@ -90,6 +84,7 @@ class RfidTestCommon(TestCommon):
         punto_accesso_id = self.env['ca.punto_accesso'].search([
             ('ca_lettore_id.reader_ip', '=', device)
         ], limit=1)
+
         self.assertEqual(device_id, punto_accesso_id.ca_lettore_id.device_id)
         self.assertEqual(self.status_data['diagnostic']['event_cnt'],
                          punto_accesso_id.ca_lettore_id.available_events)
@@ -104,30 +99,21 @@ class RfidTestCommon(TestCommon):
         :return: I campi vengono scritti correttamente nei campi del lettore
         """
 
-        def info(request, route):
-            return httpx.Response(200, json=self.info_data)
-
-        def status(request, route):
-            return httpx.Response(200, json=self.status_data)
-
-        def events(request, route):
-            return httpx.Response(200, json=self.read_events_data)
-
         respx.post(
             'http://local-host/info',
         ).mock(
-            side_effect=info
+            return_value=httpx.Response(200, json=self.info_data)
         )
 
         respx.post(
             'http://local-host/status',
         ).mock(
-            side_effect=status
+            return_value=httpx.Response(200, json=self.status_data)
         )
         respx.post(
             'http://local-host/read-events',
         ).mock(
-            side_effect=events
+            return_value=httpx.Response(200, json=self.read_events_data)
         )
 
         device = '10.10.10.1'
@@ -151,22 +137,16 @@ class RfidTestCommon(TestCommon):
         :return: I metodi funzionano e restituiscono i risultati attesi
         """
 
-        def info(request, route):
-            return httpx.Response(200, json=self.info_data)
-
-        def status(request, route):
-            return httpx.Response(200, json=self.status_data)
-
         respx.post(
             'http://local-host/info',
         ).mock(
-            side_effect=info
+            return_value=httpx.Response(200, json=self.info_data)
         )
 
         respx.post(
             'http://local-host/status',
         ).mock(
-            side_effect=status
+            return_value=httpx.Response(200, json=self.status_data)
         )
 
         device = '10.10.10.1'
@@ -196,22 +176,16 @@ class RfidTestCommon(TestCommon):
         :return: I metodi funzionano e restituiscono i risultati attesi
         """
 
-        def info(request, route):
-            return httpx.Response(200, json=self.info_data)
-
-        def status(request, route):
-            return httpx.Response(200, json=self.status_data)
-
         respx.post(
             'http://local-host/info',
         ).mock(
-            side_effect=info
+            return_value=httpx.Response(200, json=self.info_data)
         )
 
         respx.post(
             'http://local-host/status',
         ).mock(
-            side_effect=status
+            return_value=httpx.Response(200, json=self.status_data)
         )
 
         device = '10.10.10.1'
@@ -232,31 +206,22 @@ class RfidTestCommon(TestCommon):
         :return: I metodi funzionano e restituiscono i risultati attesi
         """
 
-        def info(request, route):
-            return httpx.Response(200, json=self.info_data)
-
-        def status(request, route):
-            return httpx.Response(200, json=self.status_data_empty)
-
-        def tagres(request, route):
-            return httpx.Response(200, json=self.res_add_tag)
-
         respx.post(
             'http://local-host/info',
         ).mock(
-            side_effect=info
+            return_value=httpx.Response(200, json=self.info_data)
         )
 
         respx.post(
             'http://local-host/status',
         ).mock(
-            side_effect=status
+            return_value=httpx.Response(200, json=self.status_data)
         )
 
         respx.post(
             'http://local-host/add-tags',
         ).mock(
-            side_effect=tagres
+            return_value=httpx.Response(200, json=self.res_add_tag)
         )
 
         device = '10.10.10.1'
@@ -277,31 +242,22 @@ class RfidTestCommon(TestCommon):
             Aggiorna orologio di sistema del Reader
         """
 
-        def info(request, route):
-            return httpx.Response(200, json=self.info_data)
-
-        def status(request, route):
-            return httpx.Response(200, json=self.status_data)
-
-        def clock(request, route):
-            return httpx.Response(200, json=self.res_add_tag)
-
         respx.post(
             'http://local-host/info',
         ).mock(
-            side_effect=info
+            return_value=httpx.Response(200, json=self.info_data)
         )
 
         respx.post(
             'http://local-host/status',
         ).mock(
-            side_effect=status
+            return_value=httpx.Response(200, json=self.status_data)
         )
 
         respx.post(
             'http://local-host/update-clock',
         ).mock(
-            side_effect=clock
+            return_value=httpx.Response(200, json=self.res_add_tag)
         )
 
         device = '10.10.10.1'
