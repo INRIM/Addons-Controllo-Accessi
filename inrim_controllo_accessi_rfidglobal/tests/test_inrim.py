@@ -87,6 +87,9 @@ class RfidTestCommon(TestCommon):
         ], limit=1)
         punto_accesso_id.load_reader()
 
+        punto_accesso_id = self.env['ca.punto_accesso'].search([
+            ('ca_lettore_id.reader_ip', '=', device)
+        ], limit=1)
         self.assertEqual(device_id, punto_accesso_id.ca_lettore_id.device_id)
         self.assertEqual(self.status_data['diagnostic']['event_cnt'],
                          punto_accesso_id.ca_lettore_id.available_events)
