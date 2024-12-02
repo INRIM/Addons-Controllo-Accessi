@@ -80,7 +80,7 @@
 
     <record id="ca_punto_accesso_category_action"
             model="ir.actions.act_window">
-        <field name="name">Access Point Category</field>
+        <field name="name">Access Points</field>
         <field name="res_model">ca.punto_accesso_category</field>
         <field name="view_mode">tree,form</field>
     </record>

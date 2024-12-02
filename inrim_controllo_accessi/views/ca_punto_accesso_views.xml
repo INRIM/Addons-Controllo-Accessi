@@ -80,18 +80,6 @@
                                 string="Accessi Oggi"
                                 type="object"
                         />
-                        <button
-                                name="accessi_rifiutati_oggi"
-                                string="Accessi Rifiutati Oggi"
-                                type="object"
-                                class="btn-danger"
-                        />
-                        <button
-                                name="elabora_persone_abilitate_view"
-                                string="Elabora Persone Abilitate"
-                                type="object"
-                                class="btn-primary"
-                        />
                     </div>
                     <group>
                         <group>

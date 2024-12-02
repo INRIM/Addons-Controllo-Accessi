@@ -57,6 +57,7 @@ class CaPuntoAccesso(models.Model):
                     vals['type'] = ""
                     vals['available_events'] = 0
                 self.ca_lettore_id.write(vals)
+                return reader
         except Exception as e:
             logger.info(f"Error: {e}", exc_info=True)
             self.write_log(
