@@ -230,9 +230,13 @@ class CaPuntoAccesso(models.Model):
                                 f"tag  {record.idd} not valid for Reader {self.ca_lettore_id.name} ")
                             return False
                 else:
-                    logger.error(
-                        f"Error read event file ")
-                    return False
+                    if events.status == 146 and events.statusStr == "OK":
+                        logger.info("No Events in redear")
+                        return True
+                    else:
+                        logger.error(
+                            f"Error read event file ")
+                        return False
         except Exception as e:
             msg = f'Exception in decode event: {code}, File: {file_path}, Err: {e}'
             logger.exception(msg)
