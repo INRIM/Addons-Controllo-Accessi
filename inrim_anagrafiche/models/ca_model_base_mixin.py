@@ -2,8 +2,8 @@ import json
 import logging
 import urllib.parse
 from datetime import datetime
-import pytz
 
+import pytz
 from odoo import models
 
 logger = logging.getLogger(__name__)
@@ -144,12 +144,21 @@ class CaModelBase(models.AbstractModel):
 
     @classmethod
     def f_m2o(cls, record_o, name="name"):
-        return {"name": record_o.id, "label": record_o.display_name}
+        if record_o:
+            return {"name": record_o.id, "label": record_o.display_name}
+        else:
+            return False
 
     @classmethod
     def f_o2m(cls, record_o, name="name"):
-        return [{"name": p.id, "label": p.display_name} for p in record_o]
+        if record_o:
+            return [{"name": p.id, "label": p.display_name} for p in record_o]
+        else:
+            return []
 
     @classmethod
     def f_m2m(cls, record_o, name="name"):
-        return [{"name": p.id, "label": p.display_name} for p in record_o]
+        if record_o:
+            return [{"name": p.id, "label": p.display_name} for p in record_o]
+        else:
+            return []

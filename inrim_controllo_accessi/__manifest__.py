@@ -13,6 +13,7 @@
         'wizard/ca_sposta_punto_accesso_views.xml',
         'wizard/ca_aggiungi_movimento_accesso_views.xml',
         'wizard/ca_registra_persona_views.xml',
+        'wizard/ca_registra_doc_persona_views.xml',
         'wizard/ca_ritira_badge_views.xml',
         'views/ca_tag_lettore_views.xml',
         'views/ca_lettore_persona_views.xml',

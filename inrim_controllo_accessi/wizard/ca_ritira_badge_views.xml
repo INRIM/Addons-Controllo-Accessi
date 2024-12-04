@@ -9,11 +9,14 @@
                     <separator string="Dati Badge"/>
                     <group>
                         <group>
-                            <field name="tag_ids" invisible="1" />
+                            <field name="tag_ids" invisible="1"/>
                             <field name="ca_tag_id"
                                    options="{'no_create': True, 'no_quick_create': True}"
                                    domain="[('id', 'in', tag_ids)]"/>
-                            <field name="temp" />
+                            <field name="temp"/>
+                        </group>
+                        <group>
+                            <field name="persona_id" readonly="1"/>
                         </group>
                     </group>
 

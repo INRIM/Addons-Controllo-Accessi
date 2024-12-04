@@ -30,7 +30,7 @@ class CaRegistraPersona(models.TransientModel):
     date_end = fields.Datetime(required=True)
     parent_id = fields.Many2one(
         'ca.persona', string='Reference person', index=True,
-        domain=[('is_internal', '=', True)]
+        domain=[('is_internal', '=', True), ("present", "=", "yes")]
     )
     ca_tag_id = fields.Many2one('ca.tag', required=True)
     available_tags_ids = fields.Many2many('ca.tag', compute="_compute_available_tags")
@@ -92,12 +92,12 @@ class CaRegistraPersona(models.TransientModel):
         self.fiscalcode = rec.fiscalcode
         self.email = rec.email
         self.persona_id = rec.id
-        self.compute_available_tags()
         ent_az_id = rec.ca_ente_azienda_ids.ids[0] if rec.ca_ente_azienda_ids else []
         self.eval_ente_azienda_id(ent_az_id)
         current_winfo = self.persona_id.get_current_winfo()
         self.ca_work_info_type_id = current_winfo.ca_work_info_type_id.id
         self.ca_title_id = current_winfo.ca_title_id.id
+        self.compute_available_tags()
 
     def reset_person(self):
         self.ensure_one()
@@ -113,7 +113,7 @@ class CaRegistraPersona(models.TransientModel):
 
     def compute_available_tags(self):
         self.ensure_one()
-        if not self.persona_id or self.persona_id.is_external:
+        if not self.ca_title_id.structured:
             self.available_tags_ids = self.env['ca.tag'].search([
                 ('in_use', '=', False),
                 ('revoked', '=', False),
@@ -193,6 +193,7 @@ class CaRegistraPersona(models.TransientModel):
                 record.compute_available_tags()
 
     def action_confirm(self):
+        add_doc = True
         if not self.ente_azienda:
             self.ente_azienda = self.env['ca.ente_azienda'].create(
                 {
@@ -225,6 +226,7 @@ class CaRegistraPersona(models.TransientModel):
                 }
             )
         else:
+            add_doc = False
             vals = {
                 "freshman": self.freshman,
                 "mobile": self.mobile,
@@ -245,4 +247,16 @@ class CaRegistraPersona(models.TransientModel):
             for access_point in access_point_group.ca_access_point_ids:
                 logger.info(f"wizard eval attach {access_point}")
                 access_point.stamping_attach()
-        return res
+        if add_doc:
+            add_doc_w = self.env['ca.registra_doc_persona'].create({
+                'persona_id': self.persona_id.id,
+            })
+            return {
+                'type': 'ir.actions.act_window',
+                'res_model': 'ca.registra_doc_persona',
+                'view_mode': 'form',
+                'res_id': add_doc_w.id,
+                'target': 'new',
+            }
+        else:
+            return {'type': 'ir.actions.act_window_close'}

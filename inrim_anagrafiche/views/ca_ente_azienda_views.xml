@@ -101,7 +101,9 @@
                                            options="{'no_create': True}"/>
                                     <field name="ca_persona_ids"
                                            widget="many2many_tags"
-                                           options="{'no_create': True}"/>
+                                           options="{'no_create': True}"
+                                           invisible="1"
+                                    />
                                 </group>
                             </group>
                         </page>

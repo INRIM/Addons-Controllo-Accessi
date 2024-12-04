@@ -7,7 +7,7 @@ from odoo import models, api, fields
 
 logger = logging.getLogger(__name__)
 
-get_addressbook_path = "/api/get_addressbook"
+# get_addressbook_path = "/api/get_addressbook"
 get_personal_types = "/api/getpersonaltypes"
 get_job_titles = "/api/get_job_titles"
 
@@ -43,14 +43,12 @@ class CaPersona(models.Model):
     @api.model
     def _cron_people_get_addressbook(self):
         with self.env.cr.savepoint():
-            for upath in [get_personal_types, get_job_titles, get_addressbook_path]:
+            for upath in [get_personal_types, get_job_titles]:
                 data = self.get_people_data(upath)
                 if data and upath == get_personal_types:
                     self.update_work_info_type(data)
                 if data and upath == get_job_titles:
                     self.update_titolo_persona(data)
-                if data and upath == get_addressbook_path:
-                    self.get_addressbook_data(data)
 
     def update_work_info_type(self, data):
         logger.info("Update tipo persona work_info_type")

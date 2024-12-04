@@ -183,17 +183,6 @@ class CaPersona(models.Model):
                     raise UserError(
                         _(msg))
 
-    @api.constrains('freshman', 'active')
-    def _check_unique_freshman(self):
-        for record in self:
-            if record.freshman:
-                persona_id = self.env['ca.persona'].search([
-                    ('id', '!=', record.id),
-                    ('freshman', '=', record.freshman)
-                ])
-                if persona_id:
-                    raise UserError(_('Esiste già una persona con questa matricola'))
-
     @api.constrains('ca_documento_ids')
     def _check_external_documento_ids(self):
         for record in self:
@@ -523,7 +512,7 @@ class CaPersona(models.Model):
             'associated_user_id': self.f_m2o(self.associated_user_id),
             'domicile_street': self.domicile_street or "",
             'domicile_street2': self.domicile_street2 or "",
-            'domicile_city_id': self.f_m2o(self.associated_user_id),
+            'domicile_city_id': self.f_m2o(self.domicile_city_id),
             'domicile_state_id': self.f_m2o(self.domicile_state_id),
             'domicile_zip_id': self.f_m2o(self.domicile_zip_id),
             'domicile_country_id': self.f_m2o(self.domicile_country_id),
@@ -541,7 +530,8 @@ class CaPersona(models.Model):
             'residence_country_id': self.f_m2o(self.residence_country_id),
             'email': self.email,
             'phone': self.phone,
-            'mobile': self.mobile
+            'mobile': self.mobile,
+            'ca_workinfo_ids': self.f_o2m(self.ca_workinfo_ids)
         }
         if self.env.user.has_group('controllo_accessi.ca_gdpr'):
             vals.update({

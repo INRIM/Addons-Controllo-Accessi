@@ -138,11 +138,12 @@ class CaDocumento(models.Model):
     tipo_documento_name = fields.Char(related="tipo_documento_id.name")
     validity_start_date = fields.Date(required=True)
     validity_end_date = fields.Date(required=True)
-    image_ids = fields.One2many('ca.img_documento', 'ca_documento_id', required=True)
     document_code = fields.Char(required=True)
+    issued_by = fields.Char(required=True)
+    image_ids = fields.One2many('ca.img_documento', 'ca_documento_id')
     ca_stato_documento_id = fields.Many2one('ca.stato_documento', readonly=True)
     ca_stato_documento_name = fields.Char(related="ca_stato_documento_id.name")
-    issued_by = fields.Char(required=True)
+
 
     @api.constrains('validity_start_date', 'validity_end_date')
     def _check_date(self):

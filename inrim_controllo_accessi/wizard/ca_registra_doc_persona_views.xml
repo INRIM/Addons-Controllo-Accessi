@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_registra_doc_persona_form" model="ir.ui.view">
+        <field name="name">ca.registra.doc.ospite.view.form</field>
+        <field name="model">ca.registra_doc_persona</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <separator string="Persona"/>
+                            <field name="persona_id"
+                                   options="{'no_create': True, 'no_quick_create': True}"
+                                   readonly="1"
+                            />
+                            <field name="tipo_documento_id" string="Tipo Doc." required="1"/>
+                        </group>
+                    </group>
+                    <separator string="Dati Documento"/>
+                    <group>
+                        <group>
+                            <field name="validity_start_date" string="Data Rilascio" required="1"/>
+                            <field name="document_code" string="Codice Doc" required="1"/>
+                        </group>
+                        <group>
+                            <field name="validity_end_date" string="Scadenza" required="1"/>
+                            <field name="issued_by" string="Rilasciato Da" required="1"/>
+                        </group>
+                    </group>
+
+                </sheet>
+                <footer>
+                    <button
+                            name="action_confirm"
+                            string="Completa"
+                            class="btn-primary"
+                            type="object"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="ca_registra_doc_persona_action" model="ir.actions.act_window">
+        <field name="name">Registra Doc Ospite</field>
+        <field name="res_model">ca.registra_doc_persona</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
