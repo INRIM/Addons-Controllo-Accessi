@@ -43,14 +43,14 @@ class CaPersona(models.Model):
     residence_city = fields.Char(
         compute='_compute_residence_city', readonly=False, store=True
     )
+    residence_zip = fields.Char(
+        compute='_compute_residence_zip',
+        readonly=False, store=True
+    )
     residence_state_id = fields.Many2one(
         'res.country.state',
         domain="[('country_id', '=?', residence_country_id)]",
         compute='_compute_residence_state_id', readonly=False, store=True
-    )
-    residence_zip = fields.Char(
-        compute='_compute_residence_zip',
-        readonly=False, store=True
     )
     residence_country_id = fields.Many2one(
         'res.country', compute='_compute_residence_country_id',
@@ -211,7 +211,7 @@ class CaPersona(models.Model):
             if interno_id in record.type_ids.ids:
                 record.is_internal = True
             elif (
-                esterno_id in record.type_ids.ids
+                    esterno_id in record.type_ids.ids
             ):
                 record.is_external = True
 
@@ -512,9 +512,9 @@ class CaPersona(models.Model):
             'associated_user_id': self.f_m2o(self.associated_user_id),
             'domicile_street': self.domicile_street or "",
             'domicile_street2': self.domicile_street2 or "",
-            'domicile_city_id': self.f_m2o(self.domicile_city_id),
+            'domicile_city': self.domicile_city or "",
+            'domicile_zip': self.domicile_zip or "",
             'domicile_state_id': self.f_m2o(self.domicile_state_id),
-            'domicile_zip_id': self.f_m2o(self.domicile_zip_id),
             'domicile_country_id': self.f_m2o(self.domicile_country_id),
             'vat': self.vat or "",
             'domicile_other_than_residence': self.domicile_other_than_residence,
@@ -524,9 +524,9 @@ class CaPersona(models.Model):
             'token': self.token,
             'residence_street': self.residence_street or "",
             'residence_street2': self.residence_street2 or "",
-            'residence_city_id': self.f_m2o(self.residence_city_id),
+            'residence_city': self.residence_city or "",
+            'residence_zip': self.residence_zip or "",
             'residence_state_id': self.f_m2o(self.residence_state_id),
-            'residence_zip_id': self.f_m2o(self.residence_zip_id),
             'residence_country_id': self.f_m2o(self.residence_country_id),
             'email': self.email,
             'phone': self.phone,

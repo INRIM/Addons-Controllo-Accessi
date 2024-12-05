@@ -70,13 +70,6 @@ class CaTagLettore(models.Model):
                 record.ca_punto_accesso_id.remote_update = True
         return res
 
-    def write(self, vals):
-        res = super(CaTagLettore, self).write(vals)
-        for record in self:
-            if record.ca_punto_accesso_id:
-                record.ca_punto_accesso_id.remote_update = True
-        return res
-
     def unlink(self):
         for record in self:
             if record.ca_punto_accesso_id:

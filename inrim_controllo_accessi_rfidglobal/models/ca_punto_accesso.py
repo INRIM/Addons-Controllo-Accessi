@@ -213,14 +213,24 @@ class CaPuntoAccesso(models.Model):
                                 ('ca_tag_id.tag_code', '=', record.idd),
                                 ('state', '=', 'to_give_back')])
                             if tag_persona:
-                                riga_accesso_model.aggiungi_riga_accesso(
-                                    self, tag_persona,
-                                    record.eventDateTime_to_utc(),
-                                    type="auto",
-                                    access_allowed=record.accessAllowed,
-                                    tz=self.tz
-                                )
-                                return True
+                                lettore_persona = self.env['ca.lettore_persona'].search([
+                                    ('ca_persona_id', '=', tag_persona.ca_persona_id.id),
+                                    ('ca_lettore_id', '=', ca_lettore_id.ca_lettore_id.id),
+                                    ('state', '=', "active")
+                                ])
+                                if lettore_persona:
+                                    riga_accesso_model.aggiungi_riga_accesso(
+                                        self, tag_persona,
+                                        record.eventDateTime_to_utc(),
+                                        type="auto",
+                                        access_allowed=record.accessAllowed,
+                                        tz=self.tz
+                                    )
+                                    return True
+                                else:
+                                    logger.error(
+                                        f"Association {record.idd} and {tag_persona.ca_persona_id.display_name} is expired in reader")
+                                    return False
                             else:
                                 logger.error(
                                     f"tag {record.idd} associated with no one ")

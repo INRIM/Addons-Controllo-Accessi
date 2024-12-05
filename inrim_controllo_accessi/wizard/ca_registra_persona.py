@@ -111,6 +111,7 @@ class CaRegistraPersona(models.TransientModel):
 
         self.compute_available_tags()
 
+    @api.depends("persona_id", "ca_title_id")
     def compute_available_tags(self):
         self.ensure_one()
         if not self.ca_title_id.structured:
@@ -148,8 +149,7 @@ class CaRegistraPersona(models.TransientModel):
                     self.with_context(
                         no_change_person=True,
                         no_change_vat=True).populate_person(persona_id)
-            else:
-                self.reset_person()
+
 
     @api.onchange('ca_tag_id')
     def _compute_tag_id_number(self):
