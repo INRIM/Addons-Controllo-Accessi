@@ -215,7 +215,7 @@ class CaPuntoAccesso(models.Model):
                             if tag_persona:
                                 lettore_persona = self.env['ca.lettore_persona'].search([
                                     ('ca_persona_id', '=', tag_persona.ca_persona_id.id),
-                                    ('ca_lettore_id', '=', ca_lettore_id.ca_lettore_id.id),
+                                    ('ca_lettore_id', '=', tag_lettore.ca_lettore_id.id),
                                     ('state', '=', "active")
                                 ])
                                 if lettore_persona:
