@@ -31,6 +31,7 @@
                 <field name="direction"/>
                 <field name="access_allowed"/>
                 <field name="system_error"/>
+                <field name="access_conflict"/>
 
             </tree>
         </field>
@@ -60,7 +61,8 @@
                             <field name="typology"/>
                             <field name="direction"/>
                             <field name="access_allowed" readonly="True"/>
-                            <field name="system_error"/>
+                            <field name="system_error" readonly="True"/>
+                            <field name="access_conflict" readonly="True"/>
                             <field name="type" readonly="True"/>
                         </group>
                     </group>

@@ -84,7 +84,8 @@ class CaPuntoAccesso(models.Model):
         ('local_access', 'Local Access')
     ], required=True)
     ca_persona_id = fields.Many2one('ca.persona', string="Referent")
-    type_ids = fields.Many2many('ca.tipo_persona', compute="_compute_type_ids")
+    type_ids = fields.Many2many(
+        'ca.tipo_persona', compute="_compute_type_ids")
     last_update_reader = fields.Datetime()
     last_reading_events = fields.Datetime()
     available_events = fields.Integer(
@@ -100,9 +101,9 @@ class CaPuntoAccesso(models.Model):
     ca_tag_lettore_ids = fields.One2many(
         'ca.tag_lettore', 'ca_punto_accesso_id')
     ca_tag_lettore_persona_ids = fields.One2many(
-        'ca.lettore_persona', 'ca_lettore_id')
+        'ca.lettore_persona', 'ca_punto_accesso_id')
     ca_tag_lettore_persona_view = fields.One2many(
-        'ca.lettore_persona', 'ca_lettore_id',
+        'ca.lettore_persona', 'ca_punto_accesso_id',
         domain=[("state", "in", ["active", "scheduled"])]
     )
     remote_update = fields.Boolean(readonly=True)
@@ -224,13 +225,18 @@ class CaPuntoAccesso(models.Model):
         rimuove link tag - lettore
         sync
         """
-
+        logger.info("local_access_detach")
         lettore_persona = self.ca_tag_lettore_persona_ids.filtered(
             lambda x: x.ca_persona_id.id == tag_persona.ca_persona_id.id
         )
+
         lettore_persona.ca_tag_lettore_id.detach()
-        lettore_persona.unlink()
+        logger.info(f"set  {lettore_persona.ca_tag_lettore_id} state {lettore_persona.ca_tag_lettore_id.state} ")
+        logger.info(f"set {lettore_persona.ca_persona_id.name} set expired")
+        lettore_persona.state = 'expired'
+        lettore_persona.active = False
         self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
+        return True
 
     def local_access_attach(self, tag):
         """
@@ -260,6 +266,35 @@ class CaPuntoAccesso(models.Model):
             return True
         return False
 
+    def local_access_attach_person(self, pesona):
+        """
+        Deve esistere un record Tag/Persona
+        Aggiungo Tag - Lettore
+        Aggiungo Tag-Persona --> Da restituire
+        Aggiungo Lettore-Persona
+        :return:
+        """
+        self.ensure_one()
+        tag_persona_id = self.env['ca.tag_persona'].get_current_by_tag(pesona)
+        if tag_persona_id:
+            tag = tag_persona_id.ca_tag_id
+            tag_lettore = self.env['ca.tag_lettore'].search(
+                [
+                    ('ca_tag_id', '=', tag.id),
+                    ('ca_lettore_id', "=", self.ca_lettore_id.id)
+                ], limit=1)
+            if not tag_lettore:
+                self.env['ca.tag_lettore'].create({
+                    'ca_lettore_id': self.ca_lettore_id.id,
+                    'ca_tag_id': tag.id,
+                    'date_start': self.date_start,
+                    'date_end': self.date_end,
+                    'ca_punto_accesso_id': self.id
+                })
+            self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
+            return True
+        return False
+
     def stamping_detach(self, tag_persona):
         """
         Impost Tag_persona --> restituito o scaduto
@@ -267,13 +302,12 @@ class CaPuntoAccesso(models.Model):
 
         :return:
         """
-
         lettore_persona = self.ca_tag_lettore_persona_ids.filtered(
             lambda x: x.ca_persona_id.id == tag_persona.ca_persona_id.id
         )
+        logger.info(f"set {lettore_persona.ca_persona_id.name} expired")
         lettore_persona.state = 'expired'
         lettore_persona.active = False
-        self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
 
     def stamping_attach(self):
         """
@@ -315,7 +349,7 @@ class CaPuntoAccesso(models.Model):
     def check_and_detach(self, tag_persona):
         if self.typology == 'stamping':
             self.stamping_detach(tag_persona)
-        elif self.typology == 'accesss':
+        elif self.typology == 'local_access':
             self.local_access_detach(tag_persona)
 
     def sposta_punto_accesso(self, ca_spazio_id):
@@ -364,3 +398,18 @@ class CaPuntoAccesso(models.Model):
 
     def update_clock(self):
         return True
+
+    def action_abilita_persona_locale(self):
+        return {
+            'name': _('Add person in local'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'ca.abilita_persona_locale',
+            'view_id': self.env.ref(
+                'inrim_controllo_accessi.ca_abilita_persona_locale_form').id,
+            'target': 'new',
+            'view_mode': "form",
+            'context': {
+                'default_punto_accesso_id': self.id
+            },
+
+        }

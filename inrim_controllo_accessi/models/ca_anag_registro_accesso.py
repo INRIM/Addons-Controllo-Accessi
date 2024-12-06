@@ -54,6 +54,9 @@ class CaAnagRegistroAccesso(models.Model):
     system_error = fields.Boolean(
         related="ca_lettore_id.system_error", store=True,
         readonly=True)
+    access_conflict = fields.Boolean(
+        default=False,
+        help="Access Conflict Tag Access realted to a person that is not present")
     type = fields.Selection([
         ('manual', 'Manual'),
         ('auto', 'Auto')
@@ -74,12 +77,16 @@ class CaAnagRegistroAccesso(models.Model):
     ):
         if not tz:
             tz = self._context.get('tz')
+        access_conflict = False
+        if self.ca_punto_accesso_id.typology == 'local_access':
+            access_conflict = ca_tag_persona_id.ca_persona_id.present == 'no'
         vals = {
             'ca_punto_accesso_id': ca_punto_accesso_id.id,
             'ca_tag_persona_id': ca_tag_persona_id.id,
             'datetime_event': datetime_event,
             'type': type,
             'access_allowed': access_allowed,
+            'access_conflict': access_conflict,
             'tz': tz
         }
         res = self.create(vals)

@@ -71,9 +71,12 @@
                                 groups="controllo_accessi.ca_tech"
                         />
                         <button
-                                name="persone_abilitate"
-                                string="Persone Abilitate"
+                                name="action_abilita_persona_locale"
                                 type="object"
+                                icon="fa-id-badge"
+                                string="Add person in local"
+                                groups="controllo_accessi.ca_ca"
+                                invisible="typology=='stamping'"
                         />
                         <button
                                 name="accessi_oggi"
@@ -122,7 +125,7 @@
                                domain="[('type_ids', 'in', type_ids)]"/>
                         <notebook>
                             <page name="people" string="People">
-                                <field name="ca_tag_lettore_persona_view" options="{'no_create': True}">
+                                <field name="ca_tag_lettore_persona_view" >
                                     <tree default_order="ca_persona_id asc, date_end asc" options="{'no_create': True}">
                                         <field name="ca_lettore_id" column_invisible="1"/>
                                         <field name="ca_persona_id"/>

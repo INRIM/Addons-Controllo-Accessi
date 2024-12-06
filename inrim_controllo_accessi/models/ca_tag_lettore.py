@@ -78,10 +78,11 @@ class CaTagLettore(models.Model):
 
     def detach(self):
         self.ensure_one()
+        self.active = False
+        self.state = 'expired'
         if self.ca_punto_accesso_id:
             self.ca_punto_accesso_id.remote_update = True
-        self.state = 'expired'
-        self.active = False
+
 
     @api.onchange('ca_lettore_id')
     def _onchange_ca_lettore_id(self):
@@ -113,6 +114,8 @@ class CaTagLettore(models.Model):
     def check_update_state(self):
         now = fields.Date.today()
         self.ensure_one()
+        if not self.date_start and not self.date_end:
+            return
         if self.date_start <= now <= self.date_end:
             self.state = 'active'
         elif self.date_start > now:

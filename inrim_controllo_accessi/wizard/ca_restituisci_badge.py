@@ -9,7 +9,7 @@ class CaRestituisciBadge(models.TransientModel):
     _name = 'ca.restituisci_badge'
     _description = 'Restituisci Badge'
 
-    ca_tag_id = fields.Many2one('ca.tag', required=True)
+    ca_tag_id = fields.Many2one('ca.tag_persona', required=True)
     temp = fields.Boolean(default=True)
     tag_ids = fields.Many2many('ca.tag_persona', compute="_compute_tag_ids")
     persona_id = fields.Many2one("ca.persona")
@@ -29,14 +29,13 @@ class CaRestituisciBadge(models.TransientModel):
     @api.onchange('ca_tag_id')
     def _onchange_tag_id(self):
         for record in self:
-            tag_persona = self.env['ca.tag_persona'].get_current_by_tag(record.ca_tag_id)
+            tag_persona = record.ca_tag_id
             self.persona_id = tag_persona.ca_persona_id
 
     def action_confirm(self):
-        tag_persona = self.env['ca.tag_persona'].get_current_by_tag(self.ca_tag_id)
+        tag_persona = self.ca_tag_id
         logger.info(f"wizard eval detach {tag_persona}")
-        for access_point_group in self.env['ca.punto_accesso_category'].search([]):
-            for access_point in access_point_group.ca_access_point_ids:
-                access_point.check_and_detach(tag_persona)
+        for access_point in self.env['ca.punto_accesso'].search([]):
+            access_point.check_and_detach(tag_persona)
         tag_persona.set_retuned()
         return True

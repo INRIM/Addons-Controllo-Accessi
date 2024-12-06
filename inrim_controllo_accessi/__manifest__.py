@@ -15,6 +15,7 @@
         'wizard/ca_registra_persona_views.xml',
         'wizard/ca_registra_doc_persona_views.xml',
         'wizard/ca_ritira_badge_views.xml',
+        'wizard/ca_abilita_persona_locale_views.xml',
         'views/ca_tag_lettore_views.xml',
         'views/ca_lettore_persona_views.xml',
         'views/punto_accesso_category_view.xml',

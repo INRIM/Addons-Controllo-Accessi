@@ -11,7 +11,9 @@ class CaLettorePersona(models.Model):
     ca_tag_lettore_id = fields.Many2one(
         'ca.tag_lettore', required=True, readonly=True)
     ca_lettore_id = fields.Many2one(
-        related="ca_tag_lettore_id.ca_lettore_id", store=True, auto_join=True)
+        related="ca_tag_lettore_id.ca_lettore_id", store=True, index=True)
+    ca_punto_accesso_id = fields.Many2one(
+        related="ca_tag_lettore_id.ca_punto_accesso_id", store=True, index=True)
     ca_tag_persona = fields.Many2one(
         'ca.tag_persona', ondelete='cascade', required=True,
         readonly=True)
@@ -106,7 +108,8 @@ class CaLettorePersona(models.Model):
             self.state = 'expired'
 
     def check_update_by_date_valididty(self):
-        for person_reader in self.env['ca.lettore_persona'].search([]):
+        for person_reader in self.env['ca.lettore_persona'].search(
+                [('state', 'not in', ['expired'])]):
             if person_reader:
                 person_reader.check_update_state()
 

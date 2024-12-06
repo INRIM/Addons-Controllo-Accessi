@@ -159,3 +159,10 @@ class CaTagPersona(models.Model):
             ('ca_tag_id', '=', tag.id),
             ('state', '=', 'to_give_back')
         ], limit=1)
+
+    @api.model
+    def get_current_by_pesona(self, persona):
+        return self.env['ca.tag_persona'].search([
+            ('ca_persona_id', '=', persona.id),
+            ('state', '=', 'to_give_back')
+        ], limit=1)

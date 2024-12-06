@@ -1,6 +1,7 @@
 import logging
 
 from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 
 logger = logging.getLogger(__name__)
 
@@ -111,20 +112,26 @@ class CaRegistraPersona(models.TransientModel):
 
         self.compute_available_tags()
 
-    @api.depends("persona_id", "ca_title_id")
+    @api.onchange("persona_id", "ca_title_id")
+    def _compunte_change_penson_tile(self):
+        for record in self:
+            record.compute_available_tags()
+
     def compute_available_tags(self):
         self.ensure_one()
+        logger.info(f"seacrh tag external {self.ca_title_id.structured}")
         if not self.ca_title_id.structured:
+            logger.info("seacrh tag external")
             self.available_tags_ids = self.env['ca.tag'].search([
                 ('in_use', '=', False),
                 ('revoked', '=', False),
                 ('temp', '=', True),
                 ('ca_proprieta_tag_ids', 'in', [
-                    self.env.ref('inrim_anagrafiche.proprieta_tag_temporaneo').id,
                     self.env.ref('inrim_anagrafiche.proprieta_tag_visitatore').id,
-                    self.env.ref('inrim_anagrafiche.proprieta_tag_servizio').id,
+                    self.env.ref('inrim_anagrafiche.proprieta_tag_servizio').id
                 ])
             ])
+            logger.info(self.available_tags_ids)
         elif self.persona_id.is_internal:
             self.available_tags_ids = self.env['ca.tag'].search([
                 ('in_use', '=', False),
@@ -149,7 +156,6 @@ class CaRegistraPersona(models.TransientModel):
                     self.with_context(
                         no_change_person=True,
                         no_change_vat=True).populate_person(persona_id)
-
 
     @api.onchange('ca_tag_id')
     def _compute_tag_id_number(self):
@@ -189,7 +195,7 @@ class CaRegistraPersona(models.TransientModel):
             if record.date_end and record.date_start:
                 if record.date_end <= record.date_start:
                     raise UserError(
-                        _('Data fine deve essere maggiore della data di inizio'))
+                        _('Date end must be after date start'))
                 record.compute_available_tags()
 
     def action_confirm(self):
@@ -221,8 +227,8 @@ class CaRegistraPersona(models.TransientModel):
                     'work_id_number': self.freshman,
                     'ca_work_info_type_id': self.ca_work_info_type_id.id,
                     'ca_title_id': self.ca_title_id.id,
-                    'date_start': self.date_start.split(" ")[0],
-                    'date_end': self.date_end.split(" ")[0]
+                    'date_start': self.date_start.date(),
+                    'date_end': self.date_end.date()
                 }
             )
         else:
@@ -234,7 +240,7 @@ class CaRegistraPersona(models.TransientModel):
                 "parent_id": self.parent_id.id
             }
             if self.ente_azienda.id not in self.persona_id.ca_ente_azienda_ids.ids:
-                self.persona_id.ca_ente_azienda_ids.append(self.ente_azienda.id)
+                self.persona_id.ca_ente_azienda_ids = [(6, 0, self.ente_azienda.ids)]
             self.persona_id.write(vals)
 
         res = self.env['ca.tag_persona'].create({
