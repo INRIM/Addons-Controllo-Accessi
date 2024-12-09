@@ -118,6 +118,8 @@ class CaWorkInfo(models.Model):
     def check_update_state(self):
         now = fields.Date.today()
         self.ensure_one()
+        if not self.date_start or not self.date_end:
+            return
         if self.date_start <= now <= self.date_end:
             self.state = 'active'
         elif self.date_start > now:

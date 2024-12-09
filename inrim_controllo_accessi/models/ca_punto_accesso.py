@@ -112,6 +112,8 @@ class CaPuntoAccesso(models.Model):
     tz = fields.Selection(
         related='ente_azienda_id.tz', store=True, string="Timezone", readonly=True)
 
+    ##TODO add cron to check and detach local_access  tags if expired
+
     @api.constrains('date_start', 'date_end')
     def _check_date(self):
         for record in self:

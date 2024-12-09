@@ -128,7 +128,7 @@ class CaTagLettore(models.Model):
             if tag_reader:
                 tag_reader.check_update_state()
 
-    def _cron_check_validity_winfo(self):
+    def _cron_check_validity_tag_reader(self):
         self.check_update_by_date_valididty()
 
     @api.depends('ca_lettore_id', 'ca_tag_id')
