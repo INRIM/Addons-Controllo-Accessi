@@ -1,6 +1,7 @@
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 
+
 @tagged("post_install", "-at_install")
 class TestCommon(TransactionCase):
 
@@ -74,6 +75,27 @@ class TestCommon(TransactionCase):
         # Tag Persona
         cls.tag_persona_id = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_tag_persona_1')
         # Mock Read Events
+        cls.read_events_data_empty = {
+            "status": 148,
+            "statusStr": "OK",
+            "layoutIdd": True,
+            "layoutTimeStamp": True,
+            "layoutEventStatus": True,
+            "layoutInput": True,
+            "dataSetsLenght": 0,
+            "hasMore": True,
+            "layout": [
+                True,
+                True,
+                True,
+                True,
+                False,
+                False,
+                False,
+                False
+            ],
+            "eventRecords": []
+        }
         cls.read_events_data = {
             "status": 148,
             "statusStr": "OK",

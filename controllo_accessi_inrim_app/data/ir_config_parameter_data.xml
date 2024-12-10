@@ -46,5 +46,17 @@
             <field name="value">http://synclabinf/sync</field>
         </record>
 
+        <record id="inrim_ir_config_parameter_syncusers_url"
+                model="ir.config_parameter">
+            <field name="key">syncusers_service_url</field>
+            <field name="value">http://ozon-syncusers</field>
+        </record>
+
+        <record id="inrim_ir_config_parameter_syncusers_token"
+                model="ir.config_parameter">
+            <field name="key">syncusers_service_token</field>
+            <field name="value">token</field>
+        </record>
+
     </data>
 </odoo>

@@ -25,6 +25,7 @@ class RfidTestCommon(TestCommon):
         self.assertTrue(self.status_data)
         self.assertTrue(self.punto_accesso_1p001)
         self.assertTrue(self.read_events_data)
+        self.assertTrue(self.read_events_data_empty)
         self.assertTrue(self.tag_persona_id)
         self.assertTrue(self.path_files)
 
@@ -126,6 +127,44 @@ class RfidTestCommon(TestCommon):
         self.localfilename = f"{code}_{punto_accesso_id.events_to_read_num}.json"
         file_path = Path(f"{self.path_files}/TODO/{self.localfilename}")
         self.assertTrue(file_path.is_file())
+
+    # Test 51
+    @respx.mock
+    def test_51(self):
+        """
+        Descrizione:
+            Verifica che i valori ricevuti dal metodo post_rfid_status vengono scritti correttamente nei campi del lettore
+
+        :return: I campi vengono scritti correttamente nei campi del lettore
+        """
+
+        respx.post(
+            'http://local-host/info',
+        ).mock(
+            return_value=httpx.Response(200, json=self.info_data)
+        )
+
+        respx.post(
+            'http://local-host/status',
+        ).mock(
+            return_value=httpx.Response(200, json=self.status_data)
+        )
+        respx.post(
+            'http://local-host/read-events',
+        ).mock(
+            return_value=httpx.Response(200, json=self.read_events_data_empty)
+        )
+
+        device = '10.10.10.1'
+        device_id = self.info_data['info']['deviceId']
+        punto_accesso_id = self.env['ca.punto_accesso'].search([
+            ('ca_lettore_id.reader_ip', '=', device)
+        ], limit=1)
+        punto_accesso_id.commuta_abilitazione()
+        code = punto_accesso_id.save_events_to_json()
+        self.localfilename = f"{code}_{punto_accesso_id.events_to_read_num}.json"
+        file_path = Path(f"{self.path_files}/TODO/{self.localfilename}")
+        self.assertTrue(not file_path.exists())
 
     # Test 4
     @respx.mock

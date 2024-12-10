@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 # get_addressbook_path = "/api/get_addressbook"
 get_personal_types = "/api/getpersonaltypes"
 get_job_titles = "/api/get_job_titles"
-
+get_users = "/api/pf/elaboraFileCF"
 
 class CaPersona(models.Model):
     _inherit = 'ca.persona'
@@ -26,6 +26,7 @@ class CaPersona(models.Model):
             'ir.config_parameter'
         ].sudo().get_param('people.url')
         url = f'{people_url}{url_path}'
+        request = None
         try:
             request = requests.get(url, headers=header)
             if request.status_code == 200:
@@ -37,8 +38,34 @@ class CaPersona(models.Model):
                 return False
         except Exception as e:
             logger.error(
-                f"{url}, Status Code: {request.status_code}, {e}", exc_info=True)
+                f"{url}, Status Code: {request.status_code if request else ''}, {e}", exc_info=True)
             return False
+
+    def get_syncusers(self, url_path):
+        token = self.env[
+            'ir.config_parameter'
+        ].sudo().get_param('syncusers_service_token')
+        base_url = self.env[
+            'ir.config_parameter'
+        ].sudo().get_param('syncusers_service_url')
+        headers = {
+            'xdvr': token
+        }
+        url = f'{base_url}{url_path}'
+        request = None
+        try:
+            request = requests.get(url, headers=headers)
+            if request.status_code == 200:
+                logger.info(f"{url}, Status Code: {request.status_code}")
+                data = request.json()
+                return data
+            else:
+                logger.info(f"{url}, Status Code: {request.status_code}")
+                return []
+        except Exception as e:
+            logger.error(
+                f"{url}, Status Code: {request.status_code if request else ''}, {e}", exc_info=True)
+            return []
 
     @api.model
     def _cron_people_get_addressbook(self):
@@ -49,6 +76,10 @@ class CaPersona(models.Model):
                     self.update_work_info_type(data)
                 if data and upath == get_job_titles:
                     self.update_titolo_persona(data)
+            for xpath in [get_users]:
+                data = self.get_syncusers(xpath)
+                if data and xpath == get_users:
+                    ...
 
     def update_work_info_type(self, data):
         logger.info("Update tipo persona work_info_type")

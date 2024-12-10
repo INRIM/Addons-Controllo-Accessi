@@ -245,7 +245,7 @@ class Max5010RfidClient:
             dstpath = os.path.join(path, moveto)
             os.makedirs(dstpath)
         eventsd = self.read_events(numeber_events)
-        if eventsd:
+        if eventsd and len(eventsd.get('eventRecords',[])) > 0.:
             jdata = json.dumps(eventsd)
             src = os.path.join(path, filename)
             with open(src, 'w') as json_file:
