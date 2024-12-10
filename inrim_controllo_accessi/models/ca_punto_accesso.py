@@ -231,14 +231,16 @@ class CaPuntoAccesso(models.Model):
         lettore_persona = self.ca_tag_lettore_persona_ids.filtered(
             lambda x: x.ca_persona_id.id == tag_persona.ca_persona_id.id
         )
+        if lettore_persona:
+            lettore_persona.ca_tag_lettore_id.detach()
+            logger.info(f"set  {lettore_persona.ca_tag_lettore_id} state {lettore_persona.ca_tag_lettore_id.state} ")
+            logger.info(f"set {lettore_persona.ca_persona_id.name} set expired")
+            lettore_persona.state = 'expired'
+            lettore_persona.active = False
+            self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
+            return True
+        return  True
 
-        lettore_persona.ca_tag_lettore_id.detach()
-        logger.info(f"set  {lettore_persona.ca_tag_lettore_id} state {lettore_persona.ca_tag_lettore_id.state} ")
-        logger.info(f"set {lettore_persona.ca_persona_id.name} set expired")
-        lettore_persona.state = 'expired'
-        lettore_persona.active = False
-        self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
-        return True
 
     def local_access_attach(self, tag):
         """
