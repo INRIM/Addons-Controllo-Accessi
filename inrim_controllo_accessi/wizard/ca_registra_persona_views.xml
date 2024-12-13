@@ -11,7 +11,7 @@
                     <field name="ente_interno" invisible="1"/>
                     <group>
                         <group>
-                            <separator string="Cerca nel sistema"/>
+                            <separator string="Search in the system"/>
                             <field name="persona_id"
                                    options="{'no_create': True, 'no_quick_create': True}"/>
                         </group>
@@ -19,21 +19,21 @@
 
                     <group>
                         <group>
-                            <separator string="Nuovo Nominativo"/>
-                            <field name="lastname" string="Cognome"/>
-                            <field name="name" string="Nome"/>
+                            <separator string="New Name"/>
+                            <field name="lastname" string="Lastname"/>
+                            <field name="name" string="Name"/>
                             <field name="fiscalcode" class=""
-                                   string="Codice Fiscale"/>
-                            <field name="freshman" string="Matricola"/>
+                                   string="Fiscalcode"/>
+                            <field name="freshman" string="Freshman"/>
                             <field name="email"/>
                             <field name="mobile"/>
                         </group>
                         <group>
-                            <separator string="Ente/Azienda"/>
+                            <separator string="Company"/>
                             <field name="vat"
                                    required="not ente_interno"
                                    invisible="ente_interno"
-                                   string="Partita IVA"
+                                   string="VAT"
                             />
                             <field name="ca_ente_name"/>
                             <field name="tipo_ente_azienda_id"/>
@@ -45,7 +45,7 @@
                                options="{'no_create': True, 'no_quick_create': True, 'no_edit':True}"
                                required="not persona_id or persona_id.is_external == True"/>
                     </group>
-                    <separator string="Dati Accesso"/>
+                    <separator string="Access Data"/>
 
                     <group>
                         <group>
@@ -70,7 +70,7 @@
                 <footer>
                     <button
                             name="action_confirm"
-                            string="Avanti"
+                            string="Next"
                             class="btn-primary"
                             type="object"
                     />
@@ -85,7 +85,7 @@
     </record>
 
     <record id="ca_registra_persona_action" model="ir.actions.act_window">
-        <field name="name">Registra Ospite</field>
+        <field name="name">Register Guest</field>
         <field name="res_model">ca.registra_persona</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>

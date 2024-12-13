@@ -106,10 +106,12 @@ class CaPersona(models.Model):
     )
     domicile_other_than_residence = fields.Boolean()
     ca_workinfo_ids = fields.One2many('ca.work_info', 'ca_persona_id')
-    ca_documento_ids = fields.One2many('ca.documento', 'ca_persona_id')
+    ca_documento_ids = fields.One2many(
+        'ca.documento', 'ca_persona_id', string="Document")
     ca_stato_anag_id = fields.Many2one('ca.stato_anag', default=lambda
-        self: self.default_ca_stato_anag_id(), required=True)
-    ca_ente_azienda_ids = fields.Many2many('ca.ente_azienda')
+        self: self.default_ca_stato_anag_id(), required=True,
+        string="Partner Status")
+    ca_ente_azienda_ids = fields.Many2many('ca.ente_azienda', string="Companies")
     token = fields.Char(required=True, readonly=True, copy=False,
                         default=lambda self: self.get_token())
     present = fields.Selection([
@@ -122,7 +124,8 @@ class CaPersona(models.Model):
     is_external = fields.Boolean(compute="_compute_bool", store=True)
     is_internal = fields.Boolean(compute="_compute_bool", store=True)
     is_structured = fields.Boolean(compute='_compute_is_structured', store=True)
-    ca_tag_ids = fields.One2many('ca.tag_persona', 'ca_persona_id', readonly=True)
+    ca_tag_ids = fields.One2many('ca.tag_persona', 'ca_persona_id', readonly=True,
+        string="Tag")
     active = fields.Boolean(default=True)
 
     def get_current_tag(self):
@@ -177,9 +180,9 @@ class CaPersona(models.Model):
                     ]
                 )
                 if persona_id:
-                    msg = f'Esiste già una persona con questo codice fiscale: {record.fiscalcode}'
+                    msg = _(f'Esiste già una persona con questo codice fiscale: {record.fiscalcode}')
                     if not record.active:
-                        msg = f"{msg} la persona Risulta disattivata, riattivare per utilizzare"
+                        msg = _(f"{msg} la persona Risulta disattivata, riattivare per utilizzare")
                     raise UserError(
                         _(msg))
 
@@ -189,7 +192,7 @@ class CaPersona(models.Model):
             if len(record.ca_documento_ids) == 0 and record.is_external:
                 if not self.env.context.get("massive_create"):
                     raise UserError(_(
-                        'Per una persona esterna è obbligatorio caricare i documenti'))
+                        'For an external person it is mandatory to upload the documents'))
 
     @api.onchange('domicile_state_id')
     def _onchange_domicile_state_id(self):

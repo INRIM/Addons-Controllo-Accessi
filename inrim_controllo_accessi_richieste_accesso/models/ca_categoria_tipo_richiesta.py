@@ -11,7 +11,8 @@ class CaCategoriaTipoRichiesta(models.Model):
     description = fields.Char()
     date_start = fields.Date()
     date_end = fields.Date()
-    ca_categoria_richiesta = fields.Many2one('ca.categoria_richiesta')
+    ca_categoria_richiesta = fields.Many2one('ca.categoria_richiesta',
+        string="Request Category")
     is_activity = fields.Boolean(compute="_compute_is_activity", store=True)
     active = fields.Boolean(default=True)
 
@@ -31,7 +32,7 @@ class CaCategoriaTipoRichiesta(models.Model):
             if record.date_end and record.date_start:
                 if record.date_end <= record.date_start:
                     raise UserError(
-                        _('Data fine deve essere maggiore della data di inizio'))
+                        _('End date must be greater than start date'))
 
     def rest_get_record(self):
         return {

@@ -20,7 +20,7 @@ class CaTipoDocIdent(models.Model):
             if record.date_end and record.date_start:
                 if record.date_end <= record.date_start:
                     raise UserError(
-                        _('Data fine deve essere maggiore della data di inizio'))
+                        _('End date must be greater than start date'))
 
     def rest_get_record(self):
         return {
@@ -84,15 +84,16 @@ class CaImgDocumento(models.Model):
 
     name = fields.Char(required=True)
     description = fields.Char()
-    ca_tipo_documento_id = fields.Many2one('ca.tipo_doc_ident')
+    ca_tipo_documento_id = fields.Many2one('ca.tipo_doc_ident',
+        string="Document Type")
     side = fields.Selection([
-        ('fronte', 'Fronte'),
-        ('retro', 'Retro'),
-        ('pagina', 'Pagina')
+        ('fronte', 'Front'),
+        ('retro', 'Rear'),
+        ('pagina', 'Page')
     ], required=True)
-    image = fields.Binary(required=True, string="Immagine")
+    image = fields.Binary(required=True, string="Image")
     filename = fields.Char()
-    ca_documento_id = fields.Many2one('ca.documento')
+    ca_documento_id = fields.Many2one('ca.documento', string="Document")
 
     def rest_boby_hint(self):
         return {
@@ -133,15 +134,17 @@ class CaDocumento(models.Model):
     _inherit = "ca.model.base.mixin"
     _rec_name = 'ca_persona_id'
 
-    ca_persona_id = fields.Many2one('ca.persona')
-    tipo_documento_id = fields.Many2one('ca.tipo_doc_ident', required=True)
+    ca_persona_id = fields.Many2one('ca.persona', string="Person")
+    tipo_documento_id = fields.Many2one('ca.tipo_doc_ident', required=True,
+        string="Document Type")
     tipo_documento_name = fields.Char(related="tipo_documento_id.name")
     validity_start_date = fields.Date(required=True)
     validity_end_date = fields.Date(required=True)
     document_code = fields.Char(required=True)
     issued_by = fields.Char(required=True)
     image_ids = fields.One2many('ca.img_documento', 'ca_documento_id')
-    ca_stato_documento_id = fields.Many2one('ca.stato_documento', readonly=True)
+    ca_stato_documento_id = fields.Many2one('ca.stato_documento', readonly=True,
+        string="Document Status")
     ca_stato_documento_name = fields.Char(related="ca_stato_documento_id.name")
 
 
@@ -151,7 +154,7 @@ class CaDocumento(models.Model):
             if record.validity_end_date and record.validity_start_date:
                 if record.validity_end_date <= record.validity_start_date:
                     raise UserError(
-                        _('Data fine deve essere maggiore della data di inizio'))
+                        _('End date must be greater than start date'))
 
     def _cron_check_ca_stato_documento_id(self):
         today = fields.Date.today()

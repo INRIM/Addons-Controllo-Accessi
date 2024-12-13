@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-22 10:19+0000\n"
-"PO-Revision-Date: 2024-10-22 10:19+0000\n"
+"POT-Creation-Date: 2024-12-12 14:03+0000\n"
+"PO-Revision-Date: 2024-12-12 14:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -100,34 +100,34 @@ msgstr "Approvata"
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_richiesta_servizi_persona__ca_anag_servizi_id
-msgid "Ca Anag Servizi"
+msgid "Service"
 msgstr "Servizio"
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_categoria_tipo_richiesta__ca_categoria_richiesta
-msgid "Ca Categoria Richiesta"
-msgstr ""
+msgid "Request Category"
+msgstr "Categoria Richiesta"
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_richiesta_accesso_persona__ca_richiesta_accesso_id
-msgid "Ca Richiesta Accesso"
-msgstr ""
+msgid "Access Request"
+msgstr "Richiesta Accesso"
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_richiesta_accesso__ca_richiesta_accesso_persona_ids
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_richiesta_servizi_persona__ca_richiesta_accesso_persona_id
-msgid "Ca Richiesta Accesso Persona"
+msgid "Person Access Request"
 msgstr "Richiesta Accesso Persona"
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_richiesta_accesso_persona__ca_richiesta_servizi_persona_ids
-msgid "Ca Richiesta Servizi Persona"
-msgstr ""
+msgid "Request Personal Services"
+msgstr "Richiesta Servizi Persona"
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_anag_servizi__ca_settore_ente_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_richiesta_servizi_persona__ca_settore_ente_id
-msgid "Ca Settore Ente"
+msgid "Institution Sector"
 msgstr "Settore"
 
 #. module: inrim_controllo_accessi_richieste_accesso
@@ -152,7 +152,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:inrim_controllo_accessi_richieste_accesso.ca_categoria_richiesta_action
 #: model:ir.ui.menu,name:inrim_controllo_accessi_richieste_accesso.ca_categoria_richiesta_menu
 msgid "Categories Requests Access"
-msgstr ""
+msgstr "Categorie Richieste Accesso"
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_richiesta_accesso_persona__ca_categoria_richiesta_id
@@ -170,7 +170,7 @@ msgstr "Categoria Attività"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_richiesta_servizi_persona__cod_ref
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_settore_ente__cod_ref
 msgid "CodRef"
-msgstr ""
+msgstr "CodRif"
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_anag_avanzamento_rich__code
@@ -180,7 +180,7 @@ msgstr "Codice"
 #. module: inrim_controllo_accessi_richieste_accesso
 #: model:ir.model.fields.selection,name:inrim_controllo_accessi_richieste_accesso.selection__ca_richiesta_servizi_persona__state__completed
 msgid "Completed"
-msgstr "Completed"
+msgstr "Completato"
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #: model:ir.ui.menu,name:inrim_controllo_accessi_richieste_accesso.ca_richiesta_accesso_configuration_menu
@@ -225,8 +225,8 @@ msgstr ""
 #: code:addons/inrim_controllo_accessi_richieste_accesso/models/ca_richiesta_servizi_persona.py:0
 #: code:addons/inrim_controllo_accessi_richieste_accesso/models/ca_settore_ente.py:0
 #, python-format
-msgid "Data fine deve essere maggiore della data di inizio"
-msgstr ""
+msgid "End date must be greater than start date"
+msgstr "Data fine deve essere maggiore della data di inizio"
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_anag_servizi__date_end
@@ -285,8 +285,8 @@ msgstr ""
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_richiesta_riga_accesso_sede__ente_azienda_id
-msgid "Ente Azienda"
-msgstr ""
+msgid "Company"
+msgstr "Ente Azienda"
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #. odoo-python
@@ -294,38 +294,40 @@ msgstr ""
 #: code:addons/inrim_controllo_accessi_richieste_accesso/models/ca_richiesta_accesso_persona.py:0
 #: code:addons/inrim_controllo_accessi_richieste_accesso/models/ca_richiesta_servizi_persona.py:0
 #, python-format
-msgid "Errore utente non abilitato"
-msgstr ""
+msgid "User error not enabled"
+msgstr "Errore utente non abilitato"
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #. odoo-python
 #: code:addons/inrim_controllo_accessi_richieste_accesso/models/ca_anag_avanzamento_rich.py:0
 #, python-format
-msgid "Esiste già un altro record con stesso nome e stato"
-msgstr ""
+msgid "Another record with the same name and status already exists"
+msgstr "Esiste già un altro record con stesso nome e stato"
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #. odoo-python
 #: code:addons/inrim_controllo_accessi_richieste_accesso/models/ca_anag_servizi.py:0
 #, python-format
-msgid "Esiste già un altro servizio con stesso nome e settore"
-msgstr ""
+msgid "Another service with the same name and sector already exists"
+msgstr "Esiste già un altro servizio con stesso nome e settore"
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #. odoo-python
 #: code:addons/inrim_controllo_accessi_richieste_accesso/models/ca_richiesta_servizi_persona.py:0
 #, python-format
 msgid ""
+"There is already a record with the same service and person in this "
+"validity period"
+msgstr ""
 "Esiste già un record con stesso servizio e persona in questo periodo di "
 "validità"
-msgstr ""
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #. odoo-python
 #: code:addons/inrim_controllo_accessi_richieste_accesso/models/ca_richiesta_accesso_persona.py:0
 #, python-format
-msgid "Esiste già un record per questa persona in questo periodo di validità"
-msgstr ""
+msgid "A record already exists for this person in this validity period"
+msgstr "Esiste già un record per questa persona in questo periodo di validità"
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #: model:ir.model.fields.selection,name:inrim_controllo_accessi_richieste_accesso.selection__ca_anag_avanzamento_rich__state__expired
@@ -479,8 +481,8 @@ msgstr "Righe Dati Persona"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_richiesta_accesso_persona__persona_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_richiesta_riga_accesso_sede__persona_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_richiesta_servizi_persona__persona_id
-msgid "Persona"
-msgstr "Anagrafica Persona"
+msgid "Partner"
+msgstr "Persona"
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_anag_servizi__ca_ente_azienda_id
@@ -497,8 +499,8 @@ msgstr "Avanzamento Richiesta"
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_richiesta_riga_accesso_sede__punto_accesso_id
-msgid "Punto Accesso"
-msgstr ""
+msgid "Access Point"
+msgstr "Punto Accesso"
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_anag_servizi__ca_persona_id
@@ -572,10 +574,15 @@ msgid "Settore Ente"
 msgstr ""
 
 #. module: inrim_controllo_accessi_richieste_accesso
+#: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_anag_servizi__tipo_spazio_id
+msgid "Space Type"
+msgstr "Tipo Spazio"
+
+#. module: inrim_controllo_accessi_richieste_accesso
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_anag_servizi__spazio_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_richiesta_servizi_persona__spazio_id
-msgid "Spazio"
-msgstr ""
+msgid "Space"
+msgstr "Spazio"
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_anag_avanzamento_rich__state
@@ -588,18 +595,13 @@ msgstr "Stato"
 #. module: inrim_controllo_accessi_richieste_accesso
 #: model:ir.model.constraint,message:inrim_controllo_accessi_richieste_accesso.constraint_ca_anag_servizi_cod_ref
 msgid "This CodRef already exists."
-msgstr ""
+msgstr "Questo CodRif esiste già."
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_anag_servizi__tipo_ente_azienda_ids
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_settore_ente__tipo_ente_azienda_ids
-msgid "Tipo Ente Azienda"
-msgstr ""
-
-#. module: inrim_controllo_accessi_richieste_accesso
-#: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_anag_servizi__tipo_spazio_id
-msgid "Tipo Spazio"
-msgstr ""
+msgid "Company Type"
+msgstr "Tipo Ente Azienda"
 
 #. module: inrim_controllo_accessi_richieste_accesso
 #: model:ir.model.fields,field_description:inrim_controllo_accessi_richieste_accesso.field_ca_richiesta_accesso__token

@@ -8,10 +8,11 @@ logger = logging.getLogger(__name__)
 
 class CaRegistraDocPersona(models.TransientModel):
     _name = 'ca.registra_doc_persona'
-    _description = 'Registra Doc Persona'
+    _description = 'Register Person Doc'
 
     persona_id = fields.Many2one("ca.persona", readonly=True)
-    tipo_documento_id = fields.Many2one('ca.tipo_doc_ident')
+    tipo_documento_id = fields.Many2one('ca.tipo_doc_ident',
+        string="Document Type")
     validity_start_date = fields.Date()
     validity_end_date = fields.Date()
     document_code = fields.Char()
@@ -23,7 +24,7 @@ class CaRegistraDocPersona(models.TransientModel):
             if record.date_end and record.date_start:
                 if record.date_end <= record.date_start:
                     raise UserError(
-                        _('Data fine deve essere maggiore della data di inizio'))
+                        _('End date must be greater than start date'))
 
     def action_confirm(self):
         res = self.env['ca.documento'].create({

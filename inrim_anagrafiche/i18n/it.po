@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 10:16+0000\n"
-"PO-Revision-Date: 2024-10-21 10:16+0000\n"
+"POT-Creation-Date: 2024-12-12 15:10+0000\n"
+"PO-Revision-Date: 2024-12-12 15:10+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,46 +19,56 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
 msgid ""
 "<span class=\"o_form_label o_td_label\" name=\"address_name\" groups=\"controllo_accessi.ca_gdpr\">\n"
-"                                    <b>Domicile Address</b>\n"
-"                                </span>"
+"                                            <b>Domicile Address</b>\n"
+"                                        </span>"
 msgstr ""
 "<span class=\"o_form_label o_td_label\" name=\"address_name\" groups=\"controllo_accessi.ca_gdpr\">\n"
-"                                    <b>Indirizzo Domicilio</b>\n"
-"                                </span>"
+"                                            <b>Indirizzo Domicilio</b>\n"
+"                                        </span>"
 
 #. module: inrim_anagrafiche
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
 msgid ""
-"<span class=\"o_form_label o_td_label\" name=\"address_name\" invisible=\"not domicile_other_than_residence\" groups=\"controllo_accessi.ca_gdpr\">\n"
-"                                    <b>Residence Address</b>\n"
-"                                </span>"
+"<span class=\"o_form_label o_td_label\" name=\"address_name\" invisible=\"not domicile_other_than_residence\">\n"
+"                                            <b>Residence Address</b>\n"
+"                                        </span>"
 msgstr ""
-"<span class=\"o_form_label o_td_label\" name=\"address_name\" invisible=\"not domicile_other_than_residence\" groups=\"controllo_accessi.ca_gdpr\">\n"
-"                                    <b>Indirizzo Residenza</b>\n"
-"                                </span>"
+"<span class=\"o_form_label o_td_label\" name=\"address_name\" invisible=\"not domicile_other_than_residence\">\n"
+"                                            <b>Indirizzo Residenza</b>\n"
+"                                        </span>"
 
 #. module: inrim_anagrafiche
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_ente_azienda_form
 msgid ""
 "<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
-"                                            <b>Address</b>\n"
-"                                        </span>"
+"                                        <b>Address</b>\n"
+"                                    </span>"
 msgstr ""
 "<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
-"                                            <b>Indirizzo</b>\n"
-"                                        </span>"
+"                                        <b>Indirizzo</b>\n"
+"                                    </span>"
+
+#. module: inrim_anagrafiche
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
+msgid "<span class=\"o_stat_text\">Present:</span>"
+msgstr "<span class=\"o_stat_text\">Presente:</span>"
+
+#. module: inrim_anagrafiche
+#. odoo-python
+#: code:addons/inrim_anagrafiche/models/ca_ente_azienda.py:0
+#, python-format
+msgid "A company already exists with this VAT number/Tax Code"
+msgstr "Esiste già una Azienda con questa Partita Iva/Codice Fiscale"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__work_id_number
+msgid "A.C. ID Number"
+msgstr "A.C. Numero ID"
 
 #. module: inrim_anagrafiche
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_controllo_accessi_root
 msgid "Access Control"
 msgstr "Controllo Accessi"
-
-#. module: inrim_anagrafiche
-#. odoo-python
-#: code:addons/inrim_anagrafiche/models/ca_persona.py:0
-#, python-format
-msgid "Access Log"
-msgstr "Registro Accesso"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__active
@@ -75,20 +85,21 @@ msgstr "Registro Accesso"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__active
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__active
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_spazio__active
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_titolo_persona__active
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info__active
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info_type__active
+#: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_work_info__state__active
 msgid "Active"
 msgstr "Attivo"
 
 #. module: inrim_anagrafiche
-#. odoo-python
-#: code:addons/inrim_anagrafiche/models/ca_tag_persona.py:0
-#, python-format
-msgid "Ad un esterno possono essere assegnati solo tag di tipo temporaneo"
-msgstr ""
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
+msgid "Address"
+msgstr "Indirizzo"
 
 #. module: inrim_anagrafiche
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_documento_menu
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_persona_tutte_menu
-#: model:ir.ui.menu,name:inrim_anagrafiche.ca_tag_tutti_menu
 msgid "All"
 msgstr "Tutti"
 
@@ -121,7 +132,7 @@ msgstr "Numero eventi disponibili"
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag_persona__available_tags_ids
 msgid "Available Tags"
-msgstr ""
+msgstr "Tag Disponibili"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__birth_date
@@ -139,56 +150,14 @@ msgid "Branches"
 msgstr "Filiali"
 
 #. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_img_documento__ca_documento_id
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__ca_documento_ids
-msgid "Ca Documento"
-msgstr "Documento"
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info__ca_work_info_type_id
+msgid "Ca Work Info Type"
+msgstr "Tipo Info Lavorative"
 
 #. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__ca_ente_azienda_ids
-msgid "Ca Ente Azienda"
-msgstr "Rif. Ente/Azienda Associata"
-
-#. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__ca_persona_id
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag_persona__ca_persona_id
-msgid "Ca Persona"
-msgstr "Persona"
-
-#. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag__ca_proprieta_tag_ids
-msgid "Ca Proprieta Tag"
-msgstr "Proprietà Tag"
-
-#. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__ca_stato_anag_id
-msgid "Ca Stato Anag"
-msgstr "Stato Anagrafica"
-
-#. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__ca_stato_documento_id
-msgid "Ca Stato Documento"
-msgstr "Stato Documento"
-
-#. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag_persona__ca_tag_id
-msgid "Ca Tag"
-msgstr "Tag"
-
-#. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_img_documento__ca_tipo_documento_id
-msgid "Ca Tipo Documento"
-msgstr "Tipo Documento"
-
-#. module: inrim_anagrafiche
-#: model:ir.actions.server,name:inrim_anagrafiche.ir_cron_check_document_availability_ir_actions_server
-msgid "Check Document Availability"
-msgstr "INRIM: Controllo Validità Documenti"
-
-#. module: inrim_anagrafiche
-#: model:ir.actions.server,name:inrim_anagrafiche.ir_cron_check_tag_validity_ir_actions_server
-msgid "Check Tag Validity"
-msgstr "INRIM: Controllo Validità Tag"
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__ca_workinfo_ids
+msgid "Ca Workinfo"
+msgstr "Info Lavorative"
 
 #. module: inrim_anagrafiche
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
@@ -210,13 +179,20 @@ msgid "City completion"
 msgstr "Completamento luogo"
 
 #. module: inrim_anagrafiche
-#: model:ir.model,name:inrim_anagrafiche.model_ca_codice_locale
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__codice_locale_id
-msgid "Codice Locale"
-msgstr ""
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__code
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_titolo_persona__code
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info_type__code
+msgid "Code"
+msgstr "Codice"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__ca_ente_azienda_ids
+msgid "Companies"
+msgstr "Rif. Ente/Azienda Associata"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__company_id
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__ente_azienda_id
 msgid "Company"
 msgstr "Azienda"
 
@@ -227,9 +203,9 @@ msgid "Company Entity Type"
 msgstr "Tipologia Ente/Azienda"
 
 #. module: inrim_anagrafiche
-#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
-msgid "Company Name..."
-msgstr "Nome Azienda..."
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__tipo_ente_azienda_id
+msgid "Company Type"
+msgstr "Tipo Ente Azienda"
 
 #. module: inrim_anagrafiche
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
@@ -267,7 +243,6 @@ msgstr "Provincia"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_proprieta_tag__create_uid
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_accesso__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_stato_anag__create_uid
@@ -278,6 +253,9 @@ msgstr "Provincia"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__create_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_spazio__create_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_titolo_persona__create_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info__create_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info_type__create_uid
 msgid "Created by"
 msgstr ""
 
@@ -289,7 +267,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_proprieta_tag__create_date
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_accesso__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_stato_anag__create_date
@@ -300,24 +277,15 @@ msgstr ""
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__create_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_spazio__create_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_titolo_persona__create_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info__create_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info_type__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: inrim_anagrafiche
-#. odoo-python
-#: code:addons/inrim_anagrafiche/models/ca_codice_locale.py:0
-#: code:addons/inrim_anagrafiche/models/ca_documento.py:0
-#: code:addons/inrim_anagrafiche/models/ca_documento.py:0
-#: code:addons/inrim_anagrafiche/models/ca_ente_azienda.py:0
-#: code:addons/inrim_anagrafiche/models/ca_righe_persona.py:0
-#: code:addons/inrim_anagrafiche/models/ca_spazio.py:0
-#: code:addons/inrim_anagrafiche/models/ca_spazio.py:0
-#: code:addons/inrim_anagrafiche/models/ca_stato_anag.py:0
-#: code:addons/inrim_anagrafiche/models/ca_tag.py:0
-#: code:addons/inrim_anagrafiche/models/ca_tag_persona.py:0
-#: code:addons/inrim_anagrafiche/models/ca_tipo_persona.py:0
-#, python-format
-msgid "Data fine deve essere maggiore della data di inizio"
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info__ca_div_uo_code
+msgid "DIV/UO"
 msgstr ""
 
 #. module: inrim_anagrafiche
@@ -330,6 +298,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__date_end
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__date_end
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_spazio__date_end
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_titolo_persona__date_end
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info__date_end
 msgid "Date End"
 msgstr "Data Fine"
 
@@ -343,13 +313,15 @@ msgstr "Data Fine"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__date_start
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__date_start
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_spazio__date_start
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_titolo_persona__date_start
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info__date_start
 msgid "Date Start"
 msgstr "Data Inizio"
 
 #. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_accesso__datetime
-msgid "Date/Time"
-msgstr "Data/Ora"
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag__default_id_number
+msgid "Default Id Number"
+msgstr "Numero ID Default"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__description
@@ -361,6 +333,8 @@ msgstr "Data/Ora"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__description
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__description
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_spazio__description
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_titolo_persona__description
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info_type__description
 msgid "Description"
 msgstr "Descrizione"
 
@@ -382,7 +356,6 @@ msgstr "Direzione"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_proprieta_tag__display_name
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_accesso__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_stato_anag__display_name
@@ -393,8 +366,17 @@ msgstr "Direzione"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__display_name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_spazio__display_name
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_titolo_persona__display_name
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info__display_name
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info_type__display_name
 msgid "Display Name"
 msgstr "Nome"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_img_documento__ca_documento_id
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__ca_documento_ids
+msgid "Document"
+msgstr "Documento"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__document_code
@@ -403,12 +385,15 @@ msgstr "Codice Documento"
 
 #. module: inrim_anagrafiche
 #: model:ir.actions.act_window,name:inrim_anagrafiche.ca_stato_documento_action
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__ca_stato_documento_id
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_stato_documento_menu
 msgid "Document Status"
 msgstr "Stato Documenti"
 
 #. module: inrim_anagrafiche
 #: model:ir.actions.act_window,name:inrim_anagrafiche.ca_tipo_doc_ident_action
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__tipo_documento_id
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_img_documento__ca_tipo_documento_id
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_tipo_doc_ident_menu
 msgid "Document Type"
 msgstr "Tipologia Documenti"
@@ -472,8 +457,24 @@ msgid "Email"
 msgstr ""
 
 #. module: inrim_anagrafiche
+#. odoo-python
+#: code:addons/inrim_anagrafiche/models/ca_codice_locale.py:0
+#: code:addons/inrim_anagrafiche/models/ca_documento.py:0
+#: code:addons/inrim_anagrafiche/models/ca_documento.py:0
+#: code:addons/inrim_anagrafiche/models/ca_ente_azienda.py:0
+#: code:addons/inrim_anagrafiche/models/ca_righe_persona.py:0
+#: code:addons/inrim_anagrafiche/models/ca_spazio.py:0
+#: code:addons/inrim_anagrafiche/models/ca_spazio.py:0
+#: code:addons/inrim_anagrafiche/models/ca_stato_anag.py:0
+#: code:addons/inrim_anagrafiche/models/ca_tag.py:0
+#: code:addons/inrim_anagrafiche/models/ca_tag_persona.py:0
+#: code:addons/inrim_anagrafiche/models/ca_tipo_persona.py:0
+#, python-format
+msgid "End date must be greater than start date"
+msgstr "Data fine deve essere maggiore della data di inizio"
+
+#. module: inrim_anagrafiche
 #: model:ir.model,name:inrim_anagrafiche.model_ca_ente_azienda
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__ente_azienda_id
 msgid "Ente Azienda"
 msgstr ""
 
@@ -483,27 +484,7 @@ msgid "Error Code"
 msgstr "Codice errore"
 
 #. module: inrim_anagrafiche
-#. odoo-python
-#: code:addons/inrim_anagrafiche/models/ca_tag_persona.py:0
-#, python-format
-msgid "Esiste già un'altro tag persona per questa persona in questo periodo"
-msgstr ""
-
-#. module: inrim_anagrafiche
-#. odoo-python
-#: code:addons/inrim_anagrafiche/models/ca_persona.py:0
-#, python-format
-msgid "Esiste già una persona con questa matricola"
-msgstr ""
-
-#. module: inrim_anagrafiche
-#. odoo-python
-#: code:addons/inrim_anagrafiche/models/ca_persona.py:0
-#, python-format
-msgid "Esiste già una persona con questo codice fiscale"
-msgstr ""
-
-#. module: inrim_anagrafiche
+#: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_work_info__state__expired
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
 msgid "Expired"
 msgstr "Scaduto"
@@ -525,14 +506,9 @@ msgid "External"
 msgstr "Esterni"
 
 #. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__parent_id
-msgid "Reference person"
-msgstr "Riferente interno"
-
-#. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_img_documento__filename
 msgid "Filename"
-msgstr ""
+msgstr "Nome File"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__fiscalcode
@@ -540,14 +516,33 @@ msgid "Fiscalcode"
 msgstr "Codice Fiscale"
 
 #. module: inrim_anagrafiche
+#. odoo-python
+#: code:addons/inrim_anagrafiche/models/ca_persona.py:0
+#, python-format
+msgid "For External person Internal reference is required "
+msgstr "Per persone esterna è richiesto un riferimento interno"
+
+#. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__freshman
 msgid "Freshman"
 msgstr "Matricola"
 
 #. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__from_remote
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_titolo_persona__from_remote
+msgid "From Remote"
+msgstr "Da Remoto"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,help:inrim_anagrafiche.field_ca_tipo_persona__from_remote
+#: model:ir.model.fields,help:inrim_anagrafiche.field_ca_titolo_persona__from_remote
+msgid "From remote"
+msgstr "Da remoto"
+
+#. module: inrim_anagrafiche
 #: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_img_documento__side__fronte
-msgid "Fronte"
-msgstr ""
+msgid "Front"
+msgstr "Fronte"
 
 #. module: inrim_anagrafiche
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_ente_azienda_form
@@ -562,7 +557,6 @@ msgstr "Informazioni Generali"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_proprieta_tag__id
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_accesso__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_stato_anag__id
@@ -573,29 +567,48 @@ msgstr "Informazioni Generali"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_spazio__id
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_titolo_persona__id
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info__id
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info_type__id
 msgid "ID"
 msgstr ""
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info__work_id_number
+msgid "ID Number"
+msgstr "Numero ID"
+
+#. module: inrim_anagrafiche
+#: model:ir.actions.server,name:inrim_anagrafiche.ir_cron_check_document_availability_ir_actions_server
+msgid "INRIM: Check Document Availability"
+msgstr "INRIM: Controllo Validità Documenti"
+
+#. module: inrim_anagrafiche
+#: model:ir.actions.server,name:inrim_anagrafiche.ir_cron_check_tag_validity_ir_actions_server
+msgid "INRIM: Check Tag Persona Validity"
+msgstr "INRIM: Controllo Validità Tag"
+
+#. module: inrim_anagrafiche
+#: model:ir.actions.server,name:inrim_anagrafiche.ir_cron_check_workinfo_validity_ir_actions_server
+msgid "INRIM: Check Work Info Validity"
+msgstr "INRIM: Controllo Validità Info Lavorative"
 
 #. module: inrim_anagrafiche
 #. odoo-python
 #: code:addons/inrim_anagrafiche/models/ca_tag_persona.py:0
 #, python-format
 msgid "Il tag  risulta revocato"
-msgstr ""
+msgstr "The tag  is revoked"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__image_ids
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_img_documento__image
 msgid "Image"
 msgstr "Immagini"
 
 #. module: inrim_anagrafiche
 #: model:ir.model,name:inrim_anagrafiche.model_ca_img_documento
 msgid "Img Documento"
-msgstr ""
-
-#. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_img_documento__image
-msgid "Immagine"
 msgstr ""
 
 #. module: inrim_anagrafiche
@@ -606,7 +619,7 @@ msgstr "Importa da Geonames"
 #. module: inrim_anagrafiche
 #: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_lettore__direction__in
 msgid "In"
-msgstr ""
+msgstr "Ingresso"
 
 #. module: inrim_anagrafiche
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
@@ -618,6 +631,11 @@ msgstr "In Aggiornamento"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag_persona__tag_in_use
 msgid "In Use"
 msgstr "In Uso"
+
+#. module: inrim_anagrafiche
+#: model:ir.model,name:inrim_anagrafiche.model_ca_work_info
+msgid "Info Lavorative"
+msgstr ""
 
 #. module: inrim_anagrafiche
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_ente_azienda_sedi_ente_menu
@@ -632,6 +650,7 @@ msgstr "Enti/Aziende"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,help:inrim_anagrafiche.field_ca_tipo_persona__structured
+#: model:ir.model.fields,help:inrim_anagrafiche.field_ca_titolo_persona__structured
 msgid "Integration U-Gov/Esse3"
 msgstr "Integrazione U-Gov/Esse3"
 
@@ -679,7 +698,6 @@ msgstr "Codice ISTAT"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_proprieta_tag__write_uid
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_accesso__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_stato_anag__write_uid
@@ -690,6 +708,9 @@ msgstr "Codice ISTAT"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__write_uid
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_spazio__write_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_titolo_persona__write_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info__write_uid
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info_type__write_uid
 msgid "Last Updated by"
 msgstr ""
 
@@ -701,7 +722,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_proprieta_tag__write_date
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_accesso__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_stato_anag__write_date
@@ -712,6 +732,9 @@ msgstr ""
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__write_date
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_spazio__write_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_titolo_persona__write_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info__write_date
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info_type__write_date
 msgid "Last Updated on"
 msgstr ""
 
@@ -722,14 +745,23 @@ msgstr "Cognome"
 
 #. module: inrim_anagrafiche
 #: model:ir.model,name:inrim_anagrafiche.model_ca_lettore
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__lettore_id
 msgid "Lettore"
 msgstr ""
 
 #. module: inrim_anagrafiche
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
+msgid "List Tags"
+msgstr "Lista Tag"
+
+#. module: inrim_anagrafiche
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
 msgid "List of Identity Documents"
 msgstr "Elenco Documenti di Identità"
+
+#. module: inrim_anagrafiche
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
+msgid "List of Work Info"
+msgstr "Lista Info Lavorative"
 
 #. module: inrim_anagrafiche
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_tag_persona_lista_associazioni_menu
@@ -738,14 +770,16 @@ msgstr "Lista associazioni"
 
 #. module: inrim_anagrafiche
 #: model:ir.actions.act_window,name:inrim_anagrafiche.ca_codice_locale_action
+#: model:ir.model,name:inrim_anagrafiche.model_ca_codice_locale
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__codice_locale_id
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_codice_locale_menu
 msgid "Local Code"
 msgstr "Codice Locale"
 
 #. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_accesso__management
-msgid "Management"
-msgstr "Direzione"
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__lock
+msgid "Lock"
+msgstr "Bloccato"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__mobile
@@ -780,6 +814,8 @@ msgstr "Tipo modalità"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_ente_azienda__name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__name
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_spazio__name
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_titolo_persona__name
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info_type__name
 msgid "Name"
 msgstr "Nome"
 
@@ -795,18 +831,26 @@ msgstr ""
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__note
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__note
 msgid "Note"
 msgstr ""
 
 #. module: inrim_anagrafiche
+#. odoo-python
+#: code:addons/inrim_anagrafiche/models/ca_tag_persona.py:0
+#, python-format
+msgid "Only temporary tags can be assigned to an external"
+msgstr "Ad un esterno possono essere assegnati solo tag di tipo temporaneo"
+
+#. module: inrim_anagrafiche
 #: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_lettore__direction__out
 msgid "Out"
-msgstr ""
+msgstr "Uscita"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_img_documento__side__pagina
-msgid "Pagina"
-msgstr ""
+msgid "Page"
+msgstr "Pagina"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__parent_id
@@ -817,6 +861,16 @@ msgstr "Azienda madre"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__parent_path
 msgid "Parent Path"
 msgstr "Percorso padre"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__righe_persona_ids
+msgid "Partner Lines"
+msgstr "Righe Persona"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__ca_stato_anag_id
+msgid "Partner Status"
+msgstr "Stato Anagrafica"
 
 #. module: inrim_anagrafiche
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_persona_menu_root
@@ -836,11 +890,17 @@ msgid "People"
 msgstr "Persone"
 
 #. module: inrim_anagrafiche
-#. odoo-python
-#: code:addons/inrim_anagrafiche/models/ca_persona.py:0
-#, python-format
-msgid "Per una persona esterna è obbligatorio caricare i documenti"
-msgstr ""
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__ca_persona_id
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag_persona__ca_persona_id
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info__ca_persona_id
+msgid "Person"
+msgstr "Persona"
+
+#. module: inrim_anagrafiche
+#: model:ir.actions.act_window,name:inrim_anagrafiche.ca_titolo_persona_action
+#: model:ir.ui.menu,name:inrim_anagrafiche.ca_titolo_persona_menu
+msgid "Person Title"
+msgstr "Titolo Persona"
 
 #. module: inrim_anagrafiche
 #: model:ir.actions.act_window,name:inrim_anagrafiche.ca_tipo_persona_action
@@ -850,7 +910,6 @@ msgstr "Tipologia Persona"
 
 #. module: inrim_anagrafiche
 #: model:ir.model,name:inrim_anagrafiche.model_ca_persona
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_accesso__persona_id
 msgid "Persona"
 msgstr "Anagrafica Persona"
 
@@ -866,6 +925,11 @@ msgid "Present"
 msgstr "Presente"
 
 #. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__private_mobile
+msgid "Private Mobile"
+msgstr "Cellulare Privato"
+
+#. module: inrim_anagrafiche
 #: model:ir.actions.act_window,name:inrim_anagrafiche.ca_proprieta_tag_action
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_proprieta_tag_menu
 msgid "Property Tag"
@@ -875,6 +939,12 @@ msgstr "Proprietà Tag"
 #: model:ir.model,name:inrim_anagrafiche.model_ca_proprieta_tag
 msgid "Proprietà Tag"
 msgstr ""
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__spazio_id
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__lettore_id
+msgid "Reader"
+msgstr "Spazio"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__reader_ip
@@ -893,15 +963,20 @@ msgid "Readers"
 msgstr "Lettori"
 
 #. module: inrim_anagrafiche
+#: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_img_documento__side__retro
+msgid "Rear"
+msgstr "Retro"
+
+#. module: inrim_anagrafiche
 #: model:ir.actions.act_window,name:inrim_anagrafiche.ca_stato_anag_action
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_stato_anag_menu
 msgid "Record Loading States"
 msgstr "Stati Caricamento Anagrafica"
 
 #. module: inrim_anagrafiche
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_accesso__registro_accesso_id
-msgid "Registro Accesso"
-msgstr ""
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__parent_id
+msgid "Reference person"
+msgstr "Referente interno"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__residence_city
@@ -935,25 +1010,25 @@ msgid "Residence Zip"
 msgstr "CAP Residenza"
 
 #. module: inrim_anagrafiche
-#: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_img_documento__side__retro
-msgid "Retro"
-msgstr ""
+#: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_tag_persona__state__returned
+msgid "Returned"
+msgstr "Restituito"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag__revoked
 msgid "Revoked"
-msgstr ""
-
-#. module: inrim_anagrafiche
-#: model:ir.model,name:inrim_anagrafiche.model_ca_righe_accesso
-msgid "Righe Accesso"
-msgstr ""
+msgstr "Revocato"
 
 #. module: inrim_anagrafiche
 #: model:ir.model,name:inrim_anagrafiche.model_ca_righe_persona
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__righe_persona_ids
 msgid "Righe Persona"
 msgstr ""
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_tag_persona__state__scheduled
+#: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_work_info__state__scheduled
+msgid "Scheduled"
+msgstr "Programmato"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__sequence
@@ -977,6 +1052,11 @@ msgid "Space Name"
 msgstr "Nome Spazio"
 
 #. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__tipo_spazio_id
+msgid "Space Type"
+msgstr "Tipo Spazio"
+
+#. module: inrim_anagrafiche
 #: model:ir.actions.act_window,name:inrim_anagrafiche.ca_tipo_spazio_action
 #: model:ir.ui.menu,name:inrim_anagrafiche.ca_tipo_spazio_menu
 msgid "Space Typology"
@@ -984,13 +1064,13 @@ msgstr "Tipologia Spazio"
 
 #. module: inrim_anagrafiche
 #: model:ir.model,name:inrim_anagrafiche.model_ca_spazio
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_accesso__spazio_id
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__spazio_id
 msgid "Spazio"
 msgstr ""
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__state_id
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag_persona__state
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info__state
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_ente_azienda_form
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
 msgid "State"
@@ -1030,6 +1110,8 @@ msgstr "Indirizzo2"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tipo_persona__structured
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_titolo_persona__structured
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info_type__structured
 msgid "Structured"
 msgstr "Strutturato"
 
@@ -1046,7 +1128,8 @@ msgstr "Errore di Sistema"
 #. module: inrim_anagrafiche
 #: model:ir.actions.act_window,name:inrim_anagrafiche.ca_tag_action
 #: model:ir.model,name:inrim_anagrafiche.model_ca_tag
-#: model:ir.ui.menu,name:inrim_anagrafiche.ca_tag_menu
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__ca_tag_ids
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag_persona__ca_tag_id
 msgid "Tag"
 msgstr ""
 
@@ -1056,77 +1139,101 @@ msgid "Tag Code"
 msgstr "Codice Tag"
 
 #. module: inrim_anagrafiche
-#: model:ir.model,name:inrim_anagrafiche.model_ca_tag_persona
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_accesso__tag_persona_id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__tag_persona_id
+msgid "Tag Person"
+msgstr "Tag Persona"
+
+#. module: inrim_anagrafiche
+#: model:ir.model,name:inrim_anagrafiche.model_ca_tag_persona
 msgid "Tag Persona"
+msgstr ""
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag__ca_proprieta_tag_ids
+msgid "Tag Properties"
+msgstr "Proprietà Tag"
+
+#. module: inrim_anagrafiche
+#: model:ir.ui.menu,name:inrim_anagrafiche.ca_tag_menu
+msgid "Tags"
 msgstr ""
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag__temp
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag_persona__temp
+#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_tag_view_search
 msgid "Temp"
 msgstr "Temporaneo"
 
 #. module: inrim_anagrafiche
-#: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_tag_view_search
-msgid "Temporanei"
-msgstr ""
-
-#. module: inrim_anagrafiche
 #. odoo-python
 #: code:addons/inrim_anagrafiche/models/ca_ente_azienda.py:0
-#: code:addons/inrim_anagrafiche/models/ca_persona.py:0
-#: code:addons/inrim_anagrafiche/models/ca_persona.py:0
 #, python-format
 msgid ""
 "The city of the partner %(partner)s differs from that in location "
 "%(location)s"
 msgstr ""
+"La città del partner %(partner)s è diversa da quella della località "
+"%(location)s"
 
 #. module: inrim_anagrafiche
 #. odoo-python
 #: code:addons/inrim_anagrafiche/models/ca_ente_azienda.py:0
-#: code:addons/inrim_anagrafiche/models/ca_persona.py:0
-#: code:addons/inrim_anagrafiche/models/ca_persona.py:0
 #, python-format
 msgid ""
 "The country of the partner %(partner)s differs from that in location "
 "%(location)s"
 msgstr ""
+"Il paese del partner %(partner)s è diverso da quello della località "
+"%(location)s"
 
 #. module: inrim_anagrafiche
 #. odoo-python
 #: code:addons/inrim_anagrafiche/models/ca_ente_azienda.py:0
-#: code:addons/inrim_anagrafiche/models/ca_persona.py:0
-#: code:addons/inrim_anagrafiche/models/ca_persona.py:0
 #, python-format
 msgid ""
 "The state of the partner %(partner)s differs from that in location "
 "%(location)s"
 msgstr ""
+"Lo stato del partner %(partner)s è diverso da quello della posizione "
+"%(location)s"
 
 #. module: inrim_anagrafiche
 #. odoo-python
 #: code:addons/inrim_anagrafiche/models/ca_ente_azienda.py:0
-#: code:addons/inrim_anagrafiche/models/ca_persona.py:0
-#: code:addons/inrim_anagrafiche/models/ca_persona.py:0
 #, python-format
 msgid ""
 "The zip of the partner %(partner)s differs from that in location "
 "%(location)s"
 msgstr ""
+"Il codice postale del partner %(partner)s è diverso da quello della "
+"posizione %(location)s"
+
+#. module: inrim_anagrafiche
+#. odoo-python
+#: code:addons/inrim_anagrafiche/models/ca_tag_persona.py:0
+#, python-format
+msgid "There is already another person tag for this person at this time"
+msgstr "Esiste già un'altro tag persona per questa persona in questo periodo"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__tz
+msgid "Timezone"
+msgstr "Fuso orario"
 
 #. module: inrim_anagrafiche
 #: model:ir.model,name:inrim_anagrafiche.model_ca_tipo_doc_ident
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_documento__tipo_documento_id
 msgid "Tipo Documento"
 msgstr ""
 
 #. module: inrim_anagrafiche
 #: model:ir.model,name:inrim_anagrafiche.model_ca_tipo_ente_azienda
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__tipo_ente_azienda_id
 msgid "Tipo Ente Azienda"
+msgstr ""
+
+#. module: inrim_anagrafiche
+#: model:ir.model,name:inrim_anagrafiche.model_ca_work_info_type
+msgid "Tipo Info Lavorative"
 msgstr ""
 
 #. module: inrim_anagrafiche
@@ -1136,16 +1243,34 @@ msgstr ""
 
 #. module: inrim_anagrafiche
 #: model:ir.model,name:inrim_anagrafiche.model_ca_tipo_spazio
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_accesso__tipo_spazio_id
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__tipo_spazio_id
 msgid "Tipo Spazio"
 msgstr ""
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info__ca_title_id
+msgid "Title"
+msgstr "Titolo"
+
+#. module: inrim_anagrafiche
+#: model:ir.model,name:inrim_anagrafiche.model_ca_titolo_persona
+msgid "Titolo Persona"
+msgstr ""
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_tag_persona__state__to_give_back
+msgid "To Give Back"
+msgstr "Da Restituire"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__token
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag_persona__token
 msgid "Token"
 msgstr "CU"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__trust_level
+msgid "Trust Level"
+msgstr "Livello di fiducia"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__type
@@ -1157,6 +1282,13 @@ msgstr "Tipo"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__uid
 msgid "Uid"
 msgstr "UID"
+
+#. module: inrim_anagrafiche
+#. odoo-python
+#: code:addons/inrim_anagrafiche/models/ca_ente_azienda.py:0
+#, python-format
+msgid "VAT number/Tax code mandatory field"
+msgstr "Partita Iva/Codice Fiscale campo obbligatorio"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__date_start
@@ -1200,6 +1332,23 @@ msgid "Website"
 msgstr "Sito Web"
 
 #. module: inrim_anagrafiche
+#: model:ir.model.fields,help:inrim_anagrafiche.field_ca_ente_azienda__tz
+msgid ""
+"When printing documents and exporting/importing data, time values are computed according to this timezone.\n"
+"If the timezone is not set, UTC (Coordinated Universal Time) is used.\n"
+"Anywhere else, time values are computed according to the time offset of your web client."
+msgstr ""
+"Quando si stampano documenti e si esportano/importano dati, i valori temporali sono calcolati secondo questo fuso orario.\n"
+"Se il fuso orario non è impostato, viene utilizzato UTC (Tempo Coordinato Universale).\n"
+"Altrove, i valori temporali sono calcolati in base al fuso orario del client web."
+
+#. module: inrim_anagrafiche
+#: model:ir.actions.act_window,name:inrim_anagrafiche.ca_work_info_type_action
+#: model:ir.ui.menu,name:inrim_anagrafiche.ca_work_info_type_menu
+msgid "Work Info Type"
+msgstr "Tipo Info Lavorative"
+
+#. module: inrim_anagrafiche
 #: model:ir.model.fields.selection,name:inrim_anagrafiche.selection__ca_persona__present__yes
 msgid "Yes"
 msgstr "Si"
@@ -1215,7 +1364,7 @@ msgstr "CAP"
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__domicile_zip_id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__residence_zip_id
 msgid "ZIP Location"
-msgstr ""
+msgstr "Posizione CAP"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__zip

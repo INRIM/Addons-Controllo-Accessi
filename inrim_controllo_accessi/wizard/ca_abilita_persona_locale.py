@@ -12,7 +12,8 @@ class CaAbilitaPersonaLocale(models.TransientModel):
 
     punto_accesso_id = fields.Many2one(
         "ca.punto_accesso", required=True,
-        domain=[('typology', '=', 'local_access')]
+        domain=[('typology', '=', 'local_access')],
+        string="Access Point"
     )
     persona_id = fields.Many2one("ca.persona")
     referente_id = fields.Many2one(

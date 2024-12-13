@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <separator string="Dati Badge"/>
+                    <separator string="Badge Data"/>
                     <group>
                         <group>
                             <field name="tag_ids" invisible="1"/>
@@ -24,7 +24,7 @@
                 <footer>
                     <button
                             name="action_confirm"
-                            string="Avanti"
+                            string="Next"
                             class="btn-primary"
                             type="object"
                     />
@@ -39,7 +39,7 @@
     </record>
 
     <record id="ca_restituisci_badge_action" model="ir.actions.act_window">
-        <field name="name">Registra Ospite</field>
+        <field name="name">Register Guest</field>
         <field name="res_model">ca.restituisci_badge</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>

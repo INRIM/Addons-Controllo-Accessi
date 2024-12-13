@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-22 10:30+0000\n"
-"PO-Revision-Date: 2024-10-22 10:30+0000\n"
+"POT-Creation-Date: 2024-12-12 14:46+0000\n"
+"PO-Revision-Date: 2024-12-12 14:46+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,12 +16,20 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: inrim_controllo_accessi
-#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
-msgid "Abilita"
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/models/ca_tag_lettore.py:0
+#, python-format
+msgid "A reader tag already exists with the same tag and reader"
+msgstr "Esiste già un tag lettore con stesso tag e lettore"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model,name:inrim_controllo_accessi.model_ca_abilita_persona_locale
+msgid "Abilita Persona locale"
 msgstr ""
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__ca_punto_accesso_id
+#: model:ir.ui.menu,name:inrim_controllo_accessi.ca_punto_accesso_menu
 msgid "Access"
 msgstr "Accesso"
 
@@ -31,22 +39,49 @@ msgid "Access Allowed"
 msgstr "Accesso Consentito"
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__access_conflict
+msgid "Access Conflict"
+msgstr "Conflitto di accesso"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,help:inrim_controllo_accessi.field_ca_anag_registro_accesso__access_conflict
+msgid "Access Conflict Tag Access realted to a person that is not present"
+msgstr "Accesso Conflitto Tag Accesso relativo ad una persona non presente"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_persona_form
+msgid "Access Data"
+msgstr "Dati Accesso"
+
+#. module: inrim_controllo_accessi
 #: model:ir.ui.menu,name:inrim_controllo_accessi.access_data_management_menu
 msgid "Access Data Management"
 msgstr "Gestione Dati Accesso"
 
 #. module: inrim_controllo_accessi
 #: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_punto_accesso_action
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_abilita_persona_locale__punto_accesso_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__ca_punto_accesso
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore__punto_accesso_ids
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__ca_punto_accesso_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_category__ca_access_point_ids
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__punto_accesso_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__ca_punto_accesso_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__ca_punto_accesso_id
+#: model:ir.ui.menu,name:inrim_controllo_accessi.ca_base_punto_accesso_menu
 msgid "Access Point"
 msgstr "Punto Accesso"
 
 #. module: inrim_controllo_accessi
-#: model:ir.ui.menu,name:inrim_controllo_accessi.ca_punto_accesso_menu
+#: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_punto_accesso_category_action
+#: model:ir.ui.menu,name:inrim_controllo_accessi.ca_punto_accesso_category_menu
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_category_view_form
 msgid "Access Points"
 msgstr "Punti Accesso"
 
 #. module: inrim_controllo_accessi
 #: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_anag_registro_accesso_action
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_righe_accesso__registro_accesso_id
 #: model:ir.ui.menu,name:inrim_controllo_accessi.ca_anag_registro_accesso_menu
 msgid "Access Register"
 msgstr "Registro Accesso"
@@ -54,25 +89,26 @@ msgstr "Registro Accesso"
 #. module: inrim_controllo_accessi
 #. odoo-python
 #: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
-#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
 #, python-format
-msgid "Accessi Oggi"
-msgstr ""
+msgid "Access Rejected Today"
+msgstr "Accessi Rifiutati Oggi"
 
 #. module: inrim_controllo_accessi
 #. odoo-python
 #: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
 #, python-format
-msgid "Accessi Rifiutati Oggi"
-msgstr ""
+msgid "Accessed Today"
+msgstr "Accessi Oggi"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__active
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__active
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__active
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__active
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_category__active
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__active
 #: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_lettore_persona__state__active
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_tag_lettore__state__active
 msgid "Active"
 msgstr "Attivo"
 
@@ -83,20 +119,41 @@ msgid "Activity Code"
 msgstr "Codice attività"
 
 #. module: inrim_controllo_accessi
+#: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_aggiungi_movimento_accesso_action
+#: model:ir.model,name:inrim_controllo_accessi.model_ca_aggiungi_movimento_accesso
 #: model:ir.ui.menu,name:inrim_controllo_accessi.create_ca_anag_registro_accesso_menu
 msgid "Add Access Movement"
 msgstr "Aggiungi Movimento Accesso"
 
 #. module: inrim_controllo_accessi
-#: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_aggiungi_movimento_accesso_action
-#: model:ir.model,name:inrim_controllo_accessi.model_ca_aggiungi_movimento_accesso
-msgid "Aggiungi Movimento Accesso"
-msgstr ""
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_category_view_form
+msgid "Add Badge Person"
+msgstr "Aggiungi Badge Persona"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
+#, python-format
+msgid "Add Card Person"
+msgstr "Aggiungi Carta Persona"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
+#, python-format
+msgid "Add person in local"
+msgstr "Aggiungi Persona Locale"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model,name:inrim_controllo_accessi.model_ca_anag_registro_accesso
 msgid "Anagrafica Registro Accesso"
 msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__typology
+msgid "Ap Type"
+msgstr "Tipo Configurazione"
 
 #. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
@@ -115,53 +172,90 @@ msgid "Auto"
 msgstr "Automatica"
 
 #. module: inrim_controllo_accessi
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__ca_lettore_id
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__ca_lettore_id
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__ca_lettore_id
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__ca_lettore_id
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__ca_lettore_id
-msgid "Ca Lettore"
-msgstr "Lettore"
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__available_events
+msgid "Available Events"
+msgstr "Eventi Disponibili"
 
 #. module: inrim_controllo_accessi
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__ca_persona_id
-msgid "Ca Persona"
-msgstr "Persona"
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__available_tags_ids
+msgid "Available Tags"
+msgstr "Tag Disponibili"
 
 #. module: inrim_controllo_accessi
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__ca_punto_accesso
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__ca_punto_accesso_id
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__ca_punto_accesso_id
-msgid "Ca Punto Accesso"
-msgstr "Punto Accesso"
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_persona_form
+msgid "Badge"
+msgstr ""
 
 #. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_restituisci_badge_form
+msgid "Badge Data"
+msgstr "Dati Badge"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__ca_tag_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_restituisci_badge__ca_tag_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__ca_tag_id
 msgid "Ca Tag"
 msgstr "Tag"
 
 #. module: inrim_controllo_accessi
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__ca_tag_lettore_ids
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__ca_tag_lettore_id
-msgid "Ca Tag Lettore"
-msgstr "Tag Lettore"
-
-#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_abilita_persona_locale__ca_tag_persona_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__ca_tag_persona_id
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__ca_tag_persona_ids
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__ca_tag_persona
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_category__ca_tag_persona_ids
 msgid "Ca Tag Persona"
 msgstr "Tag Persona"
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__ca_title_id
+msgid "Ca Title"
+msgstr "Titolo"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__ca_work_info_type_id
+msgid "Ca Work Info Type"
+msgstr "Tipo Info Lavorative"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_abilita_persona_locale_form
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_persona_form
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_restituisci_badge_form
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_sposta_punto_accesso_view_form
 msgid "Cancel"
 msgstr "Chiudi"
 
 #. module: inrim_controllo_accessi
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__typology
-msgid "Configuration Type"
-msgstr "Tipo Configurazione"
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__ca_category
+msgid "Cluster"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_category__code
+msgid "Code"
+msgstr "Codice"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__ente_azienda
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__ente_azienda_id
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_persona_form
+msgid "Company"
+msgstr "Ente Azienda"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__ca_ente_name
+msgid "Company Name"
+msgstr "Nome Azienda"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__tipo_ente_azienda_ids
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__tipo_ente_azienda_id
+msgid "Company Type"
+msgstr "Tipo Ente Azienda"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_doc_persona_form
+msgid "Complete"
+msgstr "Completa"
 
 #. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_aggiungi_movimento_accesso_view_form
@@ -169,44 +263,47 @@ msgid "Confirm"
 msgstr "Conferma"
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_abilita_persona_locale__create_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__create_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__create_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__create_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__create_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__create_uid
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__create_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_category__create_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_doc_persona__create_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__create_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_restituisci_badge__create_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__create_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_righe_accesso__create_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__create_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_abilita_persona_locale__create_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__create_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__create_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__create_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__create_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__create_date
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__create_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_category__create_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_doc_persona__create_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__create_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_restituisci_badge__create_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__create_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_righe_accesso__create_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__create_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: inrim_controllo_accessi
-#. odoo-python
-#: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
-#: code:addons/inrim_controllo_accessi/models/ca_tag_lettore.py:0
-#, python-format
-msgid "Data fine deve essere maggiore della data di inizio"
-msgstr ""
-
-#. module: inrim_controllo_accessi
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__date
-msgid "Date"
-msgstr "Data"
-
-#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_abilita_persona_locale__allowed_date_end
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_abilita_persona_locale__date_end
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__date_end
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__date_end
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__date_end
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__date_end
 msgid "Date End"
 msgstr "Data Fine"
@@ -218,7 +315,11 @@ msgid "Date End:"
 msgstr "Data Fine:"
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_abilita_persona_locale__allowed_date_start
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_abilita_persona_locale__date_start
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__date_start
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__date_start
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__date_start
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__date_start
 msgid "Date Start"
 msgstr "Data Inizio"
@@ -228,6 +329,28 @@ msgstr "Data Inizio"
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_tag_lettore_view_kanban
 msgid "Date Start:"
 msgstr "Data Inizio:"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_abilita_persona_locale.py:0
+#: code:addons/inrim_controllo_accessi/wizard/ca_registra_persona.py:0
+#, python-format
+msgid "Date end must be after date start"
+msgstr "La fine della data deve essere successiva alla data di inizio"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_abilita_persona_locale.py:0
+#, python-format
+msgid "Date start and date end must be beetween a valid period"
+msgstr ""
+"La data di inizio e la data di fine devono essere comprese tra un periodo "
+"valido"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_righe_accesso__datetime
+msgid "Date/Time"
+msgstr "Data/Ora"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__datetime
@@ -242,6 +365,11 @@ msgid "Datetime Event"
 msgstr "Data/Ora Evento"
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_category__description
+msgid "Description"
+msgstr "Descrizione"
+
+#. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__direction
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__direction
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__direction
@@ -250,8 +378,8 @@ msgstr "Direzione"
 
 #. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
-msgid "Disabilita"
-msgstr ""
+msgid "Disable"
+msgstr "Disabilita"
 
 #. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_search
@@ -259,21 +387,62 @@ msgid "Disabled"
 msgstr "Disabilitati"
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_abilita_persona_locale__display_name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__display_name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__display_name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__display_name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__display_name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__display_name
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__display_name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_category__display_name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_doc_persona__display_name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__display_name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_restituisci_badge__display_name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__display_name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_righe_accesso__display_name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__display_name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: inrim_controllo_accessi
-#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
-msgid "Elabora Persone Abilitate"
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_doc_persona_form
+msgid "Doc Code"
+msgstr "Codice Doc"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_doc_persona_form
+msgid "Doc Type"
+msgstr "Tipo Doc."
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_doc_persona__document_code
+msgid "Document Code"
+msgstr "Codice Documento"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_doc_persona_form
+msgid "Document Data"
+msgstr "Dati Documento"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_doc_persona__tipo_documento_id
+msgid "Document Type"
+msgstr "Tipo Documento"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__email
+msgid "Email"
 msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
+msgid "Enable"
+msgstr "Abilita"
+
+#. module: inrim_controllo_accessi
+#: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_abilita_persona_locale_action
+msgid "Enable Local Person"
+msgstr "Abilita Persona Locale"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,help:inrim_controllo_accessi.field_ca_punto_accesso__enable_sync
@@ -292,42 +461,18 @@ msgid "Enabled:"
 msgstr "Abilitato:"
 
 #. module: inrim_controllo_accessi
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__ente_azienda_id
-msgid "Ente Azienda"
-msgstr ""
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
+#: code:addons/inrim_controllo_accessi/models/ca_tag_lettore.py:0
+#: code:addons/inrim_controllo_accessi/wizard/ca_registra_doc_persona.py:0
+#, python-format
+msgid "End date must be greater than start date"
+msgstr "Data fine deve essere maggiore della data di inizio"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__error_code
 msgid "Error Code"
 msgstr "Codice Errore"
-
-#. module: inrim_controllo_accessi
-#. odoo-python
-#: code:addons/inrim_controllo_accessi/models/ca_anag_registro_accesso.py:0
-#, python-format
-msgid "Errore punto accesso non attivo"
-msgstr ""
-
-#. module: inrim_controllo_accessi
-#. odoo-python
-#: code:addons/inrim_controllo_accessi/models/ca_anag_registro_accesso.py:0
-#, python-format
-msgid "Errore punto accesso non ha tipologia timbratura"
-msgstr ""
-
-#. module: inrim_controllo_accessi
-#. odoo-python
-#: code:addons/inrim_controllo_accessi/models/ca_anag_registro_accesso.py:0
-#, python-format
-msgid "Errore utente non abilitato"
-msgstr ""
-
-#. module: inrim_controllo_accessi
-#. odoo-python
-#: code:addons/inrim_controllo_accessi/models/ca_tag_lettore.py:0
-#, python-format
-msgid "Esiste già un tag lettore con stesso tag e lettore"
-msgstr ""
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__events_read_num
@@ -340,15 +485,35 @@ msgid "Expected Events Num"
 msgstr "Numero Eventi Attesi"
 
 #. module: inrim_controllo_accessi
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__expired
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_doc_persona_form
+msgid "Expiration"
+msgstr "Scadenza"
+
+#. module: inrim_controllo_accessi
 #: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_lettore_persona__state__expired
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_tag_lettore__state__expired
 msgid "Expired"
 msgstr "Scaduto"
 
 #. module: inrim_controllo_accessi
-#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_tag_lettore_view_kanban
-msgid "Expired:"
-msgstr "Scaduto:"
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__fiscalcode
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_persona_form
+msgid "Fiscalcode"
+msgstr "Codice Fiscale"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__freshman
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_persona_form
+msgid "Freshman"
+msgstr "Matricola"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_category_view_form
+#, python-format
+msgid "Give Back Badge"
+msgstr "Restituisci Badge"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__ente_azienda_id
@@ -361,16 +526,37 @@ msgid "Headquarters Location:"
 msgstr "Posizione Sede:"
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_abilita_persona_locale__id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__id
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_category__id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_doc_persona__id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_restituisci_badge__id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_righe_accesso__id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__id
 msgid "ID"
 msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__work_id_number
+msgid "ID Number"
+msgstr "Numero ID"
+
+#. module: inrim_controllo_accessi
+#: model:ir.actions.server,name:inrim_controllo_accessi.ir_cron_check_reader_person_validity_ir_actions_server
+msgid "INRIM: Check Reader Person Validity"
+msgstr "INRIM: Controlla Validità Lettori Persona"
+
+#. module: inrim_controllo_accessi
+#: model:ir.actions.server,name:inrim_controllo_accessi.ir_cron_check_tag_reader_validity_ir_actions_server
+msgid "INRIM: Check Tag Reader Validity"
+msgstr "INRIM: Controlla Validità Tag Lettore"
 
 #. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_log_integrazione_lettori_view_search
@@ -389,9 +575,24 @@ msgid "Insertion Type"
 msgstr "Tipo Inserimento"
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__ente_interno
+msgid "Internal"
+msgstr "Interno"
+
+#. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__is_headquarters
 msgid "Is Headquarters"
 msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_doc_persona__issued_by
+msgid "Issued By"
+msgstr "Rilasciato Da"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_doc_persona_form
+msgid "Issued by"
+msgstr "Rilasciato Da"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_log_integrazione_lettori__operation_status__ko
@@ -409,28 +610,46 @@ msgid "Last Update Reader"
 msgstr "Ultimo Agg. Lettore"
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_abilita_persona_locale__write_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__write_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__write_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__write_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__write_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__write_uid
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__write_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_category__write_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_doc_persona__write_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__write_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_restituisci_badge__write_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__write_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_righe_accesso__write_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__write_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_abilita_persona_locale__write_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__write_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__write_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__write_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__write_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__write_date
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__write_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_category__write_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_doc_persona__write_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__write_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_restituisci_badge__write_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__write_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_righe_accesso__write_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__write_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__write_date
 msgid "Last Updated on"
 msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__lastname
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_persona_form
+msgid "Lastname"
+msgstr "Cognome"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model,name:inrim_controllo_accessi.model_ca_lettore
@@ -438,11 +657,14 @@ msgid "Lettore"
 msgstr ""
 
 #. module: inrim_controllo_accessi
-#. odoo-python
-#: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
-#, python-format
+#: model:ir.model,name:inrim_controllo_accessi.model_ca_lettore_persona
 msgid "Lettore Persona"
-msgstr ""
+msgstr "Reader Person"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_persona_view_ca_form_inherit
+msgid "List Access"
+msgstr "Lista Accesso"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_punto_accesso__typology__local_access
@@ -460,10 +682,20 @@ msgid "Log Integrazione Lettori"
 msgstr ""
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_righe_accesso__management
+msgid "Management"
+msgstr "Gestione"
+
+#. module: inrim_controllo_accessi
 #: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_aggiungi_movimento_accesso__type__manual
 #: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_anag_registro_accesso__type__manual
 msgid "Manual"
 msgstr "Manuale"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__mobile
+msgid "Mobile"
+msgstr "Cellulare"
 
 #. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_sposta_punto_accesso_view_form
@@ -471,10 +703,25 @@ msgid "Move"
 msgstr "Sposta"
 
 #. module: inrim_controllo_accessi
+#: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_sposta_punto_accesso_action
+#: model:ir.model,name:inrim_controllo_accessi.model_ca_sposta_punto_accesso
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
+msgid "Move Access Point"
+msgstr "Sposta Punto Accesso"
+
+#. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_category__name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__name
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_persona_form
 msgid "Name"
 msgstr "Nome"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_persona_form
+msgid "New Name"
+msgstr "Nuovo Nominativo"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__new_ca_spazio_id
@@ -482,11 +729,18 @@ msgid "New Position"
 msgstr "Nuova Posizione"
 
 #. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_abilita_persona_locale_form
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_persona_form
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_restituisci_badge_form
+msgid "Next"
+msgstr "Avanti"
+
+#. module: inrim_controllo_accessi
 #. odoo-python
 #: code:addons/inrim_controllo_accessi/models/ca_lettore.py:0
 #, python-format
 msgid "No more than 1 access point"
-msgstr ""
+msgstr "Non più di 1 punto di accesso"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__events_read_num
@@ -524,34 +778,54 @@ msgid "Operation Status"
 msgstr "Stato Operazione"
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__ca_persona_id
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_richiesta_riga_accesso_sede_view_form
+msgid "Partner"
+msgstr "Persona"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
+msgid "People"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__ca_persona_id
+msgid "Person"
+msgstr "Persona"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_persona__person_access_ids
+msgid "Person Access"
+msgstr "Accesso Persona"
+
+#. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__person_freshman
 msgid "Person Freshman"
 msgstr "Persona Matricola"
 
 #. module: inrim_controllo_accessi
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__ca_ente_azienda_ids
-msgid "Person Institution/Company"
-msgstr "Persona Ente/Azienda"
-
-#. module: inrim_controllo_accessi
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__person_lastname
-msgid "Person Lastname"
-msgstr "Persona Cognome"
-
-#. module: inrim_controllo_accessi
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__person_name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__person_display_name
 msgid "Person Name"
-msgstr "Persona Nome"
+msgstr "Nome Persona"
 
 #. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_abilita_persona_locale.py:0
+#, python-format
+msgid "Person alredy allowed to access"
+msgstr "Persona già autorizzata ad accedere"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model,name:inrim_controllo_accessi.model_ca_persona
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_abilita_persona_locale__persona_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_doc_persona__persona_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__persona_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_restituisci_badge__persona_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__persona_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_righe_accesso__persona_id
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_doc_persona_form
 msgid "Persona"
 msgstr "Anagrafica Persona"
-
-#. module: inrim_controllo_accessi
-#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
-msgid "Persone Abilitate"
-msgstr "Persona Abilitate"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__ca_ente_azienda_id
@@ -572,18 +846,16 @@ msgstr "Posizione:"
 #. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_richiesta_riga_accesso_sede_view_form
 msgid "Process Access Log Requests"
-msgstr ""
+msgstr "Elaborara Richiesta Registro Accesso"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model,name:inrim_controllo_accessi.model_ca_punto_accesso
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore__punto_accesso_ids
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__punto_accesso_id
 msgid "Punto Accesso"
 msgstr ""
 
 #. module: inrim_controllo_accessi
-#: model:ir.model,name:inrim_controllo_accessi.model_ca_lettore_persona
-msgid "Punto Accesso Persona"
+#: model:ir.model,name:inrim_controllo_accessi.model_ca_punto_accesso_category
+msgid "Punto Accesso Category"
 msgstr ""
 
 #. module: inrim_controllo_accessi
@@ -591,16 +863,28 @@ msgstr ""
 #: code:addons/inrim_controllo_accessi/models/ca_lettore_persona.py:0
 #, python-format
 msgid ""
+"There can only be one configuration for reader tag, person tag, date, in"
+" active state"
+
+msgstr ""
 "Puo’ esistere solo una configurazione per tag lettore, tag persona, data, in"
 " stato attivo"
-msgstr ""
 
 #. module: inrim_controllo_accessi
 #. odoo-python
 #: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
 #, python-format
 msgid "Qualified People"
-msgstr ""
+msgstr "Persone Qualificate"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__ca_lettore_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__ca_lettore_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__ca_lettore_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__ca_lettore_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__ca_lettore_id
+msgid "Reader"
+msgstr "Lettore"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__system_error
@@ -613,19 +897,29 @@ msgid "Reader Error:"
 msgstr "Lettore Errore:"
 
 #. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
+msgid "Reader Info"
+msgstr "Info Lettore"
+
+#. module: inrim_controllo_accessi
 #: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_log_integrazione_lettori_action
 #: model:ir.ui.menu,name:inrim_controllo_accessi.ca_log_integrazione_lettori_menu
 msgid "Reader Integration Log"
 msgstr "Log Integrazione Lettori"
 
 #. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
 #: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_punto_accesso_persona_action
 #: model:ir.ui.menu,name:inrim_controllo_accessi.ca_punto_accesso_persona_menu
+#, python-format
 msgid "Reader Person"
 msgstr "Lettore Persona"
 
 #. module: inrim_controllo_accessi
 #: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_tag_lettore_action
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__ca_tag_lettore_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__ca_tag_lettore_ids
 #: model:ir.ui.menu,name:inrim_controllo_accessi.ca_tag_lettore_menu
 msgid "Reader Tag"
 msgstr "Tag Lettore"
@@ -635,7 +929,7 @@ msgstr "Tag Lettore"
 #: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
 #, python-format
 msgid "Reader already in use in another location"
-msgstr ""
+msgstr "Lettore già in uso in un'altra posizione"
 
 #. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_kanban
@@ -644,14 +938,56 @@ msgid "Reader:"
 msgstr "Lettore:"
 
 #. module: inrim_controllo_accessi
+#: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_registra_doc_persona_action
+msgid "Record Guest Doc"
+msgstr "Registra Doc Ospite"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__recursive_read_events
+msgid "Recursive Read Events"
+msgstr "Lettura Eventi Ricorsivi"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_abilita_persona_locale__referente_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__parent_id
+msgid "Reference person"
+msgstr "Referente"
+
+#. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__ca_persona_id
 msgid "Referent"
 msgstr "Referente"
 
 #. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_persona_form
+msgid "Referente interno"
+msgstr "Referente Interno"
+
+#. module: inrim_controllo_accessi
+#: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_registra_persona_action
+#: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_restituisci_badge_action
+msgid "Register Guest"
+msgstr "Registra Ospite"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model,name:inrim_controllo_accessi.model_ca_registra_persona
+msgid "Register Person"
+msgstr "Registra Persona"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model,name:inrim_controllo_accessi.model_ca_registra_doc_persona
+msgid "Register Person Doc"
+msgstr "Registra Doc Persona"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_doc_persona_form
+msgid "Release Date"
+msgstr "Data Rilascio"
+
+#. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__remote_update
 msgid "Remote Update"
-msgstr ""
+msgstr "Aggiornamento Remoto"
 
 #. module: inrim_controllo_accessi
 #: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_richiesta_riga_accesso_sede_action
@@ -660,12 +996,35 @@ msgid "Request Insertion Headquarters Access Register"
 msgstr "Richiesta Riga Accesso Sede"
 
 #. module: inrim_controllo_accessi
+#: model:ir.model,name:inrim_controllo_accessi.model_ca_restituisci_badge
+msgid "Return Badge"
+msgstr "Restituisci Badge"
+
+#. module: inrim_controllo_accessi
 #: model:ir.model,name:inrim_controllo_accessi.model_ca_richiesta_riga_accesso_sede
 msgid "Richiesta Riga Accesso Sede"
 msgstr ""
 
 #. module: inrim_controllo_accessi
+#: model:ir.model,name:inrim_controllo_accessi.model_ca_righe_accesso
+msgid "Righe Accesso"
+msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_lettore_persona__state__scheduled
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_tag_lettore__state__scheduled
+msgid "Scheduled"
+msgstr "Programmato"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_abilita_persona_locale_form
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_persona_form
+msgid "Search in the system"
+msgstr "Cerca nel sistema"
+
+#. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__ca_spazio_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_righe_accesso__spazio_id
 msgid "Space"
 msgstr "Spazio"
 
@@ -676,15 +1035,9 @@ msgstr "Spazio Sede"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__ca_tipo_spazio_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_righe_accesso__tipo_spazio_id
 msgid "Space Type"
 msgstr "Spazio Tipo"
-
-#. module: inrim_controllo_accessi
-#: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_sposta_punto_accesso_action
-#: model:ir.model,name:inrim_controllo_accessi.model_ca_sposta_punto_accesso
-#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
-msgid "Sposta Punto Accesso"
-msgstr ""
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_punto_accesso__typology__stamping
@@ -693,18 +1046,25 @@ msgstr "Timbratura"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__state
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__state
 msgid "State"
 msgstr "Stato"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__system_error
 msgid "System Error"
-msgstr "Error"
+msgstr "Errore"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__ca_tag_persona_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_restituisci_badge__tag_ids
 msgid "Tag"
 msgstr ""
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__ca_tag_code
+msgid "Tag Code"
+msgstr "Codice Tag"
 
 #. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_tag_lettore_view_kanban
@@ -717,6 +1077,22 @@ msgid "Tag Lettore"
 msgstr "Lettore"
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_righe_accesso__tag_persona_id
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_category_view_form
+msgid "Tag Person"
+msgstr "Tag Persona"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__ca_tag_lettore_persona_ids
+msgid "Tag Reader Person"
+msgstr "Tag Lettore Persona"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__ca_tag_lettore_persona_view
+msgid "Tag Reader Person View"
+msgstr "Tag Lettore Persona Vista"
+
+#. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_tag_lettore_view_kanban
 msgid "Tag:"
 msgstr ""
@@ -727,6 +1103,7 @@ msgid "Tags"
 msgstr ""
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_restituisci_badge__temp
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__temp
 msgid "Temp"
 msgstr "Temporaneo"
@@ -737,9 +1114,10 @@ msgid "Temp:"
 msgstr "Temporaneo:"
 
 #. module: inrim_controllo_accessi
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__tipo_ente_azienda_ids
-msgid "Tipo Ente Azienda"
-msgstr ""
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__tz
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__tz
+msgid "Timezone"
+msgstr "Fuso Orario"
 
 #. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_anag_registro_accesso_view_search
@@ -754,8 +1132,41 @@ msgstr "Tipo"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__typology
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__access_point_typology
 msgid "Typology"
 msgstr "Tipologia"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_persona_form
+msgid "VAT"
+msgstr "Partita IVA"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_doc_persona__validity_end_date
+msgid "Validity End Date"
+msgstr "Data di fine validità"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_doc_persona__validity_start_date
+msgid "Validity Start Date"
+msgstr "Data di inizio validità"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__vat
+msgid "Vat"
+msgstr "Partita IVA"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,help:inrim_controllo_accessi.field_ca_anag_registro_accesso__tz
+#: model:ir.model.fields,help:inrim_controllo_accessi.field_ca_punto_accesso__tz
+msgid ""
+"When printing documents and exporting/importing data, time values are computed according to this timezone.\n"
+"If the timezone is not set, UTC (Coordinated Universal Time) is used.\n"
+"Anywhere else, time values are computed according to the time offset of your web client."
+msgstr ""
+"Quando si stampano documenti e si esportano/importano dati, i valori temporali sono calcolati in base a questo fuso orario.\n"
+"Se il fuso orario non è impostato, viene utilizzato UTC (Tempo Coordinato Universale).\n"
+"Altrove, i valori temporali sono calcolati in base all'offset temporale del client web."
 
 #. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_anag_registro_accesso_view_search

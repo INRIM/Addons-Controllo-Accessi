@@ -8,14 +8,15 @@ logger = logging.getLogger(__name__)
 
 class CaRegistraPersona(models.TransientModel):
     _name = 'ca.registra_persona'
-    _description = 'Registra Persona'
+    _description = 'Register Person'
 
     vat = fields.Char()
     ca_ente_name = fields.Char("Company Name", required=True)
     tipo_ente_azienda_id = fields.Many2one(
         'ca.tipo_ente_azienda', required=True,
-        domain=lambda self: self.ente_azienda_domain())
-    ente_azienda = fields.Many2one("ca.ente_azienda")
+        domain=lambda self: self.ente_azienda_domain(),
+        string="Company Type")
+    ente_azienda = fields.Many2one("ca.ente_azienda", string="Company")
     fiscalcode = fields.Char(string="Fiscalcode", required=True)
     lastname = fields.Char(required=True)
     name = fields.Char(required=True)
@@ -35,7 +36,7 @@ class CaRegistraPersona(models.TransientModel):
     )
     ca_tag_id = fields.Many2one('ca.tag', required=True)
     available_tags_ids = fields.Many2many('ca.tag', compute="_compute_available_tags")
-    ente_interno = fields.Boolean(string="Interno")
+    ente_interno = fields.Boolean(string="Internal")
     work_id_number = fields.Char(
         string="ID Number", groups="controllo_accessi.ca_gdpr")
 

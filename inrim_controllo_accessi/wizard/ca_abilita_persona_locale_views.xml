@@ -10,7 +10,7 @@
                     <field name="punto_accesso_id"/>
                     <group>
                         <group>
-                            <separator string="Cerca nel sistema"/>
+                            <separator string="Search in the system"/>
                             <field name="persona_id"
                                    options="{'no_create': True, 'no_quick_create': True}"
                                    required="1"
@@ -33,7 +33,7 @@
                 <footer>
                     <button
                             name="action_confirm"
-                            string="Avanti"
+                            string="Next"
                             class="btn-primary"
                             type="object"
                     />
@@ -49,7 +49,7 @@
 
     <record id="ca_abilita_persona_locale_action"
             model="ir.actions.act_window">
-        <field name="name">Abilita Persona Locale</field>
+        <field name="name">Enable Local Person</field>
         <field name="res_model">ca.abilita_persona_locale</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>

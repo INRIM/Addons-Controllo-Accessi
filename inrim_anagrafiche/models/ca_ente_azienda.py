@@ -62,7 +62,10 @@ class CaEnteAzienda(models.Model):
     website = fields.Char()
     vat = fields.Char()
     pec = fields.Char(required=False)
-    tipo_ente_azienda_id = fields.Many2one('ca.tipo_ente_azienda', required=True)
+    tipo_ente_azienda_id = fields.Many2one(
+        'ca.tipo_ente_azienda',
+        required=True,
+        string="Company Type")
     note = fields.Text()
     company_id = fields.Many2one('res.company')
     ca_persona_ids = fields.Many2many('ca.persona', string='People')
@@ -174,7 +177,7 @@ class CaEnteAzienda(models.Model):
             if record.vat:
                 if not record.vat and not record.parent_id:
                     raise ValidationError(
-                        _('Partita Iva/Codice Fiscale campo obbligatorio'))
+                        _('VAT number/Tax code mandatory field'))
                 persona_id = self.env['ca.ente_azienda'].search([
                     ('id', '!=', record.id),
                     ('vat', '=', record.vat),
@@ -182,7 +185,7 @@ class CaEnteAzienda(models.Model):
                 ])
                 if persona_id:
                     raise ValidationError(
-                        _('Esiste già una Azienda con questa Partita Iva/Codice Fiscale'))
+                        _('A company already exists with this VAT number/Tax Code'))
 
     def rest_boby_hint(self):
         return {
@@ -275,7 +278,7 @@ class CaTipoEnteAzienda(models.Model):
             if record.date_end and record.date_start:
                 if record.date_end <= record.date_start:
                     raise UserError(
-                        _('Data fine deve essere maggiore della data di inizio'))
+                        _('End date must be greater than start date'))
 
     def rest_boby_hint(self):
         return {

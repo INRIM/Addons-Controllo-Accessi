@@ -8,7 +8,8 @@ class CaAnagServizi(models.Model):
     _description = 'Anagrafica Servizi'
 
     name = fields.Char(required=True)
-    ca_settore_ente_id = fields.Many2one('ca.settore_ente')
+    ca_settore_ente_id = fields.Many2one('ca.settore_ente',
+                                         string="Institution Sector")
     ca_settore_persona_id = fields.Many2one(related="ca_settore_ente_id.ca_persona_id")
     settore_ente_name = fields.Char(related='ca_settore_ente_id.name', store=True)
     ca_persona_id = fields.Many2one('ca.persona', string="Referent", required=True)
@@ -16,7 +17,7 @@ class CaAnagServizi(models.Model):
     virtual = fields.Boolean()
     ca_ente_azienda_id = fields.Many2one('ca.ente_azienda', string="Position")
     generic = fields.Boolean()
-    spazio_id = fields.Many2one('ca.spazio')
+    spazio_id = fields.Many2one('ca.spazio', string="Space")
     tipo_spazio_id = fields.Many2one(related="spazio_id.tipo_spazio_id", store=True)
     abbreviation = fields.Char()
     description = fields.Text()
@@ -24,7 +25,8 @@ class CaAnagServizi(models.Model):
     date_start = fields.Date()
     date_end = fields.Date()
     tipo_ente_azienda_ids = fields.Many2many('ca.tipo_ente_azienda', 
-                        compute="_compute_tipo_ente_azienda_ids")
+                        compute="_compute_tipo_ente_azienda_ids",
+                        string="Company Type")
     active = fields.Boolean(default=True)
 
     _sql_constraints = [
@@ -74,7 +76,7 @@ class CaAnagServizi(models.Model):
             if record.date_end and record.date_start:
                 if record.date_end <= record.date_start:
                     raise UserError(
-                        _('Data fine deve essere maggiore della data di inizio'))
+                        _('End date must be greater than start date'))
 
     def _compute_tipo_ente_azienda_ids(self):
         for record in self:
@@ -92,7 +94,7 @@ class CaAnagServizi(models.Model):
                 ('ca_settore_ente_id', '=', record.ca_settore_ente_id.id)
             ])
             if anag_servizi_id:
-                raise UserError(_('Esiste già un altro servizio con stesso nome e settore'))
+                raise UserError(_('Another service with the same name and sector already exists'))
             
     @api.onchange('ca_settore_ente_id')
     def _onchange_ca_settore_ente_id(self):

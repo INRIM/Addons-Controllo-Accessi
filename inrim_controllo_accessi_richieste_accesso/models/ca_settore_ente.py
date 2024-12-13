@@ -17,7 +17,8 @@ class CaSettoreEnte(models.Model):
     date_end = fields.Date()
     type_ids = fields.Many2many('ca.tipo_persona', default=lambda self:self.default_type_ids())
     tipo_ente_azienda_ids = fields.Many2many('ca.tipo_ente_azienda', 
-                        compute="_compute_tipo_ente_azienda_ids")
+                        compute="_compute_tipo_ente_azienda_ids",
+                        string="Company Type")
     
     def rest_boby_hint(self):
         return {
@@ -55,7 +56,7 @@ class CaSettoreEnte(models.Model):
             if record.date_end and record.date_start:
                 if record.date_end <= record.date_start:
                     raise UserError(
-                        _('Data fine deve essere maggiore della data di inizio'))
+                        _('End date must be greater than start date'))
 
     def _compute_tipo_ente_azienda_ids(self):
         for record in self:

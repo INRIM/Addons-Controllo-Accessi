@@ -15,7 +15,8 @@ class CaPuntoAccessoCategory(models.Model):
     name = fields.Char(required=True)
     code = fields.Char()
     description = fields.Char()
-    ca_access_point_ids = fields.One2many('ca.punto_accesso', 'ca_category')
+    ca_access_point_ids = fields.One2many('ca.punto_accesso', 'ca_category',
+        string="Access Point")
     ca_tag_persona_ids = fields.Many2many(
         'ca.tag_persona', compute="compute_ca_tag_persona_ids")
     active = fields.Boolean(default=True)
@@ -74,7 +75,8 @@ class CaPuntoAccesso(models.Model):
         related='ca_spazio_id.ente_azienda_id',
         string="Headquarters Location"
     )
-    ca_lettore_id = fields.Many2one('ca.lettore', required=True)
+    ca_lettore_id = fields.Many2one('ca.lettore', required=True,
+                                    string="Reader")
     ca_category = fields.Many2one('ca.punto_accesso_category', string="Cluster")
     system_error = fields.Boolean(related="ca_lettore_id.system_error", store=True,
                                   string="Reader Error")
@@ -99,12 +101,14 @@ class CaPuntoAccesso(models.Model):
     date_start = fields.Date(required=True)
     date_end = fields.Date(required=True, default=lambda self: self.default_date_end())
     ca_tag_lettore_ids = fields.One2many(
-        'ca.tag_lettore', 'ca_punto_accesso_id')
+        'ca.tag_lettore', 'ca_punto_accesso_id', string="Reader Tag")
     ca_tag_lettore_persona_ids = fields.One2many(
-        'ca.lettore_persona', 'ca_punto_accesso_id')
+        'ca.lettore_persona', 'ca_punto_accesso_id',
+        string="Tag Reader Person")
     ca_tag_lettore_persona_view = fields.One2many(
         'ca.lettore_persona', 'ca_punto_accesso_id',
-        domain=[("state", "in", ["active", "scheduled"])]
+        domain=[("state", "in", ["active", "scheduled"])],
+        string="Tag Reader Person View"
     )
     remote_update = fields.Boolean(readonly=True)
     active = fields.Boolean(default=True)
@@ -120,7 +124,7 @@ class CaPuntoAccesso(models.Model):
             if record.date_end and record.date_start:
                 if record.date_end <= record.date_start:
                     raise UserError(
-                        _('Data fine deve essere maggiore della data di inizio'))
+                        _('End date must be greater than start date'))
 
     def default_date_end(self):
         date_end = self.env['ir.config_parameter'].sudo().get_param('date_end.forever')
@@ -139,7 +143,7 @@ class CaPuntoAccesso(models.Model):
             ('access_allowed', '=', False)
         ], order="person_display_name, datetime_event asc")
         return {
-            'name': _('Accessi Rifiutati Oggi'),
+            'name': _('Access Rejected Today'),
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'tree,form',
@@ -158,7 +162,7 @@ class CaPuntoAccesso(models.Model):
             ('ca_lettore_id', '=', self.ca_lettore_id.id)
         ], order="person_display_name, datetime_event asc")
         return {
-            'name': _('Accessi Oggi'),
+            'name': _('Accessed Today'),
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'tree,form',
@@ -176,7 +180,7 @@ class CaPuntoAccesso(models.Model):
     def elabora_persone_abilitate_view(self):
         self.elabora_persone_abilitate()
         return {
-            'name': _('Lettore Persona'),
+            'name': _('Reader Person'),
             'type': 'ir.actions.act_window',
             'view_type': 'form',
             'view_mode': 'tree,form',

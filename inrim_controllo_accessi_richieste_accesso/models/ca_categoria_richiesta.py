@@ -18,7 +18,7 @@ class CaCategoriaRichiesta(models.Model):
             if record.date_end and record.date_start:
                 if record.date_end <= record.date_start:
                     raise UserError(
-                        _('Data fine deve essere maggiore della data di inizio'))
+                        _('End date must be greater than start date'))
 
 
     def rest_get_record(self):
