@@ -41,9 +41,18 @@
                     </group>
                     <separator string="Referente interno"/>
                     <group>
-                        <field name="parent_id"
-                               options="{'no_create': True, 'no_quick_create': True, 'no_edit':True}"
-                               required="not persona_id or persona_id.is_external == True"/>
+                        <group>
+                            <field name="ref_domain"/>
+                        </group>
+                        <group>
+                            <field name="parent_id_domain" invisible="1"/>
+                            <field name="parent_id"
+                                   options="{'no_create': True}"
+                                   required="not persona_id or persona_id.is_external == True"
+                                   domain="parent_id_domain"
+                            />
+                        </group>
+
                     </group>
                     <separator string="Access Data"/>
 
@@ -53,7 +62,6 @@
                                    options="{'no_create': True, 'no_quick_create': True}"/>
                             <field name="date_start"/>
                             <field name="ca_tag_id" string="Badge"
-                                   options="{'no_create': True, 'no_quick_create': True}"
                                    domain="[('id', 'in', available_tags_ids)]"/>
                         </group>
                         <group>

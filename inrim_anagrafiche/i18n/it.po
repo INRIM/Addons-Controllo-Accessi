@@ -1375,3 +1375,8 @@ msgstr "Cap"
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_ente_azienda_form
 msgid "e.g. My Company"
 msgstr "es. My Company"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__send_to_payroll_system
+msgid "Send To Payroll System"
+msgstr "Sincronizza C.E."

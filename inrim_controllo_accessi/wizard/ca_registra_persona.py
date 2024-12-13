@@ -2,6 +2,8 @@ import logging
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
+from datetime import datetime
+from datetime import time
 
 logger = logging.getLogger(__name__)
 
@@ -31,14 +33,29 @@ class CaRegistraPersona(models.TransientModel):
     date_start = fields.Datetime(required=True, default=fields.Datetime.now)
     date_end = fields.Datetime(required=True)
     parent_id = fields.Many2one(
-        'ca.persona', string='Reference person', index=True,
-        domain=[('is_internal', '=', True), ("present", "=", "yes")]
+        'ca.persona', string='Reference person', index=True
     )
+    ref_domain = fields.Selection(
+        [("present", "Present"), ("all", "All")], default="present", required=True)
     ca_tag_id = fields.Many2one('ca.tag', required=True)
     available_tags_ids = fields.Many2many('ca.tag', compute="_compute_available_tags")
     ente_interno = fields.Boolean(string="Internal")
     work_id_number = fields.Char(
         string="ID Number", groups="controllo_accessi.ca_gdpr")
+
+    parent_id_domain = fields.Binary(
+        string="parent id domain",
+        help="Dynamic domain used for the tag that can be set on tax",
+        compute="_compute_parent_domain")
+
+    @api.depends('ref_domain')
+    def _compute_parent_domain(self):
+        for rec in self:
+            if rec.ref_domain == 'present':
+                rec.parent_id_domain = [
+                    ('is_internal', '=', True), ('present', '=', 'yes')]
+            else:
+                rec.parent_id_domain = [('is_internal', '=', True)]
 
     def ente_azienda_domain(self):
         return [
@@ -83,8 +100,6 @@ class CaRegistraPersona(models.TransientModel):
                 if record.ente_azienda.id != ente_az_found.id:
                     self.with_context(
                         no_change_vat=True).eval_ente_azienda_id(ente_az_found.id)
-            else:
-                self.reset_ente_azienda_id()
 
     def populate_person(self, rec):
         self.ensure_one()
@@ -99,6 +114,8 @@ class CaRegistraPersona(models.TransientModel):
         current_winfo = self.persona_id.get_current_winfo()
         self.ca_work_info_type_id = current_winfo.ca_work_info_type_id.id
         self.ca_title_id = current_winfo.ca_title_id.id
+        self.date_start = datetime.combine(current_winfo.date_start, time(8, 0, 0))
+        self.date_end = datetime.combine(current_winfo.date_end, time(18, 0, 0))
         self.compute_available_tags()
 
     def reset_person(self):
@@ -206,7 +223,7 @@ class CaRegistraPersona(models.TransientModel):
                 {
                     "name": self.ca_ente_name,
                     "vat": self.vat,
-                    "tipo_ente_azienda_id": self.tipo_ente_azienda_id
+                    "tipo_ente_azienda_id": self.tipo_ente_azienda_id.id
                 }
             )
         if not self.persona_id:

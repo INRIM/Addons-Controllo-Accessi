@@ -114,7 +114,6 @@
                                 </div>
                             </button>
                         </div>
-
                         <group>
                             <group>
                                 <field name="is_external" invisible="1"
