@@ -24,5 +24,9 @@
         <record id="ca_stato_anag_completata" model="ca.stato_anag">
             <field name="name">Completata</field>
         </record>
+
+        <record id="ca_stato_anag_errore" model="ca.stato_anag">
+            <field name="name">Errore</field>
+        </record>
     </data>
 </odoo>

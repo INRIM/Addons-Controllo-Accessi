@@ -35,9 +35,7 @@
         <record id="inrim_ir_config_parameter_default_payroll_types"
                 model="ir.config_parameter">
             <field name="key">inrim_payroll_types</field>
-            <field name="value">
-                ["dipendentit.d._employeetype","assegni_employeetype","dipendentit.i._employeetype"]
-            </field>
+            <field name="value">["dipendentit.d._employeetype","assegni_employeetype","dipendentit.i._employeetype"]</field>
         </record>
 
         <record id="inrim_ir_config_parameter_labinf_sync_service"

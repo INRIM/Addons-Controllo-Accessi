@@ -65,6 +65,12 @@ class CaTitoloPersona(models.Model):
             ('name', '=', name)
         ], limit=1)
 
+    @api.model
+    def get_by_code(self, code):
+        return self.env['ca.titolo_persona'].search([
+            ('code', '=', code)
+        ], limit=1)
+
     def rest_boby_hint(self):
         return {
             "name": "Interno",

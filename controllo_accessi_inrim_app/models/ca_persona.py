@@ -1,6 +1,6 @@
 import json
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import requests
 from odoo import models, api, fields
@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 get_personal_types = "/api/getpersonaltypes"
 get_job_titles = "/api/get_job_titles"
 get_users = "/api/pf/elaboraFileCF"
+
 
 class CaPersona(models.Model):
     _inherit = 'ca.persona'
@@ -38,7 +39,8 @@ class CaPersona(models.Model):
                 return False
         except Exception as e:
             logger.error(
-                f"{url}, Status Code: {request.status_code if request else ''}, {e}", exc_info=True)
+                f"{url}, Status Code: {request.status_code if request else ''}, {e}",
+                exc_info=True)
             return False
 
     def get_syncusers(self, url_path):
@@ -64,7 +66,8 @@ class CaPersona(models.Model):
                 return []
         except Exception as e:
             logger.error(
-                f"{url}, Status Code: {request.status_code if request else ''}, {e}", exc_info=True)
+                f"{url}, Status Code: {request.status_code if request else ''}, {e}",
+                exc_info=True)
             return []
 
     @api.model
@@ -79,7 +82,12 @@ class CaPersona(models.Model):
             for xpath in [get_users]:
                 data = self.get_syncusers(xpath)
                 if data and xpath == get_users:
-                    ...
+                    if len(data) > 0:
+                        for item in data:
+                            for k in item:
+                                records = item[k]
+                                if records:
+                                    self.fetch_users_data(records)
 
     def update_work_info_type(self, data):
         logger.info("Update tipo persona work_info_type")
@@ -126,14 +134,174 @@ class CaPersona(models.Model):
             except Exception as e:
                 logger.error(f"Error: {e}", exc_info=True)
 
-    def get_addressbook_data(self, data):
-        logger.info("Update persona")
+    def fetch_users_data(self, items):
+        logger.info(f"decode_users_data {len(items)}")
+        no_match = []
+        errors = []
+        complete = []
+        for elem in items:
+            if elem.get('pf') and elem.get('people'):
+                res = self.eval_user_data(elem)
+                if res:
+                    complete.append(elem.get('matricola'))
+                else:
+                    errors.append(elem.get('matricola'))
+            else:
+                self.make_user_todo(elem)
+                no_match.append(elem.get('matricola'))
+        logger.info(f"decode_users_data Recap:")
+        logger.info(f"{len(no_match)} in progress")
+        logger.info(f"{len(errors)} in errors")
+        logger.info(f"{len(complete)} complete")
+        logger.info(f"-------------------------")
+        logger.info(f"errors serials: {errors}")
+        logger.info(f"-------------------------")
+        logger.info(f"no match serials: {no_match}")
+        logger.info(f"-------------------------")
+
+    def eval_user_data(self, item):
+        logger.info(f"eval_user_data {item.get('matricola')}")
+        try:
+            person_data = {}
+            codice_fiscale = self.get_from_record(
+                item, ['codiceFiscale', 'codiceFiscaleEstero', 'codicefiscale'], ""
+            )
+            if not codice_fiscale:
+                return False
+            self.make_user(item)
+            return True
+        except Exception as e:
+            logger.error(
+                f" {item.get('matricola')}, {e}",
+                exc_info=True)
+            return False
+
+    def to_date(self, val, default=None):
+        try:
+            return datetime.fromisoformat(val).date()
+        except Exception as e:
+            return default
+
+    def decode_cadaster(self, record, key, keyret, default=None):
+        pf = record.get('pf', {})
+        comuni = record.get('comune', {})
+        if comuni and pf:
+            value = pf.get(key)
+            for c in comuni:
+                dtc = self.to_date(c.get('dataCessazione'), datetime.today().date())
+                if dtc > datetime.today().date() and c.get('codCatasto', "") == value:
+                    if keyret == 'city':
+                        return c.get('denominazione', default).capitalize()
+                    elif keyret == 'province':
+                        return c.get('provincia', {}).get(
+                            'denominazione', default).capitalize()
+                    elif keyret == 'region':
+                        return c.get('regione', {}).get(
+                            'denominazione', default).capitalize()
+                    else:
+                        return default
+
+        return default
+
+    def get_from_record(self, record, pkeys: list, defautlres):
+        resall = [False]
+        pf = record.get('pf', {})
+        people = record.get('people', {})
+        [resall.append(pf.get(k, False)) for k in pkeys]
+        [resall.append(people.get(k, False)) for k in pkeys]
+        res = next((item for item in resall if item), defautlres)
+        return res
+
+    def get_or_create_odoo_user(self, record, create=False):
+        user_id = None
+        uid = self.get_from_record(
+            record, ['uid'], "")
+        tipo_personale = self.get_from_record(
+            record, ['tipo_personale'], "")
+        full_name = self.get_from_record(
+            record, ['full_name'], "")
+        if uid != "" and full_name != "" and tipo_personale != "":
+            user_id = self.env['res.users'].search([
+                ('login', '=', uid)
+            ], limit=1)
+
+            if not user_id and create:
+                user_id = self.env['res.users'].create({
+                    'name': full_name,
+                    'login': uid,
+                    'company_id': self.env.company.id,
+                    'lang': 'it_IT',
+                    "tz": "Europe/Rome"
+                })
+        return user_id
+
+    def make_user_todo(self, record):
+        logger.info(f" make persona {record.get('matricola')} In progress ")
+        esterno = self.env.ref(
+            'inrim_anagrafiche.tipo_persona_esterno').id
+        ext_winfo_type = self.env['ca.work_info_type'].get_by_code(
+            ext_entity)
+        ext_job_title_code = "esterno_jobtitles"
+        ext_job_title = self.env['ca.titolo_persona'].get_by_code(
+            ext_job_title_code)
+        default_date_start = fields.Date.today().strftime('%Y-%m-%d')
+        date_end = fields.Date.today() + timedelta(days=365)
+        base_default_azienda_todo = self.env.ref(
+            'controllo_accessi_inrim_app.inrim_azienda_esterna_da_gestire')
+        base_default_ente_todo = self.env.ref(
+            'controllo_accessi_inrim_app.inrim_ente_esterno_da_gestire')
+
+        azienda_ids = [base_default_ente_todo.id]
+        type_ids = [esterno]
+        persona_id = self.env['ca.persona'].with_context(
+            massive_create=True).search([
+            ('fiscalcode', '=', codice_fiscale)
+        ], limit=1)
+
+        if not persona_id:
+            vals = {
+                'name': nome,
+                'lastname': cognome,
+                'freshman': record.get('matricola'),
+                'fiscalcode': record.get('cf'),
+                'type_ids': type_ids,
+                'ca_ente_azienda_ids': azienda_ids,
+                "send_to_payroll_system": record['sync'] == 'y'
+            }
+            persona_id = self.with_context(
+                massive_create=True).create(vals)
+            persona_id.action_checks_in_progress()
+
+        curr_winfo = persona_id.get_current_winfo()
+
+        vals = {
+            'ca_persona_id': persona_id.id,
+            'work_id_number': record.get('matricola'),
+            'ca_work_info_type_id': ext_winfo_type.id,
+            'ca_title_id': ext_job_title.id,
+            'date_start': self.to_date(default_date_start),
+            'date_end': self.to_date(date_end)
+        }
+
+        if (
+                not curr_winfo
+        ):
+            persona_id.with_context(
+                massive_create=True).update_work_info(vals)
+
+    def make_user(self, record):
+        logger.info(f"make persona {record.get('matricola')} ")
         # internal_types = self.env.ref('default_ca.internal_people_types')
 
-        internal_types = json.loads(self.env['ir.config_parameter'].sudo().get_param(
-            'default_ca.inrim_payroll_types'))
+        internal_types = json.loads(self.env.ref(
+            'controllo_accessi_inrim_app.inrim_ir_config_parameter_default_payroll_types').value)
         ext_company = 'ditteesterne_tipopersonale'
         ext_entity = 'entiesterni_tipopersonale'
+        ext_job_title_code = "esterno_jobtitles"
+        ext_job_title = self.env['ca.titolo_persona'].get_by_code(
+            ext_job_title_code)
+        ext_winfo_type = self.env['ca.work_info_type'].get_by_code(
+            ext_entity)
         base_institute = self.env.ref(
             'controllo_accessi_inrim_app.inrim_campus_cacce')
         base_default_ente_todo = self.env.ref(
@@ -146,113 +314,156 @@ class CaPersona(models.Model):
             'inrim_anagrafiche.tipo_persona_esterno').id
         date_end_forever = self.env.ref(
             'inrim_controllo_accessi.inrim_ir_config_parameter_forever').value
+        default_date_start = fields.Date.today().strftime('%Y-%m-%d')
         with self.env.cr.savepoint():
-            for dt in data:
-                try:
-                    azienda_ids = []
-                    if dt.get('uid') and dt.get('name') and dt.get(
-                            'tipo_personale') != "":
-                        user_id = self.env['res.users'].search([
-                            ('login', '=', dt['uid'])
-                        ], limit=1)
-                        type_ids = []
-                        title_ids = []
+            try:
+                azienda_ids = []
+                type_ids = []
+                user_id = None
+                resp_id = None
+                title_id = None
+                codice_fiscale = ""
+                work_info_type_id = None
+                is_intenal = False
+                birth_date = ''
+                tipo_personale = self.get_from_record(
+                    record, ['tipo_personale'], "")
 
-                        if not user_id:
-                            user_id = self.env['res.users'].create({
-                                'name': dt['name'],
-                                'login': dt['uid'],
-                                'company_id': self.env.company.id,
-                                'lang': 'it_IT',
-                                "tz": "Europe/Rome"
-                            })
-                        work_info_type_id = self.env['ca.work_info_type'].get_by_name(
-                            dt.get('tipo_personale'))
+                work_info_type_id = self.env['ca.work_info_type'].get_by_name(
+                    tipo_personale)
+                if not work_info_type_id:
+                    work_info_type_id = ext_winfo_type
 
-                        persona_id = self.env['ca.persona'].with_context(
-                            massive_create=True).search([
-                            ('fiscalcode', '=', dt['codicefiscale'])
-                        ], limit=1)
-                        resp_id = self.get_by_login_uid(dt.get("referente_uid"))
-                        if not resp_id:
-                            resp_id = self.with_context(
-                                massive_create=True).get_by_login_uid(
-                                dt.get("responsabile_uid"))
-                        if work_info_type_id:
-                            if work_info_type_id.code in internal_types:
-                                type_ids.append(interno)
-                                azienda_ids.append(base_institute.id)
-                            else:
-                                type_ids.append(esterno)
-                                if work_info_type_id.code == ext_company:
-                                    azienda_ids.append(base_default_azienda_todo.id)
-                                elif work_info_type_id.code == ext_entity:
-                                    azienda_ids.append(base_default_ente_todo.id)
+                is_intenal = work_info_type_id.code in internal_types
 
-                        if not persona_id:
-                            birth_date = ''
-                            if dt.get('data_di_nascita'):
-                                birth_date = datetime.strptime(
-                                    dt['data_di_nascita'], '%Y-%m-%d').date()
-                            if dt.get('nome') and dt.get('cognome'):
-                                vals = {
-                                    'uid': dt['uid'],
-                                    'name': dt['nome'],
-                                    'lastname': dt['cognome'],
-                                    'email': dt['mail'],
-                                    'mobile': dt['cell_phone_service'],
-                                    'private_mobile': dt['private_cell_phone'],
-                                    'phone': dt['telephonNumber'],
-                                    'type_ids': type_ids,
-                                    'birth_date': birth_date,
-                                    'ca_ente_azienda_ids': azienda_ids,
-                                    'associated_user_id': user_id.id,
-                                    'parent_id': resp_id.id if resp_id else False
-                                }
-                                if dt.get('matricola'):
-                                    vals['freshman'] = dt['matricola']
-                                if dt.get('codicefiscale'):
-                                    vals['fiscalcode'] = dt['codicefiscale']
-                                persona_id = self.with_context(
-                                    massive_create=True).create(vals)
-                                persona_id.action_completed()
+                codice_fiscale = self.get_from_record(
+                    record, ['codiceFiscale', 'codiceFiscaleEstero', 'codicefiscale'], ""
+                )
 
-                        else:
-                            if not persona_id.parent_id:
-                                resp_id = self.with_context(
-                                    massive_create=True).get_by_login_uid(
-                                    dt.get("referente_uid"))
-                                if not resp_id:
-                                    resp_id = self.with_context(
-                                        massive_create=True).get_by_login_uid(
-                                        dt.get("responsabile_uid"))
-                                persona_id.parent_id = resp_id.id if resp_id else False
-                        title_id = self.env['ca.titolo_persona'].get_by_name(
-                            dt.get('qualifica'))
+                user_id = self.get_or_create_odoo_user(
+                    record, is_intenal)
+
+                persona_id = self.env['ca.persona'].with_context(
+                    massive_create=True).search([
+                    ('fiscalcode', '=', codice_fiscale)
+                ], limit=1)
+
+                resp_id = self.env['ca.persona'].get_by_login_uid(
+                    self.get_from_record(
+                        record, ['responsabile_uid', 'referente_uid'], "")
+                )
+                title_id = self.env['ca.titolo_persona'].get_by_name(
+                    self.get_from_record(
+                        record, ['qualifica'], "")
+                )
+                if not title_id:
+                    title_id = ext_job_title
+
+                birth_date = self.to_date(self.get_from_record(
+                    record, ['dataNascita', 'data_di_nascita'], "1970-01-01"),
+                )
+
+                uid = self.get_from_record(
+                    record, ['username', 'uid'], "")
+                nome = self.get_from_record(
+                    record, ['nome', 'nome'], "").capitalize()
+                cognome = self.get_from_record(
+                    record, ['cognome', 'cognome'], "").capitalize()
+                if is_intenal:
+                    type_ids.append(interno)
+                    azienda_ids.append(base_institute.id)
+                else:
+                    type_ids.append(esterno)
+                    if work_info_type_id.code == ext_company:
+                        azienda_ids.append(base_default_azienda_todo.id)
+                    elif work_info_type_id.code == ext_entity:
+                        azienda_ids.append(base_default_ente_todo.id)
+
+                if not persona_id:
+                    if nome and cognome:
+                        capRes = self.get_from_record(
+                            record, ['capResidenza'], "")
+                        capDom = self.get_from_record(
+                            record, ['capDomFiscale'], "")
+
+                        cittad = self.get_from_record(
+                            record, ['codNazioneCittadinanza'], "")
+
                         vals = {
-                            'ca_persona_id': persona_id.id,
-                            'work_id_number': dt['matricola'],
-                            'ca_div_uo_code': dt['divisione_code'],
-                            'ca_work_info_type_id': work_info_type_id.id if work_info_type_id else False,
-                            'ca_title_id': title_id.id if title_id else False,
+                            'uid': uid,
+                            'name': nome,
+                            'lastname': cognome,
+                            'freshman': record.get('matricola'),
+                            'email': self.get_from_record(
+                                record, ['EMail', 'mail'], ""),
+                            'mobile': self.get_from_record(
+                                record, ['cell_phone_service'], ""),
+                            'private_mobile': self.get_from_record(
+                                record, ['cellPersonale', 'private_cell_phone'], ""),
+                            'phone': self.get_from_record(
+                                record, ['telephonNumber', 'telUfficio'], ""),
+                            'fiscalcode': codice_fiscale,
+                            'type_ids': type_ids,
+                            'nationality': cittad,
+                            'birth_date': birth_date,
+                            'birth_place': self.decode_cadaster(
+                                record, 'codComuneNascita', 'city', ""),
+                            'istat_code': self.get_from_record(
+                                record, ['codComuneNascita'], ""),
+                            'ca_ente_azienda_ids': azienda_ids,
+                            'associated_user_id': user_id.id,
+                            'parent_id': resp_id.id if resp_id else False,
+                            'residence_zip': capRes,
+                            'residence_city': self.decode_cadaster(
+                                record, 'codComuneResidenza', 'city', ""),
+                            'residence_street': self.get_from_record(
+                                record, ['indirizzoResidenza'], ""),
+                            'domicile_other_than_residence': capRes != capDom,
+                            'domicile_zip': capDom,
+                            'domicile_city': self.decode_cadaster(
+                                record, 'codComuneDomFiscale', 'city', ""),
+                            'domicile_street': self.get_from_record(
+                                record, ['indirizzoDomFiscale'], ""),
+                            "send_to_payroll_system": record['sync'] == 'y'
                         }
-                        if dt.get('data_inizio'):
-                            vals['date_start'] = fields.Date.to_date(
-                                dt['data_inizio'])
-                        if not dt.get('data_fine'):
-                            vals['date_end'] = fields.Date.to_date(
-                                date_end_forever.split(" ")[0])
-                        else:
-                            vals['date_end'] = fields.Date.to_date(
-                                dt['data_fine'])
-                        curr_winfo = persona_id.get_current_winfo()
-                        if (
-                                not curr_winfo or
-                                not curr_winfo.ca_work_info_type_id.id == work_info_type_id.id or
-                                not curr_winfo.ca_title_id.id == title_id.id
-                        ):
-                            persona_id.with_context(
-                                massive_create=True).update_work_info(vals)
-                except Exception as e:
-                    logger.error(
-                        f"Error Skip {dt.get('uid')}: {e}", exc_info=True)
+                        logger.info(f"insert persona {record.get('matricola')} ")
+                        persona_id = self.with_context(
+                            massive_create=True).create(vals)
+                        persona_id.action_completed()
+
+                else:
+                    if resp_id and (
+                            not persona_id.parent_id or
+                            persona_id.parent_id.freshman != resp_id.freshman
+                    ):
+                        logger.info(f"update persona {record.get('matricola')} ")
+                        persona_id.parent_id = resp_id.id if resp_id else False
+
+                curr_winfo = persona_id.get_current_winfo()
+
+                vals = {
+                    'ca_persona_id': persona_id.id,
+                    'work_id_number': record.get('matricola'),
+                    'ca_div_uo_code': self.get_from_record(
+                        record, ['divisione_code'], ""),
+                    'ca_work_info_type_id': work_info_type_id.id if work_info_type_id else False,
+                    'ca_title_id': title_id.id if title_id else False,
+                    'date_start': self.to_date(
+                        self.get_from_record(
+                            record, ['data_inizio'], default_date_start)
+                    ),
+                    'date_end': self.to_date(
+                        self.get_from_record(record, ['data_fine'], date_end_forever)
+                    )
+                }
+
+                if (
+                        not curr_winfo or
+                        not curr_winfo.ca_work_info_type_id.id == work_info_type_id.id or
+                        not curr_winfo.ca_title_id.id == title_id.id
+                ):
+                    persona_id.with_context(
+                        massive_create=True).update_work_info(vals)
+            except Exception as e:
+                logger.error(
+                    f"Error Skip {record.get('matricola')}: {e}", exc_info=True)

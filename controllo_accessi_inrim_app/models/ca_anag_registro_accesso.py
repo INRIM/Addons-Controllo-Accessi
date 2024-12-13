@@ -1,13 +1,15 @@
+import logging
+
+import httpx
 import pytz
 from odoo import models, fields
-import httpx
-import logging
 
 _tzs = [(tz, tz) for tz in sorted(pytz.all_timezones,
                                   key=lambda tz: tz if not tz.startswith(
                                       'Etc/') else '_')]
 
 logger = logging.getLogger(__name__)
+
 
 def _tz_get(self):
     return _tzs
@@ -40,9 +42,10 @@ class CaAnagRegistroAccesso(models.Model):
         if res and ca_punto_accesso_id.typology == 'stamping' and res.access_allowed:
             todo['codice_lettore_grum'] = ca_punto_accesso_id.codice_lettore_grum
             winfo = ca_tag_persona_id.ca_persona_id.get_current_winfo()
+            if ca_tag_persona_id.ca_persona_id.send_to_payroll_system:
+                todo['state'] = 'to_sync'
             if winfo.ca_work_info_type_id.structured:
                 todo['work_id_number'] = winfo.work_id_number
-                todo['state'] = 'to_sync'
             res.write(todo)
         return res
 

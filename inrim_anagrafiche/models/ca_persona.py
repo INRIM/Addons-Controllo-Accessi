@@ -1,5 +1,6 @@
 import random
 import string
+from fcntl import FASYNC
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
@@ -118,6 +119,7 @@ class CaPersona(models.Model):
         ('yes', 'Yes'),
         ('no', 'No')
     ], default='no', readonly=True)
+    send_to_payroll_system =fields.Boolean()
     uid = fields.Char()
     note = fields.Text()
     trust_level = fields.Integer("Trust Level", default=1)
@@ -188,8 +190,9 @@ class CaPersona(models.Model):
 
     @api.constrains('ca_documento_ids')
     def _check_external_documento_ids(self):
+        check = False
         for record in self:
-            if len(record.ca_documento_ids) == 0 and record.is_external:
+            if check and len(record.ca_documento_ids) == 0 and record.is_external:
                 if not self.env.context.get("massive_create"):
                     raise UserError(_(
                         'For an external person it is mandatory to upload the documents'))
@@ -276,9 +279,45 @@ class CaPersona(models.Model):
             'domain': [('ca_ente_azienda_id', 'in', self.ca_ente_azienda_ids.ids)],
         }
 
+    def update_m2o(self, vals):
+        res = []
+        fields = [
+            'nationality',
+            'residence_zip',
+            'residence_city',
+            'domicile_zip'
+            'domicile_city',
+        ]
+        for v in vals:
+            ret = {**v}
+            for field in fields:
+                if v.get(field):
+                    if field != "nationality" and field.find('city') > 0:
+                        rec = self.env['res.city'].search(
+                            [('name', '=', v.get(field))], limit=1
+                        )
+                        ret[f'{field}_id'] = rec.id if rec else False
+                    elif field != "nationality" and field.find('zip') > 0:
+                        pre = field.split('_')[0]
+                        rec = self.env['res.city.zip'].search(
+                            [
+                                ('name', '=', v.get(field)),
+                                ('city_id.name', '=', v.get(f'{pre}_city')),
+                            ], limit=1
+                        )
+                        ret[f'{field}_id'] = rec.id if rec else False
+                    else:
+                        rec = self.env['res.country'].search(
+                            [('code', '=', v.get(field))]
+                        )
+                        ret[field] = rec.id if rec else False
+            res.append(ret)
+        return res
+
     @api.model_create_multi
     def create(self, vals):
-        res = super(CaPersona, self).create(vals)
+        newvals = self.update_m2o(vals)
+        res = super(CaPersona, self).create(newvals)
         self._check_external_documento_ids()
         return res
 

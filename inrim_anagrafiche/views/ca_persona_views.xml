@@ -44,6 +44,7 @@
             <form>
                 <t>
                     <sheet>
+
                         <div name="button_box" class="d-none">
                             <button
                                     name="action_draft"
@@ -94,17 +95,16 @@
                                     class="btn-primary"
                                     groups="controllo_accessi.ca_ca"
                             />
-                            <field name="ca_stato_anag_id" widget="statusbar"/>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <field name="ca_stato_anag_id" widget="statusbar"/>
                             <button type="object" name="btn_presence"
                                     class="oe_stat_button d-flex justify-content-end o_state_container"
                                     icon="fa-user-circle-o"
                                     t-att-class="{
                                         'btn-secondary': present == 'yes',
                                         'btn-primary active': present == 'no',
-                                    }"
-                            >
+                                    }">
                                 <div class="o_field_widget o_stat_info oe_right">
                                     <span class="o_stat_text">Present:</span>
                                     <span class="o_stat_value">
@@ -123,16 +123,15 @@
                                        force_save="1"/>
                                 <field name="is_structured" invisible="1"
                                        force_save="1"/>
+                                <field name="send_to_payroll_system"/>
                                 <field name="name"/>
                                 <field name="lastname"/>
                                 <field name="fiscalcode" required="True"/>
                                 <field name="freshman"/>
-                                <field name="work_id_number" readonly="1"/>
                                 <field name="type_ids" widget="many2many_tags"
                                        options="{'no_create': True}"
                                        required="True"/>
-                                <field name="parent_id"
-                                       required="is_external"/>
+                                <field name="parent_id" />
                                 <field name="associated_user_id"
                                        options="{'no_create': True}"/>
                                 <field name="vat"/>
