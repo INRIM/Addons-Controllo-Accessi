@@ -57,7 +57,7 @@
     </record>
 
     <record id="ca_aggiungi_movimento_accesso_action" model="ir.actions.act_window">
-        <field name="name">Aggiungi Movimento Accesso</field>
+        <field name="name">Add Access Movement</field>
         <field name="res_model">ca.aggiungi_movimento_accesso</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>

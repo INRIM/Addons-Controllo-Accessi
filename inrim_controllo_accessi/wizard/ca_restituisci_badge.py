@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 class CaRestituisciBadge(models.TransientModel):
     _name = 'ca.restituisci_badge'
-    _description = 'Restituisci Badge'
+    _description = 'Return Badge'
 
     ca_tag_id = fields.Many2one('ca.tag_persona', required=True)
     temp = fields.Boolean(default=True)

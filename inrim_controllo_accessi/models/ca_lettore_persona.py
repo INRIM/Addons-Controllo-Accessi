@@ -9,16 +9,20 @@ class CaLettorePersona(models.Model):
     _rec_name = 'ca_lettore_id'
 
     ca_tag_lettore_id = fields.Many2one(
-        'ca.tag_lettore', required=True, readonly=True)
+        'ca.tag_lettore', required=True, readonly=True,
+        string="Reader Tag")
     ca_lettore_id = fields.Many2one(
-        related="ca_tag_lettore_id.ca_lettore_id", store=True, index=True)
+        related="ca_tag_lettore_id.ca_lettore_id", store=True, index=True,
+        string="Reader")
     ca_punto_accesso_id = fields.Many2one(
-        related="ca_tag_lettore_id.ca_punto_accesso_id", store=True, index=True)
+        related="ca_tag_lettore_id.ca_punto_accesso_id", store=True, index=True,
+        string="Access Point")
     ca_tag_persona = fields.Many2one(
         'ca.tag_persona', ondelete='cascade', required=True,
         readonly=True)
     ca_persona_id = fields.Many2one(
-        related="ca_tag_persona.ca_persona_id", store=True, readonly=True)
+        related="ca_tag_persona.ca_persona_id", store=True, readonly=True,
+        string="Partner")
 
     date_start = fields.Datetime(
         related="ca_tag_persona.date_start", readonly=True, store=True)
@@ -49,7 +53,7 @@ class CaLettorePersona(models.Model):
             ])
             if punto_accesso_persona_id:
                 raise UserError(
-                    _('Puo’ esistere solo una configurazione per tag lettore, tag persona, data, in stato attivo'))
+                    _('There can only be one configuration for reader tag, person tag, date, in active state'))
 
     @api.onchange('date_start', 'date_end')
     def _compute_expired(self):

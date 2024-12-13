@@ -33,7 +33,8 @@ class CaRichiestaAccesso(models.Model):
     expiring = fields.Boolean(readonly=True)
     note = fields.Html()
     ca_richiesta_accesso_persona_ids = fields.One2many(
-        'ca.richiesta_accesso_persona', 'ca_richiesta_accesso_id')
+        'ca.richiesta_accesso_persona', 'ca_richiesta_accesso_id',
+        string="Person Access Request")
     anag_tipologie_istanze_id = fields.Many2one('ca.anag_tipologie_istanze',
                                                 string="Application Act")
     act_application_code = fields.Text()
@@ -44,7 +45,7 @@ class CaRichiestaAccesso(models.Model):
             if record.date_end and record.date_start:
                 if record.date_end <= record.date_start:
                     raise UserError(
-                        _('Data fine deve essere maggiore della data di inizio'))
+                        _('End date must be greater than start date'))
 
     def aggiorna_stato_richiesta(self, stato=None):
         for record in self:
@@ -92,7 +93,7 @@ class CaRichiestaAccesso(models.Model):
                     record.expiring = False
                     break
             else:
-                raise UserError(_('Errore utente non abilitato'))
+                raise UserError(_('User error not enabled'))
             
     def default_type_ids(self):
         type_ids = [(6, 0, [

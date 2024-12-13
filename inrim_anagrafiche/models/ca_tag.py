@@ -19,7 +19,7 @@ class CaProprietaTag(models.Model):
             if record.date_end and record.date_start:
                 if record.date_end <= record.date_start:
                     raise UserError(
-                        _('Data fine deve essere maggiore della data di inizio'))
+                        _('End date must be greater than start date'))
 
     def rest_boby_hint(self):
         return {
@@ -52,7 +52,8 @@ class CaTag(models.Model):
 
     name = fields.Char(required=True)
     tag_code = fields.Char(required=True)
-    ca_proprieta_tag_ids = fields.Many2many('ca.proprieta_tag')
+    ca_proprieta_tag_ids = fields.Many2many('ca.proprieta_tag',
+        string="Tag Properties")
     in_use = fields.Boolean(readonly=True)
     active = fields.Boolean(default=True)
     default_id_number = fields.Char()
@@ -89,9 +90,9 @@ class CaTag(models.Model):
                     ]
                 )
                 if tags:
-                    msg = f'Esiste già questo Tag: {record.tag_code} in {record.name}'
+                    msg = _(f'Esiste già questo Tag: {record.tag_code} in {record.name}')
                     if not record.active:
-                        msg = f"{record.tag_code} Risulta disattivato, riattivare per utilizzare"
+                        msg = _(f"{record.tag_code} Risulta disattivato, riattivare per utilizzare")
                     raise UserError(
                         _(msg))
 
@@ -107,9 +108,9 @@ class CaTag(models.Model):
                     ]
                 )
                 if tags:
-                    msg = f'Esiste già questo Seriale: {record.default_id_number} {record.name}'
+                    msg = _(f'Esiste già questo Seriale: {record.default_id_number} {record.name}')
                     if not record.active:
-                        msg = f"{record.name} Risulta disattivato, riattivare per utilizzare"
+                        msg = _(f"{record.name} Risulta disattivato, riattivare per utilizzare")
                     raise UserError(
                         _(msg))
 

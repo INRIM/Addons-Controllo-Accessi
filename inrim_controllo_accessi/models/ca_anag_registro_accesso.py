@@ -34,7 +34,8 @@ class CaAnagRegistroAccesso(models.Model):
         related="ca_persona_id.freshman", store=True, string="Person Freshman",
         readonly=True)
     ca_lettore_id = fields.Many2one(
-        related="ca_punto_accesso_id.ca_lettore_id", store=True, readonly=True)
+        related="ca_punto_accesso_id.ca_lettore_id", store=True, readonly=True,
+        string="Reader")
     ca_spazio_id = fields.Many2one(
         related="ca_punto_accesso_id.ca_spazio_id", store=True, string="Space",
         readonly=True)

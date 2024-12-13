@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-18 14:37+0000\n"
-"PO-Revision-Date: 2024-10-18 14:37+0000\n"
+"POT-Creation-Date: 2024-12-12 13:55+0000\n"
+"PO-Revision-Date: 2024-12-12 13:55+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,19 +21,49 @@ msgid "Api Enabled"
 msgstr "Abilitato API"
 
 #. module: inrim_controllo_accessi_api
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi_api.ca_persona_view_form_inherit_geolocation
+msgid "Domicile Geolocation"
+msgstr "Geolocalizzazione Domicilio"
+
+#. module: inrim_controllo_accessi_api
 #: model:ir.model.fields,help:inrim_controllo_accessi_api.field_res_users__api_enabled
 msgid "Enabled for integration via API"
 msgstr "Abilitato all' integrazione tramite API"
 
 #. module: inrim_controllo_accessi_api
-#: model:ir.actions.server,name:inrim_controllo_accessi_api.read_people_get_addressbook_cron_ir_actions_server
-msgid "INRiM: Read People Get Addressbook"
+#: model:ir.model.fields,field_description:inrim_controllo_accessi_api.field_ca_persona__domicile_partner_latitude
+#: model:ir.model.fields,field_description:inrim_controllo_accessi_api.field_ca_persona__residence_partner_latitude
+msgid "Geo Latitude"
+msgstr "Latitudine"
+
+#. module: inrim_controllo_accessi_api
+#: model:ir.model.fields,field_description:inrim_controllo_accessi_api.field_ca_persona__domicile_partner_longitude
+#: model:ir.model.fields,field_description:inrim_controllo_accessi_api.field_ca_persona__residence_partner_longitude
+msgid "Geo Longitude"
+msgstr "Longitudine"
+
+#. module: inrim_controllo_accessi_api
+#: model:ir.model.fields,field_description:inrim_controllo_accessi_api.field_ca_persona__domicile_date_localization
+#: model:ir.model.fields,field_description:inrim_controllo_accessi_api.field_ca_persona__residence_date_localization
+msgid "Geolocation Date"
+msgstr "Data Geolocalizzazione"
+
+#. module: inrim_controllo_accessi_api
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi_api.ca_persona_view_form_inherit_geolocation
+msgid "Lat :"
 msgstr ""
 
 #. module: inrim_controllo_accessi_api
-#: model:ir.actions.server,name:inrim_controllo_accessi_api.read_people_get_rooms_cron_ir_actions_server
-msgid "INRiM: Read People Get Rooms"
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi_api.ca_persona_view_form_inherit_geolocation
+msgid "Long:"
 msgstr ""
+
+#. module: inrim_controllo_accessi_api
+#. odoo-python
+#: code:addons/inrim_controllo_accessi_api/models/ca_persona.py:0
+#, python-format
+msgid "No match found for %(partner_names)s address(es)."
+msgstr "Nessuna corrispondenza trovata per gli indirizzi di %(partner_names)s."
 
 #. module: inrim_controllo_accessi_api
 #: model:ir.model,name:inrim_controllo_accessi_api.model_ca_persona
@@ -41,16 +71,23 @@ msgid "Persona"
 msgstr "Anagrafica Persona"
 
 #. module: inrim_controllo_accessi_api
-#: model:ir.model,name:inrim_controllo_accessi_api.model_ca_punto_accesso
-msgid "Punto Accesso"
-msgstr ""
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi_api.ca_persona_view_form_inherit_geolocation
+msgid "Residence Geolocation"
+msgstr "Geolocalizzazione Residenza"
 
 #. module: inrim_controllo_accessi_api
-#: model:ir.model,name:inrim_controllo_accessi_api.model_ca_spazio
-msgid "Spazio"
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi_api.ca_persona_view_form_inherit_geolocation
+msgid "Updated on:"
 msgstr ""
 
 #. module: inrim_controllo_accessi_api
 #: model:ir.model,name:inrim_controllo_accessi_api.model_res_users
 msgid "User"
 msgstr "Utente"
+
+#. module: inrim_controllo_accessi_api
+#. odoo-python
+#: code:addons/inrim_controllo_accessi_api/models/ca_persona.py:0
+#, python-format
+msgid "Warning"
+msgstr "Avviso"

@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 
 
 class CaLettore(models.Model):
@@ -34,9 +35,9 @@ class CaLettore(models.Model):
                     ]
                 )
                 if tags:
-                    msg = f'Esiste già questo lettore con IP: {record.reader_ip}'
+                    msg = _(f'Esiste già questo lettore con IP: {record.reader_ip}')
                     if not record.active:
-                        msg = f"Lettore con IP{record.reader_ip} Risulta disattivato, riattivare per utilizzare"
+                        msg = _(f"Lettore con IP {record.reader_ip} Risulta disattivato, riattivare per utilizzare")
                     raise UserError(
                         _(msg))
 

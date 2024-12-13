@@ -9,9 +9,11 @@ class CaRichiestaRigaAccessoSede(models.Model):
     _rec_name = 'display_name'
 
     persona_id = fields.Many2one('ca.persona', 
-        default=lambda self:self._default_persona_id(), required=True)
-    ente_azienda_id = fields.Many2one('ca.ente_azienda', required=True)
-    punto_accesso_id = fields.Many2one('ca.punto_accesso', required=True, ondelete='cascade')
+        default=lambda self:self._default_persona_id(), required=True,
+        string="Partner")
+    ente_azienda_id = fields.Many2one('ca.ente_azienda', required=True, string="Company")
+    punto_accesso_id = fields.Many2one('ca.punto_accesso', required=True, ondelete='cascade',
+        string="Access Point")
     direction = fields.Selection(related="punto_accesso_id.direction", required=True)
     datetime_event = fields.Datetime(required=True)
     display_name = fields.Char(compute='_compute_display_name')

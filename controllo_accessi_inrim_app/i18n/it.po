@@ -1,0 +1,119 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* controllo_accessi_inrim_app
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-12 09:27+0000\n"
+"PO-Revision-Date: 2024-12-12 09:27+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model,name:controllo_accessi_inrim_app.model_ca_anag_registro_accesso
+msgid "Anagrafica Registro Accesso"
+msgstr ""
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model,name:controllo_accessi_inrim_app.model_res_company_ldap
+msgid "Company LDAP configuration"
+msgstr "Configurazione LDAP azienda"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_anag_registro_accesso__codice_lettore_grum
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_punto_accesso__codice_lettore_grum
+msgid "GRUM Reader Code"
+msgstr "Codice Lettore GRUM"
+
+#. module: controllo_accessi_inrim_app
+#: model_terms:ir.ui.view,arch_db:controllo_accessi_inrim_app.ca_punto_accesso_view_form_inherit
+msgid "Grum Reader ID"
+msgstr "ID Lettore Grum"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_anag_registro_accesso__work_id_number
+msgid "ID Number"
+msgstr "Numero ID"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.actions.server,name:controllo_accessi_inrim_app.read_people_get_addressbook_cron_ir_actions_server
+msgid "INRiM: Read People Get Addressbook"
+msgstr ""
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.actions.server,name:controllo_accessi_inrim_app.read_people_get_rooms_cron_ir_actions_server
+msgid "INRiM: Read People Get Rooms"
+msgstr ""
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.actions.server,name:controllo_accessi_inrim_app.sync_access_register_with_labinf_ir_actions_server
+msgid "INRiM: Sync to Labinf"
+msgstr ""
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields.selection,name:controllo_accessi_inrim_app.selection__ca_anag_registro_accesso__state__no_sync
+msgid "No Sync"
+msgstr "Nessuna Sincronizzazione"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model,name:controllo_accessi_inrim_app.model_ca_persona
+msgid "Persona"
+msgstr "Anagrafica Persona"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model,name:controllo_accessi_inrim_app.model_ca_punto_accesso
+msgid "Punto Accesso"
+msgstr ""
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields.selection,name:controllo_accessi_inrim_app.selection__ca_anag_registro_accesso__state__sent
+msgid "Sent"
+msgstr "Inviato"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model,name:controllo_accessi_inrim_app.model_ca_spazio
+msgid "Spazio"
+msgstr ""
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields.selection,name:controllo_accessi_inrim_app.selection__ca_anag_registro_accesso__state__sync_done
+msgid "Sync Done"
+msgstr "Sincronizzazione Completata"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields.selection,name:controllo_accessi_inrim_app.selection__ca_anag_registro_accesso__state__sync_error
+msgid "Sync Error"
+msgstr "Errore Di Sincronizzazione"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_anag_registro_accesso__state
+msgid "Sync State"
+msgstr "Stato Sincronizza"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_res_company_ldap__user
+msgid "Template User"
+msgstr "Utente modello"
+
+#. module: controllo_accessi_inrim_app
+#. odoo-python
+#: code:addons/controllo_accessi_inrim_app/models/ca_punto_accesso.py:0
+#, python-format
+msgid "The GRUM reader code must be between 20 and 999."
+msgstr ""
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields.selection,name:controllo_accessi_inrim_app.selection__ca_anag_registro_accesso__state__to_sync
+msgid "To Sync"
+msgstr "Da Sincronizzare"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,help:controllo_accessi_inrim_app.field_res_company_ldap__user
+msgid "User to copy when creating new users"
+msgstr "Modello utente da copiare quando ne viene creato un nuovo"

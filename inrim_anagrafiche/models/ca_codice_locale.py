@@ -4,7 +4,7 @@ from odoo.exceptions import UserError
 class CaCodiceLocale(models.Model):
     _name = 'ca.codice_locale'
     _inherit = "ca.model.base.mixin"
-    _description = 'Codice Locale'
+    _description = 'Local Code'
 
     name = fields.Char(required=True)
     description = fields.Char()
@@ -18,4 +18,4 @@ class CaCodiceLocale(models.Model):
             if record.date_end and record.date_start:
                 if record.date_end <= record.date_start:
                     raise UserError(
-                        _('Data fine deve essere maggiore della data di inizio'))
+                        _('End date must be greater than start date'))

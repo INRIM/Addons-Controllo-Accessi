@@ -6,8 +6,8 @@ class CaRighePersona(models.Model):
     _inherit = "ca.model.base.mixin"
     _description = 'Righe Persona'
 
-    spazio_id = fields.Many2one('ca.spazio')
-    tag_persona_id = fields.Many2one('ca.tag_persona')
+    spazio_id = fields.Many2one('ca.spazio', string="Reader")
+    tag_persona_id = fields.Many2one('ca.tag_persona', string="Tag Person")
     date_start = fields.Date(string='Valid Access From')
     date_end = fields.Date(string='Valid Access To')
     suspended = fields.Boolean()
@@ -18,4 +18,4 @@ class CaRighePersona(models.Model):
             if record.date_end and record.date_start:
                 if record.date_end <= record.date_start:
                     raise UserError(
-                        _('Data fine deve essere maggiore della data di inizio'))
+                        _('End date must be greater than start date'))

@@ -4,9 +4,11 @@ from odoo import models, fields, api
 class CaEnteAzienda(models.Model):
     _inherit = 'ca.ente_azienda'
 
-    url_gateway_lettori = fields.Char(groups="controllo_accessi.ca_tech")
+    url_gateway_lettori = fields.Char(groups="controllo_accessi.ca_tech",
+                                      string="Url Gateway Readers")
     nome_chiave_header = fields.Char(groups="controllo_accessi.ca_tech",
-                                     default="authtoken")
+                                     default="authtoken", 
+                                     string="Name Key Header")
     jwt = fields.Char(groups="controllo_accessi.ca_tech")
     ref = fields.Char()
     lock = fields.Boolean()

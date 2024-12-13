@@ -2,10 +2,11 @@ from odoo import models, fields, api
 
 class CaAggiungiMovimentoAccesso(models.TransientModel):
     _name = 'ca.aggiungi_movimento_accesso'
-    _description = 'Aggiungi Movimento Accesso'
+    _description = 'Add Access Movement'
 
     ca_ente_azienda_id = fields.Many2one('ca.ente_azienda', string="Position")
-    ca_punto_accesso = fields.Many2one('ca.punto_accesso', required=True)
+    ca_punto_accesso = fields.Many2one('ca.punto_accesso', required=True,
+                                       string="Access Point")
     ca_tag_persona_id = fields.Many2one('ca.tag_persona', required=True)
     datetime = fields.Datetime(required=True, default=lambda self:fields.datetime.now())
     type = fields.Selection([
@@ -13,7 +14,8 @@ class CaAggiungiMovimentoAccesso(models.TransientModel):
         ('auto', 'Auto')
     ], required=True, default='manual')
     tipo_ente_azienda_ids = fields.Many2many('ca.tipo_ente_azienda',
-                    default=lambda self: self.default_tipo_ente_azienda_ids())
+                    default=lambda self: self.default_tipo_ente_azienda_ids(),
+                    string="Company Type")
 
     def default_tipo_ente_azienda_ids(self):
         return [(6, 0, [

@@ -14,7 +14,7 @@ class CaRichiestaAccessoPersona(models.Model):
                         default=lambda self:self.get_token())
     ca_persona_id = fields.Many2one('ca.persona', string="Referent", required=True)
     type_ids = fields.Many2many('ca.tipo_persona', default=lambda self:self.default_type_ids())
-    persona_id = fields.Many2one('ca.persona')
+    persona_id = fields.Many2one('ca.persona', string="Partner")
     freshman = fields.Char(related='persona_id.freshman')
     external_freshman = fields.Char()
     external_companies = fields.Boolean(compute="_compute_external_companies", store=True)
@@ -42,8 +42,10 @@ class CaRichiestaAccessoPersona(models.Model):
     expiring = fields.Boolean(readonly=True)
     note = fields.Html()
     ca_richiesta_servizi_persona_ids = fields.One2many(
-        'ca.richiesta_servizi_persona', 'ca_richiesta_accesso_persona_id')
-    ca_richiesta_accesso_id = fields.Many2one('ca.richiesta_accesso')
+        'ca.richiesta_servizi_persona', 'ca_richiesta_accesso_persona_id',
+        string="Request Personal Services")
+    ca_richiesta_accesso_id = fields.Many2one('ca.richiesta_accesso',
+        string="Access Request")
     active = fields.Boolean(default=True)
 
     def rest_boby_hint(self):
@@ -96,7 +98,7 @@ class CaRichiestaAccessoPersona(models.Model):
             if record.date_end and record.date_start:
                 if record.date_end < record.date_start:
                     raise UserError(
-                        _('Data fine deve essere maggiore della data di inizio'))
+                        _('End date must be greater than start date'))
 
     @api.constrains('persona_id', 'date_start', 'date_end', 'active')
     def _check_unique(self):
@@ -108,7 +110,7 @@ class CaRichiestaAccessoPersona(models.Model):
                 ('date_end', '=', record.date_end)
             ])
             if richiesta_accesso_persona_id:
-                raise UserError(_('Esiste già un record per questa persona in questo periodo di validità'))
+                raise UserError(_('A record already exists for this person in this validity period'))
             
     @api.depends('ca_categoria_tipo_richiesta_id')
     def _compute_external_companies(self):
@@ -189,7 +191,7 @@ class CaRichiestaAccessoPersona(models.Model):
                     record.expiring = False
                     break
             else:
-                raise UserError(_('Errore utente non abilitato'))
+                raise UserError(_('User error not enabled'))
 
     def get_token(self):
         characters = string.ascii_letters + string.digits

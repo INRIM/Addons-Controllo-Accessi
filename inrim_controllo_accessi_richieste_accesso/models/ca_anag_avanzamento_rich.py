@@ -60,4 +60,4 @@ class CaAnagRegistroAccesso(models.Model):
                 ('state', '=', record.state)
             ])
             if anag_avanzamento_rich_id:
-                raise UserError(_('Esiste già un altro record con stesso nome e stato'))
+                raise UserError(_('Another record with the same name and status already exists'))

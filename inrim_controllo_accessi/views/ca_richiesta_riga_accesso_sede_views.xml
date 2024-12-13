@@ -28,7 +28,7 @@
                     <group>
                         <group>
                             <field name="is_headquarters" invisible="1"/>
-                            <field name="persona_id" options="{'no_create': True}"/>
+                            <field name="persona_id" options="{'no_create': True}" string="Partner"/>
                             <field 
                                 name="ente_azienda_id"
                                 options="{'no_create': True}"

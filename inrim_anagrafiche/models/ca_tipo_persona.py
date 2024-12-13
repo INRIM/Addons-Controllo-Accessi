@@ -14,7 +14,7 @@ class CaTitoloPersona(models.Model):
     date_end = fields.Date()
     active = fields.Boolean(default=True)
     structured = fields.Boolean(help='Integration U-Gov/Esse3')
-    from_remote = fields.Boolean(help='Da remoto')
+    from_remote = fields.Boolean(help='From remote')
 
     @api.constrains('date_start', 'date_end')
     def _check_date(self):
@@ -22,7 +22,7 @@ class CaTitoloPersona(models.Model):
             if record.date_end and record.date_start:
                 if record.date_end <= record.date_start:
                     raise UserError(
-                        _('Data fine deve essere maggiore della data di inizio'))
+                        _('End date must be greater than start date'))
 
     @api.constrains('code', 'active')
     def _check_unique_code(self):
@@ -36,9 +36,9 @@ class CaTitoloPersona(models.Model):
                     ]
                 )
                 if tags:
-                    msg = f'Esiste già questo titolo: {record.code}'
+                    msg = _(f'Esiste già questo titolo: {record.code}')
                     if not record.active:
-                        msg = f"{record.code} Risulta disattivato, riattivare per utilizzare"
+                        msg = _(f"{record.code} Risulta disattivato, riattivare per utilizzare")
                     raise UserError(
                         _(msg))
 
@@ -54,9 +54,9 @@ class CaTitoloPersona(models.Model):
                     ]
                 )
                 if tags:
-                    msg = f'Esiste già questa tipologia: {record.name}'
+                    msg = _(f'Esiste già questa tipologia: {record.name}')
                     if not record.active:
-                        msg = f"{record.name} Risulta disattivato, riattivare per utilizzare"
+                        msg = _(f"{record.name} Risulta disattivato, riattivare per utilizzare")
                     raise UserError(_(msg))
 
     @api.model
@@ -103,7 +103,7 @@ class CaTipoPersona(models.Model):
     date_end = fields.Date()
     active = fields.Boolean(default=True)
     structured = fields.Boolean(help='Integration U-Gov/Esse3')
-    from_remote = fields.Boolean(help='Da remoto')
+    from_remote = fields.Boolean(help='From remote')
 
     @api.constrains('date_start', 'date_end')
     def _check_date(self):
@@ -111,7 +111,7 @@ class CaTipoPersona(models.Model):
             if record.date_end and record.date_start:
                 if record.date_end <= record.date_start:
                     raise UserError(
-                        _('Data fine deve essere maggiore della data di inizio'))
+                        _('End date must be greater than start date'))
 
     @api.constrains('code', 'active')
     def _check_unique_code(self):
@@ -125,9 +125,9 @@ class CaTipoPersona(models.Model):
                     ]
                 )
                 if tags:
-                    msg = f'Esiste già questa tipologia: {record.code}'
+                    msg = _(f'Esiste già questa tipologia: {record.code}')
                     if not record.active:
-                        msg = f"{record.code} Risulta disattivato, riattivare per utilizzare"
+                        msg = _(f"{record.code} Risulta disattivato, riattivare per utilizzare")
                     raise UserError(_(msg))
 
     def rest_boby_hint(self):

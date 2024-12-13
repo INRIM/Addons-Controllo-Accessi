@@ -8,7 +8,8 @@ class CaTagLettore(models.Model):
     _description = 'Tag Lettore'
 
     name = fields.Char(compute="_compute_name", store=True)
-    ca_lettore_id = fields.Many2one('ca.lettore', required=True)
+    ca_lettore_id = fields.Many2one('ca.lettore', required=True,
+                                    string="Reader")
     ca_tag_id = fields.Many2one('ca.tag', required=True)
     ca_tag_code = fields.Char(related="ca_tag_id.tag_code", store=True)
     tag_in_use = fields.Boolean(related="ca_tag_id.in_use")
@@ -20,7 +21,8 @@ class CaTagLettore(models.Model):
         ('expired', 'Expired'),
         ('scheduled', 'Scheduled')
     ], readonly=True)
-    ca_punto_accesso_id = fields.Many2one('ca.punto_accesso')
+    ca_punto_accesso_id = fields.Many2one('ca.punto_accesso',
+                                          string="Access Point")
     access_point_typology = fields.Selection(
         related="ca_punto_accesso_id.typology", store=True)
     active = fields.Boolean(default=True)
@@ -60,7 +62,7 @@ class CaTagLettore(models.Model):
             if record.date_end and record.date_start:
                 if record.date_end <= record.date_start:
                     raise UserError(
-                        _('Data fine deve essere maggiore della data di inizio'))
+                        _('End date must be greater than start date'))
 
     @api.model_create_multi
     def create(self, vals):
@@ -149,7 +151,7 @@ class CaTagLettore(models.Model):
                 ('active', '=', True)
             ])
             if tag_lettore_id:
-                raise UserError(_('Esiste già un tag lettore con stesso tag e lettore'))
+                raise UserError(_('A reader tag already exists with the same tag and reader'))
 
     def collega_tag_lettore(self, nome_lettore, nome_tag, date_start="", date_end=""):
         if nome_lettore and nome_tag:

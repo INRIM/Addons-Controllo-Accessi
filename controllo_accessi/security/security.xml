@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="access_control" model="ir.module.category">
-        <field name="name">Controllo Accessi</field>
+        <field name="name">Access Control</field>
         <field name="sequence">2</field>
     </record>
 
@@ -17,37 +17,37 @@
     </record>
 
     <record id="ca_utente" model="res.groups">
-        <field name="name">Utente</field>
+        <field name="name">User</field>
         <field name="implied_ids" eval="[(4, ref('controllo_accessi.ca_base'))]"/>
         <field name="category_id" ref="controllo_accessi.access_control_inrim"/>
     </record>
 
     <record id="ca_gdpr" model="res.groups">
-        <field name="name">CA GDPR</field>
+        <field name="name">AC GDPR</field>
         <field name="implied_ids" eval="[(4, ref('controllo_accessi.ca_utente'))]"/>
         <field name="category_id" ref="controllo_accessi.access_control_inrim"/>
     </record>
 
     <record id="ca_config" model="res.groups">
-        <field name="name">Configurazioni</field>
+        <field name="name">Configurations</field>
         <field name="implied_ids" eval="[(4, ref('controllo_accessi.ca_utente'))]"/>
         <field name="category_id" ref="controllo_accessi.access_control_inrim"/>
     </record>
 
     <record id="ca_ca" model="res.groups">
-        <field name="name">Controllo Accessi</field>
+        <field name="name">Access Control</field>
         <field name="implied_ids" eval="[(4, ref('controllo_accessi.ca_utente'))]"/>
         <field name="category_id" ref="controllo_accessi.access_control_inrim"/>
     </record>
 
     <record id="ca_config_tech" model="res.groups">
-        <field name="name">Configurazioni Tecniche</field>
+        <field name="name">Technical Configurations</field>
         <field name="implied_ids" eval="[(6, 0, [ref('controllo_accessi.ca_config'), ref('controllo_accessi.ca_ca')])]"/>
         <field name="category_id" ref="controllo_accessi.access_control_inrim"/>
     </record>
 
     <record id="ca_ru" model="res.groups">
-        <field name="name">Risorse Umane</field>
+        <field name="name">Human Resources</field>
         <field name="implied_ids" eval="[(6, 0, [ref('controllo_accessi.ca_ca'), ref('controllo_accessi.ca_gdpr')])]"/>
         <field name="category_id" ref="controllo_accessi.access_control_inrim"/>
     </record>
@@ -59,13 +59,13 @@
     </record>
 
     <record id="ca_portineria" model="res.groups">
-        <field name="name">Portineria</field>
+        <field name="name">Concierge</field>
         <field name="implied_ids" eval="[(6, 0, [ref('controllo_accessi.ca_ca'), ref('controllo_accessi.ca_gdpr')])]"/>
         <field name="category_id" ref="controllo_accessi.access_control_inrim"/>
     </record>
 
     <record id="ca_tech" model="res.groups">
-        <field name="name">Tecnico</field>
+        <field name="name">Technician</field>
         <field name="implied_ids" eval="[(4, ref('controllo_accessi.ca_config_tech'))]"/>
         <field name="category_id" ref="controllo_accessi.access_control_inrim"/>
     </record>

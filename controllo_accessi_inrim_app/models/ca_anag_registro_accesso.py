@@ -17,7 +17,7 @@ class CaAnagRegistroAccesso(models.Model):
     _inherit = 'ca.anag_registro_accesso'
 
     codice_lettore_grum = fields.Integer(
-        string='Codice Lettore GRUM',
+        string='GRUM Reader Code',
     )
     work_id_number = fields.Char(string='ID Number')
     state = fields.Selection([

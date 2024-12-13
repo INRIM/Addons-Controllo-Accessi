@@ -1,0 +1,72 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* controllo_accessi
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-12 09:02+0000\n"
+"PO-Revision-Date: 2024-12-12 09:02+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: controllo_accessi
+#: model:res.groups,name:controllo_accessi.ca_base
+msgid "Base"
+msgstr ""
+
+#. module: controllo_accessi
+#: model:res.groups,name:controllo_accessi.ca_gdpr
+msgid "AC GDPR"
+msgstr "CA GDPR"
+
+#. module: controllo_accessi
+#: model:res.groups,name:controllo_accessi.ca_config
+msgid "Configurations"
+msgstr "Configurazioni"
+
+#. module: controllo_accessi
+#: model:res.groups,name:controllo_accessi.ca_config_tech
+msgid "Technical Configurations"
+msgstr "Configurazioni Tecniche"
+
+#. module: controllo_accessi
+#: model:ir.module.category,name:controllo_accessi.access_control
+#: model:res.groups,name:controllo_accessi.ca_ca
+msgid "Access Control"
+msgstr "Controllo Accessi"
+
+#. module: controllo_accessi
+#: model:ir.module.category,name:controllo_accessi.access_control_inrim
+msgid "INRiM"
+msgstr ""
+
+#. module: controllo_accessi
+#: model:res.groups,name:controllo_accessi.ca_portineria
+msgid "Concierge"
+msgstr "Portineria"
+
+#. module: controllo_accessi
+#: model:res.groups,name:controllo_accessi.ca_ru
+msgid "Human Resources"
+msgstr "Risorse Umane"
+
+#. module: controllo_accessi
+#: model:res.groups,name:controllo_accessi.ca_spp
+msgid "Spp"
+msgstr ""
+
+#. module: controllo_accessi
+#: model:res.groups,name:controllo_accessi.ca_tech
+msgid "Technician"
+msgstr "Tecnico"
+
+#. module: controllo_accessi
+#: model:res.groups,name:controllo_accessi.ca_utente
+msgid "User"
+msgstr "Utente"

@@ -26,9 +26,9 @@ class CaWorkInfoType(models.Model):
                     ]
                 )
                 if tags:
-                    msg = f'Esiste già questa tipologia: {record.code}'
+                    msg = _(f'Esiste già questa tipologia: {record.code}')
                     if not record.active:
-                        msg = f"{record.code} Risulta disattivato, riattivare per utilizzare"
+                        msg = _(f"{record.code} Risulta disattivato, riattivare per utilizzare")
                     raise UserError(_(msg))
 
     @api.constrains('name', 'active')
@@ -43,9 +43,9 @@ class CaWorkInfoType(models.Model):
                     ]
                 )
                 if tags:
-                    msg = f'Esiste già questa tipologia: {record.name}'
+                    msg = _(f'Esiste già questa tipologia: {record.name}')
                     if not record.active:
-                        msg = f"{record.name} Risulta disattivato, riattivare per utilizzare"
+                        msg = _(f"{record.name} Risulta disattivato, riattivare per utilizzare")
                     raise UserError(_(msg))
 
     @api.model
@@ -85,7 +85,7 @@ class CaWorkInfo(models.Model):
     _rec_name = 'ca_persona_id'
 
     ca_persona_id = fields.Many2one(
-        'ca.persona', required=True)
+        'ca.persona', required=True, string="Person")
 
     work_id_number = fields.Char(string="ID Number")
 
@@ -93,7 +93,7 @@ class CaWorkInfo(models.Model):
         'ca.work_info_type', ondelete='cascade')
 
     ca_title_id = fields.Many2one(
-        'ca.titolo_persona', ondelete='cascade')
+        'ca.titolo_persona', ondelete='cascade', string="Title")
 
     ca_div_uo_code = fields.Char(string="DIV/UO")
 
@@ -113,7 +113,7 @@ class CaWorkInfo(models.Model):
             if record.date_end and record.date_start:
                 if record.date_end < record.date_start:
                     raise UserError(
-                        _('Data fine deve essere maggiore della data di inizio'))
+                        _('End date must be greater than start date'))
 
     def check_update_state(self):
         now = fields.Date.today()

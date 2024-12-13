@@ -14,8 +14,9 @@ class CaTagPersona(models.Model):
     token = fields.Char(
         required=True, readonly=True,
         default=lambda self: self.get_token())
-    ca_persona_id = fields.Many2one('ca.persona', required=True)
-    ca_tag_id = fields.Many2one('ca.tag', required=True)
+    ca_persona_id = fields.Many2one('ca.persona', required=True,
+        string="Person")
+    ca_tag_id = fields.Many2one('ca.tag', required=True, string="Tag")
     tag_name = fields.Char(related="ca_tag_id.name", store=True)
     tag_in_use = fields.Boolean(related="ca_tag_id.in_use", store=True)
     date_start = fields.Datetime(required=True)
@@ -25,7 +26,7 @@ class CaTagPersona(models.Model):
         [
             ('to_give_back', 'To Give Back'),
             ('returned', 'Returned'),
-            ('scheduled', 'Secheduled'),
+            ('scheduled', 'Scheduled'),
         ], default='returned',
         string='State', readonly=True)
     available_tags_ids = fields.Many2many('ca.tag', compute="_compute_available_tags")
@@ -37,7 +38,7 @@ class CaTagPersona(models.Model):
             if record.date_end and record.date_start:
                 if record.date_end <= record.date_start:
                     raise UserError(
-                        _('Data fine deve essere maggiore della data di inizio'))
+                        _('End date must be greater than start date'))
 
     @api.constrains('ca_persona_id', 'ca_tag_id', 'date_start', 'date_end', 'active')
     def _check_duplicate(self):
@@ -56,7 +57,7 @@ class CaTagPersona(models.Model):
                 ])
                 if tag_persona_id:
                     raise UserError(
-                        _("Esiste già un'altro tag persona per questa persona in questo periodo"))
+                        _("There is already another person tag for this person at this time"))
 
     @api.constrains('ca_persona_id', 'temp', 'active')
     def _check_temp_tag_persona(self):
@@ -64,7 +65,7 @@ class CaTagPersona(models.Model):
             if record.ca_persona_id:
                 if record.ca_persona_id.is_external and not record.temp:
                     raise UserError(
-                        _('Ad un esterno possono essere assegnati solo tag di tipo temporaneo'))
+                        _('Only temporary tags can be assigned to an external'))
 
     @api.constrains('ca_tag_id', 'active')
     def _check_tag_revocato(self):

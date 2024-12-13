@@ -11,13 +11,17 @@ class CaRichiestaServiziPersona(models.Model):
     _rec_name = 'token'
 
     token = fields.Char(required=True, readonly=True, copy=False, default=lambda self:self.get_token())
-    ca_richiesta_accesso_persona_id = fields.Many2one('ca.richiesta_accesso_persona')
+    ca_richiesta_accesso_persona_id = fields.Many2one('ca.richiesta_accesso_persona',
+        string="Person Access Request")
     persona_id = fields.Many2one(related="ca_richiesta_accesso_persona_id.persona_id", store=True)
-    ca_anag_servizi_id = fields.Many2one('ca.anag_servizi')
+    ca_anag_servizi_id = fields.Many2one('ca.anag_servizi', string="Service")
     ca_ente_azienda_id = fields.Many2one(related="ca_anag_servizi_id.ca_ente_azienda_id", store=True)
-    ca_settore_ente_id = fields.Many2one(related="ca_anag_servizi_id.ca_settore_ente_id", store=True)
-    spazio_id = fields.Many2one(related="ca_anag_servizi_id.spazio_id", store=True)
-    ca_persona_id = fields.Many2one(related="ca_anag_servizi_id.ca_persona_id")
+    ca_settore_ente_id = fields.Many2one(related="ca_anag_servizi_id.ca_settore_ente_id",
+                                         string="Institution Sector", store=True)
+    spazio_id = fields.Many2one(related="ca_anag_servizi_id.spazio_id", store=True,
+                                string="Space")
+    ca_persona_id = fields.Many2one(related="ca_anag_servizi_id.ca_persona_id",
+                                    string="Partner")
     ca_categoria_richiesta_id = fields.Many2one('ca.categoria_richiesta', string="Category")
     ca_categoria_tipo_richiesta_id = fields.Many2one('ca.categoria_tipo_richiesta', string="Request Type")
     ca_anag_tipologie_istanze_id = fields.Many2one(related="ca_richiesta_accesso_persona_id.anag_tipologie_istanze_id", required=True)
@@ -84,7 +88,7 @@ class CaRichiestaServiziPersona(models.Model):
             if record.date_end and record.date_start:
                 if record.date_end <= record.date_start:
                     raise UserError(
-                        _('Data fine deve essere maggiore della data di inizio'))
+                        _('End date must be greater than start date'))
 
     def aggiorna_stato_richiesta(self, stato=None):
         for record in self:
@@ -130,7 +134,7 @@ class CaRichiestaServiziPersona(models.Model):
                     record.expiring = False
                     break
             else:
-                raise UserError(_('Errore utente non abilitato'))
+                raise UserError(_('User error not enabled'))
 
     @api.constrains('persona_id', 'date_start', 'date_end', 'ca_anag_servizi_id', 'active')
     def _check_unique(self):
@@ -145,7 +149,7 @@ class CaRichiestaServiziPersona(models.Model):
                 ('ca_anag_servizi_id', '=', record.ca_anag_servizi_id.id)
             ])
             if richiesta_servizi_persona_id:
-                raise UserError(_('Esiste già un record con stesso servizio e persona in questo periodo di validità'))
+                raise UserError(_('There is already a record with the same service and person in this validity period'))
 
     def create(self, vals):
         res = super(CaRichiestaServiziPersona, self).create(vals)
