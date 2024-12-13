@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 
 import requests
 from odoo import models, api, fields
+from odoo.addons.test_convert.tests.test_env import record
 
 logger = logging.getLogger(__name__)
 
@@ -239,6 +240,7 @@ class CaPersona(models.Model):
         logger.info(f" make persona {record.get('matricola')} In progress ")
         esterno = self.env.ref(
             'inrim_anagrafiche.tipo_persona_esterno').id
+        ext_entity = 'entiesterni_tipopersonale'
         ext_winfo_type = self.env['ca.work_info_type'].get_by_code(
             ext_entity)
         ext_job_title_code = "esterno_jobtitles"
@@ -250,7 +252,7 @@ class CaPersona(models.Model):
             'controllo_accessi_inrim_app.inrim_azienda_esterna_da_gestire')
         base_default_ente_todo = self.env.ref(
             'controllo_accessi_inrim_app.inrim_ente_esterno_da_gestire')
-
+        codice_fiscale = record.get('cf')
         azienda_ids = [base_default_ente_todo.id]
         type_ids = [esterno]
         persona_id = self.env['ca.persona'].with_context(
@@ -260,10 +262,10 @@ class CaPersona(models.Model):
 
         if not persona_id:
             vals = {
-                'name': nome,
-                'lastname': cognome,
+                'name': record.get('nome').capitalize(),
+                'lastname': record.get('cognome').capitalize(),
                 'freshman': record.get('matricola'),
-                'fiscalcode': record.get('cf'),
+                'fiscalcode': codice_fiscale,
                 'type_ids': type_ids,
                 'ca_ente_azienda_ids': azienda_ids,
                 "send_to_payroll_system": record['sync'] == 'y'
@@ -280,7 +282,7 @@ class CaPersona(models.Model):
             'ca_work_info_type_id': ext_winfo_type.id,
             'ca_title_id': ext_job_title.id,
             'date_start': self.to_date(default_date_start),
-            'date_end': self.to_date(date_end)
+            'date_end': date_end
         }
 
         if (

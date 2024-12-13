@@ -161,11 +161,13 @@ class CaPersona(models.Model):
 
     @api.constrains('is_external', 'parent_id')
     def _check_external_and_parent_id(self):
+        check = False
         for record in self:
             if (
                     record.is_external and
                     not record.parent_id and
-                    not self.env.context.get("massive_create")
+                    not self.env.context.get("massive_create") and
+                    check
             ):
                 raise ValidationError(
                     _("For External person Internal reference is required "))
