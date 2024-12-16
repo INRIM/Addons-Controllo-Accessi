@@ -45,7 +45,7 @@ class CaRegistraPersona(models.TransientModel):
 
     parent_id_domain = fields.Binary(
         string="parent id domain",
-        help="Dynamic domain used for the tag that can be set on tax",
+        help="Dynamic domain used for the tag that can be set on person",
         compute="_compute_parent_domain")
 
     @api.depends('ref_domain')

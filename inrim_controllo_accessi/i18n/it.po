@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.0-20241125\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-12 14:46+0000\n"
-"PO-Revision-Date: 2024-12-12 14:46+0000\n"
+"POT-Creation-Date: 2024-12-14 09:17+0000\n"
+"PO-Revision-Date: 2024-12-14 09:17+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -133,9 +133,11 @@ msgstr "Aggiungi Badge Persona"
 #. module: inrim_controllo_accessi
 #. odoo-python
 #: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_persona_tree_inherit
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_persona_view_ca_form_inherit
 #, python-format
 msgid "Add Card Person"
-msgstr "Aggiungi Carta Persona"
+msgstr "Aggiungi Badge Persona"
 
 #. module: inrim_controllo_accessi
 #. odoo-python
@@ -144,6 +146,11 @@ msgstr "Aggiungi Carta Persona"
 #, python-format
 msgid "Add person in local"
 msgstr "Aggiungi Persona Locale"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_registra_persona__ref_domain__all
+msgid "All"
+msgstr "Tutti"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model,name:inrim_controllo_accessi.model_ca_anag_registro_accesso
@@ -227,7 +234,7 @@ msgstr "Chiudi"
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__ca_category
 msgid "Cluster"
-msgstr ""
+msgstr "Raggruppamento"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_category__code
@@ -402,7 +409,7 @@ msgstr "Disabilitati"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__display_name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome completo"
 
 #. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_doc_persona_form
@@ -428,6 +435,11 @@ msgstr "Dati Documento"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_doc_persona__tipo_documento_id
 msgid "Document Type"
 msgstr "Tipo Documento"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,help:inrim_controllo_accessi.field_ca_registra_persona__parent_id_domain
+msgid "Dynamic domain used for the tag that can be set on person"
+msgstr "Dominio dinamico"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__email
@@ -582,7 +594,7 @@ msgstr "Interno"
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__is_headquarters
 msgid "Is Headquarters"
-msgstr ""
+msgstr "Sede"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_doc_persona__issued_by
@@ -779,6 +791,7 @@ msgstr "Stato Operazione"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__ca_persona_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__persona_id
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_richiesta_riga_accesso_sede_view_form
 msgid "Partner"
 msgstr "Persona"
@@ -786,7 +799,7 @@ msgstr "Persona"
 #. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
 msgid "People"
-msgstr ""
+msgstr "Persone"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__ca_persona_id
@@ -801,12 +814,12 @@ msgstr "Accesso Persona"
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__person_freshman
 msgid "Person Freshman"
-msgstr "Persona Matricola"
+msgstr "Matricola"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__person_display_name
 msgid "Person Name"
-msgstr "Nome Persona"
+msgstr "Nome"
 
 #. module: inrim_controllo_accessi
 #. odoo-python
@@ -821,7 +834,6 @@ msgstr "Persona già autorizzata ad accedere"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_doc_persona__persona_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__persona_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_restituisci_badge__persona_id
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__persona_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_righe_accesso__persona_id
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_doc_persona_form
 msgid "Persona"
@@ -844,6 +856,11 @@ msgid "Position:"
 msgstr "Posizione:"
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_registra_persona__ref_domain__present
+msgid "Present"
+msgstr "Presente"
+
+#. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_richiesta_riga_accesso_sede_view_form
 msgid "Process Access Log Requests"
 msgstr "Elaborara Richiesta Registro Accesso"
@@ -857,18 +874,6 @@ msgstr ""
 #: model:ir.model,name:inrim_controllo_accessi.model_ca_punto_accesso_category
 msgid "Punto Accesso Category"
 msgstr ""
-
-#. module: inrim_controllo_accessi
-#. odoo-python
-#: code:addons/inrim_controllo_accessi/models/ca_lettore_persona.py:0
-#, python-format
-msgid ""
-"There can only be one configuration for reader tag, person tag, date, in"
-" active state"
-
-msgstr ""
-"Puo’ esistere solo una configurazione per tag lettore, tag persona, data, in"
-" stato attivo"
 
 #. module: inrim_controllo_accessi
 #. odoo-python
@@ -946,6 +951,11 @@ msgstr "Registra Doc Ospite"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__recursive_read_events
 msgid "Recursive Read Events"
 msgstr "Lettura Eventi Ricorsivi"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__ref_domain
+msgid "Ref Domain"
+msgstr ""
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_abilita_persona_locale__referente_id
@@ -1053,23 +1063,23 @@ msgstr "Stato"
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__system_error
 msgid "System Error"
-msgstr "Errore"
+msgstr "In Errore"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__ca_tag_persona_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_restituisci_badge__tag_ids
 msgid "Tag"
-msgstr ""
+msgstr "Badge"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__ca_tag_code
 msgid "Tag Code"
-msgstr "Codice Tag"
+msgstr "Codice Badge"
 
 #. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_tag_lettore_view_kanban
 msgid "Tag In Use:"
-msgstr "Tag In Uso:"
+msgstr "Badge In Uso:"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model,name:inrim_controllo_accessi.model_ca_tag_lettore
@@ -1080,22 +1090,22 @@ msgstr "Lettore"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_righe_accesso__tag_persona_id
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_category_view_form
 msgid "Tag Person"
-msgstr "Tag Persona"
+msgstr "Badge Persona"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__ca_tag_lettore_persona_ids
 msgid "Tag Reader Person"
-msgstr "Tag Lettore Persona"
+msgstr "Badge Lettore Persona"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__ca_tag_lettore_persona_view
 msgid "Tag Reader Person View"
-msgstr "Tag Lettore Persona Vista"
+msgstr "Badge Lettore Persona Vista"
 
 #. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_tag_lettore_view_kanban
 msgid "Tag:"
-msgstr ""
+msgstr "Badge"
 
 #. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
@@ -1112,6 +1122,17 @@ msgstr "Temporaneo"
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_tag_lettore_view_kanban
 msgid "Temp:"
 msgstr "Temporaneo:"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/models/ca_lettore_persona.py:0
+#, python-format
+msgid ""
+"There can only be one configuration for reader tag, person tag, date, in "
+"active state"
+msgstr ""
+"Puo’ esistere solo una configurazione per tag lettore, tag persona, data, in"
+" stato attivo"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__tz
@@ -1172,3 +1193,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_anag_registro_accesso_view_search
 msgid "Yesterday"
 msgstr "Ieri"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__parent_id_domain
+msgid "parent id domain"
+msgstr ""
