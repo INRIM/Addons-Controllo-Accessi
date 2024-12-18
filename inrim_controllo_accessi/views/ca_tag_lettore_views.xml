@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="ca_tag_lettore_view_search" model="ir.ui.view">
+        <field name="name">ca.tag.lettore.view.search</field>
+        <field name="model">ca.tag_lettore</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="ca_lettore_id"/>
+                <field name="ca_tag_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="state"/>
+            </search>
+        </field>
+    </record>
+
     <record id="ca_tag_lettore_view_tree" model="ir.ui.view">
         <field name="name">ca.tag.lettore.view.tree</field>
         <field name="model">ca.tag_lettore</field>

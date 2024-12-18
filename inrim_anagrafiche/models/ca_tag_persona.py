@@ -28,7 +28,7 @@ class CaTagPersona(models.Model):
             ('returned', 'Returned'),
             ('scheduled', 'Scheduled'),
         ], default='returned',
-        string='State', readonly=True)
+        string='Status', readonly=True)
     available_tags_ids = fields.Many2many('ca.tag', compute="_compute_available_tags")
     active = fields.Boolean(default=True)
 

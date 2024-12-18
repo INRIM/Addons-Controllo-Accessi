@@ -5,6 +5,13 @@
         <field name="model">ca.log_integrazione_lettori</field>
         <field name="arch" type="xml">
             <search>
+                <field name="datetime"/>
+                <field name="ca_lettore_id"/>
+                <field name="expected_events_num"/>
+                <field name="events_read_num"/>
+                <field name="operation_status"/>
+                <field name="error_code"/>
+                <field name="log_error"/>
                 <filter string="In Error" name="in_error" domain="[('operation_status', '=', 'ko')]"/>
                 <filter string="Activity Code" name="activity_code" context="{'group_by':'activity_code'}"/>
             </search>

@@ -6,6 +6,10 @@
         <field name="arch" type="xml">
             <search>
                 <filter name="is_temp" string="Temp" domain="[('ca_proprieta_tag_ids.name', 'ilike', 'temporaneo')]"/>
+                <field name="name"/>
+                <field name="tag_code"/>
+                <field name="ca_proprieta_tag_ids"/>
+                <field name="default_id_number"/>
             </search>
         </field>
     </record>
@@ -45,6 +49,19 @@
                     </group>
                 </sheet>
             </form>
+        </field>
+    </record>
+    
+    <record id="ca_proprieta_tag_view_search" model="ir.ui.view">
+        <field name="name">ca.proprieta.tag.view.search</field>
+        <field name="model">ca.proprieta_tag</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+            </search>
         </field>
     </record>
 

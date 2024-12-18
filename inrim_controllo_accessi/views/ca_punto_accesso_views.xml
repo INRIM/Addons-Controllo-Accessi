@@ -5,6 +5,18 @@
         <field name="model">ca.punto_accesso</field>
         <field name="arch" type="xml">
             <search>
+                <field name="name"/>
+                <field name="ente_azienda_id"/>
+                <field name="ca_lettore_id"/>
+                <field name="direction"/>
+                <field name="typology"/>
+                <field name="ca_persona_id"/>
+                <field name="last_update_reader"/>
+                <field name="last_reading_events"/>
+                <field name="events_to_read_num"/>
+                <field name="events_read_num"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
                 <filter string="Enabled" name="enabled"
                         domain="[('enable_sync', '=', True)]"/>
                 <filter string="Disabled" name="disabled"

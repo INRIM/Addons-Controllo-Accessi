@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-12 15:10+0000\n"
-"PO-Revision-Date: 2024-12-12 15:10+0000\n"
+"POT-Creation-Date: 2024-12-13 10:43+0000\n"
+"PO-Revision-Date: 2024-12-13 10:43+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -944,7 +944,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_righe_persona__spazio_id
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_spazio__lettore_id
 msgid "Reader"
-msgstr "Spazio"
+msgstr "Lettore"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_lettore__reader_ip
@@ -1069,8 +1069,6 @@ msgstr ""
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__state_id
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag_persona__state
-#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info__state
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_ente_azienda_form
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
 msgid "State"
@@ -1085,6 +1083,12 @@ msgstr ""
 #: model:ir.model,name:inrim_anagrafiche.model_ca_stato_documento
 msgid "Stato Documento"
 msgstr "Stato Documenti"
+
+#. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_tag_persona__state
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_work_info__state
+msgid "Status"
+msgstr "Stato"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_ente_azienda__street

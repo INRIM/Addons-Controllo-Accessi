@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="ca_richiesta_riga_accesso_sede_view_search" model="ir.ui.view">
+        <field name="name">ca.richiesta.riga.accesso.sede.view.search</field>
+        <field name="model">ca.richiesta_riga_accesso_sede</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="persona_id"/>
+                <field name="ente_azienda_id"/>
+                <field name="punto_accesso_id"/>
+                <field name="direction"/>
+                <field name="datetime_event"/>
+            </search>
+        </field>
+    </record>
+
     <record id="ca_richiesta_riga_accesso_sede_view_tree" model="ir.ui.view">
         <field name="name">ca.richiesta.riga.accesso.sede.view.tree</field>
         <field name="model">ca.richiesta_riga_accesso_sede</field>
