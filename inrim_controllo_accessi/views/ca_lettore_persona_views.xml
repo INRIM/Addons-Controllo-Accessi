@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="ca_lettore_persona_view_search" model="ir.ui.view">
+        <field name="name">ca.lettore.persona.view.search</field>
+        <field name="model">ca.lettore_persona</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="ca_persona_id"/>
+                <field name="ca_tag_lettore_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="state"/>
+            </search>
+        </field>
+    </record>
+
     <record id="ca_punto_accesso_persona_view_tree" model="ir.ui.view">
         <field name="name">ca.punto.accesso.persona.view.tree</field>
         <field name="model">ca.lettore_persona</field>

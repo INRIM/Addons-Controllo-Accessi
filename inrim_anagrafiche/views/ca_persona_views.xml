@@ -12,6 +12,7 @@
                 <field name="display_name"/>
                 <field name="fiscalcode"/>
                 <field name="type_ids"/>
+                <field name="parent_id"/>
             </search>
         </field>
     </record>

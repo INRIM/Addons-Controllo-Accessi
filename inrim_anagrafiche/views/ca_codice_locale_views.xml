@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="ca_codice_locale_view_search" model="ir.ui.view">
+        <field name="name">ca.codice.locale.view.search</field>
+        <field name="model">ca.codice_locale</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+            </search>
+        </field>
+    </record>
+
     <record id="ca_codice_locale_view_tree" model="ir.ui.view">
         <field name="name">ca.codice.locale.view.tree</field>
         <field name="model">ca.codice_locale</field>

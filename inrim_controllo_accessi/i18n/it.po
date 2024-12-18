@@ -28,7 +28,6 @@ msgid "Abilita Persona locale"
 msgstr ""
 
 #. module: inrim_controllo_accessi
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__ca_punto_accesso_id
 #: model:ir.ui.menu,name:inrim_controllo_accessi.ca_punto_accesso_menu
 msgid "Access"
 msgstr "Accesso"
@@ -68,6 +67,7 @@ msgstr "Gestione Dati Accesso"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__punto_accesso_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__ca_punto_accesso_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__ca_punto_accesso_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__ca_punto_accesso_id
 #: model:ir.ui.menu,name:inrim_controllo_accessi.ca_base_punto_accesso_menu
 msgid "Access Point"
 msgstr "Punto Accesso"

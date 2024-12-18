@@ -7,6 +7,20 @@
             <search>
                 <filter name="in_progress" string="In Progress" domain="[('date_end', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
                 <filter name="expired" string="Expired" domain="[('date_end', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <field name="token"/>
+                <field name="persona_id"/>
+                <field name="ca_anag_servizi_id"/>
+                <field name="ca_ente_azienda_id"/>
+                <field name="ca_settore_ente_id"/>
+                <field name="spazio_id"/>
+                <field name="ca_persona_id"/>
+                <field name="ca_categoria_richiesta_id"/>
+                <field name="ca_categoria_tipo_richiesta_id"/>
+                <field name="description"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="state"/>
+                <field name="ca_anag_avanzamento_rich_id"/>
             </search>
         </field>
     </record>

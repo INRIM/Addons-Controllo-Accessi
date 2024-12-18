@@ -13,6 +13,12 @@
                     ('datetime_event', '&gt;=', (context_today()-datetime.timedelta(days=2)).strftime('%%Y-%%m-%%d 00:00:00')),
                     ('datetime_event', '&lt;=', (context_today()-datetime.timedelta(days=2)).strftime('%%Y-%%m-%%d 23:59:59'))]"
                 />
+                <field name="ca_punto_accesso_id"/>
+                <field name="ca_ente_azienda_id"/>
+                <field name="person_display_name"/>
+                <field name="datetime_event"/>
+                <field name="typology"/>
+                <field name="direction"/>
             </search>
         </field>
     </record>
@@ -32,7 +38,6 @@
                 <field name="access_allowed"/>
                 <field name="system_error"/>
                 <field name="access_conflict"/>
-
             </tree>
         </field>
     </record>

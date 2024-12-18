@@ -110,7 +110,7 @@ class CaWorkInfo(models.Model):
         ('active', 'Active'),
         ('expired', 'Expired'),
         ('scheduled', 'Scheduled')
-    ], readonly=True)
+    ], readonly=True, string='Status')
     active = fields.Boolean(default=True)
 
     @api.constrains('date_start', 'date_end')

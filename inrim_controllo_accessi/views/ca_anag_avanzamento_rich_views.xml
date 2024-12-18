@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="ca_anag_avanzamento_riche_view_search" model="ir.ui.view">
+        <field name="name">ca.anag.avanzamento.rich.view.search</field>
+        <field name="model">ca.anag_avanzamento_rich</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="state"/>
+                <field name="code"/>
+            </search>
+        </field>
+    </record>
+
     <record id="ca_anag_avanzamento_rich_view_tree" model="ir.ui.view">
         <field name="name">ca.anag.avanzamento.rich.view.tree</field>
         <field name="model">ca.anag_avanzamento_rich</field>

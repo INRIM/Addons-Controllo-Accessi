@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="ca_titolo_persona_view_search" model="ir.ui.view">
+        <field name="name">ca.titolo.persona.view.search</field>
+        <field name="model">ca.titolo_persona</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="code"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+            </search>
+        </field>
+    </record>
+
     <record id="ca_titolo_persona_view_form" model="ir.ui.view">
         <field name="name">ca.titolo.persona.view.form</field>
         <field name="model">ca.titolo_persona</field>

@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="ca_tipo_doc_ident_view_search" model="ir.ui.view">
+        <field name="name">ca.tipo.doc.ident.view.search</field>
+        <field name="model">ca.tipo_doc_ident</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+            </search>
+        </field>
+    </record>
+
     <record id="ca_tipo_doc_ident_view_tree" model="ir.ui.view">
         <field name="name">ca.tipo.doc.ident.view.tree</field>
         <field name="model">ca.tipo_doc_ident</field>
@@ -18,6 +31,12 @@
         <field name="model">ca.documento</field>
         <field name="arch" type="xml">
             <search>
+                <field name="ca_persona_id"/>
+                <field name="tipo_documento_id"/>
+                <field name="validity_start_date"/>
+                <field name="validity_end_date"/>
+                <field name="issued_by"/>
+                <field name="document_code"/>
                 <filter string="Valid Document" name="document_status_valid" domain="[('ca_stato_documento_name', 'ilike', 'valido')]"/>
                 <filter string="Expiring Document" name="document_status_expiring" domain="[('ca_stato_documento_name', 'ilike', 'in scadenza')]"/>
                 <filter string="Expired Document" name="document_status_expired" domain="[('ca_stato_documento_name', 'ilike', 'scaduto')]"/>
@@ -77,6 +96,17 @@
                     </group>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <record id="ca_stato_documento_view_search" model="ir.ui.view">
+        <field name="name">ca.stato.documento.view.search</field>
+        <field name="model">ca.stato_documento</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+            </search>
         </field>
     </record>
 

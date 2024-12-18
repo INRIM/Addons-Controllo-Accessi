@@ -6,6 +6,19 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <record id="ca_tipo_ente_azienda_view_search" model="ir.ui.view">
+        <field name="name">ca.tipo.ente.azienda.view.search</field>
+        <field name="model">ca.tipo_ente_azienda</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+            </search>
+        </field>
+    </record>
+
     <record id="ca_tipo_ente_azienda_view_tree" model="ir.ui.view">
         <field name="name">ca.tipo.ente.azienda.view.tree</field>
         <field name="model">ca.tipo_ente_azienda</field>

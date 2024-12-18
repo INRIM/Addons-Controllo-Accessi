@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="ca_spazio_view_search" model="ir.ui.view">
+        <field name="name">ca.spazio.view.search</field>
+        <field name="model">ca.spazio</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="tipo_spazio_id"/>
+                <field name="ente_azienda_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+            </search>
+        </field>
+    </record>
+
     <record id="ca_spazio_view_tree" model="ir.ui.view">
         <field name="name">ca.spazio.view.tree</field>
         <field name="model">ca.spazio</field>
@@ -9,7 +23,7 @@
                 <field name="tipo_spazio_id"/>
                 <field name="ente_azienda_id"/>
                 <field name="date_start"/>
-                <field name="date_end"/>                
+                <field name="date_end"/>
             </tree>
         </field>
     </record>
@@ -43,6 +57,19 @@
                     </field>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <record id="ca_tipo_spazio_view_search" model="ir.ui.view">
+        <field name="name">ca.tipo.spazio.view.search</field>
+        <field name="model">ca.tipo_spazio</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+            </search>
         </field>
     </record>
 
