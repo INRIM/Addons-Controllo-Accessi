@@ -66,6 +66,15 @@ jobs:
           path: server-env
           ref: ${{ env.OE_VER }}
           fetch-depth: 1
+      - name: Install system dependencies for python-ldap
+        run: |
+          sudo apt update
+          sudo apt install -y \
+            libldap2-dev \
+            libsasl2-dev \
+            libssl-dev \
+            python3-dev \
+            gcc
       - run: pip install -r server-auth/requirements.txt
       - run: pip install -r server-auth/test-requirements.txt
       - run: pip install -r ${PWD}/${{ env.REPO_NAME }}/requirements.txt
