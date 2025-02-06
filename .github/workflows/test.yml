@@ -20,7 +20,7 @@ concurrency:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu:jammy
     name: Check Modules on ${{ github.event_name }}
     services:
       postgres:
