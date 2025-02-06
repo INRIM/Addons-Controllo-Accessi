@@ -1,0 +1,25 @@
+<odoo>
+    <template id="portal_partner_view" name="Partners Portal">
+        <t t-call="website.layout">
+            <div class="container">
+                <owl-component name="controllo_accessi_portale.PartnersPortal"/>
+            </div>
+        </t>
+    </template>
+
+    <template id="badge_release_view" name="Badge Release">
+        <t t-call="website.layout">
+            <div class="container">
+                <owl-component name="controllo_accessi_portale.BadgeRelease"/>
+            </div>
+        </t>
+    </template>
+
+    <template id="badge_return_view" name="Badge Return">
+        <t t-call="website.layout">
+            <div class="container">
+                <owl-component name="controllo_accessi_portale.BadgeReturn"/>
+            </div>
+        </t>
+    </template>
+</odoo>

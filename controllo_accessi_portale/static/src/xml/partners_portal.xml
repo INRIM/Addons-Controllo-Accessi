@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="controllo_accessi_portale.PartnersPortal" name="Partners Portal" owl="1">
+        <t t-esc="state.ca_persona_data"/>
+        <div class="container mt-4 mb-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <img src="/logo.png" alt="Company Logo" style="height: 50px;" />
+                </div>
+
+                <div>
+                    <a href="/badge_release" class="btn btn-primary" style="margin-left: 10px;">Issue Badge</a>
+                    <a href="/badge_return" class="btn btn-primary" style="margin-left: 10px;">Return Badge</a>
+                </div>
+            </div>
+
+            <div class="form-group d-flex mt-3">
+                <input type="text" class="form-control me-2" placeholder="Search Partners..." t-on-input="updateSearch" />
+                <button t-on-click="setFilterAll" style="margin:2px" class="btn btn-primary">All</button>
+                <button t-on-click="setFilterInternal" style="margin:2px" class="btn btn-primary">Internals</button>
+                <button t-on-click="setFilterExternal" style="margin:2px" class="btn btn-primary">Externals</button>
+            </div>
+            <t t-esc="data"/>
+            <table class="table table-striped mt-3" id="partners_table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Date/Hour Last Event</th>
+                        <th>Access Last Event</th>
+                        <th>Attendance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="PagedData" t-as="record" t-key="record.id">
+                        <tr>
+                            <td>
+                                <t t-esc="record.display_name"/>
+                            </td>
+                            <td>
+                                <t t-esc="record.datetime_event"/>
+                            </td>
+                            <td>
+                                <t t-esc="record.last_reading_event"/>
+                            </td>
+                            <td t-att-class="record.present[0] == 'yes'? 'bg-green' : 'bg-red'">
+                                <t t-esc="record.present[1]" />
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+            <Pager offset="state.offset" limit="state.limit" total="caPersonaCount" onUpdate="onPageChange.bind(this)"/>
+        </div>
+    </t>
+</templates>
