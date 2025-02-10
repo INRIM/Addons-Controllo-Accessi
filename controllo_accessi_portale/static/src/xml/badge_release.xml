@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="controllo_accessi_portale.BadgeRelease" name="Badge Release" owl="1">
+        <div class="container mt-4 mb-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1>Release Badge</h1>
+                <a href="/anagrafiche" class="btn btn-secondary">Back to Partner List</a>
+            </div>
+
+            <form method="POST" action="/badge_release/submit" class="form-group">
+                <div style="margin-top:25px;">
+                    <h6>Find in System</h6>
+                    <hr/>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-1">
+                        <label for="persona_id" class="form-label">Partner</label>
+                    </div>
+                    <div class="col-md-11">
+                        <select t-ref="personaSelect" id="persona_id" name="persona_id" class="form-control" style="margin-bottom: 10px;" t-att-value="state.selectedPersona">
+                            <option value=""/>
+                            <t t-foreach="ca_persona" t-as="partner" t-key="partner.id">
+                                <option t-att-value="partner.id">
+                                    <t t-esc="partner.display_name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+
+                <h6>New Name</h6>
+                <hr/>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="lastname" class="form-label">Lastname</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" id="lastname" name="lastname" required="True" class="form-control" style="margin-bottom: 10px;" t-on-change="onLastnameChange" t-att-value="state.formValues.lastname"/>
+                    </div>
+                    <input type="hidden" name="azienda" t-att-value="state.formValues.ente_azienda"/>
+                    <div class="col-md-2">
+                        <label for="vat" class="form-label">Vat</label>
+                    </div>
+                    <div class="col-md-4" t-att-class="{'d-none': enteInterno}">
+                        <input type="text" id="vat" name="vat" class="form-control" style="margin-bottom: 10px;" t-att-value="state.formValues.vat" t-on-change="onVatChange"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="name" class="form-label">Name</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" id="name" name="name" class="form-control" required="True" style="margin-bottom: 10px;" t-on-change="onNameChange" t-att-value="state.formValues.name"/>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="ca_ente_name" class="form-label">Company Name</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" id="ca_ente_name" name="ca_ente_name" required="True" class="form-control" style="margin-bottom: 10px;" t-on-change="onEnteNameChange" t-att-value="state.formValues.ca_ente_name"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="fiscalcode" class="form-label">Fiscal Code</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" id="fiscalcode" name="fiscalcode" required="True" class="form-control" style="margin-bottom: 10px;" t-att-value="state.formValues.fiscalcode" t-on-change="onFiscalcodeChange"/>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="tipo_ente_azienda_id" class="form-label">Type of Company Entity</label>
+                    </div>
+                    <div class="col-md-4">
+                        <select id="tipo_ente_azienda_id" name="tipo_ente_azienda_id" class="form-control" required="True" style="margin-bottom: 10px;" t-on-change="OnTipoEnteChange" t-att-value="state.formValues.tipo_ente_azienda_id">
+                            <option value=""/>
+                            <t t-foreach="tipo_ente_azienda" t-as="ente" t-key="ente.id">
+                                <option t-att-value="ente.id">
+                                    <t t-esc="ente.display_name"/>
+                                </option>
+                            </t>
+                            <t t-foreach="tipo_ente_azienda_hidden" t-as="ente" t-key="ente.id">
+                                <option t-att-value="ente.id" style="display: none;">
+                                    <t t-esc="ente.display_name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="freshman" class="form-label">Matricola</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" id="freshman" name="freshman" class="form-control" style="margin-bottom: 10px;" t-on-change="OnFreshmanChange" t-att-value="state.formValues.freshman"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="email" class="form-label">Freshman</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="email" id="email" name="email" class="form-control" style="margin-bottom: 10px;" t-att-value="state.formValues.email" t-on-change="onEmailChange"/>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-bottom: 10px;">
+                    <div class="col-md-2">
+                        <label for="mobile" class="form-label">Mobile</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" id="mobile" name="mobile" class="form-control" style="margin-bottom: 10px;" t-on-change="onMobileChange" t-att-value="state.formValues.mobile"/>
+                    </div>
+                </div>
+
+                <h6>Internal Contact Person</h6>
+                <hr/>
+
+                <div class="row mb-3" style="margin-bottom: 10px;">
+                    <div class="col-md-2">
+                        <label for="parent_id" class="form-label">Ref Domain</label>
+                    </div>
+                    <div class="col-md-4">
+                        <select id="ref_domain" name="ref_domain" class="form-control" required="True" style="margin-bottom: 10px;" t-on-change="onRefDomainChange">
+                            <option value="present">
+                                <span>Present</span>
+                            </option>
+                            <option value="all">
+                                <span>All</span>
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="parent_id" class="form-label">Reference person</label>
+                    </div>
+                    <div class="col-md-4">
+                        <select t-ref="parentSelect" id="parent_id" name="parent_id" class="form-control" required="True if not persona_id or persona_id.is_external == True else False" style="margin-bottom: 10px;">
+                            <option value=""/>
+                            <t t-foreach="state.caPersonaParentFiltered" t-as="parent" t-key="parent.id">
+                                <option t-att-value="parent.id">
+                                    <t t-esc="parent.display_name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+
+                <h6>Access Data</h6>
+                <hr/>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="name" class="form-label">Ca Work Info Type</label>
+                    </div>
+                    <div class="col-md-4">
+                        <select id="ca_work_info_type_id" name="ca_work_info_type_id" required="True" class="form-control" style="margin-bottom: 10px;" t-on-change="OnWorkInfoChange" t-att-value="state.formValues.work_info_type">
+                            <option value=""/>
+                            <t t-foreach="work_info_type" t-as="work_info" t-key="work_info.id">
+                                <option t-att-value="work_info.id">
+                                    <t t-esc="work_info.display_name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="name" class="form-label">Ca Title</label>
+                    </div>
+                    <div class="col-md-4">
+                        <select id="ca_title_id" name="ca_title_id" class="form-control" required="True" style="margin-bottom: 10px;" t-att-value="state.formValues.ca_title" t-on-change="onTitleChange">
+                            <option value=""/>
+                            <t t-foreach="titolo_persona" t-as="titolo_pers" t-key="titolo_pers.id">
+                                <option t-att-value="titolo_pers.id">
+                                    <t t-esc="titolo_pers.display_name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="date_start" class="form-label">Date Start</label>
+                    </div>
+                    <input type="hidden" id="date_end_hidden" name="date_end" class="form-control" style="margin-bottom: 10px;" t-att-value="state.formValues.date_end"/>
+                    <input type="hidden" id="date_start_hidden" name="date_start" class="form-control" style="margin-bottom: 10px;" t-att-value="state.formValues.date_start"/>
+                    <div class="col-md-4">
+                        <DateTimeInput id="datestart" name="datestart" value="state.formValues.date_start" onSelect="onDateStartSelect" maxDate="state.formValues.date_end"/>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="date_end" class="form-label">Date End</label>
+                    </div>
+                    <div class="col-md-4">
+                        <DateTimeInput id="dateend" name="dateend" value="state.formValues.date_end" onSelect="onDateEndSelect" minDate="state.formValues.date_start"/>
+                    </div>
+                </div>
+
+                <div class="row mb-3" style="margin-bottom: 10px;">
+                    <div class="col-md-2">
+                        <label for="ca_tag_id" class="form-label">Badge</label>
+                    </div>
+                    <div class="col-md-10">
+                        <select t-ref="tagSelect" id="ca_tag_id" name="ca_tag_id" class="form-control" required="True" style="margin-bottom: 10px;" t-on-change="onTagChange" t-att-value="state.formValues.ca_tag_id">
+                            <option value=""/>
+                            <t t-foreach="state.availableTags" t-as="tag" t-key="tag.id">
+                                <option t-att-value="tag.id">
+                                    <t t-esc="tag.display_name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center mt-4">
+                    <button type="submit" class="btn btn-primary">Release Badge</button>
+                </div>
+            </form>
+        </div>
+    </t>
+</templates>

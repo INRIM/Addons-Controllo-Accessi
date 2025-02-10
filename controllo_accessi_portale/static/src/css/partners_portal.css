@@ -1,0 +1,10 @@
+
+.bg-green {
+    background-color: #d4edda !important; /* Verde chiaro */
+    color: #155724 !important;           /* Testo verde scuro */
+}
+
+.bg-red {
+    background-color: #f8d7da !important; /* Rosso chiaro */
+    color: #721c24 !important;           /* Testo rosso scuro */
+}

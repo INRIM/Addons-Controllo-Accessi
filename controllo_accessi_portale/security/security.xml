@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inrim_access_portal" model="res.groups">
+        <field name="name">Access Portal</field>
+        <field name="category_id" ref="base.module_category_website"/>
+    </record>
+</odoo>
