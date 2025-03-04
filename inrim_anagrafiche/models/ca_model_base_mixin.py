@@ -52,10 +52,13 @@ class CaModelBase(models.AbstractModel):
 
     def rest_post(self, body: dict):
         body, msg = self.rest_eval_body(body)
-        if body:
-            return self.load(list(body.keys()), body), ""
-        else:
-            return False, msg
+        record = False
+        try:
+            if body:
+                record, msg = self.load(list(body.keys()), body), ""
+            return record, msg
+        except Exception as e:
+            logger.error(f"{msg} Error {e}", exc_info=True)
 
     def rest_put(self, body: dict = None):
         record, msg = self.rest_record_from_body(body)
