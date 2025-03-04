@@ -76,8 +76,8 @@ class InrimApiController(http.Controller):
         if delete:
             return self.success_response({})
         elif not record:
-            raise request.make_response(
-                json.dumps({'error': msg, 'code': 400}),
+            return request.make_response(
+                json.dumps({'error': msg}),
                 headers=[('Content-Type', 'application/json')],
                 status=400
             )
