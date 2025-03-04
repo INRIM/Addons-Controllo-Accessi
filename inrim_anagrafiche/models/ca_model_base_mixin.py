@@ -55,8 +55,8 @@ class CaModelBase(models.AbstractModel):
         record = False
         try:
             if body:
-                record, msg = self.load(list(body.keys()), body), ""
-            return record, msg
+                record = self.load(list(body.keys()), body), ""
+            return record, ""
         except Exception as e:
             logger.error(f"{msg} Error {e}", exc_info=True)
             return False, f"{msg} Error {e}"
