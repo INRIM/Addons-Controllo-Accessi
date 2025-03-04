@@ -7,6 +7,7 @@ class CaWorkInfoType(models.Model):
     _inherit = "ca.model.base.mixin"
     _description = 'Tipo Info Lavorative'
     _rec_name = 'name'
+    _rec_names_search = ["code", "name"]
 
     name = fields.Char(required=True)
     code = fields.Char()
