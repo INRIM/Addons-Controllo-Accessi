@@ -59,6 +59,7 @@ class CaModelBase(models.AbstractModel):
             return record, msg
         except Exception as e:
             logger.error(f"{msg} Error {e}", exc_info=True)
+            return False, f"{msg} Error {e}"
 
     def rest_put(self, body: dict = None):
         record, msg = self.rest_record_from_body(body)
