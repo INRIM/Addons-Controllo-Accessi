@@ -55,7 +55,13 @@ class CaModelBase(models.AbstractModel):
         record = False
         try:
             if body:
-                record = self.load(list(body.keys()), body), ""
+                res = self.load(list(body.keys()), [list(body.values())])
+                created_ids = res.get("ids")
+                if created_ids:
+                    record = self.browse(created_ids)
+                else:
+                    created_msg = res.get("messages", "Error during record creation")
+                    return False, created_msg
             return record, ""
         except Exception as e:
             logger.error(f"{msg} Error {e}", exc_info=True)
