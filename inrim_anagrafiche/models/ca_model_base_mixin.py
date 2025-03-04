@@ -53,7 +53,7 @@ class CaModelBase(models.AbstractModel):
     def rest_post(self, body: dict):
         body, msg = self.rest_eval_body(body)
         if body:
-            return self.create(body), ""
+            return self.load(list(body.keys()), body), ""
         else:
             return False, msg
 
