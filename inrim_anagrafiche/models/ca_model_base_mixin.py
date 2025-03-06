@@ -56,9 +56,10 @@ class CaModelBase(models.AbstractModel):
         try:
             if body:
                 res = self.load(list(body.keys()), [list(body.values())])
-                created_ids = res.get("ids")
-                if created_ids:
-                    record = self.browse(created_ids)
+                res_ids = res.get("ids")
+                res_msg = res.get("messages", [])
+                if res_ids and not res_msg:
+                    record = self.browse(res_ids)
                 else:
                     created_msg = res.get("messages", "Error during record creation")
                     return False, created_msg
@@ -77,13 +78,14 @@ class CaModelBase(models.AbstractModel):
             if vals:
                 vals[".id"] = record.id
                 res = self.load(list(vals.keys()), [list(vals.values())])
-                created_ids = res.get("ids")
-                if created_ids:
-                    record = self.browse(created_ids)
+                res_ids = res.get("ids")
+                res_msg = res.get("messages", [])
+                if res_ids and not res_msg:
+                    record = self.browse(res_ids)
                 else:
-                    created_msg = res.get("messages", "Error during record update")
+                    created_msg = res.get("messages", "Error during record creation")
                     return False, created_msg
-                return record, ""
+                return record, msg
             else:
                 return False, msg
         except Exception as e:
