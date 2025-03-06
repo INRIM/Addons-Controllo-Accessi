@@ -62,7 +62,7 @@ class CaModelBase(models.AbstractModel):
                 else:
                     created_msg = res.get("messages", "Error during record creation")
                     return False, created_msg
-            return record, ""
+            return record, msg
         except Exception as e:
             logger.error(f"{msg} Error {e}", exc_info=True)
             return False, f"{msg} Error {e}"
@@ -73,11 +73,22 @@ class CaModelBase(models.AbstractModel):
             return False, msg
         body.pop("id")
         vals, msg = self.rest_put_eval_body(body)
-        if vals:
-            record.write(vals)
-            return record, ""
-        else:
-            return False, msg
+        try:
+            if vals:
+                vals[".id"] = record.id
+                res = self.load(list(vals.keys()), [list(vals.values())])
+                created_ids = res.get("ids")
+                if created_ids:
+                    record = self.browse(created_ids)
+                else:
+                    created_msg = res.get("messages", "Error during record update")
+                    return False, created_msg
+                return record, ""
+            else:
+                return False, msg
+        except Exception as e:
+            logger.error(f"{msg} Error {e}", exc_info=True)
+            return False, f"{msg} Error {e}"
 
     def rest_delete(self, body: dict = None):
         idrecord = body.get('id', None)

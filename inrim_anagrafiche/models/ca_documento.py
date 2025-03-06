@@ -233,12 +233,12 @@ class CaDocumento(models.Model):
             body.get('tipo_documento_id'))
 
         if not ca_persona:
-            return False, f"La persona con token '{check_required}' non esiste"
+            return False, f"La persona con token '{body.get('ca_persona_id')}' non esiste"
         if not tipo_documento:
-            return False, f"Tipo documento '{tipo_documento_id}' non valido"
+            return False, f"Tipo documento '{body.get('tipo_documento_id')}' non valido"
         return {
-            'ca_persona_id': ca_persona.id,
-            'tipo_documento_id': tipo_documento.id,
+            'ca_persona_id.id': ca_persona.id,
+            'tipo_documento_id.id': tipo_documento.id,
             'validity_start_date': body.get('validity_start_date'),
             'validity_end_date': body.get('validity_end_date'),
             'issued_by': body.get('issued_by'),

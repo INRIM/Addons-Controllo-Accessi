@@ -17,7 +17,10 @@ class InrimApiPersona(InrimApiController):
     def api_post_persona(self):
         self.check_token('ca.persona', 'create')
         data = self.check_and_decode_body()
-        return self.handle_response(*self.model.rest_post(data))
+        try:
+            return self.handle_response(*self.model.rest_post(data))
+        except Exception as e:
+            raise BadRequest(str(e))
     
 class InrimApiTipoPersona(InrimApiController):
 
