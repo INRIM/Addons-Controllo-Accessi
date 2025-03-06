@@ -42,7 +42,6 @@ jobs:
           path: ${{ env.REPO_NAME }}
           persist-credentials: false
           fetch-depth: 1
-          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v4
         with:
           repository: INRIM/Odoo-Qa
@@ -56,20 +55,17 @@ jobs:
           path: server-auth
           ref: ${{ env.OE_VER }}
           fetch-depth: 1
-          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v4
         with:
           repository: OCA/partner-contact
           path: partner-contact
           ref: ${{ env.OE_VER }}
-          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v4
         with:
           repository: OCA/server-env
           path: server-env
           ref: ${{ env.OE_VER }}
           fetch-depth: 1
-          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install system dependencies for python-ldap
         run: |
           sudo apt update
