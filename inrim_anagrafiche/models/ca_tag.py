@@ -6,6 +6,7 @@ class CaProprietaTag(models.Model):
     _name = 'ca.proprieta_tag'
     _inherit = "ca.model.base.mixin"
     _description = 'Proprietà Tag'
+    _rec_names_search = ['name', 'description']
 
     name = fields.Char(required=True)
     description = fields.Char()

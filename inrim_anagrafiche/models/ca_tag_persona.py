@@ -53,7 +53,7 @@ class CaTagPersona(models.Model):
                     ('date_start', '<=', record.date_end),
                     ('date_end', '>=', record.date_start),
                     ('id', '!=', record.id),
-                    ('active', '=', record.active)
+                    ('active', '=', True)
                 ])
                 if tag_persona_id:
                     raise UserError(
