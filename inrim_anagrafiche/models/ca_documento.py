@@ -1,3 +1,5 @@
+import uuid
+
 from dateutil.relativedelta import relativedelta
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
@@ -133,7 +135,10 @@ class CaDocumento(models.Model):
     _description = 'Documenti'
     _inherit = "ca.model.base.mixin"
     _rec_name = 'ca_persona_id'
+    _rec_names_search = ['token']
 
+    token = fields.Char(required=True, readonly=True, copy=False,
+                        default=lambda self: str(uuid.uuid4()))
     ca_persona_id = fields.Many2one('ca.persona', string="Person")
     tipo_documento_id = fields.Many2one('ca.tipo_doc_ident', required=True,
         string="Document Type")
@@ -203,7 +208,8 @@ class CaDocumento(models.Model):
             'image_ids': images,
             'issued_by': self.issued_by,
             'document_code': self.document_code,
-            'ca_stato_documento_id': self.ca_stato_documento_id.name
+            'ca_stato_documento_id': self.ca_stato_documento_id.name,
+            'token': self.token
         }
 
     def rest_boby_hint(self):

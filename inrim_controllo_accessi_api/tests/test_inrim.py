@@ -267,6 +267,7 @@ class ApiTestCommon(TestCommon):
 
         self.assertEqual(response.status_code, 200)
         documento_id = response.json().get('id')
+        documento_token = response.json().get('token')
         ca_tipo_documento_id = response.json().get('tipo_documento_id').get("label")
         side = response.json().get('side', 'fronte')
 
@@ -278,7 +279,7 @@ class ApiTestCommon(TestCommon):
             "side": side,
             "image": "b'RnJvbnRlIDE='",
             "filename": "immagine.png",
-            "ca_documento_id": documento_id
+            "ca_documento_id": documento_token
         }
 
         response = requests.post(self.api_url + '/api/immaginedoc', headers=headers,
@@ -301,7 +302,7 @@ class ApiTestCommon(TestCommon):
             "side": side,
             "image": "b'RnJvbnRlIDE='",
             "filename": "immagine.png",
-            "ca_documento_id": documento_id
+            "ca_documento_id": documento_token
         }
 
         response = requests.put(self.api_url + '/api/immaginedoc', headers=headers,
