@@ -98,11 +98,11 @@ class ApiTestCommon(TestCommon):
         # post
         data = {
             "name": "Azienda 1",
-            "parent_id": self.ente_azienda_1.id,
+            "parent_id": self.ente_azienda_1.name,
             "parent_path": "",
             "street": "Street",
             "street2": "Street2",
-            "state_id": taranto.id,
+            "state_id": taranto.name,
             "vat": "Vat",
             "note": "Ente Azienda 1",
             "email": "Email",
@@ -110,9 +110,9 @@ class ApiTestCommon(TestCommon):
             "mobile": "Mobile",
             "website": "Website",
             "pec": "Pec Test",
-            "company_id": self.company.id,
-            "tipo_ente_azienda_id": sede_staccata.id,
-            "ca_persona_ids": [self.persona_1.id],
+            "company_id": self.company.name,
+            "tipo_ente_azienda_id": sede_staccata.name,
+            "ca_persona_ids": self.persona_1.display_name,
             "ref": True,
             "lock": False,
             "url_gateway_lettori": "In base al sistema",
@@ -164,7 +164,7 @@ class ApiTestCommon(TestCommon):
         # put
         newdata = {
             "id": id_from_post,
-            'state_id': torino.id
+            'state_id': torino.name
         }
 
         response = requests.put(self.api_url + '/api/ente_azienda', headers=headers,
@@ -199,7 +199,7 @@ class ApiTestCommon(TestCommon):
         data = {
             "name": "Tipo prova",
             "description": "Descrizione",
-            "is_internal": True,
+            "is_internal": str(True),
             "date_start": "2024-01-01",
             "date_end": "2024-12-31"
         }
@@ -224,7 +224,7 @@ class ApiTestCommon(TestCommon):
             "id": id_from_post,
             "name": "Tipo prova",
             "description": "Descrizione",
-            "is_internal": False,
+            "is_internal": str(False),
             "date_start": "2024-01-01",
             "date_end": "2024-12-31"
         }
@@ -267,7 +267,7 @@ class ApiTestCommon(TestCommon):
 
         self.assertEqual(response.status_code, 200)
         documento_id = response.json().get('id')
-        ca_tipo_documento_id = response.json().get('tipo_documento_id').get("name")
+        ca_tipo_documento_id = response.json().get('tipo_documento_id').get("label")
         side = response.json().get('side', 'fronte')
 
         # post
