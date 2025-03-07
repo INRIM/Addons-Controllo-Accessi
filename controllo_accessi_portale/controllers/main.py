@@ -9,7 +9,7 @@ class CustomHome(Home):
         user = request.env['res.users'].sudo().browse(uid)
 
         # Riferimento ai gruppi
-        group_portal = request.env.ref('your_module_name.inrim_access_portal')
+        group_portal = request.env.ref('controllo_accessi_portale.inrim_access_portal')
         group_admin = request.env.ref('base.group_system')
 
         # Se l'utente è amministratore, lo inviamo al backend
