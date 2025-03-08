@@ -16,7 +16,7 @@ class CustomHome(Home):
     def _login_redirect(self, uid, redirect=None):
         """ Override del reindirizzamento post-login. """
         user = request.env['res.users'].sudo().browse(uid)
-        return self._get_redirect_url(user)
+        return request.redirect(self._get_redirect_url(user))
 
     @http.route('/', type='http', auth="user", website=True)
     def home_redirect(self, **kwargs):
