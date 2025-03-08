@@ -2,26 +2,24 @@ from odoo import http
 from odoo.http import request
 from odoo.addons.web.controllers.home import Home
 
-
 class CustomHome(Home):
+
+    def _get_redirect_url(self, user):
+        """ Metodo unico per determinare la pagina di destinazione in base al gruppo dell'utente. """
+        if user.has_group('base.group_system'):  # Se è admin
+            return "/web"
+        elif user.has_group('controllo_accessi_portale.inrim_access_portal'):  # Se appartiene al gruppo portale
+            return "/anagrafiche"
+        return "/"  # Default: home page standard
+
     @http.route()
     def _login_redirect(self, uid, redirect=None):
+        """ Override del reindirizzamento post-login. """
         user = request.env['res.users'].sudo().browse(uid)
+        return self._get_redirect_url(user)
 
-        # Riferimento ai gruppi
-        group_portal = request.env.ref('controllo_accessi_portale.inrim_access_portal')
-        group_admin = request.env.ref('base.group_system')
+    @http.route('/', type='http', auth="user", website=True)
+    def home_redirect(self, **kwargs):
+        """ Override della home `/` per gestire utenti con sessione attiva. """
+        return request.redirect(self._get_redirect_url(request.env.user))
 
-        # Se l'utente è amministratore, lo inviamo al backend
-        if group_admin in user.groups_id:
-            return "/web"  # Assicuriamoci che sia una stringa
-
-        # Se l'utente è nel gruppo "inrim_access_portal", lo inviamo alla pagina del portale
-        if group_portal in user.groups_id:
-            return "/anagrafiche"  # Assicuriamoci che sia una stringa
-
-        # Default: comportamento standard
-        default_redirect = super()._login_redirect(uid, redirect)
-        if isinstance(default_redirect, http.Response):
-            return "/"  # Fallback a home se super() restituisce un Response
-        return default_redirect
