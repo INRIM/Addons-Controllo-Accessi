@@ -40,7 +40,7 @@
                                 <t t-esc="record.datetime_event"/>
                             </td>
                             <td>
-                                <t t-esc="record.last_reading_event"/>
+                                <t t-esc="record.last_reading_event" t-options='{"format_datetime": {}}'/>
                             </td>
                             <td t-att-class="record.present[0] == 'yes'? 'bg-green' : 'bg-red'">
                                 <t t-esc="record.present[1]" />
