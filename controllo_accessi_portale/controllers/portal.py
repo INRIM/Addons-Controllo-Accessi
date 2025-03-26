@@ -99,10 +99,24 @@ class CustomPortal(http.Controller):
                 'datetime_event' : '',
                 'last_reading_event' : '',
             }
-            if len(record.person_access_ids) > 0:
-                row['datetime_event'] = record.person_access_ids[0].datetime_event.strftime('%Y-%m-%dT%H:%M:%S')
-                if record.person_access_ids[0].ca_punto_accesso_id:
-                    row['last_reading_event'] = record.person_access_ids[0].ca_punto_accesso_id.last_reading_events.strftime('%Y-%m-%dT%H:%M:%S')
+            if record.person_access_ids:
+                if record.person_access_ids[0].datetime_event:
+                    row['datetime_event'] = format_datetime(
+                        request.env,
+                        record.person_access_ids[0].datetime_event,
+                        tz=user.tz,
+                        lang_code=user.lang,
+                    )
+                if record.person_access_ids[0].ca_punto_accesso_id and \
+                        record.person_access_ids[
+                            0].ca_punto_accesso_id.last_reading_events:
+                    row['last_reading_event'] = format_datetime(
+                        request.env,
+                        record.person_access_ids[
+                            0].ca_punto_accesso_id.last_reading_events,
+                        tz=user.tz,
+                        lang_code=user.lang,
+                    )
             data.append(row)  
         return data
 

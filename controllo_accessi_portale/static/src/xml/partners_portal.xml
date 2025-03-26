@@ -47,7 +47,7 @@
                             </td>
                             <td>
                                 <t t-esc="record.datetime_event"
-                                   t-options='{"format_datetime": {     }}'/>
+                                   t-options='{"format_datetime": {}}'/>
                             </td>
                             <td>
                                 <t t-esc="record.last_reading_event"
