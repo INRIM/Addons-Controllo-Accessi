@@ -6,8 +6,8 @@
         <field name="arch" type="xml">
             <search>
                 <field name="name"/>
-                <field name="ente_azienda_id"/>
-                <field name="ca_lettore_id"/>
+                <field name="ente_azienda_id" />
+                <field name="ca_lettore_id" />
                 <field name="direction"/>
                 <field name="typology"/>
                 <field name="ca_persona_id"/>
@@ -33,18 +33,18 @@
         <field name="arch" type="xml">
             <tree default_order="ente_azienda_id asc">
                 <field name="name"/>
-                <field name="ente_azienda_id"/>
-                <field name="ca_lettore_id"/>
+                <field name="ente_azienda_id" column_invisible="1"/>
+                <field name="ca_lettore_id" column_invisible="1"/>
                 <field name="system_error"/>
                 <field name="direction"/>
                 <field name="typology"/>
                 <field name="ca_persona_id"/>
                 <field name="last_update_reader"/>
                 <field name="last_reading_events"/>
-                <field name="events_to_read_num"/>
+                <field name="events_to_read_num" column_invisible="1"/>
                 <field name="events_read_num"/>
                 <field name="enable_sync"/>
-                <field name="recursive_read_events"/>
+                <field name="recursive_read_events" column_invisible="1"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
                 <field name="allowed_users" column_invisible="1"/>

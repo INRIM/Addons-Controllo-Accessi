@@ -1,6 +1,10 @@
+import logging
+
 from odoo import models, fields, api, _
-from odoo.addons.spreadsheet.tests.validate_spreadsheet_data import domain_fields
 from odoo.exceptions import UserError
+
+logger = logging.getLogger(__name__)
+
 
 class CaTipoSpazio(models.Model):
     _name = 'ca.tipo_spazio'
@@ -21,23 +25,25 @@ class CaTipoSpazio(models.Model):
                     raise UserError(
                         _('End date must be greater than start date'))
 
-def _domain_ente_azienda(self):
-    domain = [
-        "ente_azienda_id.tipo_ente_azienda_id", "in",
-        [
-            self.env.ref("inrim_anagrafiche.tipo_ente_azienda_sede"),
-            self.env.ref("inrim_anagrafiche.tipo_ente_azienda_sede_distaccata")
-        ]
-    ]
-    return domain
 
 class CaSpazio(models.Model):
     _name = 'ca.spazio'
     _inherit = "ca.model.base.mixin"
     _description = 'Spazio'
 
+    def _domain_ente_azienda(self):
+        domain = [(
+            "tipo_ente_azienda_id", "in",
+            [
+                self.env.ref("inrim_anagrafiche.tipo_ente_azienda_sede").id,
+                self.env.ref("inrim_anagrafiche.tipo_ente_azienda_sede_distaccata").id
+            ])
+        ]
+        return domain
+
     name = fields.Char(required=True, string="Space Name")
-    tipo_spazio_id = fields.Many2one('ca.tipo_spazio', required=True, string="Space Type")
+    tipo_spazio_id = fields.Many2one('ca.tipo_spazio', required=True,
+                                     string="Space Type")
     ente_azienda_id = fields.Many2one(
         'ca.ente_azienda', required=True,
         domain=_domain_ente_azienda,
@@ -47,7 +53,7 @@ class CaSpazio(models.Model):
     date_start = fields.Date()
     date_end = fields.Date()
     righe_persona_ids = fields.One2many('ca.righe_persona', 'spazio_id',
-        string="Partner Lines")
+                                        string="Partner Lines")
     active = fields.Boolean(default=True)
 
     @api.constrains('date_start', 'date_end')
