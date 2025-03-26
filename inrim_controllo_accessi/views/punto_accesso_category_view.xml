@@ -72,6 +72,9 @@
                                 </form>
                             </field>
                         </page>
+                        <page name="allowedusers" string="Allowed Users" groups="controllo_accessi.ca_config_tech">
+                            <field name="allowed_users"/>
+                        </page>
                     </notebook>
                 </sheet>
             </form>

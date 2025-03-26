@@ -15,10 +15,17 @@ class CaPuntoAccessoCategory(models.Model):
     name = fields.Char(required=True)
     code = fields.Char()
     description = fields.Char()
-    ca_access_point_ids = fields.One2many('ca.punto_accesso', 'ca_category',
+    ca_access_point_ids = fields.One2many(
+        'ca.punto_accesso', 'ca_category',
         string="Access Point")
     ca_tag_persona_ids = fields.Many2many(
         'ca.tag_persona', compute="compute_ca_tag_persona_ids")
+    allowed_users = fields.Many2many(
+        'res.users',
+        string="Allowed Users",
+        store=True,
+        groups="controllo_accessi.ca_config_tech"
+    )
     active = fields.Boolean(default=True)
 
     def action_add_person(self):
@@ -56,9 +63,18 @@ class CaPuntoAccessoCategory(models.Model):
 
         access_point_ids = self.ca_access_point_ids
         tag_persona_ids = access_point_ids.mapped(
-            'ca_tag_lettore_persona_ids.ca_tag_persona').ids  # 'field_c_related' è il campo Many2many in ModelB
+            'ca_tag_lettore_persona_ids.ca_tag_persona').ids
 
         self.ca_tag_persona_ids = [(6, 0, tag_persona_ids)]
+
+    def write(self, vals):
+        res = super().write(vals)
+        if 'allowed_users' in vals:
+            for record in self:
+                if record.ca_access_point_ids:
+                    record.ca_access_point_ids.write(
+                        {'allowed_users': [(6, 0, record.allowed_users.ids)]})
+        return res
 
 
 class CaPuntoAccesso(models.Model):
@@ -115,6 +131,10 @@ class CaPuntoAccesso(models.Model):
     recursive_read_events = fields.Boolean(string='Recursive Read Events', default=False)
     tz = fields.Selection(
         related='ente_azienda_id.tz', store=True, string="Timezone", readonly=True)
+    allowed_users = fields.Many2many(
+        'res.users', string="Allowed Users",
+        groups="controllo_accessi.ca_config_tech"
+    )
 
     ##TODO add cron to check and detach local_access  tags if expired
 
@@ -237,14 +257,14 @@ class CaPuntoAccesso(models.Model):
         )
         if lettore_persona:
             lettore_persona.ca_tag_lettore_id.detach()
-            logger.info(f"set  {lettore_persona.ca_tag_lettore_id} state {lettore_persona.ca_tag_lettore_id.state} ")
+            logger.info(
+                f"set  {lettore_persona.ca_tag_lettore_id} state {lettore_persona.ca_tag_lettore_id.state} ")
             logger.info(f"set {lettore_persona.ca_persona_id.name} set expired")
             lettore_persona.state = 'expired'
             lettore_persona.active = False
             self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
             return True
-        return  True
-
+        return True
 
     def local_access_attach(self, tag):
         """

@@ -64,6 +64,12 @@
         <field name="category_id" ref="controllo_accessi.access_control_inrim"/>
     </record>
 
+    <record id="ca_local_access_manager" model="res.groups">
+        <field name="name">Local Access Manager</field>
+        <field name="implied_ids" eval="[(6, 0, [ref('controllo_accessi.ca_ca')])]"/>
+        <field name="category_id" ref="controllo_accessi.access_control_inrim"/>
+    </record>
+
     <record id="ca_tech" model="res.groups">
         <field name="name">Technician</field>
         <field name="implied_ids" eval="[(4, ref('controllo_accessi.ca_config_tech'))]"/>

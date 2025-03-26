@@ -89,28 +89,26 @@
     </record>
 
     <!-- Punto Accesso -->
-    <record id="inrim_utente_ca_punto_accesso_rule" model="ir.rule">
-        <field name="name">INRIM Utente: Punto Accesso</field>
+    <record id="punto_accesso_admin" model="ir.rule">
+        <field name="name">Allowed Users Write for Admins</field>
         <field name="model_id" ref="model_ca_punto_accesso"/>
-        <field name="global" eval="False"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
         <field name="perm_read" eval="True"/>
-        <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
         <field name="perm_unlink" eval="True"/>
-        <field name="domain_force">[('create_uid', '=', user.id)]</field>
-        <field name="groups" eval="[(4, ref('controllo_accessi.ca_utente'))]"/>
-        <field name="active" eval="True"/>
+        <field name="groups"
+               eval="[(4, ref('base.group_system')),(4, ref('controllo_accessi.ca_config_tech'))]"/>
     </record>
 
-    <record id="inrim_controllo_accesso_ca_punto_accesso_rule" model="ir.rule">
-        <field name="name">INRIM Controllo Accesso: Punto Accesso</field>
+    <record id="punto_accesso_user_access" model="ir.rule">
+        <field name="name">Restrict Access to Allowed Users</field>
         <field name="model_id" ref="model_ca_punto_accesso"/>
-        <field name="global" eval="False"/>
+        <field name="domain_force">[('allowed_users', 'in', [user.id])]</field>
         <field name="perm_read" eval="True"/>
-        <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
-        <field name="perm_unlink" eval="True"/>
-        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
         <field name="groups" eval="[(4, ref('controllo_accessi.ca_ca'))]"/>
         <field name="active" eval="True"/>
     </record>
@@ -143,7 +141,7 @@
         <field name="active" eval="True"/>
     </record>
 
-        <!-- Righe Accesso -->
+    <!-- Righe Accesso -->
     <record id="inrim_utente_ca_righe_accesso_rule" model="ir.rule">
         <field name="name">INRIM Utente: Righe Accesso</field>
         <field name="model_id" ref="model_ca_righe_accesso"/>
@@ -169,4 +167,6 @@
         <field name="groups" eval="[(4, ref('controllo_accessi.ca_ca'))]"/>
         <field name="active" eval="True"/>
     </record>
+
+
 </odoo>

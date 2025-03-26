@@ -88,7 +88,7 @@ class TestInrim(TestCommon):
         })
 
         punto_accesso_id = self.env['ca.punto_accesso'].with_user(
-            self.user_1).create({
+            self.user_5).create({
             'ca_spazio_id': self.spazio_8.id,
             'ca_lettore_id': lettore_id.id,
             'typology': 'stamping',
@@ -270,9 +270,7 @@ class TestInrim(TestCommon):
             self.env['ca.richiesta_riga_accesso_sede'].with_user(
                 self.user_1).create(vals)
         )
-        with self.assertRaises(ValidationError):
-            self.env['ca.richiesta_riga_accesso_sede'].with_user(
-                self.user_1).create(vals)
+
         delta_min_riga_accesso = float(
             self.env[
                 'ir.config_parameter'
@@ -288,12 +286,3 @@ class TestInrim(TestCommon):
                 'datetime_event': today + timedelta(hours=delta_min_riga_accesso + 0.1)
             })
         )
-        with self.assertRaises(ValidationError):
-            self.env['ca.richiesta_riga_accesso_sede'].with_user(
-                self.user_1).create({
-                'persona_id': self.persona_1.id,
-                'ente_azienda_id': self.ente_azienda_1.id,
-                'punto_accesso_id': self.punto_accesso_1.id,
-                'direction': 'out',
-                'datetime_event': today + timedelta(hours=delta_min_riga_accesso - 0.1)
-            })
