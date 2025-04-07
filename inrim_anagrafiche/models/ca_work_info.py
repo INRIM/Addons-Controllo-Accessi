@@ -152,3 +152,17 @@ class CaWorkInfo(models.Model):
     def check_date(self):
         for record in self:
             record.check_update_state()
+
+    def rest_get_record(self):
+        return {
+            "id": self.id,
+            "ca_persona_id": self.f_m2o(self.ca_persona_id),
+            "work_id_number": self.work_id_number,
+            "ca_work_info_type_id": self.ca_work_info_type_id.rest_get_record(),
+            "ca_title_id": self.f_m2o(self.ca_title_id),
+            "ca_div_uo_code": self.ca_div_uo_code,
+            "date_start": self.f_date(self.date_start),
+            "date_end": self.f_date(self.date_end),
+            "state": self.state,
+            "active": self.active,
+        }
