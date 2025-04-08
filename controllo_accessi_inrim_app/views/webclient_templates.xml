@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="frontend_layout_inrim" inherit_id="web.frontend_layout" name="Frontend Layout INRIM">
+        <xpath expr="//div[@id='wrapwrap']" position="before">
+            <t t-set="no_header" t-value="True"/>
+            <t t-set="no_footer" t-value="True"/>
+            <t t-set="no_copyright" t-value="True"/>
+        </xpath>
+    </template>
+</odoo>

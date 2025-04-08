@@ -18,6 +18,7 @@
         'views/users_ldap.xml',
         'views/ca_punto_accesso_views.xml',
         'views/ca_registro_accesso_views.xml',
+        'views/webclient_templates.xml',
     ],
     'demo': [
         "demo/ca_punto_accesso_data.xml",
