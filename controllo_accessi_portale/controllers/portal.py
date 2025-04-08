@@ -173,13 +173,14 @@ class CustomPortal(http.Controller):
         ):
             raise Forbidden()
 
-        ente_azienda_ids = request.env['ca.tipo_ente_azienda'].search([('id', 'not in',
-                                                                        [
-                                                                            request.env.ref(
-                                                                                'inrim_anagrafiche.tipo_ente_azienda_sede').id,
-                                                                            request.env.ref(
-                                                                                'inrim_anagrafiche.tipo_ente_azienda_sede_distaccata').id
-                                                                        ])])
+        ente_azienda_ids = request.env['ca.tipo_ente_azienda'].search(
+            [('id', 'not in',
+              [
+                  request.env.ref(
+                      'inrim_anagrafiche.tipo_ente_azienda_sede').id,
+                  request.env.ref(
+                      'inrim_anagrafiche.tipo_ente_azienda_sede_distaccata').id
+              ])])
 
         return ente_azienda_ids.read()
 
@@ -194,13 +195,14 @@ class CustomPortal(http.Controller):
         ):
             raise Forbidden()
 
-        ente_azienda_ids = request.env['ca.tipo_ente_azienda'].search([('id', 'in',
-                                                                        [
-                                                                            request.env.ref(
-                                                                                'inrim_anagrafiche.tipo_ente_azienda_sede').id,
-                                                                            request.env.ref(
-                                                                                'inrim_anagrafiche.tipo_ente_azienda_sede_distaccata').id
-                                                                        ])])
+        ente_azienda_ids = request.env['ca.tipo_ente_azienda'].search(
+            [('id', 'in',
+              [
+                  request.env.ref(
+                      'inrim_anagrafiche.tipo_ente_azienda_sede').id,
+                  request.env.ref(
+                      'inrim_anagrafiche.tipo_ente_azienda_sede_distaccata').id
+              ])])
 
         return ente_azienda_ids.read()
 
