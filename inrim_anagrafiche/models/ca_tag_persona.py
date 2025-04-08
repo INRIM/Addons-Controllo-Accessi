@@ -167,3 +167,17 @@ class CaTagPersona(models.Model):
             ('ca_persona_id', '=', persona.id),
             ('state', '=', 'to_give_back')
         ], limit=1)
+
+    def rest_get_record(self):
+        return {
+            "id": self.id,
+            "token": self.token,
+            "ca_persona_id": self.f_m2o(self.ca_persona_id),
+            "ca_tag_id": self.ca_tag_id.rest_get_record(),
+            "tag_name": self.tag_name,
+            "tag_in_use": self.tag_in_use,
+            "date_start": self.f_datetime(self.date_start),
+            "date_end": self.f_datetime(self.date_end),
+            "temp": self.temp,
+            "state": self.state,
+        }
