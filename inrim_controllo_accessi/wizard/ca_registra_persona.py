@@ -1,9 +1,9 @@
 import logging
+from datetime import datetime
+from datetime import time
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
-from datetime import datetime
-from datetime import time
 
 logger = logging.getLogger(__name__)
 
@@ -112,10 +112,11 @@ class CaRegistraPersona(models.TransientModel):
         ent_az_id = rec.ca_ente_azienda_ids.ids[0] if rec.ca_ente_azienda_ids else []
         self.eval_ente_azienda_id(ent_az_id)
         current_winfo = self.persona_id.get_current_winfo()
-        self.ca_work_info_type_id = current_winfo.ca_work_info_type_id.id
-        self.ca_title_id = current_winfo.ca_title_id.id
-        self.date_start = datetime.combine(current_winfo.date_start, time(8, 0, 0))
-        self.date_end = datetime.combine(current_winfo.date_end, time(18, 0, 0))
+        if current_winfo:
+            self.ca_work_info_type_id = current_winfo.ca_work_info_type_id.id
+            self.ca_title_id = current_winfo.ca_title_id.id
+            self.date_start = datetime.combine(current_winfo.date_start, time(8, 0, 0))
+            self.date_end = datetime.combine(current_winfo.date_end, time(18, 0, 0))
         self.compute_available_tags()
 
     def reset_person(self):
