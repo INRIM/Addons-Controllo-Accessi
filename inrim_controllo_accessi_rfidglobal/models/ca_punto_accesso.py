@@ -322,6 +322,6 @@ class CaPuntoAccesso(models.Model):
         res = super().update_clock()
         with self.env.cr.savepoint():
             for point in self.env['ca.punto_accesso'].search(
-                    [('enable_sync', '=', True)]):
+                    [('enable_sync', '=', True), ('system_error', '=', False)]):
                 point.update_reader_clock()
             return True
