@@ -240,16 +240,6 @@ class CaRegistraPersona(models.TransientModel):
                     "ca_ente_azienda_ids": self.ente_azienda.ids
                 }
             )
-            self.env['ca.work_info'].create(
-                {
-                    'ca_persona_id': self.persona_id.id,
-                    'work_id_number': self.freshman,
-                    'ca_work_info_type_id': self.ca_work_info_type_id.id,
-                    'ca_title_id': self.ca_title_id.id,
-                    'date_start': self.date_start.date(),
-                    'date_end': self.date_end.date()
-                }
-            )
         else:
             add_doc = False
             vals = {
@@ -261,6 +251,27 @@ class CaRegistraPersona(models.TransientModel):
             if self.ente_azienda.id not in self.persona_id.ca_ente_azienda_ids.ids:
                 self.persona_id.ca_ente_azienda_ids = [(6, 0, self.ente_azienda.ids)]
             self.persona_id.write(vals)
+        current_winfo = self.persona_id.get_current_winfo()
+        if current_winfo:
+            self.env['ca.work_info'].create(
+                {
+                    'ca_persona_id': self.persona_id.id,
+                    'work_id_number': self.freshman,
+                    'ca_work_info_type_id': self.ca_work_info_type_id.id,
+                    'ca_title_id': self.ca_title_id.id,
+                    'date_start': self.date_start.date(),
+                    'date_end': self.date_end.date()
+                }
+            )
+        else:
+            current_winfo.write({
+                    'work_id_number': self.freshman,
+                    'ca_work_info_type_id': self.ca_work_info_type_id.id,
+                    'ca_title_id': self.ca_title_id.id,
+                    'date_start': self.date_start.date(),
+                    'date_end': self.date_end.date()
+                }
+            )
 
         res = self.env['ca.tag_persona'].create({
             'ca_persona_id': self.persona_id.id,
