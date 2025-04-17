@@ -252,7 +252,7 @@ class CaRegistraPersona(models.TransientModel):
                 self.persona_id.ca_ente_azienda_ids = [(6, 0, self.ente_azienda.ids)]
             self.persona_id.write(vals)
         current_winfo = self.persona_id.get_current_winfo()
-        if current_winfo:
+        if not current_winfo:
             self.env['ca.work_info'].create(
                 {
                     'ca_persona_id': self.persona_id.id,
