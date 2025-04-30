@@ -125,7 +125,12 @@
                         <label for="parent_id" class="form-label">Ref Domain</label>
                     </div>
                     <div class="col-md-4">
-                        <select id="ref_domain" name="ref_domain" class="form-control" required="True" style="margin-bottom: 10px;" t-on-change="onRefDomainChange">
+                        <select
+                                name="ref_domain"
+                                class="form-control"
+                                required="True"
+                                style="margin-bottom: 10px;"
+                                t-on-change="onRefDomainChange">
                             <option value="present">
                                 <span>Present</span>
                             </option>
@@ -138,7 +143,13 @@
                         <label for="parent_id" class="form-label">Reference person</label>
                     </div>
                     <div class="col-md-4">
-                        <select t-ref="parentSelect" id="parent_id" name="parent_id" class="form-control" required="True if not persona_id or persona_id.is_external == True else False" style="margin-bottom: 10px;">
+                        <select
+                                t-ref="parentSelect"
+                                id="parent_id"
+                                name="parent_id"
+                                class="form-control"
+                                t-att-required="!state.persona_id || state.persona_id.is_external"
+                                style="margin-bottom: 10px;">
                             <option value=""/>
                             <t t-foreach="state.caPersonaParentFiltered" t-as="parent" t-key="parent.id">
                                 <option t-att-value="parent.id">

@@ -1,22 +1,23 @@
 /** @odoo-module */
 
-import { registry } from "@web/core/registry";
-import { useState, onWillStart, useRef, onMounted } from '@odoo/owl';
-import { useService } from "@web/core/utils/hooks";
-import { DateTimeInput } from "@web/core/datetime/datetime_input";
-import { _t } from "@web/core/l10n/translation";
+import {registry} from "@web/core/registry";
+import {onMounted, onWillStart, useRef, useState} from '@odoo/owl';
+import {useService} from "@web/core/utils/hooks";
+import {DateTimeInput} from "@web/core/datetime/datetime_input";
+import {_t} from "@web/core/l10n/translation";
 
-const { DateTime } = luxon;
+const {DateTime} = luxon;
 
-const { Component } = owl;
+const {Component} = owl;
 
 class BadgeRelease extends Component {
     setup() {
+        // ca_persona_parent: [],
         this.state = useState({
+            caPersonaParentFiltered: [],
             selectedPersona: null,
             selectedAzienda: null,
             selectedWorkInfo: null,
-            caPersonaParentFiltered: [],
             availableTags: [],
             formValues: {
                 name: "",
@@ -81,10 +82,11 @@ class BadgeRelease extends Component {
             });
         });
 
+
         onWillStart(async () => {
             this.ca_persona = await this.dataService.loadPersona();
             this.ca_persona_parent = await this.dataService.loadPersonaParent();
-            this.onRefDomainChange();
+            this.eval_parent_present();
             this.tipo_ente_azienda = await this.dataService.loadTipoEntiAzienda();
             this.tipo_ente_azienda_hidden = await this.dataService.loadTipoEntiAziendaHidden();
             this.work_info_type = await this.dataService.loadWorkInfoType();
@@ -107,7 +109,7 @@ class BadgeRelease extends Component {
             name: event.target.value,
         });
     }
-    
+
     onLastnameChange(event) {
         Object.assign(this.state.formValues, {
             lastname: event.target.value,
@@ -191,10 +193,18 @@ class BadgeRelease extends Component {
         }
     }
 
-    onRefDomainChange(event) {
-        this.state.caPersonaParentFiltered = this.ca_persona_parent;
-        if (this.state.formValues.ref_domain == "present") {
-            this.state.caPersonaParentFiltered = this.ca_persona_parent.filter(persona => persona.present === "yes");
+
+    onRefDomainChange(ev) {
+        this.state.formValues.ref_domain = ev.target.value;;
+        this.eval_parent_present();
+    }
+
+    eval_parent_present() {
+        if (this.state.formValues.ref_domain === "present") {
+            this.state.caPersonaParentFiltered = this.ca_persona_parent.filter(
+                persona => persona.present === "yes");
+        } else {
+            this.state.caPersonaParentFiltered = this.ca_persona_parent;
         }
     }
 
@@ -205,26 +215,34 @@ class BadgeRelease extends Component {
         let dateStart = this.state.formValues.date_start;
         let dateEnd = this.state.formValues.date_end;
         if (workInfo) {
-            dateStart = DateTime.fromISO(workInfo.date_start).set({ hour: 8, minute: 0, second: 0 });
-            dateEnd = DateTime.fromISO(workInfo.date_end).set({ hour: 18, minute: 0, second: 0 });
+            dateStart = DateTime.fromISO(workInfo.date_start).set({
+                hour: 8,
+                minute: 0,
+                second: 0
+            });
+            dateEnd = DateTime.fromISO(workInfo.date_end).set({
+                hour: 18,
+                minute: 0,
+                second: 0
+            });
         }
         Object.assign(this.state.formValues, {
-        name: persona.name || "",
-        lastname: persona.lastname || "",
-        fiscalcode: persona.fiscalcode || "",
-        freshman: persona.freshman || "",
-        email: persona.email || "",
-        mobile: persona.mobile || "",
-        ente_azienda: selectedAzienda || "",
-        ca_ente_name: selectedAzienda?.name || "",
-        tipo_ente_azienda_id: selectedAzienda?.tipo_ente_azienda_id?.[0] || "",
-        vat: selectedAzienda?.vat || "",
-        work_info_type: workInfo?.ca_work_info_type_id?.[0] || "",
-        ca_title: workInfo?.ca_title_id?.[0] || "",
-        date_start: dateStart || this.state.formValues.date_start,
-        date_end: dateEnd || this.state.formValues.date_end,
-    });
-        
+            name: persona.name || "",
+            lastname: persona.lastname || "",
+            fiscalcode: persona.fiscalcode || "",
+            freshman: persona.freshman || "",
+            email: persona.email || "",
+            mobile: persona.mobile || "",
+            ente_azienda: selectedAzienda || "",
+            ca_ente_name: selectedAzienda?.name || "",
+            tipo_ente_azienda_id: selectedAzienda?.tipo_ente_azienda_id?.[0] || "",
+            vat: selectedAzienda?.vat || "",
+            work_info_type: workInfo?.ca_work_info_type_id?.[0] || "",
+            ca_title: workInfo?.ca_title_id?.[0] || "",
+            date_start: dateStart || this.state.formValues.date_start,
+            date_end: dateEnd || this.state.formValues.date_end,
+        });
+
         this.state.selectedAzienda = selectedAzienda
         this.state.formValues.ente_azienda = selectedAzienda?.id || "";
         this.filterAvailableTags();
@@ -245,31 +263,31 @@ class BadgeRelease extends Component {
 
     setEnteEsterno(azienda_id) {
         this.enteInterno = false;
-        if(azienda_id){
+        if (azienda_id) {
             const FilterTypeCompany = this.tipo_ente_azienda_hidden.find(tipo => tipo.id === azienda_id?.tipo_ente_azienda_id?.[0]);
             if (FilterTypeCompany) {
                 this.enteInterno = true;
             }
         }
     }
-    
+
     filterAvailableTags() {
         const ca_title = this.titolo_persona.find(titolo => titolo.id === this.state.formValues.ca_title);
         this.state.availableTags = [];
         if (!ca_title?.structured) {
-            this.state.availableTags = this.tags.filter(tag => 
-                !tag.in_use && 
-                !tag.revoked && 
-                tag.temp === true && 
+            this.state.availableTags = this.tags.filter(tag =>
+                !tag.in_use &&
+                !tag.revoked &&
+                tag.temp === true &&
                 tag.ca_proprieta_tag_ids.find(id => this.tag_filter_domain[0].some(tagFilter => tagFilter.id === id))
             );
         } else if (this.state.formValues.selectedPersona?.is_internal) {
-            this.state.availableTags = this.tags.filter(tag => 
-                !tag.in_use && 
-                !tag.revoked &&  
+            this.state.availableTags = this.tags.filter(tag =>
+                !tag.in_use &&
+                !tag.revoked &&
                 tag.ca_proprieta_tag_ids.find(id => this.tag_filter_domain[1].some(tagFilter => tagFilter.id === id))
             );
-        }   
+        }
     }
 
     onDateStartSelect(e) {
