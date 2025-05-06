@@ -17,6 +17,7 @@ export const dataService = {
         "loadWorkInfo",
         "loadTagFilterDomain",
         "loadReturnTags",
+        "loadTipoDocumento"
     ],
     start(env, { rpc }) {
         return {
@@ -31,7 +32,8 @@ export const dataService = {
             loadEnteAzienda: () => rpc("/get/badge_release/ente_azienda"),
             loadWorkInfo: () => rpc("/get/badge_release/work_info"),
             loadTagFilterDomain: () => rpc("/get/badge_release/tag_filter_domain"),
-            loadReturnTags: () => rpc("/get/badge_return/tags")
+            loadReturnTags: () => rpc("/get/badge_return/tags"),
+            loadTipoDocumento: () => rpc("/get/badge_release_docs/tipo_documento")
         };
     },
 };

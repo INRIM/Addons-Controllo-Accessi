@@ -1,9 +1,11 @@
-from datetime import datetime
+import datetime
 
-from odoo import http
+from odoo import http, _
 from odoo.http import request
+from odoo.tools import parse_date
 from odoo.tools.misc import format_datetime
 from werkzeug.exceptions import Forbidden, NotFound
+from pytz import UTC
 
 
 class CustomPortal(http.Controller):
@@ -17,7 +19,7 @@ class CustomPortal(http.Controller):
         return request.render('controllo_accessi_portale.portal_partner_view', {})
 
     @http.route('/badge_release', auth='user', type='http', website=True)
-    def badge_release_form(self, **kwargs):
+    def badge_release_form(self, **post):
         user = request.env.user
         if (
                 not user.has_group('controllo_accessi.ca_portineria') and
@@ -26,7 +28,152 @@ class CustomPortal(http.Controller):
         ):
             raise NotFound()
 
-        return request.render('controllo_accessi_portale.badge_release_view', {})
+        if post and request.httprequest.method == 'POST':
+            date_start = post['date_start']
+            date_end = post['date_end']
+            vals = {
+                'vat': post['vat'],
+                'ca_ente_name': post['ca_ente_name'],
+                'fiscalcode': post['fiscalcode'],
+                'lastname': post['lastname'],
+                'name': post['name'],
+                'freshman': post['freshman'],
+                'email': post['email'],
+                'mobile': post['mobile'],
+                'ref_domain': post['ref_domain'],
+                'date_start': date_start,
+                'date_end': date_end,
+            }
+            if post.get('persona_id') != "":
+                vals['persona_id'] = int(post['persona_id'])
+            if post.get('tipo_ente_azienda_id'):
+                vals['tipo_ente_azienda_id'] = int(post['tipo_ente_azienda_id'])
+            if post.get('azienda'):
+                vals['ente_azienda'] = int(post['azienda'])
+            if post.get('ca_work_info_type_id'):
+                vals['ca_work_info_type_id'] = int(post['ca_work_info_type_id'])
+            if post.get('ca_title_id'):
+                vals['ca_title_id'] = int(post['ca_title_id'])
+            if post.get('ca_tag_id'):
+                vals['ca_tag_id'] = int(post['ca_tag_id'])
+            if post.get('parent_id'):
+                vals['parent_id'] = int(post['parent_id'])
+
+            REQ_FIELDS = [
+                "lastname", "name", "fiscalcode",
+                "tipo_ente_azienda_id", "ca_ente_name",
+                "ref_domain", "parent_id", "ca_work_info_type_id", "ca_title_id",
+                "date_start", "date_end", "ca_tag_id"
+            ]
+
+            errors = {}
+            error_message = []
+            # Validation
+            for field_name in REQ_FIELDS:
+                if not post.get(field_name):
+                    errors[field_name] = 'missing'
+
+            # error message for empty required fields
+            if [err for err in errors.values() if err == 'missing']:
+                error_message.append(_('Some required fields are empty.'))
+
+            if errors:
+                print('post', post)
+                print('vals', vals)
+                return request.render('controllo_accessi_portale.badge_release_view', {
+                    "errors": errors,
+                    "error_message": "\n".join(error_message),
+                    "values": vals
+                })
+
+            add_doc = bool(vals["persona_id"])
+
+            wiz = request.env['ca.registra_persona'].create({
+                **vals,
+                "date_start": datetime.datetime.fromisoformat(post['date_start']).astimezone(UTC).replace(tzinfo=None),
+                "date_end": datetime.datetime.fromisoformat(post['date_end']).astimezone(UTC).replace(tzinfo=None),
+            })
+            wiz.action_confirm()
+
+            if add_doc:
+                return request.redirect(f"/badge_release_docs/{int(post['persona_id'])}")
+            else:
+                return request.redirect('/anagrafiche')
+
+        return request.render('controllo_accessi_portale.badge_release_view', {
+            "errors": {},
+            "error_message": "",
+            "values": {}
+        })
+
+    @http.route('/badge_release_docs/<int:persona_id>', auth='user', type='http', website=True)
+    def badge_release_docs_form(self, persona_id, **post):
+        user = request.env.user
+        if (
+                not user.has_group('controllo_accessi.ca_portineria') and
+                (not user.has_group('controllo_accessi.ca_ru') or
+                 not user.has_group('controllo_accessi_portale.inrim_access_portal'))
+        ):
+            raise NotFound()
+
+        persona_obj = request.env['ca.persona'].browse(persona_id)
+
+        if not persona_obj.exists():
+            raise NotFound()
+
+        if post and request.httprequest.method == 'POST':
+            REQ_FIELDS = [
+                "tipo_documento_id",
+                "validity_start_date",
+                "validity_end_date",
+                "document_code",
+                "issued_by",
+            ]
+
+            errors = {}
+            error_message = []
+            # Validation
+            for field_name in REQ_FIELDS:
+                if not post.get(field_name):
+                    errors[field_name] = 'missing'
+
+            # error message for empty required fields
+            if [err for err in errors.values() if err == 'missing']:
+                error_message.append(_('Some required fields are empty.'))
+
+            values = {f: post.get(f) for f in REQ_FIELDS}
+            values = {
+                **values,
+                "persona_id": persona_obj.id,
+                "tipo_documento_id": int(values['tipo_documento_id']) if 'tipo_documento_id' in values else None,
+            }
+
+            if errors:
+                return request.render('controllo_accessi_portale.badge_release_docs_view', {
+                    "persona_id": persona_obj.id,
+                    "errors": errors,
+                    "error_message": "\n".join(error_message),
+                    "values": values
+                })
+
+            wiz = request.env['ca.registra_doc_persona'].create({
+                "persona_id": values["persona_id"],
+                "tipo_documento_id": values["tipo_documento_id"],
+                "validity_start_date": values["validity_start_date"],
+                "validity_end_date": values["validity_end_date"],
+                "document_code": values["document_code"],
+                "issued_by": values["issued_by"]
+            })
+            wiz.action_confirm()
+
+            return request.redirect('/anagrafiche')
+
+        return request.render('controllo_accessi_portale.badge_release_docs_view', {
+            "persona_id": persona_obj.id,
+            "errors": {},
+            "error_message": "",
+            "values": {}
+        })
 
     @http.route('/badge_return', type='http', auth='user', website=True)
     def portal_badge_return(self, **kwargs):
@@ -43,6 +190,8 @@ class CustomPortal(http.Controller):
     @http.route('/badge_release/submit', auth='user', type='http', website=True,
                 methods=['POST'], csrf=False)
     def badge_release_submit(self, **kwargs):
+        date_start = datetime.datetime.fromisoformat(kwargs['date_start']).astimezone(UTC).replace(tzinfo=None)
+        date_end = datetime.datetime.fromisoformat(kwargs['date_end']).astimezone(UTC).replace(tzinfo=None)
         vals = {
             'vat': kwargs['vat'],
             'ca_ente_name': kwargs['ca_ente_name'],
@@ -53,12 +202,8 @@ class CustomPortal(http.Controller):
             'email': kwargs['email'],
             'mobile': kwargs['mobile'],
             'ref_domain': kwargs['ref_domain'],
-            'date_end': datetime.strptime(kwargs['date_end'][:-6],
-                                          '%Y-%m-%dT%H:%M:%S.%f').strftime(
-                '%Y-%m-%d %H:%M:%S'),
-            'date_start': datetime.strptime(kwargs['date_start'][:-6],
-                                            '%Y-%m-%dT%H:%M:%S.%f').strftime(
-                '%Y-%m-%d %H:%M:%S'),
+            'date_start': date_start,
+            'date_end': date_end,
         }
         if kwargs['persona_id'] != "":
             vals['persona_id'] = int(kwargs['persona_id']),
@@ -74,9 +219,16 @@ class CustomPortal(http.Controller):
             vals['ca_tag_id'] = int(kwargs['ca_tag_id'])
         if kwargs['parent_id'] != "":
             vals['parent_id'] = int(kwargs['parent_id'])
+
+        add_doc = bool(vals["persona_id"])
+
         wiz = request.env['ca.registra_persona'].create(vals)
         wiz.action_confirm()
-        return request.redirect('/badge_release')
+
+        if add_doc:
+            return request.redirect(f"/badge_release_docs/{int(kwargs['persona_id'])}")
+        else:
+            return request.redirect('/badge_release')
 
     @http.route('/badge_return/submit', auth='user', type='http', website=True,
                 methods=['POST'], csrf=False)
@@ -309,6 +461,21 @@ class CustomPortal(http.Controller):
             ])
         ])
         return tags1_ids.read(), tags2_ids.read()
+
+    @http.route('/get/badge_release_docs/tipo_documento', auth='user', type='json',
+                website=True, csrf=False)
+    def badge_release_tipo_documento(self, **kwargs):
+        user = request.env.user
+        if (
+                not user.has_group('controllo_accessi.ca_portineria') and
+                (not user.has_group('controllo_accessi.ca_ru') or
+                 not user.has_group('controllo_accessi_portale.inrim_access_portal'))
+        ):
+            raise Forbidden()
+
+        tipi_doc = request.env['ca.tipo_doc_ident'].search([])
+
+        return tipi_doc.read()
 
     @http.route('/get/badge_return/tags', auth='user', type='json', website=True)
     def badge_return_tags(self, **kwargs):

@@ -10,7 +10,17 @@
     <template id="badge_release_view" name="Badge Release">
         <t t-call="website.layout">
             <div class="container">
-                <owl-component name="controllo_accessi_portale.BadgeRelease"/>
+                <owl-component name="controllo_accessi_portale.BadgeRelease"
+                               t-att-props="json.dumps({'errors': errors, 'error_message': error_message, 'values': values})"/>
+            </div>
+        </t>
+    </template>
+
+    <template id="badge_release_docs_view" name="Badge Release">
+        <t t-call="website.layout">
+            <div class="container">
+                <owl-component name="controllo_accessi_portale.BadgeReleaseDocs"
+                               t-att-props="json.dumps({'persona_id': persona_id, 'errors': errors, 'error_message': error_message, 'values': values})"/>
             </div>
         </t>
     </template>
