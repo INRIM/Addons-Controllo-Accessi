@@ -13,13 +13,18 @@ const {Component} = owl;
 class BadgeRelease extends Component {
     setup() {
         // ca_persona_parent: [],
+        this.csrfToken = odoo.csrf_token;
+        this.errors = this.props.errors ?? {};
+        this.error_message = this.props.error_message;
+
+        console.log('this.props.values', this.props.values)
         this.state = useState({
             caPersonaParentFiltered: [],
             selectedPersona: null,
             selectedAzienda: null,
             selectedWorkInfo: null,
             availableTags: [],
-            formValues: {
+            formValues: Object.assign({
                 name: "",
                 lastname: "",
                 fiscalcode: "",
@@ -36,7 +41,10 @@ class BadgeRelease extends Component {
                 ref_domain: "present",
                 work_info_type: null,
                 ca_title: null,
-            },
+            }, this.props.values, {
+                date_start: this.props.values?.date_start ? DateTime.fromISO(this.props.values.date_start) : null,
+                date_end: this.props.values?.date_end ? DateTime.fromISO(this.props.values.date_end) : null,
+            }),
             errors: {},
             enteInterno: false,
         });
@@ -57,6 +65,7 @@ class BadgeRelease extends Component {
         this.titolo_persona = useState([]);
         this.tags = useState([]);
         this.tagFilterDomain = useState([]);
+        this.datesCtn = useRef("date-ctn")
 
         onMounted(() => {
             const $select = $(this.personaSelectRef.el);
@@ -80,6 +89,13 @@ class BadgeRelease extends Component {
                 allowClear: true,
                 width: '100%'
             });
+
+            // Imposta a required i field date, siccome non è previsto dal componente...
+            var inputs = this.datesCtn.el.querySelectorAll("input");
+            inputs.forEach(input => {
+                input.setAttribute("required", true);
+                input.classList.add("form-control");
+            });
         });
 
 
@@ -95,6 +111,19 @@ class BadgeRelease extends Component {
             this.tags = await this.dataService.loadTags();
             this.work_info = await this.dataService.loadWorkInfo();
             this.tag_filter_domain = await this.dataService.loadTagFilterDomain();
+
+            if (this.props.values.persona_id) {
+                this.state.selectedPersona = this.props.values.persona_id;
+            }
+            if (this.props.values.ca_work_info_type_id) {
+                this.state.formValues.work_info_type = this.props.values.ca_work_info_type_id;
+            }
+            if (this.props.values.ca_title_id) {
+                this.state.formValues.ca_title = this.props.values.ca_title_id;
+            }
+
+            // FIXME: C'e un problema con autselezione tag perche viene refreshato credo...
+
         });
     };
 
@@ -195,7 +224,7 @@ class BadgeRelease extends Component {
 
 
     onRefDomainChange(ev) {
-        this.state.formValues.ref_domain = ev.target.value;;
+        this.state.formValues.ref_domain = ev.target.value;
         this.eval_parent_present();
     }
 
@@ -273,15 +302,16 @@ class BadgeRelease extends Component {
 
     filterAvailableTags() {
         const ca_title = this.titolo_persona.find(titolo => titolo.id === this.state.formValues.ca_title);
+        const selectedPersona = this.ca_persona.find(persona => persona.id === this.state.selectedPersona);
         this.state.availableTags = [];
-        if (!ca_title?.structured) {
+        if (ca_title?.structured === false) {
             this.state.availableTags = this.tags.filter(tag =>
                 !tag.in_use &&
                 !tag.revoked &&
                 tag.temp === true &&
                 tag.ca_proprieta_tag_ids.find(id => this.tag_filter_domain[0].some(tagFilter => tagFilter.id === id))
             );
-        } else if (this.state.formValues.selectedPersona?.is_internal) {
+        } else if (selectedPersona?.is_internal) {
             this.state.availableTags = this.tags.filter(tag =>
                 !tag.in_use &&
                 !tag.revoked &&
@@ -290,19 +320,43 @@ class BadgeRelease extends Component {
         }
     }
 
-    onDateStartSelect(e) {
-        let date = DateTime.fromMillis(e.ts);
+    onDateStartSelect(dt) {
         Object.assign(this.state.formValues, {
-            date_start: date,
+            date_start: dt,
         });
     }
 
-    onDateEndSelect(e) {
-        let date = DateTime.fromMillis(e.ts);
-        this.state.formValues.date_end = date;
+    onDateEndSelect(dt) {
+        this.state.formValues.date_end = dt;
+    }
+
+    onSubmitClick(e) {
+        var form = $("form");
+        form.addClass('was-validated');
+
+        var selectToValidate = ["#parent_id", "#ca_tag_id"]
+        selectToValidate.forEach((selector) => {
+            var $tagInput = $(selector);
+            if ($tagInput.length !== 0){
+                var $tagSelect2Container = $tagInput
+                    .parent()
+                    .find('.select2-container');
+                $tagSelect2Container.removeClass('is-invalid is-valid');
+                if ($tagInput.is(':invalid')) {
+                    $tagSelect2Container.addClass('is-invalid');
+                } else if ($tagInput.is(':valid')) {
+                    $tagSelect2Container.addClass('is-valid');
+                }
+            }
+        });
     }
 }
 
 BadgeRelease.components = {DateTimeInput};
 BadgeRelease.template = 'controllo_accessi_portale.BadgeRelease';
+BadgeRelease.props = {
+    values: {type: Object, optional: true},
+    errors: {type: Object, optional: true},
+    error_message: {type: String, optional: true},
+};
 registry.category("public_components").add("controllo_accessi_portale.BadgeRelease", BadgeRelease);
