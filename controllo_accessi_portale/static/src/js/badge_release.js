@@ -23,6 +23,7 @@ class BadgeRelease extends Component {
             selectedPersona: null,
             selectedAzienda: null,
             selectedWorkInfo: null,
+            isPersonaInternal: false,
             availableTags: [],
             formValues: Object.assign({
                 name: "",
@@ -164,7 +165,7 @@ class BadgeRelease extends Component {
     }
 
     onTitleChange(event) {
-        this.state.formValues.ca_title = event.target.value;
+        this.state.formValues.ca_title = parseInt(event.target.value);
         this.filterAvailableTags();
     }
 
@@ -240,6 +241,7 @@ class BadgeRelease extends Component {
     populatePersona(persona) {
         this.state.selectedPersona = persona.id || "";
         const selectedAzienda = this.eval_ente_azienda_id();
+        this.state.isPersonaInternal = persona.is_internal ?? false;
         const workInfo = this.work_info.find(wkinfo => wkinfo.ca_persona_id[0] === persona?.ca_workinfo_ids?.[0]);
         let dateStart = this.state.formValues.date_start;
         let dateEnd = this.state.formValues.date_end;

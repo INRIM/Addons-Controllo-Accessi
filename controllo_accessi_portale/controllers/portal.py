@@ -2,10 +2,9 @@ import datetime
 
 from odoo import http, _
 from odoo.http import request
-from odoo.tools import parse_date
 from odoo.tools.misc import format_datetime
-from werkzeug.exceptions import Forbidden, NotFound
 from pytz import UTC
+from werkzeug.exceptions import Forbidden, NotFound
 
 
 class CustomPortal(http.Controller):
@@ -31,6 +30,7 @@ class CustomPortal(http.Controller):
         if post and request.httprequest.method == 'POST':
             date_start = post['date_start']
             date_end = post['date_end']
+            ca_persona = None
             vals = {
                 'vat': post['vat'],
                 'ca_ente_name': post['ca_ente_name'],
@@ -40,12 +40,12 @@ class CustomPortal(http.Controller):
                 'freshman': post['freshman'],
                 'email': post['email'],
                 'mobile': post['mobile'],
-                'ref_domain': post['ref_domain'],
                 'date_start': date_start,
                 'date_end': date_end,
             }
             if post.get('persona_id') != "":
                 vals['persona_id'] = int(post['persona_id'])
+                ca_persona = request.env['ca.persona'].browse(vals['persona_id'])
             if post.get('tipo_ente_azienda_id'):
                 vals['tipo_ente_azienda_id'] = int(post['tipo_ente_azienda_id'])
             if post.get('azienda'):
@@ -58,6 +58,8 @@ class CustomPortal(http.Controller):
                 vals['ca_tag_id'] = int(post['ca_tag_id'])
             if post.get('parent_id'):
                 vals['parent_id'] = int(post['parent_id'])
+            if post.get('ref_domain'):
+                vals['ref_domain'] = post['ref_domain']
 
             REQ_FIELDS = [
                 "lastname", "name", "fiscalcode",
@@ -65,6 +67,9 @@ class CustomPortal(http.Controller):
                 "ref_domain", "parent_id", "ca_work_info_type_id", "ca_title_id",
                 "date_start", "date_end", "ca_tag_id"
             ]
+            if ca_persona and ca_persona.is_internal:
+                REQ_FIELDS.pop(REQ_FIELDS.index('ref_domain'))
+                REQ_FIELDS.pop(REQ_FIELDS.index('parent_id'))
 
             errors = {}
             error_message = []
@@ -78,25 +83,25 @@ class CustomPortal(http.Controller):
                 error_message.append(_('Some required fields are empty.'))
 
             if errors:
-                print('post', post)
-                print('vals', vals)
                 return request.render('controllo_accessi_portale.badge_release_view', {
                     "errors": errors,
                     "error_message": "\n".join(error_message),
                     "values": vals
                 })
 
-            add_doc = bool(vals["persona_id"])
+            add_doc = not vals.get("persona_id", False)
 
             wiz = request.env['ca.registra_persona'].create({
                 **vals,
-                "date_start": datetime.datetime.fromisoformat(post['date_start']).astimezone(UTC).replace(tzinfo=None),
-                "date_end": datetime.datetime.fromisoformat(post['date_end']).astimezone(UTC).replace(tzinfo=None),
+                "date_start": datetime.datetime.fromisoformat(
+                    post['date_start']).astimezone(UTC).replace(tzinfo=None),
+                "date_end": datetime.datetime.fromisoformat(post['date_end']).astimezone(
+                    UTC).replace(tzinfo=None),
             })
             wiz.action_confirm()
 
             if add_doc:
-                return request.redirect(f"/badge_release_docs/{int(post['persona_id'])}")
+                return request.redirect(f"/badge_release_docs/{wiz.persona_id.id}")
             else:
                 return request.redirect('/anagrafiche')
 
@@ -106,7 +111,8 @@ class CustomPortal(http.Controller):
             "values": {}
         })
 
-    @http.route('/badge_release_docs/<int:persona_id>', auth='user', type='http', website=True)
+    @http.route('/badge_release_docs/<int:persona_id>', auth='user', type='http',
+                website=True)
     def badge_release_docs_form(self, persona_id, **post):
         user = request.env.user
         if (
@@ -145,16 +151,18 @@ class CustomPortal(http.Controller):
             values = {
                 **values,
                 "persona_id": persona_obj.id,
-                "tipo_documento_id": int(values['tipo_documento_id']) if 'tipo_documento_id' in values else None,
+                "tipo_documento_id": int(values[
+                                             'tipo_documento_id']) if 'tipo_documento_id' in values else None,
             }
 
             if errors:
-                return request.render('controllo_accessi_portale.badge_release_docs_view', {
-                    "persona_id": persona_obj.id,
-                    "errors": errors,
-                    "error_message": "\n".join(error_message),
-                    "values": values
-                })
+                return request.render(
+                    'controllo_accessi_portale.badge_release_docs_view', {
+                        "persona_id": persona_obj.id,
+                        "errors": errors,
+                        "error_message": "\n".join(error_message),
+                        "values": values
+                    })
 
             wiz = request.env['ca.registra_doc_persona'].create({
                 "persona_id": values["persona_id"],
@@ -190,8 +198,10 @@ class CustomPortal(http.Controller):
     @http.route('/badge_release/submit', auth='user', type='http', website=True,
                 methods=['POST'], csrf=False)
     def badge_release_submit(self, **kwargs):
-        date_start = datetime.datetime.fromisoformat(kwargs['date_start']).astimezone(UTC).replace(tzinfo=None)
-        date_end = datetime.datetime.fromisoformat(kwargs['date_end']).astimezone(UTC).replace(tzinfo=None)
+        date_start = datetime.datetime.fromisoformat(kwargs['date_start']).astimezone(
+            UTC).replace(tzinfo=None)
+        date_end = datetime.datetime.fromisoformat(kwargs['date_end']).astimezone(
+            UTC).replace(tzinfo=None)
         vals = {
             'vat': kwargs['vat'],
             'ca_ente_name': kwargs['ca_ente_name'],

@@ -139,6 +139,7 @@
                                 required="True"
                                 style="margin-bottom: 10px;"
                                 t-on-change="onRefDomainChange"
+                                t-att-disabled="state.isPersonaInternal"
                                 t-att-value="state.formValues.ref_domain">
                             <option value="present">
                                 <span>Present</span>
@@ -158,7 +159,7 @@
                                 name="parent_id"
                                 class="form-control"
                                 t-att-required="!state.persona_id || state.persona_id.is_external"
-                                t-att-value="state.formValues.parent_id"
+                                t-att-disabled="state.isPersonaInternal"
                                 t-model="state.formValues.parent_id"
                                 style="margin-bottom: 10px;">
                             <option value=""/>

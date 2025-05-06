@@ -195,7 +195,7 @@ class CaPersona(models.Model):
         check = False
         for record in self:
             if check and len(record.ca_documento_ids) == 0 and record.is_external:
-                if not self.env.context.get("massive_create"):
+                if not self.env.context.get("massive_create") or not self.env.context.get("wizard_create")  :
                     raise UserError(_(
                         'For an external person it is mandatory to upload the documents'))
 
