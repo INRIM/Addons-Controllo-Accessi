@@ -15,17 +15,35 @@
 
                 <div class="row mb-3">
                     <div class="col-md-1">
-                        <label for="tag_id" class="form-label">Tag</label>
+                        <label for="tag_code" class="form-label">Tag Code</label>
                     </div>
                     <div class="col-md-6">
-                        <select t-ref="tagSelect" id="tag_id" name="tag_id" class="form-control" style="margin-bottom: 10px;" t-att-value="state.selectedTag" required="true">
+                        <input id="tag_code" name="tag_code" class="form-control" style="margin-bottom: 10px;"
+                               t-model="state.tag_code" autofocus="1" t-on-keydown="onKeyDownTagCode"/>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-1">
+                        <label for="tag_id" class="form-label">Tag</label>
+                    </div>
+                    <div class="col-md-4">
+                        <select t-ref="tagSelect" id="tag_id" name="tag_id" class="form-control"
+                                style="margin-bottom: 10px;" t-att-value="state.selectedTag" required="true">
                             <option value=""/>
                             <t t-foreach="tagFiltered" t-as="tag" t-key="tag.id">
-                                <option t-att-value="tag.id">
+                                <option t-att-value="tag.id" t-att-alt="tag.tag_code">
                                     <t t-esc="tag.display_name"/>
                                 </option>
                             </t>
                         </select>
+                    </div>
+                    <div class="col-auto">
+                        <label for="temp">Temporary</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="checkbox" id="temp" class="form-check-input" t-att-checked="state.temp"
+                               t-on-change="OnTempChange"/>
                     </div>
                 </div>
 
@@ -34,15 +52,8 @@
                         <label for="persona_id" class="form-label">Partner</label>
                     </div>
                     <div class="col-md-6">
-                        <input id="persona_id" name="persona_id" class="form-control" style="margin-bottom: 10px;" t-att-value="state.selectedPersona" readonly="true"/>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-1">
-                        <label for="temp">Temporary</label>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="checkbox" id="temp" class="form-check-input" t-att-checked="state.temp" t-on-change="OnTempChange"/>
+                        <input id="persona_id" name="persona_id" class="form-control" style="margin-bottom: 10px;"
+                               t-att-value="state.selectedPersona" readonly="true"/>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center mt-4">

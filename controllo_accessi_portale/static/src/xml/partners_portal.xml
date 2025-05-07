@@ -2,7 +2,6 @@
 <templates id="template" xml:space="preserve">
     <t t-name="controllo_accessi_portale.PartnersPortal" name="Partners Portal"
        owl="1">
-        <t t-esc="state.ca_persona_data"/>
         <div class="container mt-4 mb-4">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
@@ -18,29 +17,60 @@
                 </div>
             </div>
 
-            <div class="form-group d-flex mt-3">
-                <input type="text" class="form-control me-2"
-                       placeholder="Search Partners..."
-                       t-on-input="updateSearch"/>
-                <button t-on-click="setFilterAll" style="margin:2px"
-                        class="btn btn-primary">All</button>
-                <button t-on-click="setFilterInternal" style="margin:2px"
-                        class="btn btn-primary">Internals</button>
-                <button t-on-click="setFilterExternal" style="margin:2px"
-                        class="btn btn-primary">Externals</button>
+            <div class="row form-group mt-3 align-items-center">
+                <div class="col">
+                    <input type="text" class="form-control me-2"
+                           placeholder="Search Partners..."
+                           t-on-change="updateSearch"/>
+                </div>
+                <div class="col-3">
+                    <select t-ref="paCategorySelect" id="pa_category_id" name="pa_category_id">
+                        <option value=""/>
+                        <t t-foreach="ca_punto_accesso_category" t-as="category" t-key="category.id">
+                            <option t-att-value="category.id">
+                                <t t-esc="category.display_name"/>
+                            </option>
+                        </t>
+                    </select>
+                </div>
+
+                <div class="col-auto">
+                    <div class="d-flex flex-column">
+                        <div>
+                            <div class="btn-group me-2" role="group">
+                                <input type="radio" class="btn-check" name="f_int_ext" id="btn_fie_all"
+                                       autocomplete="off" checked="1" t-on-change="setFilterAll"/>
+                                <label class="btn btn-outline-primary" for="btn_fie_all">All</label>
+
+                                <input type="radio" class="btn-check" name="f_int_ext" id="btn_fie_int"
+                                       autocomplete="off" t-on-change="setFilterInternal"/>
+                                <label class="btn btn-outline-primary" for="btn_fie_int">Internals</label>
+
+                                <input type="radio" class="btn-check" name="f_int_ext" id="btn_fie_ext"
+                                       autocomplete="off" t-on-change="setFilterExternal"/>
+                                <label class="btn btn-outline-primary" for="btn_fie_ext">Externals</label>
+                            </div>
+
+                            <input type="checkbox" class="btn-check" id="is_present" autocomplete="off"
+                                   t-on-change="setFilterIsPresent"/>
+                            <label class="btn btn-outline-success" for="is_present">Presenti</label>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <t t-esc="data"/>
             <table class="table table-striped mt-3" id="partners_table">
                 <thead>
                     <tr>
                         <th>Name</th>
                         <th>Date/Hour Last Event</th>
-                        <th>Access Last Event</th>
+                        <th>Direction</th>
+                        <th>Access Point</th>
                         <th>Attendance</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <t t-foreach="PagedData" t-as="record" t-key="record.id">
+                    <t t-foreach="state.ca_persona_data" t-as="record" t-key="record.id">
                         <tr>
                             <td>
                                 <t t-esc="record.display_name"/>
@@ -50,8 +80,10 @@
                                    t-options='{"format_datetime": {}}'/>
                             </td>
                             <td>
-                                <t t-esc="record.last_reading_event"
-                                   t-options='{"format_datetime": {}}'/>
+                                <t t-esc="record.event_direction"/>
+                            </td>
+                            <td>
+                                <t t-esc="record.event_punto_accesso"/>
                             </td>
                             <td t-att-class="record.present[0] == 'yes'? 'bg-green' : 'bg-red'">
                                 <t t-esc="record.present[1]"/>
@@ -60,8 +92,21 @@
                     </t>
                 </tbody>
             </table>
-            <Pager offset="state.offset" limit="state.limit"
-                   total="caPersonaCount" onUpdate="onPageChange.bind(this)"/>
+            <div class="row align-items-center">
+            <div class="col">
+                <Pager offset="state.offset" limit="state.limit"
+                       total="state.total" onUpdate="onPageChange.bind(this)"/>
+            </div>
+                <div class="col-3">
+                    <div class="progress" style="height: 6px;">
+                      <div t-ref="progressbar" id="progressbar"
+                           class="progress-bar progress-bar-striped transition-none progress-bar-animated"
+                           role="progressbar"
+                           aria-valuenow="75"
+                           aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </t>
 </templates>

@@ -21,6 +21,7 @@ class CaAnagRegistroAccesso(models.Model):
 
     ca_punto_accesso_id = fields.Many2one(
         'ca.punto_accesso', string="Access Point", required=True, ondelete='cascade')
+    ca_punto_accesso_category_id = fields.Many2one(related="ca_punto_accesso_id.ca_category")
     ca_tag_persona_id = fields.Many2one(
         'ca.tag_persona', string="Tag", required=True, ondelete='cascade')
     ca_persona_id = fields.Many2one(

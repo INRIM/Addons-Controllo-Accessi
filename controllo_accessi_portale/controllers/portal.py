@@ -1,7 +1,9 @@
 import datetime
+from typing import Dict
 
 from odoo import http, _
 from odoo.http import request
+from odoo.osv import expression
 from odoo.tools.misc import format_datetime
 from pytz import UTC
 from werkzeug.exceptions import Forbidden, NotFound
@@ -252,12 +254,40 @@ class CustomPortal(http.Controller):
 
     # JSON
     @http.route('/get/anagrafiche', type='json', auth='user', website=True, csrf=False)
-    def get_anagrafiche(self, **kwargs):
+    def get_anagrafiche(self, limit: int, offset: int, query: str, filter: Dict, **kwargs):
         user = request.env.user
+
         if not user.has_group('controllo_accessi_portale.inrim_access_portal'):
             raise Forbidden()
-        records = request.env['ca.persona'].search([])
-        data = []
+
+        # Filtra per:
+        # tag_ids presenti, in modo da escludere persone senza nemmeno un tag attivo
+        search_domain = [
+            ("ca_tag_ids", "!=", False)
+        ]
+        if query:
+            search_domain = expression.AND([[("display_name", "ilike", query)], search_domain])
+
+        if filter:
+            if filter.get("internal", False):
+                search_domain = expression.AND([[("is_internal", "=", True)], search_domain])
+            elif filter.get("external", False):
+                search_domain = expression.AND([[("is_external", "=", True)], search_domain])
+
+            if filter.get("is_present", False):
+                search_domain = expression.AND([[("present", "=", "yes")], search_domain])
+
+            if filter.get("pa_category_id", None):
+                search_domain = expression.AND(
+                    [[("person_access_ids.ca_punto_accesso_category_id", "=", filter["pa_category_id"])],
+                     search_domain])
+
+        records = request.env['ca.persona'].search(search_domain, limit=limit, offset=offset)
+        count = request.env['ca.persona'].search_count(search_domain)
+        data = {
+            "items": [],
+            "total": count
+        }
         row = {}
         for record in records:
             row = {
@@ -267,31 +297,63 @@ class CustomPortal(http.Controller):
                 'is_external': record.is_external,
                 'is_internal': record.is_internal,
                 'present': (record.present,
-                            dict(record._fields['present'].selection).get(
+                            dict(record._fields['present']._description_selection(request.env)).get(
                                 record.present)),
                 'datetime_event': '',
                 'last_reading_event': '',
+                'event_direction': '',
+                'event_punto_accesso': ''
             }
             if record.person_access_ids:
-                if record.person_access_ids[0].datetime_event:
+                # Filtra per:
+                # - ca_persona_id
+                # - ca_punto_accesso_category_id - per escludere le righe a cui l'utente non ha accesso (vedi record_rule)
+                la_search_domain = [
+                    ("ca_persona_id", "=", record.id),
+                    ("ca_punto_accesso_category_id", "!=", False)
+                    # ("ca_punto_accesso_category_id", "in", category_ids.ids)
+                ]
+                if filter and filter.get("pa_category_id", None):
+                    la_search_domain = expression.AND(
+                        [[("ca_punto_accesso_category_id", "=", filter["pa_category_id"])], la_search_domain])
+
+                last_access = record.person_access_ids.search(la_search_domain)
+
+                if last_access:
+                    last_access = last_access.sorted("datetime_event", reverse=True)[0]
+
+                if last_access.datetime_event:
                     row['datetime_event'] = format_datetime(
                         request.env,
-                        record.person_access_ids[0].datetime_event,
+                        last_access.datetime_event,
                         tz=user.tz,
                         lang_code=user.lang,
                     )
-                if record.person_access_ids[0].ca_punto_accesso_id and \
-                        record.person_access_ids[
-                            0].ca_punto_accesso_id.last_reading_events:
-                    row['last_reading_event'] = format_datetime(
-                        request.env,
-                        record.person_access_ids[
-                            0].ca_punto_accesso_id.last_reading_events,
-                        tz=user.tz,
-                        lang_code=user.lang,
-                    )
-            data.append(row)
+
+                if last_access.direction:
+                    row['event_direction'] = dict(last_access._fields['direction']._description_selection(request.env))[
+                        last_access.direction]
+
+                if last_access.ca_punto_accesso_category_id:
+                    row['event_punto_accesso'] = last_access.ca_punto_accesso_category_id.display_name
+
+            data["items"].append(row)
         return data
+
+    @http.route('/get/anagrafiche/ca_punto_accesso_category', type='json', auth='user', website=True, csrf=False)
+    def anagrafiche_pa_category(self, **kwargs):
+        user = request.env.user
+        if (
+                not user.has_group('controllo_accessi.ca_portineria') and
+                (not user.has_group('controllo_accessi.ca_ru') or
+                 not user.has_group('controllo_accessi_portale.inrim_access_portal'))
+        ):
+            raise Forbidden()
+
+        # category_ids = request.env['ca.punto_accesso_category'].sudo().search([("allowed_users", "in", [user.id])])
+        category_ids = request.env['ca.punto_accesso_category'].search([("ca_access_point_ids", "!=", False)])
+
+        return category_ids.read()
 
     @http.route('/get/badge_release/ca_persona', auth='user', type='json', website=True)
     def badge_release_ca_persona(self, **kwargs):
@@ -305,7 +367,12 @@ class CustomPortal(http.Controller):
 
         ca_persona = request.env['ca.persona'].search([])
 
-        return ca_persona.read()
+        persona_res = ca_persona.read()
+
+        for p in persona_res:
+            p["current_tag"] = ca_persona.get_current_tag().read()
+
+        return persona_res
 
     @http.route('/get/badge_release/ca_persona_parent', auth='user', type='json',
                 website=True)
@@ -470,7 +537,12 @@ class CustomPortal(http.Controller):
                 request.env.ref('inrim_anagrafiche.proprieta_tag_definitivo').id,
             ])
         ])
-        return tags1_ids.read(), tags2_ids.read()
+        tags3_ids = request.env['ca.proprieta_tag'].search([
+            ('id', 'in', [
+                request.env.ref('inrim_anagrafiche.proprieta_tag_jolly').id
+            ])
+        ])
+        return tags1_ids.read(), tags2_ids.read(), tags3_ids.read()
 
     @http.route('/get/badge_release_docs/tipo_documento', auth='user', type='json',
                 website=True, csrf=False)
@@ -502,4 +574,10 @@ class CustomPortal(http.Controller):
             ('ca_tag_id.in_use', '=', True)
         ])
 
-        return tag_ids.read()
+        ret = []
+
+        for record in tag_ids:
+            rec_dict = record.read()[0]
+            rec_dict["tag_code"] = record.ca_tag_id.tag_code
+            ret.append(rec_dict)
+        return ret
