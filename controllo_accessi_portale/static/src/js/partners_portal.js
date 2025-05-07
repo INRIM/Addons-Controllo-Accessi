@@ -1,73 +1,143 @@
 /** @odoo-module */
 
-import { registry } from "@web/core/registry";
-import { useState, onWillStart } from '@odoo/owl';
-import { useService } from "@web/core/utils/hooks";
-import { Pager } from "@web/core/pager/pager";
-const { DateTime } = luxon;
+import {registry} from "@web/core/registry";
+import {onWillStart, onWillUnmount, onMounted, useState, useRef} from '@odoo/owl';
+import {useService} from "@web/core/utils/hooks";
+import {Pager} from "@web/core/pager/pager";
+import {_t} from "@web/core/l10n/translation";
 
-const { Component } = owl;
+const {Component} = owl;
 
 class PartnersPortal extends Component {
-    setup() { 
+    setup() {
+        this.initLimit = 80;
+        this.initOffset = 0;
+        this.pollInterval = 10 * 1000; // 30 seconds
+        // Setup polling timer reference
+        this.pollingTimer = null;
+
+        this.dataService = useService("dataService");
+        this.paCategorySelectRef = useRef("paCategorySelect");
         this.state = useState({
             searchValue: "",
-            filterCriteria: { is_external: null, is_internal: null },
-            offset: 0,
-            limit: 80,
+            filterCriteria: {
+                internal: null,
+                external: null,
+                is_present: null,
+                pa_category_id: null
+            },
+            offset: this.initOffset,
+            limit: this.initLimit,
+            total: 0,
+            ca_persona_data: []
         });
-        this.dataService = useService("dataService");
-        this.ca_persona_data = useState([]);
+        this.ca_punto_accesso_category = useState([])
 
         onWillStart(async () => {
-            const response = await this.dataService.loadAnagrafiche();
-            this.ca_persona_data = response;
+            this.ca_punto_accesso_category = await this.dataService.loadPuntoAccessoCategory();
+            await this.fetchData(this.state.limit, this.state.offset);
         });
-    };  
 
-    get filteredData() {
-        const { searchValue, filterCriteria } = this.state;
+        onMounted(() => {
+            const $paCategorySelect = $(this.paCategorySelectRef.el);
+            $paCategorySelect.select2({
+                placeholder: _t("Select an Access Point..."),
+                allowClear: true,
+                width: '100%',
+            });
+            $paCategorySelect.on("change.select2", this.onCategoryChange.bind(this));
+            this.setupPolling();
+        })
 
-        return this.ca_persona_data.filter((record) => {
-            const name = record.display_name.toLowerCase();
-            const matchesSearch = !searchValue || name.includes(searchValue);
-
-            const matchesFilter =
-                (filterCriteria.is_external === null || filterCriteria.is_external === record.is_external) &&
-                (filterCriteria.is_internal === null || filterCriteria.is_internal === record.is_internal);
-
-            return matchesSearch && matchesFilter;
+        // Clean up on component unmount
+        onWillUnmount(() => {
+            this.clearPolling();
         });
+    };
+
+    async fetchData(limit, offset, query = null, filter = null) {
+        const response = await this.dataService.loadAnagrafiche(limit, offset, query, filter);
+        this.state.offset = offset;
+        this.state.limit = limit;
+        this.state.total = response.total;
+        this.state.ca_persona_data = response.items;
+        return response.items;
     }
 
-    get caPersonaCount() {
-        return this.filteredData.length;
+    async onPageChange(event) {
+        await this.fetchData(event.limit, event.offset, this.state.searchValue, this.state.filterCriteria);
     }
 
-    onPageChange(event) {
-        this.state.offset = event.offset;
-        this.state.limit = event.limit;
+    async setFilterAll() {
+        this.state.filterCriteria.internal = null;
+        this.state.filterCriteria.external = null;
+        await this.fetchData(this.initLimit, this.initOffset, this.state.searchValue, this.state.filterCriteria);
     }
 
-    get PagedData() {
-        let filteredData = this.filteredData;
-        return filteredData.slice(this.state.offset, this.state.offset+this.state.limit);
+    async setFilterInternal() {
+        this.state.filterCriteria.external = null;
+        this.state.filterCriteria.internal = true;
+        await this.fetchData(this.initLimit, this.initOffset, this.state.searchValue, this.state.filterCriteria);
     }
 
-    setFilterAll() {
-        this.state.filterCriteria = { is_external: null, is_internal: null };
+    async setFilterExternal() {
+        this.state.filterCriteria.internal = null;
+        this.state.filterCriteria.external = true;
+        await this.fetchData(this.initLimit, this.initOffset, this.state.searchValue, this.state.filterCriteria);
     }
 
-    setFilterInternal() {
-        this.state.filterCriteria = { is_external: false, is_internal: true };
+    async setFilterIsPresent(evt) {
+        const value = evt.target.checked;
+        if (value === true) {
+            this.state.filterCriteria.is_present = true;
+        } else {
+            this.state.filterCriteria.is_present = null;
+        }
+        await this.fetchData(this.initLimit, this.initOffset, this.state.searchValue, this.state.filterCriteria);
     }
 
-    setFilterExternal() {
-        this.state.filterCriteria = { is_external: true, is_internal: false };
+    async updateSearch(event) {
+        this.state.searchValue = event.target.value;
+        await this.fetchData(this.initLimit, this.initOffset, this.state.searchValue, this.state.filterCriteria);
     }
 
-    updateSearch(event) {
-        this.state.searchValue = event.target.value.toLowerCase();
+    async onCategoryChange(event) {
+        const selectedId = parseInt(event.target.value);
+        this.state.filterCriteria.pa_category_id = selectedId;
+        await this.fetchData(this.initLimit, this.initOffset, this.state.searchValue, this.state.filterCriteria);
+    }
+
+    animateProgressBar() {
+        const progressBar = document.getElementById('progressbar');
+        const duration = this.pollInterval; // 5 seconds
+        const startTime = Date.now();
+
+        function update() {
+            const elapsed = Date.now() - startTime;
+            const progress = 100 - ((elapsed % duration) / duration * 100);
+
+            progressBar.style.width = progress + '%';
+
+            requestAnimationFrame(update);
+        }
+
+        update();
+    }
+
+    setupPolling() {
+        this.animateProgressBar();
+
+        this.pollingTimer = setInterval(async () => {
+            await this.fetchData(this.state.limit, this.state.offset, this.state.searchValue, this.state.filterCriteria);
+        }, this.pollInterval);
+
+    }
+
+    clearPolling() {
+        if (this.pollingTimer) {
+            clearInterval(this.pollingTimer);
+            this.pollingTimer = null;
+        }
     }
 }
 

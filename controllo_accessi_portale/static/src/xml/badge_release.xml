@@ -177,11 +177,12 @@
 
                 <div class="row">
                     <div class="col-md-2">
-                        <label for="name" class="form-label">Ca Work Info Type</label>
+                        <label for="ca_work_info_type_id" class="form-label">Ca Work Info Type</label>
                     </div>
                     <div class="col-md-4">
-                        <select id="ca_work_info_type_id" name="ca_work_info_type_id" required="True" class="form-control" style="margin-bottom: 10px;" t-on-change="OnWorkInfoChange"
-                                t-att-value="state.formValues.work_info_type" t-model="state.formValues.work_info_type">
+                        <select t-ref="wInfoTypeSelect" id="ca_work_info_type_id" name="ca_work_info_type_id" required="true"
+                                class="form-control" style="margin-bottom: 10px;"
+                                t-model="state.formValues.work_info_type">
                             <option value=""/>
                             <t t-foreach="work_info_type" t-as="work_info" t-key="work_info.id">
                                 <option t-att-value="work_info.id">
@@ -191,11 +192,12 @@
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <label for="name" class="form-label">Ca Title</label>
+                        <label for="ca_title_id" class="form-label">Ca Title</label>
                     </div>
                     <div class="col-md-4">
-                        <select id="ca_title_id" name="ca_title_id" class="form-control" required="True" style="margin-bottom: 10px;"
-                                t-att-value="state.formValues.ca_title" t-model="state.formValues.ca_title" t-on-change="onTitleChange">
+                        <select t-ref="caTitleSelect" id="ca_title_id" name="ca_title_id" class="form-control" required="true"
+                                style="margin-bottom: 10px;"
+                                t-model="state.formValues.ca_title">
                             <option value=""/>
                             <t t-foreach="titolo_persona" t-as="titolo_pers" t-key="titolo_pers.id">
                                 <option t-att-value="titolo_pers.id">

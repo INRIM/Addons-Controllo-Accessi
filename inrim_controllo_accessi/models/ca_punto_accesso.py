@@ -58,14 +58,14 @@ class CaPuntoAccessoCategory(models.Model):
 
         }
 
+    @api.depends('ca_access_point_ids')
     def compute_ca_tag_persona_ids(self):
-        self.ensure_one()
+        for record in self:
+            access_point_ids = record.ca_access_point_ids
+            tag_persona_ids = access_point_ids.mapped(
+                'ca_tag_lettore_persona_ids.ca_tag_persona').ids
 
-        access_point_ids = self.ca_access_point_ids
-        tag_persona_ids = access_point_ids.mapped(
-            'ca_tag_lettore_persona_ids.ca_tag_persona').ids
-
-        self.ca_tag_persona_ids = [(6, 0, tag_persona_ids)]
+            record.ca_tag_persona_ids = [(6, 0, tag_persona_ids)]
 
     def write(self, vals):
         res = super().write(vals)

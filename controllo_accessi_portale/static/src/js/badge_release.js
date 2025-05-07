@@ -17,7 +17,6 @@ class BadgeRelease extends Component {
         this.errors = this.props.errors ?? {};
         this.error_message = this.props.error_message;
 
-        console.log('this.props.values', this.props.values)
         this.state = useState({
             caPersonaParentFiltered: [],
             selectedPersona: null,
@@ -53,6 +52,8 @@ class BadgeRelease extends Component {
         this.personaSelectRef = useRef("personaSelect");
         this.parentSelectRef = useRef("parentSelect");
         this.tagSelectRef = useRef("tagSelect");
+        this.workInfoSelectRef = useRef("wInfoTypeSelect");
+        this.caTitleSelectRef = useRef("caTitleSelect");
         this.onDateStartSelect = this.onDateStartSelect.bind(this);
         this.onDateEndSelect = this.onDateEndSelect.bind(this);
         this.dataService = useService("dataService");
@@ -90,6 +91,22 @@ class BadgeRelease extends Component {
                 allowClear: true,
                 width: '100%'
             });
+
+            const $wInfoSelect = $(this.workInfoSelectRef.el);
+            $wInfoSelect.select2({
+                placeholder: _t("Select a work info type..."),
+                allowClear: true,
+                width: '100%'
+            });
+            $wInfoSelect.on("change.select2", this.OnWorkInfoChange.bind(this));
+
+            const $caTitleSelectRef = $(this.caTitleSelectRef.el);
+            $caTitleSelectRef.select2({
+                placeholder: _t("Select a title..."),
+                allowClear: true,
+                width: '100%'
+            });
+            $caTitleSelectRef.on("change.select2", this.onTitleChange.bind(this));
 
             // Imposta a required i field date, siccome non è previsto dal componente...
             var inputs = this.datesCtn.el.querySelectorAll("input");
@@ -165,7 +182,7 @@ class BadgeRelease extends Component {
     }
 
     onTitleChange(event) {
-        this.state.formValues.ca_title = parseInt(event.target.value);
+        this.state.formValues.ca_title = event.target.value ? parseInt(event.target.value) : null;
         this.filterAvailableTags();
     }
 
@@ -177,7 +194,6 @@ class BadgeRelease extends Component {
         if (selectedPersona) {
             const $select = $(this.personaSelectRef.el);
             $select.val(selectedPersona.id).trigger("change");
-            // this.populatePersona(selectedPersona);
         }
     }
 
@@ -240,6 +256,7 @@ class BadgeRelease extends Component {
 
     populatePersona(persona) {
         this.state.selectedPersona = persona.id || "";
+        this.state.isPersonaInternal = persona.is_internal ?? false;
         const selectedAzienda = this.eval_ente_azienda_id();
         this.state.isPersonaInternal = persona.is_internal ?? false;
         const workInfo = this.work_info.find(wkinfo => wkinfo.ca_persona_id[0] === persona?.ca_workinfo_ids?.[0]);
@@ -274,6 +291,11 @@ class BadgeRelease extends Component {
             date_end: dateEnd || this.state.formValues.date_end,
         });
 
+        const $wInfoSelect = $(this.workInfoSelectRef.el);
+        $wInfoSelect.val(this.state.formValues.work_info_type).trigger("change");
+        const $caTitleSelect = $(this.caTitleSelectRef.el);
+        $caTitleSelect.val(this.state.formValues.ca_title).trigger("change");
+
         this.state.selectedAzienda = selectedAzienda
         this.state.formValues.ente_azienda = selectedAzienda?.id || "";
         this.filterAvailableTags();
@@ -306,7 +328,13 @@ class BadgeRelease extends Component {
         const ca_title = this.titolo_persona.find(titolo => titolo.id === this.state.formValues.ca_title);
         const selectedPersona = this.ca_persona.find(persona => persona.id === this.state.selectedPersona);
         this.state.availableTags = [];
-        if (ca_title?.structured === false) {
+        if (selectedPersona?.current_tag?.length) {
+            this.state.availableTags = this.tags.filter(tag =>
+                !tag.in_use &&
+                !tag.revoked &&
+                tag.ca_proprieta_tag_ids.find(id => this.tag_filter_domain[2].some(tagFilter => tagFilter.id === id))
+            );
+        } else if (ca_title?.structured === false) {
             this.state.availableTags = this.tags.filter(tag =>
                 !tag.in_use &&
                 !tag.revoked &&
@@ -336,7 +364,7 @@ class BadgeRelease extends Component {
         var form = $("form");
         form.addClass('was-validated');
 
-        var selectToValidate = ["#parent_id", "#ca_tag_id"]
+        var selectToValidate = ["#parent_id", "#ca_tag_id", "#ca_work_info_type_id", "#ca_title_id"];
         selectToValidate.forEach((selector) => {
             var $tagInput = $(selector);
             if ($tagInput.length !== 0){

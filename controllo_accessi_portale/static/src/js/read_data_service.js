@@ -1,7 +1,7 @@
 /** @odoo-module */
 
-import { registry } from "@web/core/registry";
-import { memoize } from "@web/core/utils/functions";
+import {registry} from "@web/core/registry";
+import {memoize} from "@web/core/utils/functions";
 
 export const dataService = {
     dependencies: ["rpc"],
@@ -17,11 +17,15 @@ export const dataService = {
         "loadWorkInfo",
         "loadTagFilterDomain",
         "loadReturnTags",
-        "loadTipoDocumento"
+        "loadTipoDocumento",
+        "loadPuntoAccessoCategory"
     ],
-    start(env, { rpc }) {
+    start(env, {rpc}) {
         return {
-            loadAnagrafiche: () => rpc("/get/anagrafiche"),
+            loadAnagrafiche: (limit, offset, query, filter) => {
+                return rpc("/get/anagrafiche", {limit: limit, offset: offset, query: query, filter: filter});
+            },
+            loadPuntoAccessoCategory: () => rpc("/get/anagrafiche/ca_punto_accesso_category"),
             loadPersona: () => rpc("/get/badge_release/ca_persona"),
             loadPersonaParent: () => rpc("/get/badge_release/ca_persona_parent"),
             loadTipoEntiAzienda: () => rpc("/get/badge_release/tipo_enti_azienda"),
