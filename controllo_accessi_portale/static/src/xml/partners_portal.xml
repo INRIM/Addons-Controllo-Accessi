@@ -53,7 +53,7 @@
 
                             <input type="checkbox" class="btn-check" id="is_present" autocomplete="off"
                                    t-on-change="setFilterIsPresent"/>
-                            <label class="btn btn-outline-success" for="is_present">Presenti</label>
+                            <label class="btn btn-outline-success" for="is_present">Presents</label>
                         </div>
                     </div>
                 </div>

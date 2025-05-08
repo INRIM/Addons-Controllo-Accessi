@@ -36,8 +36,12 @@ class BadgeReturn extends Component {
         });
 
         onWillStart(async () => {
-            this.ca_persona = await this.dataService.loadPersona();
-            this.tags = await this.dataService.loadReturnTags();
+            const res = await Promise.all([
+                this.dataService.loadPersona(),
+                this.dataService.loadReturnTags()
+            ])
+            this.ca_persona = res[0];
+            this.tags = res[1];
         });
     }
 

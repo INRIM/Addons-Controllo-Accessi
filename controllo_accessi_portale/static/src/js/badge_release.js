@@ -118,17 +118,29 @@ class BadgeRelease extends Component {
 
 
         onWillStart(async () => {
-            this.ca_persona = await this.dataService.loadPersona();
-            this.ca_persona_parent = await this.dataService.loadPersonaParent();
-            this.eval_parent_present();
-            this.tipo_ente_azienda = await this.dataService.loadTipoEntiAzienda();
-            this.tipo_ente_azienda_hidden = await this.dataService.loadTipoEntiAziendaHidden();
-            this.work_info_type = await this.dataService.loadWorkInfoType();
-            this.titolo_persona = await this.dataService.loadTitoloPersona();
-            this.ca_ente_azienda = await this.dataService.loadEnteAzienda();
-            this.tags = await this.dataService.loadTags();
-            this.work_info = await this.dataService.loadWorkInfo();
-            this.tag_filter_domain = await this.dataService.loadTagFilterDomain();
+            const res = await Promise.all([
+                this.dataService.loadPersona(),
+                this.dataService.loadPersonaParent(),
+                this.dataService.loadTipoEntiAzienda(),
+                this.dataService.loadTipoEntiAziendaHidden(),
+                this.dataService.loadWorkInfoType(),
+                this.dataService.loadTitoloPersona(),
+                this.dataService.loadEnteAzienda(),
+                this.dataService.loadTags(),
+                this.dataService.loadWorkInfo(),
+                this.dataService.loadTagFilterDomain()
+            ]);
+
+            this.ca_persona = res[0];
+            this.ca_persona_parent = res[1];
+            this.tipo_ente_azienda = res[2];
+            this.tipo_ente_azienda_hidden = res[3];
+            this.work_info_type = res[4];
+            this.titolo_persona = res[5];
+            this.ca_ente_azienda = res[6];
+            this.tags = res[7];
+            this.work_info = res[8];
+            this.tag_filter_domain = res[9];
 
             if (this.props.values.persona_id) {
                 this.state.selectedPersona = this.props.values.persona_id;
@@ -360,10 +372,7 @@ class BadgeRelease extends Component {
         this.state.formValues.date_end = dt;
     }
 
-    onSubmitClick(e) {
-        var form = $("form");
-        form.addClass('was-validated');
-
+    validateSelectFields() {
         var selectToValidate = ["#parent_id", "#ca_tag_id", "#ca_work_info_type_id", "#ca_title_id"];
         selectToValidate.forEach((selector) => {
             var $tagInput = $(selector);
@@ -379,6 +388,13 @@ class BadgeRelease extends Component {
                 }
             }
         });
+    }
+
+    onSubmitClick(e) {
+        var form = $("form");
+        form.addClass('was-validated');
+
+        this.validateSelectFields();
     }
 }
 

@@ -58,8 +58,12 @@ class BadgeReleaseDocs extends Component {
 
 
         onWillStart(async () => {
-            this.ca_persona = await this.dataService.loadPersona();
-            this.tipo_documento = await this.dataService.loadTipoDocumento()
+            const res = await Promise.all([
+                this.dataService.loadPersona(),
+                this.dataService.loadTipoDocumento()
+            ])
+            this.ca_persona = res[0];
+            this.tipo_documento = res[1];
         });
     };
 
