@@ -367,12 +367,14 @@ class CustomPortal(http.Controller):
 
         ca_persona = request.env['ca.persona'].search([])
 
-        persona_res = ca_persona.read()
+        ret = []
 
-        for p in persona_res:
-            p["current_tag"] = ca_persona.get_current_tag().read()
+        for record in ca_persona:
+            ret_dict = record.read()[0]
+            ret_dict["current_tag"] = record.get_current_tag().read()
+            ret.append(ret_dict)
 
-        return persona_res
+        return ret
 
     @http.route('/get/badge_release/ca_persona_parent', auth='user', type='json',
                 website=True)
