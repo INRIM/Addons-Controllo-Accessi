@@ -16,6 +16,7 @@ class CaTagPersona(models.Model):
         default=lambda self: self.get_token())
     ca_persona_id = fields.Many2one('ca.persona', required=True,
         string="Person")
+    token_persona = fields.Char(related="ca_persona_id.token", store=True)
     ca_tag_id = fields.Many2one('ca.tag', required=True, string="Tag")
     tag_name = fields.Char(related="ca_tag_id.name", store=True)
     tag_in_use = fields.Boolean(related="ca_tag_id.in_use", store=True)
