@@ -372,7 +372,8 @@ class CaPuntoAccesso(models.Model):
 
     def check_and_attach(self):
         if self.typology == 'stamping':
-            self.stamping_attach()
+            for record in self:
+                record.stamping_attach()
 
     def check_and_detach(self, tag_persona):
         if self.typology == 'stamping':
