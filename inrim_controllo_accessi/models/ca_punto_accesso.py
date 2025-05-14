@@ -371,8 +371,8 @@ class CaPuntoAccesso(models.Model):
         self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
 
     def check_and_attach(self):
-        if self.typology == 'stamping':
-            for record in self:
+        for record in self:
+            if record.typology == 'stamping':
                 record.stamping_attach()
 
     def check_and_detach(self, tag_persona):
