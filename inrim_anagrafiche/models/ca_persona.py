@@ -1,6 +1,5 @@
 import random
 import string
-from fcntl import FASYNC
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
@@ -111,7 +110,7 @@ class CaPersona(models.Model):
         'ca.documento', 'ca_persona_id', string="Document")
     ca_stato_anag_id = fields.Many2one('ca.stato_anag', default=lambda
         self: self.default_ca_stato_anag_id(), required=True,
-        string="Partner Status")
+                                       string="Partner Status")
     ca_ente_azienda_ids = fields.Many2many('ca.ente_azienda', string="Companies")
     token = fields.Char(required=True, readonly=True, copy=False,
                         default=lambda self: self.get_token())
@@ -119,7 +118,7 @@ class CaPersona(models.Model):
         ('yes', 'Yes'),
         ('no', 'No')
     ], default='no', readonly=True)
-    send_to_payroll_system =fields.Boolean()
+    send_to_payroll_system = fields.Boolean()
     uid = fields.Char()
     note = fields.Text()
     trust_level = fields.Integer("Trust Level", default=1)
@@ -127,7 +126,7 @@ class CaPersona(models.Model):
     is_internal = fields.Boolean(compute="_compute_bool", store=True)
     is_structured = fields.Boolean(compute='_compute_is_structured', store=True)
     ca_tag_ids = fields.One2many('ca.tag_persona', 'ca_persona_id', readonly=True,
-        string="Tag")
+                                 string="Tag")
     active = fields.Boolean(default=True)
 
     def get_current_tag(self):
@@ -184,9 +183,11 @@ class CaPersona(models.Model):
                     ]
                 )
                 if persona_id:
-                    msg = _(f'Esiste già una persona con questo codice fiscale: {record.fiscalcode}')
+                    msg = _(
+                        f'Esiste già una persona con questo codice fiscale: {record.fiscalcode}')
                     if not record.active:
-                        msg = _(f"{msg} la persona Risulta disattivata, riattivare per utilizzare")
+                        msg = _(
+                            f"{msg} la persona Risulta disattivata, riattivare per utilizzare")
                     raise UserError(
                         _(msg))
 
@@ -195,7 +196,8 @@ class CaPersona(models.Model):
         check = False
         for record in self:
             if check and len(record.ca_documento_ids) == 0 and record.is_external:
-                if not self.env.context.get("massive_create") or not self.env.context.get("wizard_create")  :
+                if not self.env.context.get(
+                        "massive_create") or not self.env.context.get("wizard_create"):
                     raise UserError(_(
                         'For an external person it is mandatory to upload the documents'))
 
@@ -235,8 +237,12 @@ class CaPersona(models.Model):
     def _compute_display_name(self):
         for record in self:
             record.display_name = False
+            winfo = self.get_current_winfo()
             if record.name and record.lastname:
-                record.display_name = f"{record.lastname} {record.name}"
+                if winfo:
+                    record.display_name = f"{record.lastname} {record.name} ({winfo.ca_div_uo_code})"
+                else:
+                    record.display_name = f"{record.lastname} {record.name} ({record.token})"
 
     def default_ca_stato_anag_id(self):
         return self.env.ref('inrim_anagrafiche.ca_stato_anag_bozza').id
