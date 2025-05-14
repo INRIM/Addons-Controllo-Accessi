@@ -275,7 +275,7 @@ class CaRegistraPersona(models.TransientModel):
         for access_point_group in self.env['ca.punto_accesso_category'].search([]):
             for access_point in access_point_group.ca_access_point_ids:
                 logger.info(f"wizard eval attach {access_point}")
-                access_point.stamping_attach()
+                access_point.check_and_attach()
         if add_doc:
             add_doc_w = self.env['ca.registra_doc_persona'].create({
                 'persona_id': self.persona_id.id,
