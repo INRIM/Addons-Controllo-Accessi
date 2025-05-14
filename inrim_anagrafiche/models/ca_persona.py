@@ -237,7 +237,7 @@ class CaPersona(models.Model):
     def _compute_display_name(self):
         for record in self:
             record.display_name = False
-            winfo = self.get_current_winfo()
+            winfo = record.get_current_winfo()
             if record.name and record.lastname:
                 if winfo:
                     record.display_name = f"{record.lastname} {record.name} ({winfo.ca_div_uo_code})"
