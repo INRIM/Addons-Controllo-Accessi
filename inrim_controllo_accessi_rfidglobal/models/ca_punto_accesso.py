@@ -139,7 +139,7 @@ class CaPuntoAccesso(models.Model):
                         activity_code, self.ca_lettore_id.id, msg=msg
                     )
                 else:
-                    self.last_update_reader = datetime.now()
+                    # self.last_update_reader = datetime.now()
                     self.remote_update = False
 
                 return activity_code
@@ -181,8 +181,8 @@ class CaPuntoAccesso(models.Model):
                         reads = res.hasMore
                         count += nume_envts
 
-                self.last_reading_events = datetime.now()
-                self.events_read_num = count
+                # self.last_reading_events = datetime.now()
+                # self.events_read_num = count
                 return activity_code
         except Exception as e:
             msg = f'Exception in events_save_json: {activity_code}: Err: , {e}'

@@ -150,11 +150,12 @@ class Max5010RfidClient:
         self.tz = pytz.timezone(tz)
 
     @classmethod
-    def make_EventsResponse_from_dict(cls, data: dict, tz) -> EventsResponse:
+    def make_eventsResponse_from_dict(cls, data: dict, tz) -> EventsResponse:
         events = EventsResponse(**data)
-        for idx in range(len(events.eventRecords)):
-            events.eventRecords[idx]['tz'] = tz
-            events.eventRecords[idx] = EventRecord(**events.eventRecords[idx])
+        events.eventRecords = []
+        for idx in range(len(data.get("eventRecords", []))):
+            data["eventRecords"][idx]['tz'] = tz
+            events.eventRecords.append(EventRecord(**data["eventRecords"][idx]))
         return events
 
     def post_request(self, path: str, body: dict) -> (dict, str):
@@ -193,7 +194,7 @@ class Max5010RfidClient:
         res, msg = self.post_request(rest_path, {})
         device = Device(**res)
         if self.device.status and device.status:
-            self.device.diagnostic = DeviceDiagnostic(**device.diagnostic)
+            self.device.diagnostic = DeviceDiagnostic(**res.get('diagnostic',{}))
         return self.device
 
     def connect(self):
@@ -245,7 +246,7 @@ class Max5010RfidClient:
             dstpath = os.path.join(path, moveto)
             os.makedirs(dstpath)
         eventsd = self.read_events(numeber_events)
-        if eventsd and len(eventsd.get('eventRecords',[])) > 0.:
+        if eventsd and len(eventsd.get('eventRecords', [])) > 0.:
             jdata = json.dumps(eventsd)
             src = os.path.join(path, filename)
             with open(src, 'w') as json_file:
@@ -254,11 +255,11 @@ class Max5010RfidClient:
                 dstpath = os.path.join(path, moveto)
                 dst = os.path.join(dstpath, filename)
                 shutil.move(src, dst)
-        return self.make_EventsResponse_from_dict(eventsd, self.tz)
+        return self.make_eventsResponse_from_dict(eventsd, self.tz)
 
     @classmethod
     def load_events_from_file(cls, filepath: str, tz: str) -> EventsResponse:
         data = {}
         with open(filepath, 'r', encoding='utf-8') as f:
             data = json.load(f)
-        return cls.make_EventsResponse_from_dict(data, tz)
+        return cls.make_eventsResponse_from_dict(data, tz)
