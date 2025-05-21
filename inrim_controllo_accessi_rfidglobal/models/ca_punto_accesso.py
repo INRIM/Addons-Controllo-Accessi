@@ -162,6 +162,10 @@ class CaPuntoAccesso(models.Model):
         if not reader.online:
             logger.error("Reader is OFFLINE")
             return False
+        if isinstance(reader.device.diagnostic, dict):
+            logger.error(
+                f"reader.device.diagnostic --> Errore Is Dict {reader.device.diagnostic}")
+            return False
         if reader.device.diagnostic.event_cnt == 0:
             logger.info(f"No Events in redear")
             return True
@@ -207,12 +211,14 @@ class CaPuntoAccesso(models.Model):
                     file_path, self.tz)
                 riga_accesso_model = self.env['ca.anag_registro_accesso']
                 if events.eventRecords:
+                    error = "000"
                     for record in events.eventRecords:
-                        self.ca_lettore_id.error_code = record.errorCode
+                        if error == "000":
+                            error = record.errorCode
                         tag_lettore = self.env['ca.tag_lettore'].search(
                             ["&",
-                             ("ca_punto_accesso_id",'in',[self.id]),
-                             ("ca_tag_code",'=',record.idd)
+                             ("ca_punto_accesso_id", 'in', [self.id]),
+                             ("ca_tag_code", '=', record.idd)
                              ], limit=1)
                         if tag_lettore:
                             tag_persona = self.env['ca.tag_persona'].search([
@@ -232,19 +238,18 @@ class CaPuntoAccesso(models.Model):
                                         access_allowed=record.accessAllowed,
                                         tz=self.tz
                                     )
-                                    return True
                                 else:
                                     logger.error(
                                         f"Association {record.idd} and {tag_persona.ca_persona_id.display_name} is expired in reader")
-                                    return False
                             else:
                                 logger.error(
                                     f"tag {record.idd} associated with no one ")
-                                return False
                         else:
                             logger.error(
                                 f"tag  {record.idd} not valid for Reader {self.ca_lettore_id.name} ")
-                            return False
+                    if error != "000":
+                        self.ca_lettore_id.error_code = error
+                    return True
                 else:
                     if events.status == 146 and events.statusStr == "OK":
                         logger.info("No Events in redear")
