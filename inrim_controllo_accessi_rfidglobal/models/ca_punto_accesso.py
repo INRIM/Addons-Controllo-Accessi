@@ -119,7 +119,10 @@ class CaPuntoAccesso(models.Model):
     def update_reader_tags(self):
         self.ensure_one()
         if not self.remote_update or not self.enable_sync:
-            logger.info(f"No Tags to update for reader")
+            logger.info(f"Access Point {self.name} not enabled for sync")
+            return False
+        if not self.remote_update:
+            logger.info(f"No Tags to update in AP")
             return False
         reader = self.load_reader()
         if not reader.online:
