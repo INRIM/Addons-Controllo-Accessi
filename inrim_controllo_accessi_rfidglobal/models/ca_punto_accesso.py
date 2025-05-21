@@ -162,6 +162,9 @@ class CaPuntoAccesso(models.Model):
         if not reader.online:
             logger.error("Reader is OFFLINE")
             return False
+        if reader.device.diagnostic.event_cnt == 0:
+            logger.info(f"No Events in redear")
+            return True
         activity_code = self.get_code_activity("READEVNT")
         logger.info(f"Start save events from Reader, CodAtt: {activity_code}")
         data_dir = path_files
