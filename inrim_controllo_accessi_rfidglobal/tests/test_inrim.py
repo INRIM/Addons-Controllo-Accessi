@@ -164,7 +164,7 @@ class RfidTestCommon(TestCommon):
         code = punto_accesso_id.save_events_to_json()
         self.localfilename = f"{code}_{punto_accesso_id.events_to_read_num}.json"
         file_path = Path(f"{self.path_files}/TODO/{self.localfilename}")
-        self.assertTrue(not file_path.exists())
+        self.assertFalse(file_path.exists())
 
     # Test 4
     @respx.mock

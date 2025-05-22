@@ -76,7 +76,7 @@ class TestCommon(TransactionCase):
         cls.tag_persona_id = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_tag_persona_1')
         # Mock Read Events
         cls.read_events_data_empty = {
-            "status": 148,
+            "status": 146,
             "statusStr": "OK",
             "layoutIdd": True,
             "layoutTimeStamp": True,

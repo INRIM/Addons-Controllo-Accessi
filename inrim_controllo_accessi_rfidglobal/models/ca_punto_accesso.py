@@ -210,6 +210,7 @@ class CaPuntoAccesso(models.Model):
                 events: EventsResponse = Max5010RfidClient.load_events_from_file(
                     file_path, self.tz)
                 riga_accesso_model = self.env['ca.anag_registro_accesso']
+                local_res = []
                 if events.eventRecords:
                     error = "000"
                     for record in events.eventRecords:
@@ -238,18 +239,22 @@ class CaPuntoAccesso(models.Model):
                                         access_allowed=record.accessAllowed,
                                         tz=self.tz
                                     )
+                                    local_res.append(True)
                                 else:
+                                    local_res.append(False)
                                     logger.error(
                                         f"Association {record.idd} and {tag_persona.ca_persona_id.display_name} is expired in reader")
                             else:
+                                local_res.append(False)
                                 logger.error(
                                     f"tag {record.idd} associated with no one ")
                         else:
+                            local_res.append(False)
                             logger.error(
                                 f"tag  {record.idd} not valid for Reader {self.ca_lettore_id.name} ")
                     if error != "000":
                         self.ca_lettore_id.error_code = error
-                    return True
+                    return any(local_res)
                 else:
                     if events.status == 146 and events.statusStr == "OK":
                         logger.info("No Events in redear")
