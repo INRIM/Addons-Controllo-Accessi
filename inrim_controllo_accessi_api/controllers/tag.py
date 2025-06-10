@@ -1,6 +1,11 @@
+import logging
+
 from odoo import http
 
 from .api_controller_inrim import InrimApiController, BadRequest
+
+logger = logging.getLogger(__name__)
+
 
 class InrimApiTag(InrimApiController):
 
@@ -19,6 +24,7 @@ class InrimApiTag(InrimApiController):
         try:
             return self.handle_response(*self.model.rest_post(data))
         except Exception as e:
+            logger.error(e, exc_info=True)
             raise BadRequest(str(e))
 
     @http.route('/api/tag', auth="none", type='http', methods=['PUT'],
