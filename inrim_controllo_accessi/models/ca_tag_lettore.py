@@ -44,8 +44,9 @@ class CaTagLettore(models.Model):
             'date_start': self.f_date(self.date_start),
             'date_end': self.f_date(self.date_end),
             'temp': self.temp,
-            'expired': self.expired,
-            'ca_punto_accesso_id': self.f_m2o(self.ca_punto_accesso_id)
+            'state': self.f_selection(self.state),
+            'ca_punto_accesso_id': self.f_m2o(self.ca_punto_accesso_id),
+            'access_point_typology': self.access_point_typology
         }
         return vals
 

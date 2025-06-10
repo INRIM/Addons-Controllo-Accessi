@@ -51,7 +51,7 @@ class InrimApiController(http.Controller):
             self.model = env[model]
         except Exception as e:
             raise Forbidden(
-                description=f"L'utente {user_id.name} non ha accesso ai record di ca.documento"
+                description=f"L'utente {user_id.name} non ha accesso ai record"
             )
 
     @staticmethod
