@@ -53,7 +53,7 @@ class CaTagLettore(models.Model):
     def rest_eval_body(self, body):
         body, msg = super().rest_eval_body(
             body, [
-                'ca_lettore_id', 'ca_tag_id', 'date_start', 'date_end'
+                'ca_lettore_id.id', 'ca_tag_id.id', 'date_start', 'date_end'
             ])
         return body, msg
 
