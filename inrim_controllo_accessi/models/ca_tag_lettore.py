@@ -44,7 +44,7 @@ class CaTagLettore(models.Model):
             'date_start': self.f_date(self.date_start),
             'date_end': self.f_date(self.date_end),
             'temp': self.temp,
-            'state': self.f_selection(self.state),
+            'state': self.f_selection("state", self.state),
             'ca_punto_accesso_id': self.f_m2o(self.ca_punto_accesso_id),
             'access_point_typology': self.access_point_typology
         }
@@ -85,7 +85,6 @@ class CaTagLettore(models.Model):
         self.state = 'expired'
         if self.ca_punto_accesso_id:
             self.ca_punto_accesso_id.remote_update = True
-
 
     @api.onchange('ca_lettore_id')
     def _onchange_ca_lettore_id(self):
@@ -152,7 +151,8 @@ class CaTagLettore(models.Model):
                 ('active', '=', True)
             ])
             if tag_lettore_id:
-                raise UserError(_('A reader tag already exists with the same tag and reader'))
+                raise UserError(
+                    _('A reader tag already exists with the same tag and reader'))
 
     def collega_tag_lettore(self, nome_lettore, nome_tag, date_start="", date_end=""):
         if nome_lettore and nome_tag:
