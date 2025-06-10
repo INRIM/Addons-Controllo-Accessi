@@ -6,7 +6,7 @@ class CaLettore(models.Model):
     _inherit = 'ca.lettore'
 
     punto_accesso_ids = fields.One2many(
-        'ca.tag_lettore', 'ca_lettore_id', readonly=True,
+        'ca.punto_accesso', 'ca_lettore_id', readonly=True,
         string="Access Point")
 
     @api.constrains('punto_accesso_ids')
