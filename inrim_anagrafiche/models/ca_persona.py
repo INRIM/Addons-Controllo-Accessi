@@ -233,7 +233,7 @@ class CaPersona(models.Model):
                 if type.structured:
                     record.is_structured = True
 
-    @api.depends('name', 'lastname')
+    @api.depends('name', 'lastname', "ca_workinfo_ids")
     def _compute_display_name(self):
         for record in self:
             record.display_name = False
