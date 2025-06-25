@@ -581,7 +581,8 @@ class CaPersona(models.Model):
             'email': self.email,
             'phone': self.phone,
             'mobile': self.mobile,
-            'ca_workinfo_ids': self.f_o2m(self.ca_workinfo_ids)
+            'ca_workinfo_ids': self.f_o2m(self.ca_workinfo_ids),
+            'send_to_payroll_system': self.send_to_payroll_system
         }
         if self.env.user.has_group('controllo_accessi.ca_gdpr'):
             vals.update({
