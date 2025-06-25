@@ -266,7 +266,7 @@
                                             </group>
                                         </group>
                                     </form>
-                                    <tree default_order="date_start disc"
+                                    <tree default_order="date_end desc"
                                           editable="false">
                                         <field name="ca_persona_id"
                                                column_invisible="1"/>
