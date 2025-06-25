@@ -60,13 +60,13 @@ class CaTagPersona(models.Model):
                     raise UserError(
                         _("There is already another person tag for this person at this time"))
 
-    @api.constrains('ca_persona_id', 'temp', 'active')
-    def _check_temp_tag_persona(self):
-        for record in self:
-            if record.ca_persona_id:
-                if record.ca_persona_id.is_external and not record.temp:
-                    raise UserError(
-                        _('Only temporary tags can be assigned to an external'))
+    # @api.constrains('ca_persona_id', 'temp', 'active')
+    # def _check_temp_tag_persona(self):
+    #     for record in self:
+    #         if record.ca_persona_id:
+    #             if record.ca_persona_id.is_external and not record.temp:
+    #                 raise UserError(
+    #                     _('Only temporary tags can be assigned to an external'))
 
     @api.constrains('ca_tag_id', 'active')
     def _check_tag_revocato(self):

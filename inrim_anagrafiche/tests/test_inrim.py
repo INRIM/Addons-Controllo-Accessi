@@ -186,20 +186,20 @@ class TestInrim(TestCommon):
             })
 
     # Test 9
-    def test_9(self):
-        """
-        Utente1 crea un record Tag Persona collegando Persona
-        6 a Tag 3 , inizio oggi fine oggi +2
-
-        :return: Errore: "Tag 3; ad un esterno possono essere
-        assegnati solo Tag di Tipo Temporaneo"
-        """
-        self.env = self.env(user=self.user_1)
-        self.cr = self.env.cr
-        with self.assertRaises(UserError):
-            self.env['ca.tag_persona'].create({
-                'ca_persona_id': self.persona_6.id,
-                'ca_tag_id': self.tag_3.id,
-                'date_start': fields.Datetime.now(),
-                'date_end': fields.Datetime.now() + relativedelta(days=2)
-            })
+    # def test_9(self):
+    #     """
+    #     Utente1 crea un record Tag Persona collegando Persona
+    #     6 a Tag 3 , inizio oggi fine oggi +2
+    #
+    #     :return: Errore: "Tag 3; ad un esterno possono essere
+    #     assegnati solo Tag di Tipo Temporaneo"
+    #     """
+    #     self.env = self.env(user=self.user_1)
+    #     self.cr = self.env.cr
+    #     with self.assertRaises(UserError):
+    #         self.env['ca.tag_persona'].create({
+    #             'ca_persona_id': self.persona_6.id,
+    #             'ca_tag_id': self.tag_3.id,
+    #             'date_start': fields.Datetime.now(),
+    #             'date_end': fields.Datetime.now() + relativedelta(days=2)
+    #         })
