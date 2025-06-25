@@ -90,6 +90,7 @@ class CaWorkInfo(models.Model):
     _inherit = "ca.model.base.mixin"
     _description = 'Info Lavorative'
     _rec_name = 'ca_persona_id'
+    _order = "date_end desc"
 
     ca_persona_id = fields.Many2one(
         'ca.persona', required=True, string="Person")
