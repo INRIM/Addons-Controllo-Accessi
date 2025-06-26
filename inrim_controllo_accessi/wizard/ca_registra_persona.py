@@ -161,6 +161,7 @@ class CaRegistraPersona(models.TransientModel):
                 ])
             ])
 
+
     @api.onchange('fiscalcode')
     def _compute_eval_fiscalcode(self):
         if self._context.get("no_change_person"):
@@ -180,9 +181,15 @@ class CaRegistraPersona(models.TransientModel):
     def _compute_tag_id_number(self):
         for record in self:
             record.work_id_number = record.ca_tag_id.default_id_number
+            if record.ca_tag_id.temp:
+                now = fields.Datetime.now()
+                # Costruisce oggi alle 19:30
+                today_1930 = datetime.combine(now.date(), time(19, 30))
+                record.date_start = now
+                record.date_end = today_1930
 
     @api.onchange('persona_id')
-    def _compute_tag_id_number(self):
+    def _compute_tag_id_persona_id(self):
         if self._context.get("no_change_person"):
             return
         for record in self:

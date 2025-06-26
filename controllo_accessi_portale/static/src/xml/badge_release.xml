@@ -233,7 +233,7 @@
                     </div>
                     <div class="col-md-10">
                         <select t-ref="tagSelect" id="ca_tag_id" name="ca_tag_id" class="form-control" required="true" style="margin-bottom: 10px;"
-                                t-model="state.formValues.ca_tag_id">
+                                t-model="state.formValues.ca_tag_id" t-on-change="OnTagChange">
                             <option value=""/>
                             <t t-foreach="state.availableTags" t-as="tag" t-key="tag.id">
                                 <option t-att-value="tag.id">

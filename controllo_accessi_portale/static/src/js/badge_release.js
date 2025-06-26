@@ -48,6 +48,7 @@ class BadgeRelease extends Component {
             errors: {},
             enteInterno: false,
         });
+        this.OnTagChange = this.OnTagChange.bind(this);
         this.onPersonaChange = this.onPersonaChange.bind(this);
         this.personaSelectRef = useRef("personaSelect");
         this.parentSelectRef = useRef("parentSelect");
@@ -91,6 +92,7 @@ class BadgeRelease extends Component {
                 allowClear: true,
                 width: '100%'
             });
+            $select3.on("change.select2", this.OnTagChange.bind(this));
 
             const $wInfoSelect = $(this.workInfoSelectRef.el);
             $wInfoSelect.select2({
@@ -232,11 +234,30 @@ class BadgeRelease extends Component {
         });
     }
 
-    onTagChange(event) {
-        Object.assign(this.state.formValues, {
-            ca_tag_id: event.target.value,
-        });
+    // onTagChange(event) {
+    //     Object.assign(this.state.formValues, {
+    //         ca_tag_id: event.target.value,
+    //     });
+    // }
+
+    OnTagChange(event) {
+        const tagId = parseInt(event.target.value);
+        const tag = this.tags.find(tag => tag.id === tagId);
+        if (tag?.id !== null && tag.temp) {
+            const zone = 'Europe/Rome';
+            const now = DateTime.now().setZone(zone);
+            const dateStart = now;
+            const dateEnd = now.set({
+                hour: 19,
+                minute: 30,
+                second: 0,
+                millisecond: 0
+            });
+            this.state.formValues.date_start = dateStart;
+            this.state.formValues.date_end = dateEnd;
+        }
     }
+
 
     onVatChange(event) {
         this.state.formValues.vat = event.target.value;
@@ -376,7 +397,7 @@ class BadgeRelease extends Component {
         var selectToValidate = ["#parent_id", "#ca_tag_id", "#ca_work_info_type_id", "#ca_title_id"];
         selectToValidate.forEach((selector) => {
             var $tagInput = $(selector);
-            if ($tagInput.length !== 0){
+            if ($tagInput.length !== 0) {
                 var $tagSelect2Container = $tagInput
                     .parent()
                     .find('.select2-container');
