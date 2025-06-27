@@ -156,7 +156,7 @@ class BadgeRelease extends Component {
             if (this.props.values.ca_title_id) {
                 this.state.formValues.ca_title = this.props.values.ca_title_id;
             }
-            this.loader.hide();
+            this.loader.attr('style', 'display: none !important');
             // FIXME: C'e un problema con autselezione tag perche viene refreshato credo...
 
         });
