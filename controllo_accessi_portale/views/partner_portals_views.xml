@@ -2,7 +2,8 @@
     <template id="portal_partner_view" name="Partners Portal">
         <t t-call="website.layout">
             <div class="container">
-                <owl-component name="controllo_accessi_portale.PartnersPortal"/>
+                <owl-component
+                        name="controllo_accessi_portale.PartnersPortal"/>
             </div>
         </t>
     </template>
@@ -10,6 +11,33 @@
     <template id="badge_release_view" name="Badge Release">
         <t t-call="website.layout">
             <div class="container">
+                <div id="loading-rb"
+                     class="d-flex justify-content-center align-items-center min-vh-100">
+                    <div class="spinner-grow text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-secondary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-success" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-danger" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-warning" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-info" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-light" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-dark" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
                 <owl-component name="controllo_accessi_portale.BadgeRelease"
                                t-att-props="json.dumps({'errors': errors, 'error_message': error_message, 'values': values})"/>
             </div>
@@ -19,8 +47,9 @@
     <template id="badge_release_docs_view" name="Badge Release">
         <t t-call="website.layout">
             <div class="container">
-                <owl-component name="controllo_accessi_portale.BadgeReleaseDocs"
-                               t-att-props="json.dumps({'persona_id': persona_id, 'errors': errors, 'error_message': error_message, 'values': values})"/>
+                <owl-component
+                        name="controllo_accessi_portale.BadgeReleaseDocs"
+                        t-att-props="json.dumps({'persona_id': persona_id, 'errors': errors, 'error_message': error_message, 'values': values})"/>
             </div>
         </t>
     </template>

@@ -50,6 +50,7 @@ class BadgeRelease extends Component {
         });
         this.OnTagChange = this.OnTagChange.bind(this);
         this.onPersonaChange = this.onPersonaChange.bind(this);
+        this.loader = $("#loading-rb")
         this.personaSelectRef = useRef("personaSelect");
         this.parentSelectRef = useRef("parentSelect");
         this.tagSelectRef = useRef("tagSelect");
@@ -71,6 +72,7 @@ class BadgeRelease extends Component {
         this.datesCtn = useRef("date-ctn")
 
         onMounted(() => {
+
             const $select = $(this.personaSelectRef.el);
             $select.select2({
                 placeholder: _t("Select a Partner..."),
@@ -118,8 +120,12 @@ class BadgeRelease extends Component {
             });
         });
 
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
 
         onWillStart(async () => {
+            await sleep(3000);
             const res = await Promise.all([
                 this.dataService.loadPersona(),
                 this.dataService.loadPersonaParent(),
@@ -153,7 +159,7 @@ class BadgeRelease extends Component {
             if (this.props.values.ca_title_id) {
                 this.state.formValues.ca_title = this.props.values.ca_title_id;
             }
-
+            this.loader.hide();
             // FIXME: C'e un problema con autselezione tag perche viene refreshato credo...
 
         });
