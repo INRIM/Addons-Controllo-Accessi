@@ -365,16 +365,10 @@ class CustomPortal(http.Controller):
         ):
             raise Forbidden()
 
-        ca_persona = request.env['ca.persona'].search([])
+        ca_persona = request.env['ca.persona'].search_read([])
 
-        ret = []
 
-        for record in ca_persona:
-            ret_dict = record.read()[0]
-            ret_dict["current_tag"] = record.get_current_tag().read()
-            ret.append(ret_dict)
-
-        return ret
+        return ca_persona
 
     @http.route('/get/badge_release/ca_persona_parent', auth='user', type='json',
                 website=True)

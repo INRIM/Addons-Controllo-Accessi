@@ -125,9 +125,15 @@ class CaPersona(models.Model):
     is_external = fields.Boolean(compute="_compute_bool", store=True)
     is_internal = fields.Boolean(compute="_compute_bool", store=True)
     is_structured = fields.Boolean(compute='_compute_is_structured', store=True)
+    current_tag = fields.Many2one('ca.tag_persona', compute='_compute_current_tag')
     ca_tag_ids = fields.One2many('ca.tag_persona', 'ca_persona_id', readonly=True,
                                  string="Tag")
     active = fields.Boolean(default=True)
+
+    @api.depends('ca_tag_ids', 'ca_tag_ids.state')
+    def _compute_current_tag(self):
+        for persona in self:
+            persona.current_tag = persona.get_current_tag()
 
     def get_current_tag(self):
         tag = self.ca_tag_ids.filtered(

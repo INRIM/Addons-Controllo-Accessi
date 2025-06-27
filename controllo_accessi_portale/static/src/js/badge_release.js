@@ -121,7 +121,6 @@ class BadgeRelease extends Component {
         });
 
 
-
         onWillStart(async () => {
             const res = await Promise.all([
                 this.dataService.loadPersona(),
@@ -295,7 +294,8 @@ class BadgeRelease extends Component {
         this.state.isPersonaInternal = persona.is_internal ?? false;
         const selectedAzienda = this.eval_ente_azienda_id();
         this.state.isPersonaInternal = persona.is_internal ?? false;
-        const workInfo = this.work_info.find(wkinfo => wkinfo.ca_persona_id[0] === persona?.ca_workinfo_ids?.[0]);
+        const workInfo = this.work_info.find(
+            wkinfo => wkinfo.state === 'active' && wkinfo.ca_persona_id[0] === persona?.id);
         let dateStart = this.state.formValues.date_start;
         let dateEnd = this.state.formValues.date_end;
         if (workInfo) {
