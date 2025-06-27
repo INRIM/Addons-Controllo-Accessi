@@ -120,12 +120,9 @@ class BadgeRelease extends Component {
             });
         });
 
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
+
 
         onWillStart(async () => {
-            await sleep(3000);
             const res = await Promise.all([
                 this.dataService.loadPersona(),
                 this.dataService.loadPersonaParent(),
