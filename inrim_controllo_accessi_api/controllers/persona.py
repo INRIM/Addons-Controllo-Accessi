@@ -43,3 +43,14 @@ class InrimApiTipoPersona(InrimApiController):
         self.check_token(model, 'read')
         return self.handle_response(
             *self.model.rest_get(params), is_list=True)
+
+
+class InrimApiTitoloPersona(InrimApiController):
+
+    @http.route('/api/titolo_persona', auth="none", type='http', methods=['GET'],
+                csrf=False)
+    def api_get_ca_titolo_persona(self, **params):
+        model = 'ca.titolo_persona'
+        self.check_token(model, 'read')
+        return self.handle_response(
+            *self.model.rest_get(params), is_list=True)
