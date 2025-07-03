@@ -182,7 +182,7 @@ class CaRegistraPersona(models.TransientModel):
         if not self._context.get("no_compute_tag_id_number"):
             for record in self:
                 record.work_id_number = record.ca_tag_id.default_id_number
-                if record.ca_tag_id.temp:
+                if record.ca_tag_id.temp and not record.date_start and not record.date_end:
                     now = fields.Datetime.now()
                     # Costruisce oggi alle 19:30
                     today_1930 = datetime.combine(now.date(), time(19, 30))
