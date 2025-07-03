@@ -245,7 +245,7 @@ class BadgeRelease extends Component {
     OnTagChange(event) {
         const tagId = parseInt(event.target.value);
         const tag = this.tags.find(tag => tag.id === tagId);
-        if (tag?.id !== null && tag.temp) {
+        if (tag?.id !== null && tag.temp && this.state.formValues.date_start === null && this.state.formValues.date_end === null) {
             const zone = 'Europe/Rome';
             const now = DateTime.now().setZone(zone);
             const dateStart = now;
