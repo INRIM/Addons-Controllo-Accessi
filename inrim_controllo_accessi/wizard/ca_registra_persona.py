@@ -179,15 +179,16 @@ class CaRegistraPersona(models.TransientModel):
 
     @api.onchange('ca_tag_id')
     def _compute_tag_id_number(self):
-        if not self._context.get("no_compute_tag_id_number"):
-            for record in self:
-                record.work_id_number = record.ca_tag_id.default_id_number
-                if record.ca_tag_id.temp and not record.date_start and not record.date_end:
-                    now = fields.Datetime.now()
-                    # Costruisce oggi alle 19:30
-                    today_1930 = datetime.combine(now.date(), time(19, 30))
-                    record.date_start = now
-                    record.date_end = today_1930
+        if self.env._context.get("no_compute_tag_id_number"):
+            return
+        for record in self:
+            record.work_id_number = record.ca_tag_id.default_id_number
+            if record.ca_tag_id.temp and not record.date_start and not record.date_end:
+                now = fields.Datetime.now()
+                # Costruisce oggi alle 19:30
+                today_1930 = datetime.combine(now.date(), time(19, 30))
+                record.date_start = now
+                record.date_end = today_1930
 
     @api.onchange('persona_id')
     def _compute_tag_id_persona_id(self):
