@@ -93,7 +93,7 @@ class CustomPortal(http.Controller):
 
             add_doc = not vals.get("persona_id", False)
 
-            wiz = request.env['ca.registra_persona'].create({
+            wiz = request.env['ca.registra_persona'].with_context(no_compute_tag_id_number=True).create({
                 **vals,
                 "date_start": datetime.datetime.fromisoformat(
                     post['date_start']).astimezone(UTC).replace(tzinfo=None),
