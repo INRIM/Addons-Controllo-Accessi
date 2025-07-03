@@ -562,6 +562,7 @@ class CaPersona(models.Model):
     def rest_get_record(self):
         vals = {
             'id': self.id,
+            "uid": self.uid,
             'name': self.name,
             'lastname': self.lastname,
             'parent_id': self.f_m2o(self.parent_id),
