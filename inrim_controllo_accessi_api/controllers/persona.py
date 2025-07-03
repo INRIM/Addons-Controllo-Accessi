@@ -13,7 +13,7 @@ class InrimApiPersona(InrimApiController):
         return self.handle_response(
             *self.model.rest_get(params), is_list=True)
 
-    @http.route('/api/pesona', auth="none", type='http', methods=['POST'],
+    @http.route('/api/persona', auth="none", type='http', methods=['POST'],
                 csrf=False)
     def api_post_persona(self):
         self.check_token('ca.persona', 'create')
