@@ -345,7 +345,7 @@ class CaPersona(models.Model):
                 user_id = self.get_or_create_odoo_user(
                     record, is_intenal)
 
-                persona_id = self.env['ca.persona'].`with_context`(
+                persona_id = self.env['ca.persona'].with_context(
                     massive_create=True).search([
                     ('fiscalcode', '=', codice_fiscale)
                 ], limit=1)
