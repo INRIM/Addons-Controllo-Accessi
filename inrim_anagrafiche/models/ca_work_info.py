@@ -29,7 +29,8 @@ class CaWorkInfoType(models.Model):
                 if tags:
                     msg = _(f'Esiste già questa tipologia: {record.code}')
                     if not record.active:
-                        msg = _(f"{record.code} Risulta disattivato, riattivare per utilizzare")
+                        msg = _(
+                            f"{record.code} Risulta disattivato, riattivare per utilizzare")
                     raise UserError(_(msg))
 
     @api.constrains('name', 'active')
@@ -46,7 +47,8 @@ class CaWorkInfoType(models.Model):
                 if tags:
                     msg = _(f'Esiste già questa tipologia: {record.name}')
                     if not record.active:
-                        msg = _(f"{record.name} Risulta disattivato, riattivare per utilizzare")
+                        msg = _(
+                            f"{record.name} Risulta disattivato, riattivare per utilizzare")
                     raise UserError(_(msg))
 
     @api.model
@@ -160,7 +162,7 @@ class CaWorkInfo(models.Model):
             "ca_persona_id": self.f_m2o(self.ca_persona_id),
             "work_id_number": self.work_id_number,
             "ca_work_info_type_id": self.ca_work_info_type_id.rest_get_record(),
-            "ca_title_id": self.f_m2o(self.ca_title_id),
+            "ca_title_id": self.ca_title_id.rest_get_record(),
             "ca_div_uo_code": self.ca_div_uo_code,
             "date_start": self.f_date(self.date_start),
             "date_end": self.f_date(self.date_end),
