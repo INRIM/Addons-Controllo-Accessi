@@ -565,6 +565,7 @@ class CaPersona(models.Model):
             "uid": self.uid,
             'name': self.name,
             'lastname': self.lastname,
+            'display_name': self.display_name,
             'parent_id': self.f_m2o(self.parent_id),
             'associated_user_id': self.f_m2o(self.associated_user_id),
             'domicile_street': self.domicile_street or "",
