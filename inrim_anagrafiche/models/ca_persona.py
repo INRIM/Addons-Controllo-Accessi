@@ -590,7 +590,8 @@ class CaPersona(models.Model):
             'phone': self.phone,
             'mobile': self.mobile,
             'ca_workinfo_ids': self.f_o2m(self.ca_workinfo_ids),
-            'send_to_payroll_system': self.send_to_payroll_system
+            'send_to_payroll_system': self.send_to_payroll_system,
+            "current_tag": self.current_tag.rest_get_record()
         }
         if self.env.user.has_group('controllo_accessi.ca_gdpr'):
             vals.update({
