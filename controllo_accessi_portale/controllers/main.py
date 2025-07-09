@@ -12,7 +12,7 @@ class CustomHome(Home):
         elif user.has_group(
                 'controllo_accessi_portale.inrim_access_portal'):  # Se appartiene al gruppo portale
             return "/anagrafiche"
-        return "/"  # Default: home page standard
+        return "/web"  # Default: home page standard
 
     def _login_redirect(self, uid, redirect=None):
         """ Override del reindirizzamento post-login """

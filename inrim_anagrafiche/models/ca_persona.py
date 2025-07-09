@@ -239,16 +239,26 @@ class CaPersona(models.Model):
                 if type.structured:
                     record.is_structured = True
 
+    def compute_name(self):
+        self.ensure_one()
+        self.display_name = False
+        winfo = self.get_current_winfo()
+        spec = ''
+        if winfo:
+            spec = winfo.ca_div_uo_code
+        if not spec:
+            if self.ca_ente_azienda_ids:
+                specs = [r.name for r in self.ca_ente_azienda_ids if r]
+                spec = ", ".join(specs)
+            else:
+                spec = 'No Spec'
+        if self.name and self.lastname:
+            self.display_name = f"{self.lastname} {self.name} ({spec})"
+
     @api.depends('name', 'lastname', "ca_workinfo_ids")
     def _compute_display_name(self):
         for record in self:
-            record.display_name = False
-            winfo = record.get_current_winfo()
-            if record.name and record.lastname:
-                if winfo:
-                    record.display_name = f"{record.lastname} {record.name} ({winfo.ca_div_uo_code})"
-                else:
-                    record.display_name = f"{record.lastname} {record.name} ({record.token})"
+            record.compute_name()
 
     def default_ca_stato_anag_id(self):
         return self.env.ref('inrim_anagrafiche.ca_stato_anag_bozza').id
@@ -560,6 +570,7 @@ class CaPersona(models.Model):
         }
 
     def rest_get_record(self):
+        winfo = self.get_current_winfo()
         vals = {
             'id': self.id,
             "uid": self.uid,
@@ -591,7 +602,8 @@ class CaPersona(models.Model):
             'mobile': self.mobile,
             'ca_workinfo_ids': self.f_o2m(self.ca_workinfo_ids),
             'send_to_payroll_system': self.send_to_payroll_system,
-            "current_tag": self.current_tag.rest_get_record()
+            "current_tag": self.current_tag.rest_get_record(),
+            "current_workinfo": winfo.rest_get_record() if winfo else {}
         }
         if self.env.user.has_group('controllo_accessi.ca_gdpr'):
             vals.update({
