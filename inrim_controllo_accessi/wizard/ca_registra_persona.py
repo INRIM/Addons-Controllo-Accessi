@@ -179,8 +179,6 @@ class CaRegistraPersona(models.TransientModel):
 
     @api.onchange('ca_tag_id')
     def _compute_tag_id_number(self):
-        if self.env._context.get("no_compute_tag_id_number"):
-            return
         for record in self:
             record.work_id_number = record.ca_tag_id.default_id_number
             if record.ca_tag_id.temp and not record.date_start and not record.date_end:
