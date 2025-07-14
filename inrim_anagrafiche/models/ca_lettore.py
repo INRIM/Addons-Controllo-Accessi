@@ -6,6 +6,7 @@ class CaLettore(models.Model):
     _name = 'ca.lettore'
     _inherit = "ca.model.base.mixin"
     _description = 'Lettore'
+    _rec_names_search = ['name', 'reader_ip']
 
     name = fields.Char(required=True)
     reader_ip = fields.Char(required=True)

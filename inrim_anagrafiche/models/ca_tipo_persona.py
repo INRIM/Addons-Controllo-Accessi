@@ -6,6 +6,7 @@ class CaTitoloPersona(models.Model):
     _name = 'ca.titolo_persona'
     _inherit = "ca.model.base.mixin"
     _description = 'Titolo Persona'
+    _rec_names_search = ['name', 'code']
 
     name = fields.Char(required=True)
     code = fields.Char(required=True)

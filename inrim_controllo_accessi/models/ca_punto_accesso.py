@@ -11,6 +11,7 @@ class CaPuntoAccessoCategory(models.Model):
     _name = 'ca.punto_accesso_category'
     _inherit = "ca.model.base.mixin"
     _description = 'Punto Accesso Category'
+    _rec_names_search = ['name', 'code']
 
     name = fields.Char(required=True)
     code = fields.Char()
@@ -81,6 +82,7 @@ class CaPuntoAccesso(models.Model):
     _name = 'ca.punto_accesso'
     _inherit = "ca.model.base.mixin"
     _description = 'Punto Accesso'
+    _rec_names_search = ['name']
 
     name = fields.Char(compute="_compute_name", store=True)
     ca_spazio_id = fields.Many2one('ca.spazio', required=True, string="Position",

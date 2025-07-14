@@ -10,6 +10,7 @@ class CaTagPersona(models.Model):
     _inherit = "ca.model.base.mixin"
     _description = 'Tag Persona'
     _rec_name = 'tag_name'
+    _rec_names_search = ['ca_tag_id', 'tag_name']
 
     token = fields.Char(
         required=True, readonly=True,
