@@ -340,7 +340,8 @@ class CaPersona(models.Model):
 
     @api.model_create_multi
     def create(self, vals):
-        newvals = self.update_m2o(vals)
+        # newvals = self.update_m2o(vals)
+        newvals = vals
         res = super(CaPersona, self).create(newvals)
         self._check_external_documento_ids()
         return res
