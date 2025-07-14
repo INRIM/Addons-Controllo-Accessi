@@ -10,7 +10,7 @@ class CaPersona(models.Model):
     _inherit = "ca.model.base.mixin"
     _description = 'Persona'
     _rec_name = "display_name"
-    _rec_names_search = ['display_name', 'token']
+    _rec_names_search = ['display_name', 'token', 'uid', 'fiscalcode', 'freshman']
 
     name = fields.Char(required=True)
     lastname = fields.Char(required=True)
