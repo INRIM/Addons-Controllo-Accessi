@@ -136,10 +136,10 @@ class CaPersona(models.Model):
             persona.current_tag = persona.get_current_tag()
 
     def get_current_tag(self):
-        tag = self.ca_tag_ids.filtered(
-            lambda t: t.state == "to_give_back"
-        )
-        return tag
+        tag = self.ca_tag_ids.search(
+            [('state', '=', 'to_give_back')], order='id desc', limit=1)
+
+        return tag or False
 
     def set_tag_returned(self):
         tag.state = 'returned'
