@@ -336,7 +336,7 @@ class CaPuntoAccesso(models.Model):
             lambda
                 x: x.ca_persona_id.id == tag_persona.ca_persona_id.id and x.ca_tag_persona.id == tag_persona.id
         )
-        logger.info(f"set {lettore_persona.ca_persona_id.name} expired")
+        logger.info(f"set {lettore_persona.ca_persona_id.} expired")
         if not tag_persona.ca_tag_id.temp:
             # imposta tag revocato
             lettore_persona.ca_tag_lettore_id.detach()

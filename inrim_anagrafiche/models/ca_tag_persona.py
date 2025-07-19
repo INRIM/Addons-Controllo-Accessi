@@ -123,8 +123,8 @@ class CaTagPersona(models.Model):
         for tag_persona in self.search([]):
             if tag_persona:
                 tag_persona.check_update_record_by_date_valididty()
-                if tag_persona.state == 'to_give_back':
-                    tag_persona.update_punti_accesso()
+                # if tag_persona.state == 'to_give_back':
+                #     tag_persona.update_punti_accesso()
 
     def _cron_check_validity_tag(self):
         with self.env.cr.savepoint():
