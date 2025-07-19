@@ -42,10 +42,9 @@ class CaAnagRegistroAccesso(models.Model):
         if res and ca_punto_accesso_id.typology == 'stamping' and res.access_allowed:
             todo['codice_lettore_grum'] = ca_punto_accesso_id.codice_lettore_grum
             winfo = ca_tag_persona_id.ca_persona_id.get_current_winfo()
+            todo['work_id_number'] = winfo.work_id_number
             if ca_tag_persona_id.ca_persona_id.send_to_payroll_system:
                 todo['state'] = 'to_sync'
-            if winfo.ca_work_info_type_id.structured:
-                todo['work_id_number'] = winfo.work_id_number
             res.write(todo)
         return res
 

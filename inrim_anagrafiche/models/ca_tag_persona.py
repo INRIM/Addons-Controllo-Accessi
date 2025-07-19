@@ -26,6 +26,7 @@ class CaTagPersona(models.Model):
     temp = fields.Boolean(related="ca_tag_id.temp", store=True)
     state = fields.Selection(
         [
+            ('expired', 'Expired To Give Back'),
             ('to_give_back', 'To Give Back'),
             ('returned', 'Returned'),
             ('scheduled', 'Scheduled'),
