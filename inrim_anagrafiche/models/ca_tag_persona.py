@@ -2,6 +2,7 @@ import random
 import string
 
 from odoo import models, fields, api, _
+from odoo.addons.hw_drivers.tools.helpers import access_point
 from odoo.exceptions import UserError
 
 
@@ -16,7 +17,7 @@ class CaTagPersona(models.Model):
         required=True, readonly=True,
         default=lambda self: self.get_token())
     ca_persona_id = fields.Many2one('ca.persona', required=True,
-        string="Person")
+                                    string="Person")
     token_persona = fields.Char(related="ca_persona_id.token", store=True)
     ca_tag_id = fields.Many2one('ca.tag', required=True, string="Tag")
     tag_name = fields.Char(related="ca_tag_id.name", store=True)
@@ -103,7 +104,6 @@ class CaTagPersona(models.Model):
         for record in self:
             record.check_update_record_by_date_valididty()
 
-
     def check_update_record_by_date_valididty(self):
         now = fields.Datetime.now()
         self.ensure_one()
@@ -115,14 +115,21 @@ class CaTagPersona(models.Model):
                 self.ca_tag_id.in_use = True
                 self.state = 'scheduled'
 
+    def update_punti_accesso(self):
+        for point in self.env['ca.punto_accesso'].search(
+                [('enable_sync', '=', True)]):
+            point.check_and_detach(self)
 
     def check_update_by_date_valididty(self):
         for tag_persona in self.search([]):
             if tag_persona:
                 tag_persona.check_update_record_by_date_valididty()
+                if tag_persona.state == 'to_give_back':
+                    tag_persona.update_punti_accesso()
 
     def _cron_check_validity_tag(self):
-        self.check_update_by_date_valididty()
+        with self.env.cr.savepoint():
+            self.check_update_by_date_valididty()
 
     @api.model_create_multi
     def create(self, vals):

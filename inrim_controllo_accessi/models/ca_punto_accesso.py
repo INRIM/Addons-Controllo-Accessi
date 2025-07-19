@@ -333,7 +333,8 @@ class CaPuntoAccesso(models.Model):
         :return:
         """
         lettore_persona = self.ca_tag_lettore_persona_ids.filtered(
-            lambda x: x.ca_persona_id.id == tag_persona.ca_persona_id.id and x.ca_tag_persona.id == tag_persona.id
+            lambda
+                x: x.ca_persona_id.id == tag_persona.ca_persona_id.id and x.ca_tag_persona.id == tag_persona.id
         )
         logger.info(f"set {lettore_persona.ca_persona_id.name} expired")
         if not tag_persona.ca_tag_id.temp:
@@ -341,8 +342,6 @@ class CaPuntoAccesso(models.Model):
             lettore_persona.ca_tag_lettore_id.detach()
         lettore_persona.state = 'expired'
         lettore_persona.active = False
-
-
 
     def stamping_attach(self):
         """
