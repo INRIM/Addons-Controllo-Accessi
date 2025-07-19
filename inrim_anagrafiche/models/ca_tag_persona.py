@@ -2,7 +2,6 @@ import random
 import string
 
 from odoo import models, fields, api, _
-from odoo.addons.hw_drivers.tools.helpers import access_point
 from odoo.exceptions import UserError
 
 
