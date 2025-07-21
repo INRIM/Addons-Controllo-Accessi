@@ -137,7 +137,8 @@ class CaPersona(models.Model):
 
     def get_current_tag(self):
         tag = self.ca_tag_ids.search(
-            [('state', '=', 'to_give_back')], order='id desc', limit=1)
+            [('ca_persona_id', '=', self.id), ('state', '=', 'to_give_back')],
+            order='id desc', limit=1)
 
         return tag or False
 
