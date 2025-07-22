@@ -48,7 +48,7 @@ class CaAnagRegistroAccesso(models.Model):
             res.write(todo)
         return res
 
-    def rest_get_record(self):
+    def rest_get_record_labinf(self):
         vals = {
             "id": self.id,
             "codice_lettore_grum": self.codice_lettore_grum,
@@ -57,7 +57,6 @@ class CaAnagRegistroAccesso(models.Model):
             "work_id_number": self.work_id_number,
             "state": self.f_selection("state", self.state)
         }
-        self.state = "sent"
         return vals
 
     def rest_eval_body(self, body):

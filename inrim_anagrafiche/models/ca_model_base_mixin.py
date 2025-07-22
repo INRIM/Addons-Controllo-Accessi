@@ -35,7 +35,7 @@ class CaModelBase(models.AbstractModel):
     def rest_put_eval_body(self, body):
         return body, ""
 
-    def rest_get(self, params: dict):
+    def rest_get(self, params: dict, mtd: str = "rest_get_record"):
         strparams = urllib.parse.unquote(params.get('domain', '[]'))
         domain: list = json.loads(strparams)
         offset: int = params.get('offset', None)
@@ -47,7 +47,7 @@ class CaModelBase(models.AbstractModel):
         records = self.search(
             domain, offset=offset, limit=limit, order=order)
         for record in records:
-            res.append(record.rest_get_record())
+            res.append(getattr(record, mtd)())
         return res, ""
 
     def rest_post(self, body: dict):
