@@ -127,8 +127,7 @@ class CaAnagRegistroAccesso(models.Model):
             "type": self.f_selection('type', self.type),
             "tz": self.f_selection('tz', self.tz),
             "system_error": self.system_error,
-            "access_allowed": self.access_allowed,
-            "error_code": self.error_code
+            "access_allowed": self.access_allowed
         }
         return vals
 
