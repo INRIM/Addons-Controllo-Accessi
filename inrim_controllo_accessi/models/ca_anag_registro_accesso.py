@@ -127,7 +127,8 @@ class CaAnagRegistroAccesso(models.Model):
             "type": self.f_selection('type', self.type),
             "tz": self.f_selection('tz', self.tz),
             "system_error": self.system_error,
-            "access_allowed": self.access_allowed
+            "access_allowed": self.access_allowed,
+            "access_conflict":self.access_conflict
         }
         return vals
 
@@ -140,6 +141,12 @@ class CaAnagRegistroAccesso(models.Model):
         return body, msg
 
     def rest_post(self, body: dict):
-        return False, f"Non consentito"
+        if body.get('state') and body.get('.id'):
+            newbody = {}
+            newbody['.id'] = body.get('.id')
+            newbody['state'] = body.get('state')
+            return super().rest_post(newbody)
+        else:
+            return False, f"Non consentito"
 
 

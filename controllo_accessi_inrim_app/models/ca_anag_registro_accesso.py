@@ -76,14 +76,6 @@ class CaAnagRegistroAccesso(models.Model):
         else:
             return False, "Not Allowed"
 
-    def rest_post(self, body: dict):
-        if body.get('state') and body.get('.id'):
-            newbody = {}
-            newbody['.id'] = body.get('.id')
-            newbody['state'] = body.get('state')
-            return super().rest_post(new_body)
-        else:
-            return False, f"Non consentito"
 
     def run_labinf_sync(self):
         url = self.env[
