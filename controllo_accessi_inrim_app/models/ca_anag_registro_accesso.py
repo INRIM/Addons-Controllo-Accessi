@@ -62,8 +62,7 @@ class CaAnagRegistroAccesso(models.Model):
     def rest_eval_body(self, body):
         body, msg = super().rest_eval_body(
             body, [
-                'ca_punto_accesso_id', 'ca_tag_persona_id', 'datetime_event',
-                'access_allowed', 'type', 'state'
+                '.id', 'state'
             ])
         return body, msg
 
@@ -76,6 +75,15 @@ class CaAnagRegistroAccesso(models.Model):
             return super().rest_put(new_body)
         else:
             return False, "Not Allowed"
+
+    def rest_post(self, body: dict):
+        if body.get('state') and body.get('.id'):
+            newbody = {}
+            newbody['.id'] = body.get('.id')
+            newbody['state'] = body.get('state')
+            return super().rest_post(new_body)
+        else:
+            return False, f"Non consentito"
 
     def run_labinf_sync(self):
         url = self.env[
