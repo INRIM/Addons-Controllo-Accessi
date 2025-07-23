@@ -21,7 +21,8 @@ class CaAnagRegistroAccesso(models.Model):
 
     ca_punto_accesso_id = fields.Many2one(
         'ca.punto_accesso', string="Access Point", required=True, ondelete='cascade')
-    ca_punto_accesso_category_id = fields.Many2one(related="ca_punto_accesso_id.ca_category")
+    ca_punto_accesso_category_id = fields.Many2one(
+        related="ca_punto_accesso_id.ca_category")
     ca_tag_persona_id = fields.Many2one(
         'ca.tag_persona', string="Tag", required=True, ondelete='cascade')
     ca_persona_id = fields.Many2one(
@@ -112,7 +113,7 @@ class CaAnagRegistroAccesso(models.Model):
     def rest_get_record(self):
         vals = {
             'id': self.id,
-            "ca_punto_accesso_id": self.f_m2o(self.ca_punto_accesso_id),
+            "ca_punto_accesso_id": self.ca_punto_accesso_id.rest_get_record(),
             "ca_tag_persona_id": self.f_m2o(self.ca_tag_persona_id),
             "ca_persona_id": self.f_m2o(self.ca_persona_id),
             "person_display_name": self.person_display_name,
@@ -128,7 +129,7 @@ class CaAnagRegistroAccesso(models.Model):
             "tz": self.f_selection('tz', self.tz),
             "system_error": self.system_error,
             "access_allowed": self.access_allowed,
-            "access_conflict":self.access_conflict
+            "access_conflict": self.access_conflict
         }
         return vals
 
@@ -148,5 +149,3 @@ class CaAnagRegistroAccesso(models.Model):
             return super().rest_post(newbody)
         else:
             return False, f"Non consentito"
-
-

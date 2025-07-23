@@ -139,6 +139,19 @@ class CaPuntoAccesso(models.Model):
     )
 
     ##TODO add cron to check and detach local_access  tags if expired
+    def rest_get_record(self):
+        vals = {
+            "id": self.id,
+            "name": self.name,
+            "ca_lettore_id": self.ca_lettore_id.rest_get_record(),
+            "ca_category": self.f_m2o(self.ca_category),
+            "typology": self.f_selection("typology", self.typology),
+            "direction": self.f_selection("direction", self.direction),
+            "enable_sync": self.enable_sync,
+            "remote_update": self.remote_update,
+            "system_error": self.system_error
+        }
+        return vals
 
     @api.constrains('date_start', 'date_end')
     def _check_date(self):
