@@ -59,12 +59,7 @@ class CaAnagRegistroAccesso(models.Model):
         }
         return vals
 
-    def rest_eval_body(self, body):
-        body, msg = super().rest_eval_body(
-            body, [
-                '.id', 'state'
-            ])
-        return body, msg
+
 
     def rest_put(self, body: dict):
         if body.get('state'):
