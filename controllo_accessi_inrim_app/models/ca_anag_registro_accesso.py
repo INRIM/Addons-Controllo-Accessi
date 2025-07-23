@@ -76,7 +76,6 @@ class CaAnagRegistroAccesso(models.Model):
         else:
             return False, "Not Allowed"
 
-
     def run_labinf_sync(self):
         url = self.env[
             'ir.config_parameter'
@@ -85,7 +84,13 @@ class CaAnagRegistroAccesso(models.Model):
             with httpx.Client(timeout=40) as client:
                 response = client.get(url)
             if response.status_code == 200:
-                return response.json()
+                res = response.json()
+                logger.info(f"{url} -> {res}")
+                if res.get('status') and res.get('status') != 'ok':
+                    logger.error(f"{url}")
+                    logger.error(f"{res.get('msg')}")
+                    logger.error(f"{res.get('data')}")
+                return res
             else:
                 logger.info(
                     f"{url}, Status Code: {response.status_code}")
