@@ -232,14 +232,29 @@ class CaPuntoAccesso(models.Model):
                                     ('state', '=', "active")
                                 ])
                                 if lettore_persona:
-                                    riga_accesso_model.aggiungi_riga_accesso(
-                                        self, tag_persona,
-                                        record.eventDateTime_to_utc(),
-                                        type="auto",
-                                        access_allowed=record.accessAllowed,
-                                        tz=self.tz
+                                    exists_row = riga_accesso_model.search(
+                                        [
+                                            ('ca_punto_accesso_id', '=', self.id),
+                                            ('ca_tag_persona_id', '=', tag_persona.id),
+                                            ('datetime_event', '=',
+                                             record.eventDateTime_to_utc()),
+                                            ('type', '=', "auto"),
+                                            ('access_allowed', '=', record.accessAllowed)
+                                        ]
                                     )
-                                    local_res.append(True)
+                                    if not exists_row:
+                                        riga_accesso_model.aggiungi_riga_accesso(
+                                            self, tag_persona,
+                                            record.eventDateTime_to_utc(),
+                                            type="auto",
+                                            access_allowed=record.accessAllowed,
+                                            tz=self.tz
+                                        )
+                                        local_res.append(True)
+                                    else:
+                                        local_res.append(False)
+                                        logger.info(
+                                            f"Skip {record.idd} and {tag_persona.ca_persona_id.display_name} Exist")
                                 else:
                                     local_res.append(False)
                                     logger.error(
