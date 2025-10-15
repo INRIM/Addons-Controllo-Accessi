@@ -221,20 +221,10 @@ class CaPuntoAccesso(models.Model):
                              ("ca_punto_accesso_id", 'in', [self.id]),
                              ("ca_tag_code", '=', record.idd)
                              ], limit=1)
-                        if not tag_lettore:
-                            tag_lettore = self.env['ca.tag_lettore'].search(
-                                ["&",
-                                 ("ca_punto_accesso_id", 'in', [self.id]),
-                                 ("ca_tag_code", '=', record.idd.lower())
-                                 ], limit=1)
                         if tag_lettore:
                             tag_persona = self.env['ca.tag_persona'].search([
                                 ('ca_tag_id.tag_code', '=', record.idd),
                                 ('state', '=', 'to_give_back')])
-                            if not tag_persona:
-                                tag_persona = self.env['ca.tag_persona'].search([
-                                    ('ca_tag_id.tag_code', '=', record.idd.lower()),
-                                    ('state', '=', 'to_give_back')])
                             if tag_persona:
                                 lettore_persona = self.env['ca.lettore_persona'].search([
                                     ('ca_persona_id', '=', tag_persona.ca_persona_id.id),
