@@ -139,3 +139,15 @@ class CaTag(models.Model):
                 'name', 'tag_code'
             ])
         return body, msg
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('tag_code'):
+                vals['tag_code'] = vals['tag_code'].upper()
+        return super().create(vals_list)
+
+    def write(self, vals):
+        if vals.get('tag_code'):
+            vals['tag_code'] = vals['tag_code'].upper()
+        return super().write(vals)
