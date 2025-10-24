@@ -101,7 +101,7 @@ class CaAnagRegistroAccesso(models.Model):
                     res.access_allowed and
                     res.datetime_event.date() == now.date()
             ):
-                res.ca_persona_id.present = "si"
+                res.ca_persona_id.present = "yes"
             elif (
                     res.direction == "out" and
                     res.access_allowed and
