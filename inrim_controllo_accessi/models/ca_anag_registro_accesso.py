@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime
 
 import pytz
 from odoo import models, fields
@@ -80,6 +81,7 @@ class CaAnagRegistroAccesso(models.Model):
     ):
         if not tz:
             tz = self._context.get('tz')
+        now = datetime.now()
         access_conflict = False
         if self.ca_punto_accesso_id.typology == 'local_access':
             access_conflict = ca_tag_persona_id.ca_persona_id.present == 'no'
@@ -94,10 +96,18 @@ class CaAnagRegistroAccesso(models.Model):
         }
         res = self.create(vals)
         if res.ca_punto_accesso_id.typology == "stamping":
-            if res.direction == "out" and res.access_allowed:
+            if (
+                    res.direction == "in" and
+                    res.access_allowed and
+                    res.datetime_event.date() == now.date()
+            ):
+                res.ca_persona_id.present = "si"
+            elif (
+                    res.direction == "out" and
+                    res.access_allowed and
+                    res.datetime_event.date() == now.date()
+            ):
                 res.ca_persona_id.present = "no"
-            if res.direction == "in" and res.access_allowed:
-                res.ca_persona_id.present = "yes"
         return res
 
     def rest_boby_hint(self):
