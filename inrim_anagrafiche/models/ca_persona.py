@@ -425,48 +425,6 @@ class CaPersona(models.Model):
             if state and record.domicile_state_id != state:
                 record.domicile_state_id = record.domicile_zip_id.city_id.state_id
 
-    @api.constrains("domicile_zip_id", "domicile_country_id", "domicile_city_id",
-                    "domicile_state_id", "domicile_zip")
-    def _check_zip(self):
-        if self.env.context.get("skip_check_zip"):
-            return
-        for rec in self:
-            if not rec.domicile_zip_id:
-                continue
-            error_dict = {"partner": rec.name, "location": rec.domicile_zip_id.name}
-            if rec.domicile_zip_id.city_id.country_id != rec.domicile_country_id:
-                raise ValidationError(
-                    _(
-                        "The country of the partner %(partner)s differs from that in "
-                        "location %(location)s"
-                    )
-                    % error_dict
-                )
-            if rec.domicile_zip_id.city_id.state_id != rec.domicile_state_id:
-                raise ValidationError(
-                    _(
-                        "The state of the partner %(partner)s differs from that in "
-                        "location %(location)s"
-                    )
-                    % error_dict
-                )
-            if rec.domicile_zip_id.city_id != rec.domicile_city_id:
-                raise ValidationError(
-                    _(
-                        "The city of the partner %(partner)s differs from that in "
-                        "location %(location)s"
-                    )
-                    % error_dict
-                )
-            if rec.domicile_zip_id.name != rec.domicile_zip:
-                raise ValidationError(
-                    _(
-                        "The zip of the partner %(partner)s differs from that in "
-                        "location %(location)s"
-                    )
-                    % error_dict
-                )
-
     # RESIDENCE
     @api.depends("residence_state_id", "residence_country_id", "residence_city_id",
                  "residence_zip")
@@ -520,48 +478,6 @@ class CaPersona(models.Model):
             state = record.residence_zip_id.city_id.state_id
             if state and record.residence_state_id != state:
                 record.residence_state_id = record.residence_zip_id.city_id.state_id
-
-    @api.constrains("residence_zip_id", "residence_country_id", "residence_city_id",
-                    "residence_state_id", "residence_zip")
-    def _check_zip(self):
-        if self.env.context.get("skip_check_zip"):
-            return
-        for rec in self:
-            if not rec.residence_zip_id:
-                continue
-            error_dict = {"partner": rec.name, "location": rec.residence_zip_id.name}
-            if rec.residence_zip_id.city_id.country_id != rec.residence_country_id:
-                raise ValidationError(
-                    _(
-                        "The country of the partner %(partner)s differs from that in "
-                        "location %(location)s"
-                    )
-                    % error_dict
-                )
-            if rec.residence_zip_id.city_id.state_id != rec.residence_state_id:
-                raise ValidationError(
-                    _(
-                        "The state of the partner %(partner)s differs from that in "
-                        "location %(location)s"
-                    )
-                    % error_dict
-                )
-            if rec.residence_zip_id.city_id != rec.residence_city_id:
-                raise ValidationError(
-                    _(
-                        "The city of the partner %(partner)s differs from that in "
-                        "location %(location)s"
-                    )
-                    % error_dict
-                )
-            if rec.residence_zip_id.name != rec.residence_zip:
-                raise ValidationError(
-                    _(
-                        "The zip of the partner %(partner)s differs from that in "
-                        "location %(location)s"
-                    )
-                    % error_dict
-                )
 
     def rest_boby_hint(self):
         return {

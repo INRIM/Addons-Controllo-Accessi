@@ -130,46 +130,6 @@ class CaEnteAzienda(models.Model):
             if state and record.state_id != state:
                 record.state_id = record.zip_id.city_id.state_id
 
-    @api.constrains("zip_id", "country_id", "city_id", "state_id", "zip")
-    def _check_zip(self):
-        if self.env.context.get("skip_check_zip"):
-            return
-        for rec in self:
-            if not rec.zip_id:
-                continue
-            error_dict = {"partner": rec.name, "location": rec.zip_id.name}
-            if rec.zip_id.city_id.country_id != rec.country_id:
-                raise ValidationError(
-                    _(
-                        "The country of the partner %(partner)s differs from that in "
-                        "location %(location)s"
-                    )
-                    % error_dict
-                )
-            if rec.zip_id.city_id.state_id != rec.state_id:
-                raise ValidationError(
-                    _(
-                        "The state of the partner %(partner)s differs from that in "
-                        "location %(location)s"
-                    )
-                    % error_dict
-                )
-            if rec.zip_id.city_id != rec.city_id:
-                raise ValidationError(
-                    _(
-                        "The city of the partner %(partner)s differs from that in "
-                        "location %(location)s"
-                    )
-                    % error_dict
-                )
-            if rec.zip_id.name != rec.zip:
-                raise ValidationError(
-                    _(
-                        "The zip of the partner %(partner)s differs from that in "
-                        "location %(location)s"
-                    )
-                    % error_dict
-                )
 
     @api.constrains("vat", 'parent_id')
     def _check_vat(self):

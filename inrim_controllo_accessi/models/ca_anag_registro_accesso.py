@@ -143,13 +143,7 @@ class CaAnagRegistroAccesso(models.Model):
         }
         return vals
 
-    # def rest_eval_body(self, body):
-    #     body, msg = super().rest_eval_body(
-    #         body, [
-    #             'ca_punto_accesso_id', 'ca_tag_persona_id', 'datetime_event',
-    #             'access_allowed', 'type'
-    #         ])
-    #     return body, msg
+
 
     def rest_post(self, body: dict):
         if body.get('state') and body.get('.id'):
