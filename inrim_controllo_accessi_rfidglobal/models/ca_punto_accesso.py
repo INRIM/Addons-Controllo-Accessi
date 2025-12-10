@@ -13,7 +13,8 @@ class CaPuntoAccesso(models.Model):
 
     def write_log(
             self, code, lettore_id, expected_events_num=0,
-            operation_status="ko", events_read_num=0, error_code=0, msg=""
+            operation_status="ko", events_read_num=0, error_code=0,
+            msg="", file_name="", file_path=""
     ):
         log_model = self.env['ca.log_integrazione_lettori']
         log_model.create({
@@ -25,6 +26,8 @@ class CaPuntoAccesso(models.Model):
             'operation_status': operation_status,
             'error_code': error_code,
             'log_error': msg,
+            'file_name': file_name,
+            'file_path': file_path,
         })
 
     def load_reader(self):
@@ -312,7 +315,7 @@ class CaPuntoAccesso(models.Model):
                     msg = f"{code} - File  {file_path.name} error impossible to decode Data moved to {err_dst} "
                     logger.error(msg)
                     self.write_log(
-                        code, self.ca_lettore_id.id, msg=msg
+                        code, self.ca_lettore_id.id, msg=msg, file_name=file_path.name, file_path=str(file_path)
                     )
             else:
                 skip += 1
