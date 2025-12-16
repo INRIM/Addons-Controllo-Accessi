@@ -225,40 +225,47 @@ class CaPuntoAccesso(models.Model):
                             tag_persona = self.env['ca.tag_persona'].search([
                                 ('ca_tag_id.tag_code', '=', record.idd),
                                 ('state', '=', 'to_give_back')])
+
                             if tag_persona:
-                                lettore_persona = self.env['ca.lettore_persona'].search([
-                                    ('ca_persona_id', '=', tag_persona.ca_persona_id.id),
-                                    ('ca_lettore_id', '=', tag_lettore.ca_lettore_id.id),
-                                    ('state', '=', "active")
-                                ])
-                                if lettore_persona:
-                                    exists_row = riga_accesso_model.search(
-                                        [
-                                            ('ca_punto_accesso_id', '=', self.id),
-                                            ('ca_tag_persona_id', '=', tag_persona.id),
-                                            ('datetime_event', '=',
-                                             record.eventDateTime_to_utc()),
-                                            ('type', '=', "auto"),
-                                            ('access_allowed', '=', record.accessAllowed)
-                                        ]
-                                    )
-                                    if not exists_row:
-                                        riga_accesso_model.aggiungi_riga_accesso(
-                                            self, tag_persona,
-                                            record.eventDateTime_to_utc(),
-                                            type="auto",
-                                            access_allowed=record.accessAllowed,
-                                            tz=self.tz
+                                if len(tag_persona._ids)  == 1:
+                                    lettore_persona = self.env['ca.lettore_persona'].search([
+                                        ('ca_persona_id', '=', tag_persona.ca_persona_id.id),
+                                        ('ca_lettore_id', '=', tag_lettore.ca_lettore_id.id),
+                                        ('state', '=', "active")
+                                    ])
+                                    if lettore_persona:
+                                        exists_row = riga_accesso_model.search(
+                                            [
+                                                ('ca_punto_accesso_id', '=', self.id),
+                                                ('ca_tag_persona_id', '=', tag_persona.id),
+                                                ('datetime_event', '=',
+                                                 record.eventDateTime_to_utc()),
+                                                ('type', '=', "auto"),
+                                                ('access_allowed', '=', record.accessAllowed)
+                                            ]
                                         )
-                                        local_res.append(True)
+                                        if not exists_row:
+                                            riga_accesso_model.aggiungi_riga_accesso(
+                                                self, tag_persona,
+                                                record.eventDateTime_to_utc(),
+                                                type="auto",
+                                                access_allowed=record.accessAllowed,
+                                                tz=self.tz
+                                            )
+                                            local_res.append(True)
+                                        else:
+                                            local_res.append(False)
+                                            logger.info(
+                                                f"Skip {record.idd} and {tag_persona.ca_persona_id.display_name} Exist")
                                     else:
                                         local_res.append(False)
-                                        logger.info(
-                                            f"Skip {record.idd} and {tag_persona.ca_persona_id.display_name} Exist")
+                                        logger.error(
+                                            f"Association {record.idd} and {tag_persona.ca_persona_id.display_name} is expired in reader"
+                                        )
                                 else:
                                     local_res.append(False)
                                     logger.error(
-                                        f"Association {record.idd} and {tag_persona.ca_persona_id.display_name} is expired in reader")
+                                        f"tag {record.idd} associated with more than one persona ")
                             else:
                                 local_res.append(False)
                                 logger.error(
