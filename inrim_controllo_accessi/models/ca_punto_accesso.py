@@ -349,9 +349,10 @@ class CaPuntoAccesso(models.Model):
             lambda
                 x: x.ca_persona_id.id == tag_persona.ca_persona_id.id and x.ca_tag_persona.id == tag_persona.id
         )
-        logger.info(f"set {lettore_persona.ca_persona_id.display_name} expired")
+        logger.info(f"check tag is temp and remove from reader")
         if not tag_persona.ca_tag_id.temp:
             # imposta tag revocato
+            logger.info(f"set {lettore_persona.ca_persona_id.display_name} expired")
             lettore_persona.ca_tag_lettore_id.detach()
         lettore_persona.state = 'expired'
         lettore_persona.active = False
@@ -370,24 +371,44 @@ class CaPuntoAccesso(models.Model):
             ("ca_proprieta_tag_ids.name", "ilike", "valido")
         ])
         for tag in tags:
-            tag_lettore = self.env['ca.tag_lettore'].search(
-                [
-                    ('ca_tag_id', '=', tag.id),
-                    ('ca_lettore_id', "=", self.ca_lettore_id.id),
-                    ('state', 'not in', ['expired']),
-                    ('active', '=', True)
-                ], limit=1)
-            if not tag_lettore:
-                tag_lettore = self.env['ca.tag_lettore'].create({
-                    'ca_lettore_id': self.ca_lettore_id.id,
-                    'ca_tag_id': tag.id,
-                    'date_start': self.date_start,
-                    'date_end': self.date_end,
-                    'ca_punto_accesso_id': self.id
-                })
-                tag_lettore.check_update_state()
+            tag_persona = self.env['ca.tag_persona'].get_current_by_tag(
+                tag)
+            if tag_persona:
+                self.stamping_attach_tag_persona(tag_persona)
 
-        self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
+    def stamping_attach_tag_persona(self, tag_persona):
+        """
+        Caso di punto accesso timbratura generale
+        - estraggo tutti i tag validi
+        - se il tag non e' collegato ad un lettore lo collego ( questo attiva il flag di sync)
+        - aggiorno l'elenco delle persone collegate al lettore e quindi al punto accesso
+        :return:
+        """
+        logger.info("Stamping Attach Tag Persona ")
+        self.ensure_one()
+        tag = tag_persona.ca_tag_id
+        tag_lettore = self.env['ca.tag_lettore'].search(
+            [
+                ('ca_tag_id', '=', tag.id),
+                ('ca_lettore_id', "=", self.ca_lettore_id.id),
+                ('state', 'not in', ['expired']),
+                ('active', '=', True)
+            ], limit=1)
+        if not tag_lettore:
+            tag_lettore = self.env['ca.tag_lettore'].create({
+                'ca_lettore_id': self.ca_lettore_id.id,
+                'ca_tag_id': tag.id,
+                'date_start': self.date_start,
+                'date_end': self.date_end,
+                'ca_punto_accesso_id': self.id
+            })
+
+        res = self.env['ca.lettore_persona'].elabora_persone_tag_lettore(tag_lettore)
+
+    def check_and_attach_tag_persona(self, tag_persona):
+        for record in self:
+            if record.typology == 'stamping':
+                record.stamping_attach_tag_persona(tag_persona)
 
     def check_and_attach(self):
         for record in self:

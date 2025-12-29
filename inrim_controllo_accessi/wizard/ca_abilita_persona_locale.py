@@ -63,13 +63,13 @@ class CaAbilitaPersonaLocale(models.TransientModel):
                         _('Date start and date end must be beetween a valid period'))
 
     def action_confirm(self):
-        self.env['ca.tag_lettore'].create({
+        tag_lettore = self.env['ca.tag_lettore'].create({
             'ca_lettore_id': self.punto_accesso_id.ca_lettore_id.id,
             'ca_tag_id': self.ca_tag_persona_id.ca_tag_id.id,
             'date_start': self.date_start,
             'date_end': self.date_end,
             'ca_punto_accesso_id': self.punto_accesso_id.id
         })
-        self.env['ca.lettore_persona'].elabora_persone(
-            self.punto_accesso_id.ca_lettore_id)
+        self.env['ca.lettore_persona'].elabora_persone_tag_lettore(
+            tag_lettore)
         return {'type': 'ir.actions.act_window_close'}

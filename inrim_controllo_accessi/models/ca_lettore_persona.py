@@ -60,6 +60,32 @@ class CaLettorePersona(models.Model):
         for record in self:
             record.check_update_state()
 
+    def elabora_persone_tag_lettore(self, tag_lettore):
+        tag_lettore.check_update_state()
+        if tag_lettore.state == 'active':
+            tag_persona_id = self.env['ca.tag_persona'].get_current_by_tag(
+                tag_lettore.ca_tag_id)
+            if tag_persona_id:
+                lettore_persona_id = self.env[
+                    'ca.lettore_persona'
+                ].search([
+                    ('ca_tag_lettore_id', '=', tag_lettore.id),
+                    ('ca_tag_persona', '=', tag_persona_id.id),
+                    ('state', 'not in', ['expired'])
+                ])
+                if not lettore_persona_id:
+                    new_lettore_persona_id = self.env[
+                        'ca.lettore_persona'
+                    ].create({
+                        'ca_tag_lettore_id': tag_lettore.id,
+                        'ca_tag_persona': tag_persona_id.id
+                    })
+                    new_lettore_persona_id.check_update_state()
+                    return new_lettore_persona_id
+                return lettore_persona_id
+            return None
+        return None
+
     def elabora_persone(self, lettore_id):
         vals = []
         ca_tag_lettore_ids = self.env['ca.tag_lettore'].search([
@@ -68,28 +94,9 @@ class CaLettorePersona(models.Model):
 
         if ca_tag_lettore_ids:
             for tag_lettore in ca_tag_lettore_ids:
-                tag_lettore.check_update_state()
-                if tag_lettore.state == 'active':
-                    now = fields.Datetime.now()
-                    tag_persona_id = self.env['ca.tag_persona'].get_current_by_tag(
-                        tag_lettore.ca_tag_id)
-                    if tag_persona_id:
-                        lettore_persona_id = self.env[
-                            'ca.lettore_persona'
-                        ].search([
-                            ('ca_tag_lettore_id', '=', tag_lettore.id),
-                            ('ca_tag_persona', '=', tag_persona_id.id),
-                            ('state', 'not in', ['expired'])
-                        ])
-                        if not lettore_persona_id:
-                            new_lettore_persona_id = self.env[
-                                'ca.lettore_persona'
-                            ].create({
-                                'ca_tag_lettore_id': tag_lettore.id,
-                                'ca_tag_persona': tag_persona_id.id
-                            })
-                            new_lettore_persona_id.check_update_state()
-                            vals.append(new_lettore_persona_id)
+                res = self.elabora_persone_tag_lettore(tag_lettore)
+                if res:
+                    vals.append(res.id)
         return vals
 
     def elabora_persone_lettore(self, nome_lettore):
