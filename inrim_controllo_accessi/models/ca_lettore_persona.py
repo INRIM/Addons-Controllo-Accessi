@@ -120,7 +120,7 @@ class CaLettorePersona(models.Model):
 
     def check_update_by_date_valididty(self):
         for person_reader in self.env['ca.lettore_persona'].search(
-                [('date_end', '>=', fields.Datetime.now())]):
+                [('state', 'not in', ['expired'])]):
             if person_reader:
                 person_reader.check_update_state()
 
