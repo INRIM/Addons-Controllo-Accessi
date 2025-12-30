@@ -423,7 +423,7 @@ class CaPuntoAccesso(models.Model):
                 'date_start': body.get('date_start'),
                 'date_end': body.get('date_end')
             })
-            for record in self.search(["active", "=", True]):
+            for record in self.search([]):
                 if record.typology == 'stamping':
                     record.stamping_attach_tag_persona(tag_persona)
             return {
