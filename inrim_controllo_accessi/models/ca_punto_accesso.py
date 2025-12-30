@@ -415,6 +415,23 @@ class CaPuntoAccesso(models.Model):
             if record.typology == 'stamping':
                 record.stamping_attach()
 
+    def add_persona_tag(self, body: dict):
+        try:
+            tag_persona = self.env['ca.tag_persona'].create({
+                'ca_persona_id': body.get('ca_persona_id.id'),
+                'ca_tag_id': body.get('ca_tag_id.id'),
+                'date_start': body.get('date_start'),
+                'date_end': body.get('date_end')
+            })
+            self.check_and_attach_tag_persona(tag_persona)
+            return {
+                'success': True, "data": tag_persona.rest_get_record(),
+                "message": ""
+            }
+        except Exception as e:
+            logger.error(f"{str(e)} Error {e}", exc_info=True)
+            return {'success': False, "data": {}, 'message': str(e)}
+
     def check_and_detach(self, tag_persona):
         if self.typology == 'stamping':
             self.stamping_detach(tag_persona)

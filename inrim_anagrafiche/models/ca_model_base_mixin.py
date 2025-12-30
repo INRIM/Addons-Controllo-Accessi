@@ -68,6 +68,25 @@ class CaModelBase(models.AbstractModel):
             logger.error(f"{msg} Error {e}", exc_info=True)
             return False, f"{msg} Error {e}"
 
+    def execute_method(self, mtd_name, body: dict):
+        body, msg = self.rest_eval_body(body)
+        record = False
+        try:
+            if body:
+                method = getattr(self, mtd_name)
+                res = method(body)
+                if res.get("success"):
+                    record = res.get("data")
+                else:
+                    created_msg = res.get(
+                        "messages",
+                        f'Error during execution of {mtd_name} Msg: {res.get("message")}')
+                    return False, created_msg
+            return record, msg
+        except Exception as e:
+            logger.error(f"{msg} Error {e}", exc_info=True)
+            return False, f"{msg} Error {e}"
+
     def rest_put(self, body: dict = None):
         record, msg = self.rest_record_from_body(body)
         if not record:

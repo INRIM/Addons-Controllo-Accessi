@@ -10,3 +10,4 @@ from . import tag
 from . import settore_ente
 from . import anag_servizi
 from . import work_info
+from . import punto_accesso
