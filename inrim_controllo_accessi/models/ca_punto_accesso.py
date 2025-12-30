@@ -425,7 +425,7 @@ class CaPuntoAccesso(models.Model):
             })
             self.check_and_attach_tag_persona(tag_persona)
             return {
-                'success': True, "data": tag_persona.rest_get_record(),
+                'success': True, "data": tag_persona,
                 "message": ""
             }
         except Exception as e:
