@@ -53,7 +53,10 @@ class CaLettorePersona(models.Model):
             ])
             if punto_accesso_persona_id:
                 raise UserError(
-                    _('There can only be one configuration for reader tag, person tag, date, in active state'))
+                    _(
+                        f'There can only be one configuration for reader tag, '
+                        f'person tag, date, in active state {ca_persona_id.display_name}'
+                    ))
 
     @api.onchange('date_start', 'date_end')
     def _compute_expired(self):
@@ -121,6 +124,11 @@ class CaLettorePersona(models.Model):
     def check_update_by_date_valididty(self):
         for person_reader in self.env['ca.lettore_persona'].search(
                 [('date_end', '>=', fields.Datetime.now())]):
+            if person_reader:
+                person_reader.check_update_state()
+
+        for person_reader in self.env['ca.lettore_persona'].search(
+                [('date_end', '<=', fields.Datetime.now()), ('state', '!=', 'expired')]):
             if person_reader:
                 person_reader.check_update_state()
 
