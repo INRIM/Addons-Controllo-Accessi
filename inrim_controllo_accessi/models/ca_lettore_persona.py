@@ -128,7 +128,7 @@ class CaLettorePersona(models.Model):
                 person_reader.check_update_state()
 
         for person_reader in self.env['ca.lettore_persona'].search(
-                [('date_end', '<=', fields.Datetime.now()), ('state', '!=', 'expired')]):
+                [('date_end', '<', fields.Datetime.now()), ('state', '!=', 'expired')]):
             if person_reader:
                 person_reader.check_update_state()
 
