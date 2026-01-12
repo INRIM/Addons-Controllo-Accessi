@@ -114,12 +114,13 @@ class CaLettorePersona(models.Model):
     def check_update_state(self):
         now = fields.Datetime.now()
         self.ensure_one()
-        if self.date_start <= now <= self.date_end:
-            self.state = 'active'
-        elif self.date_start > now:
-            self.state = 'scheduled'
-        elif self.date_end <= now:
-            self.state = 'expired'
+        if self.date_end:
+            if self.date_start <= now <= self.date_end:
+                self.state = 'active'
+            elif self.date_start > now:
+                self.state = 'scheduled'
+            elif self.date_end <= now:
+                self.state = 'expired'
 
     def check_update_by_date_valididty(self):
         for person_reader in self.env['ca.lettore_persona'].search(
