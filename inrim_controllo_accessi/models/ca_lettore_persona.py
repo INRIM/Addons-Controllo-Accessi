@@ -55,7 +55,7 @@ class CaLettorePersona(models.Model):
                 raise UserError(
                     _(
                         f'There can only be one configuration for reader tag, '
-                        f'person tag, date, in active state {ca_persona_id.display_name}'
+                        f'person tag, date, in active state {record.ca_persona_id.display_name}'
                     ))
 
     @api.onchange('date_start', 'date_end')
