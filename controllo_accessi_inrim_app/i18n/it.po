@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.0-20260119\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-12 09:27+0000\n"
-"PO-Revision-Date: 2024-12-12 09:27+0000\n"
+"POT-Creation-Date: 2026-01-27 09:10+0000\n"
+"PO-Revision-Date: 2026-01-27 09:10+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,59 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso_line__access_allowed
+msgid "Access Allowed"
+msgstr "Accesso Consentito"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso_line__access_conflict
+msgid "Access Conflict"
+msgstr "Conflitto di accesso"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,help:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso_line__access_conflict
+msgid "Access Conflict Tag Access realted to a person that is not present"
+msgstr "Accesso Conflitto Tag Accesso relativo ad una persona non presente"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso_line__ca_punto_accesso_id
+msgid "Access Point"
+msgstr "Punto Accesso"
+
+#. module: controllo_accessi_inrim_app
+#: model_terms:ir.ui.view,arch_db:controllo_accessi_inrim_app.ca_modifica_matricola_registro_accesso_view_form
+msgid "Access Registers Filter"
+msgstr "Filtri Registri Accesso"
+
+#. module: controllo_accessi_inrim_app
 #: model:ir.model,name:controllo_accessi_inrim_app.model_ca_anag_registro_accesso
 msgid "Anagrafica Registro Accesso"
 msgstr ""
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso_line__typology
+msgid "Ap Type"
+msgstr "Tipo Configurazione"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso_line__ca_anag_registro_accesso_id
+msgid "Ca Anag Registro Accesso"
+msgstr "Registro accesso"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso_line__ca_modifica_matricola_registro_accesso_id
+msgid "Ca Modifica Matricola Registro Accesso"
+msgstr "Modifica Matricola Registro Accesso"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso__ca_persona_id
+msgid "Ca Persona"
+msgstr "Persona"
+
+#. module: controllo_accessi_inrim_app
+#: model_terms:ir.ui.view,arch_db:controllo_accessi_inrim_app.ca_modifica_matricola_registro_accesso_view_form
+msgid "Close"
+msgstr "Chiudi"
 
 #. module: controllo_accessi_inrim_app
 #: model:ir.model,name:controllo_accessi_inrim_app.model_res_company_ldap
@@ -26,7 +76,56 @@ msgid "Company LDAP configuration"
 msgstr "Configurazione LDAP azienda"
 
 #. module: controllo_accessi_inrim_app
+#: model_terms:ir.ui.view,arch_db:controllo_accessi_inrim_app.ca_modifica_matricola_registro_accesso_view_form
+msgid "Confirm"
+msgstr "Conferma"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso__create_uid
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso_line__create_uid
+msgid "Created by"
+msgstr "Utente Creazione"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso__create_date
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso_line__create_date
+msgid "Created on"
+msgstr "Data Creazione"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso_line__datetime_event
+msgid "Datetime Event"
+msgstr "Data/Ora Evento"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields.selection,name:controllo_accessi_inrim_app.selection__ca_modifica_matricola_registro_accesso__tipo_periodo__day
+msgid "Day"
+msgstr "Giorno"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso_line__direction
+msgid "Direction"
+msgstr "Direzione"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso__display_name
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso_line__display_name
+msgid "Display Name"
+msgstr "Nome Visualizzato"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso__error_msg
+msgid "Error Message"
+msgstr "Messaggio Errore"
+
+#. module: controllo_accessi_inrim_app
+#: model_terms:ir.ui.view,arch_db:controllo_accessi_inrim_app.ca_modifica_matricola_registro_accesso_view_form
+msgid "Filtered Access Registers"
+msgstr "Lista Registri Accesso Filtrati"
+
+#. module: controllo_accessi_inrim_app
 #: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_anag_registro_accesso__codice_lettore_grum
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso_line__codice_lettore_grum
 #: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_punto_accesso__codice_lettore_grum
 msgid "GRUM Reader Code"
 msgstr "Codice Lettore GRUM"
@@ -37,7 +136,15 @@ msgid "Grum Reader ID"
 msgstr "ID Lettore Grum"
 
 #. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso__id
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: controllo_accessi_inrim_app
 #: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_anag_registro_accesso__work_id_number
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso__work_id_number
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso_line__work_id_number
 msgid "ID Number"
 msgstr "Numero ID"
 
@@ -57,12 +164,78 @@ msgid "INRiM: Sync to Labinf"
 msgstr ""
 
 #. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso__is_confirmed
+msgid "Is Confirmed"
+msgstr "Confermato"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso__is_error
+msgid "Is Error"
+msgstr "Errore"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso__is_success
+msgid "Is Success"
+msgstr "Success"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso__write_uid
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso_line__write_uid
+msgid "Last Updated by"
+msgstr "Ultimo aggiornamento di"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso__write_date
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso_line__write_date
+msgid "Last Updated on"
+msgstr "Ultimo aggiornamento il"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model,name:controllo_accessi_inrim_app.model_ca_modifica_matricola_registro_accesso_line
+msgid "Linea Modifica Matricola Registro Accesso"
+msgstr "Linea Modifica Matricola Registro Accesso"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso__line_ids
+msgid "Lines"
+msgstr "Righe"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.actions.act_window,name:controllo_accessi_inrim_app.ca_modifica_matricola_registro_accesso_action
+#: model:ir.model,name:controllo_accessi_inrim_app.model_ca_modifica_matricola_registro_accesso
+msgid "Modifica Matricola Registro Accesso"
+msgstr "Modifica Matricola Registro Accesso"
+
+#. module: controllo_accessi_inrim_app
 #: model:ir.model.fields.selection,name:controllo_accessi_inrim_app.selection__ca_anag_registro_accesso__state__no_sync
 msgid "No Sync"
 msgstr "Nessuna Sincronizzazione"
 
 #. module: controllo_accessi_inrim_app
+#. odoo-python
+#: code:addons/controllo_accessi_inrim_app/wizard/ca_modifica_matricola_registro_accesso.py:0
+#, python-format
+msgid "No access registers selected"
+msgstr "Nessun registro accesso selezionato"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields.selection,name:controllo_accessi_inrim_app.selection__ca_modifica_matricola_registro_accesso__tipo_periodo__period
+msgid "Period (from)"
+msgstr "Periodo (dal)"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso__tipo_periodo
+msgid "Period Type"
+msgstr "Tipo Periodo"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso_line__person_display_name
+msgid "Person Name"
+msgstr "Nome"
+
+#. module: controllo_accessi_inrim_app
 #: model:ir.model,name:controllo_accessi_inrim_app.model_ca_persona
+#: model_terms:ir.ui.view,arch_db:controllo_accessi_inrim_app.ca_modifica_matricola_registro_accesso_view_form
 msgid "Persona"
 msgstr "Anagrafica Persona"
 
@@ -72,14 +245,29 @@ msgid "Punto Accesso"
 msgstr ""
 
 #. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso__data_riferimento
+msgid "Reference Date"
+msgstr "Data Riferimento"
+
+#. module: controllo_accessi_inrim_app
 #: model:ir.model.fields.selection,name:controllo_accessi_inrim_app.selection__ca_anag_registro_accesso__state__sent
 msgid "Sent"
 msgstr "Inviato"
 
 #. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso_line__ca_ente_azienda_id
+msgid "Space Office"
+msgstr "Spazio Sede"
+
+#. module: controllo_accessi_inrim_app
 #: model:ir.model,name:controllo_accessi_inrim_app.model_ca_spazio
 msgid "Spazio"
 msgstr ""
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso__success_msg
+msgid "Success Message"
+msgstr "Messaggio Success"
 
 #. module: controllo_accessi_inrim_app
 #: model:ir.model.fields.selection,name:controllo_accessi_inrim_app.selection__ca_anag_registro_accesso__state__sync_done
@@ -93,8 +281,14 @@ msgstr "Errore Di Sincronizzazione"
 
 #. module: controllo_accessi_inrim_app
 #: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_anag_registro_accesso__state
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso_line__state
 msgid "Sync State"
 msgstr "Stato Sincronizza"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso_line__system_error
+msgid "System Error"
+msgstr "Errore di Sistema"
 
 #. module: controllo_accessi_inrim_app
 #: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_res_company_ldap__user
@@ -112,6 +306,21 @@ msgstr ""
 #: model:ir.model.fields.selection,name:controllo_accessi_inrim_app.selection__ca_anag_registro_accesso__state__to_sync
 msgid "To Sync"
 msgstr "Da Sincronizzare"
+
+#. module: controllo_accessi_inrim_app
+#: model_terms:ir.ui.view,arch_db:controllo_accessi_inrim_app.ca_modifica_matricola_registro_accesso_view_form
+msgid "Update Data"
+msgstr "Dati Aggiornamento"
+
+#. module: controllo_accessi_inrim_app
+#: model:ir.model.fields,field_description:controllo_accessi_inrim_app.field_ca_modifica_matricola_registro_accesso__aggiornamento_work_id_number
+msgid "Update ID Number"
+msgstr "Matricola Aggiornamento"
+
+#. module: controllo_accessi_inrim_app
+#: model_terms:ir.ui.view,arch_db:controllo_accessi_inrim_app.ca_persona_view_ca_form_inrim_inherit
+msgid "Update Sync ID Number"
+msgstr "Modifica Matricola Registro Accesso"
 
 #. module: controllo_accessi_inrim_app
 #: model:ir.model.fields,help:controllo_accessi_inrim_app.field_res_company_ldap__user

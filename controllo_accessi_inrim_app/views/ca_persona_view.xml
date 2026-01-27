@@ -11,7 +11,7 @@
                         name="open_wizard_modifica_matricola_registro_accessi"
                         type="object"
                         icon="oi-studio"
-                        string="Modifica Matricola Registro Accesso"
+                        string="Update Sync ID Number"
                         display="always"
                         invisible="not person_access_ids"
                         groups="controllo_accessi.ca_tech"

@@ -15,19 +15,19 @@ class ModificaMatricolaRegAccesso(models.TransientModel):
     # _transient_max_count = 0 # Do not delete record when vacuum
     # _transient_max_hours = 0 # Do not delete record when vacuum
 
-    tipo_periodo = fields.Selection(selection=[("periodo", "Periodo (dal)"), ("giorno", "Giorno")], required=True)
-    data_riferimento = fields.Date(string="Data Riferimento", required=True)
+    tipo_periodo = fields.Selection(string="Period Type", selection=[("period", "Period (from)"), ("day", "Day")], required=True)
+    data_riferimento = fields.Date(string="Reference Date", required=True)
     ca_persona_id = fields.Many2one("ca.persona", required=True,
                                     domain="[('person_access_ids', '!=', False)]")
-    work_id_number = fields.Char(string='Matricola')
+    work_id_number = fields.Char(string='ID Number')
 
     line_ids = fields.One2many("ca.modifica_matricola_registro_accesso_line",
-                               "ca_modifica_matricola_registro_accesso_id", string="Lista Accessi Filtrati")
+                               "ca_modifica_matricola_registro_accesso_id", string="Lines")
 
-    aggiornamento_work_id_number = fields.Many2one("ca.work_info", string="Matricola aggiornamento",
+    aggiornamento_work_id_number = fields.Many2one("ca.work_info", string="Update ID Number",
                                                    domain="[('ca_persona_id', '=', ca_persona_id), ('state', '=', 'active')]")
 
-    is_confirmed = fields.Boolean(string="Confermato", default=False)
+    is_confirmed = fields.Boolean(string="Is Confirmed", default=False)
     success_msg = fields.Char(string="Success Message", readonly=True)
     error_msg = fields.Char(string="Error Message", readonly=True)
     is_success = fields.Boolean(compute="_compute_is_success", readonly=True, store=True)
@@ -97,7 +97,7 @@ class ModificaMatricolaRegAccesso(models.TransientModel):
 
         if not self.line_ids:
             raise ValidationError(
-                _('Nessun registro accesso selezionato'))
+                _('No access registers selected'))
 
         try:
 

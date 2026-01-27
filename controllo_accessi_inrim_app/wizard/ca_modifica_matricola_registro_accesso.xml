@@ -21,26 +21,16 @@
                                 <field name="error_msg"/>
                             </div>
                         </div>
-                        <group string="Filtri Registri Accesso">
-                            <!--<div colspan="2">
-                                <div class="text-primary bg-200 p-2 mb-2">Filtri Registri Accesso</div>
-                            </div>-->
+                        <group string="Access Registers Filter">
                             <field name="data_riferimento" readonly="is_success"/>
                             <field name="tipo_periodo" readonly="is_success"/>
                             <field name="ca_persona_id" string="Persona" readonly="is_success"/>
                         </group>
-                        <group string="Dati aggiornamento">
-                            <!--<div colspan="2">
-                                <hr style="margin: 0px;"/>
-                                <div class="text-primary opacity-100 bg-200 p-2 mb-2">Dati aggiornamento</div>
-                            </div>-->
+                        <group string="Update Data">
                             <field name="aggiornamento_work_id_number" context="{'show_work_id_number': True}"
                                    readonly="is_success"/>
                         </group>
-                        <group string="Lista Registri Accesso Filtrati" colspan="2">
-                            <!--<label for="line_ids" class="d-block text-primary opacity-100 bg-200 p-2">Lista Registri
-                                Accesso Filtrati
-                            </label>-->
+                        <group string="Filtered Access Registers" colspan="2">
                             <field name="line_ids" nolabel="1" colspan="2" readonly="is_success">
                                 <tree delete="0" create="0" edit="0" editable="bottom">
                                     <field name="ca_modifica_matricola_registro_accesso_id" column_invisible="1"/>
