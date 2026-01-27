@@ -117,6 +117,13 @@ class CaWorkInfo(models.Model):
     ], readonly=True, string='Status')
     active = fields.Boolean(default=True)
 
+    @api.depends_context('show_work_id_number')
+    def _compute_display_name(self):
+        if not self.env.context.get('show_work_id_number', False):
+            return super()._compute_display_name()
+        for record in self:
+            record.display_name = f"{record.work_id_number} - {record.ca_persona_id.display_name}"
+
     @api.constrains('date_start', 'date_end')
     def _check_date(self):
         for record in self:

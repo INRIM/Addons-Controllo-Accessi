@@ -469,3 +469,12 @@ class CaPersona(models.Model):
             except Exception as e:
                 logger.error(
                     f"Error Skip {record.get('matricola')}: {e}", exc_info=True)
+
+    def open_wizard_modifica_matricola_registro_accessi(self):
+        self.ensure_one()
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "controllo_accessi_inrim_app.ca_modifica_matricola_registro_accesso_action")
+        action['context'] = {
+                'default_ca_persona_id': self.id,
+        }
+        return action

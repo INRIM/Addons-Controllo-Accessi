@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_modifica_matricola_registro_accesso_view_form" model="ir.ui.view">
+        <field name="name">ca.modifica.matricola.registro.accesso.view.form</field>
+        <field name="model">ca.modifica_matricola_registro_accesso</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="is_confirmed" invisible="1"/>
+                <field name="is_success" invisible="1"/>
+                <field name="is_error" invisible="1"/>
+                <field name="error_msg" invisible="1"/>
+                <sheet class="py-0">
+                    <group>
+                        <div invisible="not is_success" colspan="2">
+                            <div class="alert alert-success mb-0" role="alert">
+                                <field name="success_msg"/>
+                            </div>
+                        </div>
+                        <div invisible="not is_error" colspan="2">
+                            <div class="alert alert-danger mb-0" role="alert">
+                                <field name="error_msg"/>
+                            </div>
+                        </div>
+                        <group string="Filtri Registri Accesso">
+                            <!--<div colspan="2">
+                                <div class="text-primary bg-200 p-2 mb-2">Filtri Registri Accesso</div>
+                            </div>-->
+                            <field name="data_riferimento" readonly="is_success"/>
+                            <field name="tipo_periodo" readonly="is_success"/>
+                            <field name="ca_persona_id" string="Persona" readonly="is_success"/>
+                        </group>
+                        <group string="Dati aggiornamento">
+                            <!--<div colspan="2">
+                                <hr style="margin: 0px;"/>
+                                <div class="text-primary opacity-100 bg-200 p-2 mb-2">Dati aggiornamento</div>
+                            </div>-->
+                            <field name="aggiornamento_work_id_number" context="{'show_work_id_number': True}"
+                                   readonly="is_success"/>
+                        </group>
+                        <group string="Lista Registri Accesso Filtrati" colspan="2">
+                            <!--<label for="line_ids" class="d-block text-primary opacity-100 bg-200 p-2">Lista Registri
+                                Accesso Filtrati
+                            </label>-->
+                            <field name="line_ids" nolabel="1" colspan="2" readonly="is_success">
+                                <tree delete="0" create="0" edit="0" editable="bottom">
+                                    <field name="ca_modifica_matricola_registro_accesso_id" column_invisible="1"/>
+                                    <field name="ca_anag_registro_accesso_id" column_invisible="1"/>
+                                    <field name="ca_punto_accesso_id" column_invisible="1"/>
+                                    <field name="codice_lettore_grum"/>
+                                    <field name="ca_ente_azienda_id" column_invisible="1"/>
+                                    <field name="person_display_name"/>
+                                    <field name="datetime_event"/>
+                                    <field name="typology"/>
+                                    <field name="direction"/>
+                                    <field name="access_allowed" column_invisible="1"/>
+                                    <field name="system_error" column_invisible="1"/>
+                                    <field name="access_conflict" column_invisible="1"/>
+                                    <field name="work_id_number"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button
+                            name="action_confirm"
+                            string="Confirm"
+                            class="btn-primary"
+                            type="object"
+                            invisible="is_success"
+                    />
+                    <button
+                            string="Close"
+                            class="btn-secondary"
+                            special="cancel"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="ca_modifica_matricola_registro_accesso_action" model="ir.actions.act_window">
+        <field name="name">Modifica Matricola Registro Accesso</field>
+        <field name="res_model">ca.modifica_matricola_registro_accesso</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
