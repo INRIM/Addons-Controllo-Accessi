@@ -56,5 +56,11 @@
             <field name="value">token</field>
         </record>
 
+        <record id="inrim_ir_config_parameter_labinf_update_sync_service"
+                model="ir.config_parameter">
+            <field name="key">labinf_update_sync_service</field>
+            <field name="value">http://synclabinf/update</field>
+        </record>
+
     </data>
 </odoo>

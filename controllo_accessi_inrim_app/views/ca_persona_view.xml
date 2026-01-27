@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_persona_view_ca_form_inrim_inherit" model="ir.ui.view">
+        <field name="name">ca.persona.view.ca.form.inrim.inherit</field>
+        <field name="model">ca.persona</field>
+        <field name="inherit_id" ref="inrim_controllo_accessi.ca_persona_view_ca_form_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='person_access_ids']"
+                   position="before">
+                <button
+                        name="open_wizard_modifica_matricola_registro_accessi"
+                        type="object"
+                        icon="oi-studio"
+                        string="Update Sync ID Number"
+                        display="always"
+                        invisible="not person_access_ids"
+                        groups="controllo_accessi.ca_tech"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
