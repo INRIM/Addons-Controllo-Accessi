@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* controllo_accessi_portale
+#   * controllo_accessi_portale
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0-20250428\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-07 14:10+0000\n"
-"PO-Revision-Date: 2025-05-07 14:10+0000\n"
+"POT-Creation-Date: 2026-02-24 13:50+0000\n"
+"PO-Revision-Date: 2026-02-24 13:50+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,14 +17,28 @@ msgstr ""
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/partners_portal.js:0
 #, python-format
-msgid "Access Data"
-msgstr "Data Accesso"
+msgid "Absent"
+msgstr "Assente"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/partners_portal.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
+#, python-format
+msgid "Access Details"
+msgstr "Dati Accesso"
+
+#. module: controllo_accessi_portale
+#. odoo-javascript
+#: code:addons/controllo_accessi_portale/static/src/js/partners_portal.js:0
+#, python-format
+msgid "Access Log"
+msgstr "Registro Accessi"
+
+#. module: controllo_accessi_portale
+#. odoo-javascript
+#: code:addons/controllo_accessi_portale/static/src/js/partners_portal.js:0
 #, python-format
 msgid "Access Point"
 msgstr "Sede"
@@ -36,100 +50,71 @@ msgstr "Accesso Portale"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
-#: code:addons/controllo_accessi_portale/static/src/xml/partners_portal.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
+#: code:addons/controllo_accessi_portale/static/src/js/partners_portal.js:0
 #, python-format
 msgid "All"
 msgstr "Tutti"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/partners_portal.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
 #, python-format
-msgid "Attendance"
-msgstr "Presenza"
+msgid "Assign Badge *"
+msgstr "Assegna Badge *"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_return.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_return.js:0
 #, python-format
-msgid "Back to Partner List"
-msgstr "Torna a Lista Anagrafiche"
+msgid "Associated Partner"
+msgstr "Partner Associato"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/partners_portal.js:0
 #, python-format
-msgid "Badge"
-msgstr ""
+msgid "Attendance Status"
+msgstr "Stato Presenza"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_return.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/partners_portal.js:0
 #, python-format
-msgid "Badge Data"
-msgstr "Data Badge"
+msgid "Auto-refresh:"
+msgstr "Auto-aggiornamento:"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_return.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_return.js:0
 #, python-format
 msgid "Badge Return"
-msgstr "Ritorna Badge"
+msgstr "Restituzione Badge"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_return.js:0
 #, python-format
-msgid "Ca Title"
-msgstr "CA Titolo"
+msgid "Badge non trovato!"
+msgstr "Badge non trovato!"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
 #, python-format
-msgid "Ca Work Info Type"
-msgstr "CA Tipo Info Lavoro"
+msgid "Company Name / Entity *"
+msgstr "Ragione Sociale / Ente *"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/partners_portal.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_return.js:0
 #, python-format
-msgid "Company Logo"
-msgstr "Logo Azienda"
+msgid "Confirm Return"
+msgstr "Conferma Restituzione"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
-#, python-format
-msgid "Company Name"
-msgstr "Nome Azienda"
-
-#. module: controllo_accessi_portale
-#. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
-#, python-format
-msgid "Date End"
-msgstr "Data Fine"
-
-#. module: controllo_accessi_portale
-#. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
-#, python-format
-msgid "Date Start"
-msgstr "Data Inizio"
-
-#. module: controllo_accessi_portale
-#. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/partners_portal.xml:0
-#, python-format
-msgid "Date/Hour Last Event"
-msgstr "Data/Ora Ultimo Evento"
-
-#. module: controllo_accessi_portale
-#. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/partners_portal.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/partners_portal.js:0
 #, python-format
 msgid "Direction"
 msgstr "Direzione"
@@ -157,10 +142,52 @@ msgstr "Dati Documento"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
 #, python-format
 msgid "Email"
 msgstr "Email"
+
+#. module: controllo_accessi_portale
+#. odoo-javascript
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
+#, python-format
+msgid "End Date"
+msgstr "Data Fine"
+
+#. module: controllo_accessi_portale
+#. odoo-javascript
+#: code:addons/controllo_accessi_portale/static/src/js/badge_return.js:0
+#, python-format
+msgid "Enter code here..."
+msgstr "Inserisci codice qui..."
+
+#. module: controllo_accessi_portale
+#. odoo-javascript
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
+#, python-format
+msgid "Entity Type *"
+msgstr "Tipo Ente *"
+
+#. module: controllo_accessi_portale
+#. odoo-javascript
+#: code:addons/controllo_accessi_portale/static/src/js/partners_portal.js:0
+#, python-format
+msgid "Entrance"
+msgstr "Entrata"
+
+#. module: controllo_accessi_portale
+#. odoo-javascript
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
+#, python-format
+msgid "Existing Partner"
+msgstr "Partner Esistente"
+
+#. module: controllo_accessi_portale
+#. odoo-javascript
+#: code:addons/controllo_accessi_portale/static/src/js/partners_portal.js:0
+#, python-format
+msgid "Exit"
+msgstr "Uscita"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
@@ -171,31 +198,31 @@ msgstr "Scadenza"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/partners_portal.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/partners_portal.js:0
 #, python-format
 msgid "Externals"
 msgstr "Esterni"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
 #, python-format
 msgid "Find in System"
 msgstr "Cerca nel Sistema"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
 #, python-format
-msgid "Fiscal Code"
-msgstr "Codice Fiscale"
+msgid "First Name *"
+msgstr "Nome *"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
 #, python-format
-msgid "Freshman"
-msgstr "Matricola"
+msgid "Fiscal Code *"
+msgstr "Codice Fiscale *"
 
 #. module: controllo_accessi_portale
 #: model:ir.model,name:controllo_accessi_portale.model_ir_http
@@ -204,21 +231,29 @@ msgstr "Instradamento HTTP"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
 #, python-format
-msgid "Internal Contact Person"
+msgid "ID Number"
+msgstr "Matricola"
+
+#. module: controllo_accessi_portale
+#. odoo-javascript
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
+#, python-format
+msgid "Internal Contact"
 msgstr "Referente Interno"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/partners_portal.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/partners_portal.js:0
 #, python-format
 msgid "Internals"
 msgstr "Interni"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/partners_portal.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
+#: code:addons/controllo_accessi_portale/static/src/js/partners_portal.js:0
 #, python-format
 msgid "Issue Badge"
 msgstr "Rilascia Badge"
@@ -232,47 +267,70 @@ msgstr "Rilasciato da"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/partners_portal.js:0
 #, python-format
-msgid "Lastname"
-msgstr "Cognome"
+msgid "Last Event"
+msgstr "Ultimo Evento"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
 #, python-format
-msgid "Matricola"
-msgstr ""
+msgid "Last Name *"
+msgstr "Cognome *"
 
 #. module: controllo_accessi_portale
-#. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
-#, python-format
-msgid "Mobile"
-msgstr ""
+#: model_terms:ir.ui.view,arch_db:controllo_accessi_portale.badge_return_view
+msgid "Loading Badge..."
+msgstr "Caricamento Badge..."
 
 #. module: controllo_accessi_portale
-#. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
-#: code:addons/controllo_accessi_portale/static/src/xml/partners_portal.xml:0
-#, python-format
-msgid "Name"
-msgstr "Nome"
+#: model_terms:ir.ui.view,arch_db:controllo_accessi_portale.portal_partner_view
+msgid "Loading Portal..."
+msgstr "Caricamento Portale..."
 
 #. module: controllo_accessi_portale
-#. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
-#, python-format
-msgid "New Name"
-msgstr "Nuovo Nome"
+#: model_terms:ir.ui.view,arch_db:controllo_accessi_portale.badge_release_view
+msgid "Loading..."
+msgstr "Caricamento..."
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
 #: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
 #: code:addons/controllo_accessi_portale/static/src/xml/badge_return.xml:0
+#: code:addons/controllo_accessi_portale/static/src/xml/partners_portal.xml:0
 #, python-format
-msgid "Partner"
-msgstr "Contatto"
+msgid "Logo"
+msgstr "Logo"
+
+#. module: controllo_accessi_portale
+#. odoo-javascript
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
+#, python-format
+msgid "Mobile"
+msgstr "Cellulare"
+
+#. module: controllo_accessi_portale
+#. odoo-javascript
+#: code:addons/controllo_accessi_portale/static/src/js/partners_portal.js:0
+#, python-format
+msgid "Name"
+msgstr "Nominativo"
+
+#. module: controllo_accessi_portale
+#. odoo-javascript
+#: code:addons/controllo_accessi_portale/static/src/js/partners_portal.js:0
+#, python-format
+msgid "No results found with the current filters."
+msgstr "Nessun risultato trovato con i filtri attuali."
+
+#. module: controllo_accessi_portale
+#. odoo-javascript
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_return.js:0
+#, python-format
+msgid "Partner List"
+msgstr "Lista Partner"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
@@ -284,47 +342,59 @@ msgstr "Persona"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
+#, python-format
+msgid "Personal Details"
+msgstr "Dati Anagrafici"
+
+#. module: controllo_accessi_portale
+#. odoo-javascript
+#: code:addons/controllo_accessi_portale/static/src/js/partners_portal.js:0
 #, python-format
 msgid "Present"
 msgstr "Presente"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/partners_portal.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/partners_portal.js:0
 #, python-format
-msgid "Presents"
-msgstr "Presenti"
+msgid "Present Only"
+msgstr "Solo Presenti"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
 #, python-format
-msgid "Ref Domain"
-msgstr "Riferimento Dominio"
+msgid "Present Today"
+msgstr "Presenti Oggi"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_return.js:0
 #, python-format
-msgid "Reference person"
-msgstr "Referente Interno"
+msgid "Press enter after input to search automatically."
+msgstr "Premi invio dopo l'inserimento per cercare automaticamente."
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
+#, python-format
+msgid "Reference Person"
+msgstr "Persona di Riferimento"
+
+#. module: controllo_accessi_portale
+#. odoo-javascript
 #: code:addons/controllo_accessi_portale/static/src/xml/badge_release_docs.xml:0
 #, python-format
 msgid "Release Badge"
-msgstr "Rilascia Badge"
+msgstr "Registra Documento"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
 #: code:addons/controllo_accessi_portale/static/src/xml/badge_release_docs.xml:0
 #, python-format
 msgid "Release Badge - Documents"
-msgstr "Rilascia Badge - Documenti"
+msgstr "Caricamento Documenti"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
@@ -335,18 +405,38 @@ msgstr "Data Rilascio"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_return.xml:0
-#: code:addons/controllo_accessi_portale/static/src/xml/partners_portal.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/partners_portal.js:0
 #, python-format
 msgid "Return Badge"
-msgstr "Ritorna Badge"
+msgstr "Restituisci Badge"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/partners_portal.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_return.js:0
 #, python-format
-msgid "Search Partners..."
-msgstr "Cerca Contatto..."
+msgid "Return Details"
+msgstr "Dati Restituzione"
+
+#. module: controllo_accessi_portale
+#. odoo-javascript
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
+#, python-format
+msgid "Search Domain"
+msgstr "Dominio Ricerca"
+
+#. module: controllo_accessi_portale
+#. odoo-javascript
+#: code:addons/controllo_accessi_portale/static/src/js/partners_portal.js:0
+#, python-format
+msgid "Search Name..."
+msgstr "Cerca Nominativo..."
+
+#. module: controllo_accessi_portale
+#. odoo-javascript
+#: code:addons/controllo_accessi_portale/static/src/js/badge_return.js:0
+#, python-format
+msgid "Select Badge"
+msgstr "Seleziona Badge"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
@@ -362,89 +452,105 @@ msgstr "Seleziona un Contatto..."
 #: code:addons/controllo_accessi_portale/static/src/js/badge_return.js:0
 #, python-format
 msgid "Select a badge..."
-msgstr "Seleziona un Badge..."
+msgstr "Seleziona un badge..."
+
+#. module: controllo_accessi_portale
+#. odoo-javascript
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
+#, python-format
+msgid "Select a partner to pre-fill data or leave blank to create a new one."
+msgstr ""
+"Seleziona un partner per precompilare i dati o lascialo vuoto per crearne "
+"uno nuovo."
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
 #: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
 #, python-format
 msgid "Select a representative..."
-msgstr "Seleziona un Referente..."
+msgstr "Seleziona un referente..."
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
 #: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
 #, python-format
 msgid "Select a title..."
-msgstr "Seleziona un titolo"
+msgstr "Seleziona una qualifica..."
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
 #: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
 #, python-format
 msgid "Select a work info type..."
-msgstr "Seleziona una info lavorativa"
+msgstr "Seleziona una tipologia di lavoro..."
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
 #: code:addons/controllo_accessi_portale/static/src/js/partners_portal.js:0
 #, python-format
 msgid "Select an Access Point..."
-msgstr "Seleziona una sede"
+msgstr "Seleziona un punto accesso..."
 
 #. module: controllo_accessi_portale
 #. odoo-python
-#: code:addons/controllo_accessi_portale/controllers/portal.py:0
-#: code:addons/controllo_accessi_portale/controllers/portal.py:0
+#: code:addons/controllo_accessi_portale/controllers/badge_docs.py:0
+#: code:addons/controllo_accessi_portale/controllers/badge_release.py:0
 #, python-format
 msgid "Some required fields are empty."
-msgstr "Alcuni campi obbligatori non sono stati compilati"
+msgstr "Alcuni campi obbligatori non sono stati compilati."
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_return.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
 #, python-format
-msgid "Tag"
-msgstr "Badge"
+msgid "Start Date"
+msgstr "Data Inizio"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_return.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_return.js:0
 #, python-format
 msgid "Tag Code"
 msgstr "Codice Badge"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_return.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_return.js:0
 #, python-format
-msgid "Temporary"
-msgstr "Temporaneo"
+msgid "Temporary Only"
+msgstr "Solo Temporanei"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_return.js:0
 #, python-format
-msgid "Type of Company Entity"
-msgstr "Tipo Ente Azienda"
+msgid "The partner will be displayed here..."
+msgstr "Il partner verrà visualizzato qui..."
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
 #, python-format
-msgid "Vat"
+msgid "Title / Qualification *"
+msgstr "Qualifica *"
+
+#. module: controllo_accessi_portale
+#. odoo-javascript
+#: code:addons/controllo_accessi_portale/static/src/js/partners_portal.js:0
+#, python-format
+msgid "Updating data..."
+msgstr "Aggiornamento dati..."
+
+#. module: controllo_accessi_portale
+#. odoo-javascript
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
+#, python-format
+msgid "VAT Number"
 msgstr "P.IVA"
 
 #. module: controllo_accessi_portale
 #. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
+#: code:addons/controllo_accessi_portale/static/src/js/badge_release.js:0
 #, python-format
-msgid "all"
-msgstr "Tutti"
-
-#. module: controllo_accessi_portale
-#. odoo-javascript
-#: code:addons/controllo_accessi_portale/static/src/xml/badge_release.xml:0
-#, python-format
-msgid "present"
-msgstr "Presente"
+msgid "Work Type *"
+msgstr "Tipologia Lavoro *"

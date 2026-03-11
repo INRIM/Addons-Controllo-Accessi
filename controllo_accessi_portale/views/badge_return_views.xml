@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="badge_return_view" name="Badge Return View">
+        <t t-call="controllo_accessi_portale.partners_portal_minimal_layout">
+            <div class="container mt-4">
+                <div id="badge_return_app">
+                    <div id="static_loader" class="d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+                        <div class="text-center">
+                            <i class="fa fa-circle-o-notch fa-spin fa-3x text-primary mb-3"></i>
+                            <h5 class="text-muted">Loading Badge...</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

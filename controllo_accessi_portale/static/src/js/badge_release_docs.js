@@ -6,8 +6,6 @@ import {DateTimeInput} from "@web/core/datetime/datetime_input";
 import {_t} from "@web/core/l10n/translation";
 
 const {DateTime} = luxon;
-
-
 const {Component} = owl;
 
 class BadgeReleaseDocs extends Component {
@@ -15,7 +13,6 @@ class BadgeReleaseDocs extends Component {
         this.personaId = this.props.persona_id ?? {};
         this.errors = this.props.errors ?? {};
         this.error_message = this.props.error_message;
-
         this.csrfToken = odoo.csrf_token;
 
         this.state = useState({
@@ -31,49 +28,42 @@ class BadgeReleaseDocs extends Component {
                 validity_end_date: this.props.values?.validity_end_date ? DateTime.fromISO(this.props.values.validity_end_date) : null,
             })
         });
+        
         this.personaSelectRef = useRef("personaSelect");
         this.dataService = useService("dataService");
-        this.ca_persona = useState([]);
-        this.tipo_documento = useState([]);
+        
+        this.ca_persona = [];
+        this.tipo_documento = [];
         this.datesCtn = useRef("date-ctn")
         this.onDateStartSelect = this.onDateStartSelect.bind(this);
         this.onDateEndSelect = this.onDateEndSelect.bind(this);
 
         onMounted(() => {
             const $select = $(this.personaSelectRef.el);
-            $select.select2({
-                placeholder: _t("Select a Partner..."),
-                allowClear: true,
-                width: '100%'
-            });
+            $select.select2({ placeholder: _t("Select a Partner..."), allowClear: true, width: '100%' });
             $select.select2("readonly", true);
-
-            // Imposta a required i field date, siccome non è previsto dal componente...
-            var inputs = this.datesCtn.el.querySelectorAll("input");
-            inputs.forEach(input => {
-                input.setAttribute("required", true);
-                input.classList.add("form-control");
-            })
+            
+            if(this.datesCtn.el){
+                var inputs = this.datesCtn.el.querySelectorAll("input");
+                inputs.forEach(input => {
+                    input.setAttribute("required", true);
+                    input.classList.add("form-control");
+                })
+            }
         });
-
 
         onWillStart(async () => {
             const res = await Promise.all([
                 this.dataService.loadPersona(),
                 this.dataService.loadTipoDocumento()
-            ])
-            this.ca_persona = res[0];
-            this.tipo_documento = res[1];
+            ]);
+            this.ca_persona = res[0] || [];
+            this.tipo_documento = res[1] || [];
         });
     };
 
-    onDateStartSelect(dt) {
-        this.state.formValues.validity_start_date = dt;
-    }
-
-    onDateEndSelect(dt) {
-        this.state.formValues.validity_end_date = dt;
-    }
+    onDateStartSelect(dt) { this.state.formValues.validity_start_date = dt; }
+    onDateEndSelect(dt) { this.state.formValues.validity_end_date = dt; }
 
     onSubmitClick(e) {
         var form = $("form");

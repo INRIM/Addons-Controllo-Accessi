@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<templates id="template" xml:space="preserve">
+<templates>
     <t t-name="controllo_accessi_portale.BadgeReleaseDocs" name="Badge Release Docs" owl="1">
         <div class="container mt-4 mb-4">
             <div class="d-flex justify-content-between align-items-center">
@@ -10,7 +10,6 @@
                 <div t-esc="error_message"/>
             </div>
             <form method="POST" t-attf-action="/badge_release_docs/#{props.persona_id}" class="form-group">
-                <!-- Campo input nascosto per il token CSRF -->
                 <input type="hidden" name="csrf_token" t-att-value="csrfToken"/>
 
                 <div style="margin-top:25px;">
@@ -23,8 +22,7 @@
                         <label for="persona_id" class="form-label">Persona</label>
                     </div>
                     <div class="col-md-10">
-                        <select t-ref="personaSelect" id="persona_id" name="persona_id" class="form-control"
-                                style="margin-bottom: 10px;" t-model="state.formValues.persona_id" readonly="true">
+                        <select t-ref="personaSelect" id="persona_id" name="persona_id" class="form-control" style="margin-bottom: 10px;" t-model="state.formValues.persona_id" readonly="true">
                             <option value=""/>
                             <t t-foreach="ca_persona" t-as="partner" t-key="partner.id">
                                 <option t-att-value="partner.id">
@@ -40,10 +38,7 @@
                         <label for="tipo_documento_id" class="form-label">Doc Type</label>
                     </div>
                     <div class="col-md-10">
-                        <select t-ref="tipoDocSelect" id="tipo_documento_id" name="tipo_documento_id"
-                                style="margin-bottom: 10px;" t-model="state.formValues.tipo_documento_id"
-                                t-attf-class="form-control #{errors.tipo_documento_id and 'is-invalid' or ''}"
-                                required="true">
+                        <select t-ref="tipoDocSelect" id="tipo_documento_id" name="tipo_documento_id" style="margin-bottom: 10px;" t-model="state.formValues.tipo_documento_id" t-attf-class="form-control #{errors.tipo_documento_id and 'is-invalid' or ''}" required="true">
                             <option value=""/>
                             <t t-foreach="tipo_documento" t-as="tipo_doc" t-key="tipo_doc.id">
                                 <option t-att-value="tipo_doc.id">
@@ -62,20 +57,15 @@
                         <label for="validity_start_date" class="form-label">Release Date</label>
                     </div>
                     <div class="col-md-4" style="margin-bottom: 10px;">
-                        <input name="validity_start_date" type="hidden"
-                               t-att-value="state.formValues.validity_start_date"/>
-                        <DateTimeInput id="validity_start_date" value="state.formValues.validity_start_date" type="'date'"
-                                       onChange="this.onDateStartSelect" onSelect="this.onDateStartSelect"
-                                       maxDate="state.formValues.validity_end_date"/>
+                        <input name="validity_start_date" type="hidden" t-att-value="state.formValues.validity_start_date"/>
+                        <DateTimeInput id="validity_start_date" value="state.formValues.validity_start_date" type="'date'" onChange="this.onDateStartSelect" onSelect="this.onDateStartSelect" maxDate="state.formValues.validity_end_date"/>
                     </div>
                     <div class="col-md-2">
                         <label for="validity_end_date" class="form-label">Expiration</label>
                     </div>
                     <div class="col-md-4" style="margin-bottom: 10px;">
                         <input name="validity_end_date" type="hidden" t-att-value="state.formValues.validity_end_date"/>
-                        <DateTimeInput id="validity_enddate" value="state.formValues.validity_end_date" type="'date'"
-                                       onChange="this.onDateEndSelect" onSelect="this.onDateEndSelect"
-                                       minDate="state.formValues.validity_start_date"/>
+                        <DateTimeInput id="validity_enddate" value="state.formValues.validity_end_date" type="'date'" onChange="this.onDateEndSelect" onSelect="this.onDateEndSelect" minDate="state.formValues.validity_start_date"/>
                     </div>
                 </div>
 
@@ -84,21 +74,13 @@
                         <label for="document_code" class="form-label">Doc Code</label>
                     </div>
                     <div class="col-md-4">
-                        <input type="text" id="document_code" name="document_code"
-                               style="margin-bottom: 10px;"
-                               t-attf-class="form-control #{errors.document_code and 'is-invalid' or ''}"
-                               t-model="state.formValues.document_code"
-                               required="true"/>
+                        <input type="text" id="document_code" name="document_code" style="margin-bottom: 10px;" t-attf-class="form-control #{errors.document_code and 'is-invalid' or ''}" t-model="state.formValues.document_code" required="true"/>
                     </div>
                     <div class="col-md-2">
                         <label for="issued_by" class="form-label">Issued By</label>
                     </div>
                     <div class="col-md-4">
-                        <input type="text" id="issued_by" name="issued_by"
-                               t-attf-class="form-control #{errors.issued_by and 'is-invalid' or ''}"
-                               style="margin-bottom: 10px;"
-                               t-model="state.formValues.issued_by"
-                               required="true"/>
+                        <input type="text" id="issued_by" name="issued_by" t-attf-class="form-control #{errors.issued_by and 'is-invalid' or ''}" style="margin-bottom: 10px;" t-model="state.formValues.issued_by" required="true"/>
                     </div>
                 </div>
 

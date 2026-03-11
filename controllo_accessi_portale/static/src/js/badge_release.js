@@ -1,432 +1,406 @@
 /** @odoo-module */
+import publicWidget from "@web/legacy/js/public/public_widget";
+import { onMounted, onWillStart, onWillUnmount, useRef, useState, Component, EventBus, mount } from '@odoo/owl';
+import { _t } from "@web/core/l10n/translation";
+import { templates } from "@web/core/assets";
+import { jsonrpc } from "@web/core/network/rpc_service";
+import { dataService as dataServiceFactory } from "./read_data_service";
 
-import {registry} from "@web/core/registry";
-import {onMounted, onWillStart, useRef, useState} from '@odoo/owl';
-import {useService} from "@web/core/utils/hooks";
-import {DateTimeInput} from "@web/core/datetime/datetime_input";
-import {_t} from "@web/core/l10n/translation";
-
-const {DateTime} = luxon;
-
-const {Component} = owl;
+const { DateTime } = luxon;
 
 class BadgeRelease extends Component {
     setup() {
-        // ca_persona_parent: [],
         this.csrfToken = odoo.csrf_token;
-        this.errors = this.props.errors ?? {};
-        this.error_message = this.props.error_message;
+        this.values = this.props.values || {};
+        this.errors = this.props.errors || {};
+        this.errorMessage = this.props.error_message || "";
+        this.dataService = this.props.dataService;
+
+        this.texts = {
+            issueBadge: _t("Issue Badge"),
+            partnerList: _t("Partner List"),
+            findInSystem: _t("Find in System"),
+            existingPartner: _t("Existing Partner"),
+            selectPartnerHelp: _t("Select a partner to pre-fill data or leave blank to create a new one."),
+            personalDetails: _t("Personal Details"),
+            lastName: _t("Last Name *"),
+            firstName: _t("First Name *"),
+            fiscalCode: _t("Fiscal Code *"),
+            vatNumber: _t("VAT Number"),
+            companyName: _t("Company Name / Entity *"),
+            entityType: _t("Entity Type *"),
+            email: _t("Email"),
+            mobile: _t("Mobile"),
+            idNumber: _t("ID Number"),
+            internalContact: _t("Internal Contact"),
+            searchDomain: _t("Search Domain"),
+            presentToday: _t("Present Today"),
+            all: _t("All"),
+            referencePerson: _t("Reference Person"),
+            accessDetails: _t("Access Details"),
+            workType: _t("Work Type *"),
+            titleQualification: _t("Title / Qualification *"),
+            assignBadge: _t("Assign Badge *"),
+            startDate: _t("Start Date"),
+            endDate: _t("End Date"),
+            selectPartner: _t("Select a Partner..."),
+            selectRepresentative: _t("Select a representative..."),
+            selectBadge: _t("Select a badge..."),
+            selectWorkInfo: _t("Select a work info type..."),
+            selectTitle: _t("Select a title...")
+        };
+
+        this.ca_persona = [];
+        this.ca_persona_parent = [];
+        this.tipo_ente_azienda = [];
+        this.tipo_ente_azienda_hidden = [];
+        this.work_info_type = [];
+        this.titolo_persona = [];
+        this.ca_ente_azienda = [];
+        this.tags = [];
+        
+        this.store = {
+            workInfosMap: {}, 
+            entiMap: {},      
+            entiVatMap: {},   
+            titoliMap: {},    
+            personasMap: {},  
+            tagDomains: {},   
+        };
 
         this.state = useState({
+            csrfToken: odoo.csrf_token,
+            selectedPersonaId: null,
             caPersonaParentFiltered: [],
-            selectedPersona: null,
-            selectedAzienda: null,
-            selectedWorkInfo: null,
-            isPersonaInternal: false,
-            availableTags: [],
-            formValues: Object.assign({
-                name: "",
-                lastname: "",
-                fiscalcode: "",
-                freshman: "",
-                email: "",
-                mobile: "",
-                ente_azienda: null,
-                ca_ente_name: "",
-                tipo_ente_azienda_id: null,
-                vat: "",
-                date_start: DateTime.local(),
-                date_end: DateTime.local(),
-                ca_tag_id: null,
-                ref_domain: "present",
-                work_info_type: null,
-                ca_title: null,
-            }, this.props.values, {
-                date_start: this.props.values?.date_start ? DateTime.fromISO(this.props.values.date_start) : null,
-                date_end: this.props.values?.date_end ? DateTime.fromISO(this.props.values.date_end) : null,
-            }),
-            errors: {},
+            availableTags: [], 
             enteInterno: false,
+            isPersonaInternal: false, 
+
+            formValues: {
+                name: "", lastname: "", fiscalcode: "", freshman: "", email: "", mobile: "",
+                ente_azienda: null, ca_ente_name: "", tipo_ente_azienda_id: null, vat: "",
+                date_start: this.values.date_start ? DateTime.fromISO(this.values.date_start) : DateTime.local(),
+                date_end: this.values.date_end ? DateTime.fromISO(this.values.date_end) : DateTime.local(),
+                ca_tag_id: null, ref_domain: "present", work_info_type: null, ca_title: null,
+                ...this.values
+            },
+            errors: this.errors,
+            errorMessage: this.errorMessage
         });
-        this.OnTagChange = this.OnTagChange.bind(this);
+
+        this.refs = {
+            persona: useRef("personaSelect"),
+            parent: useRef("parentSelect"),
+            tag: useRef("tagSelect"),
+            workInfo: useRef("wInfoTypeSelect"),
+            title: useRef("caTitleSelect")
+        };
+
         this.onPersonaChange = this.onPersonaChange.bind(this);
-        this.loader = $("#loading-rb")
-        this.personaSelectRef = useRef("personaSelect");
-        this.parentSelectRef = useRef("parentSelect");
-        this.tagSelectRef = useRef("tagSelect");
-        this.workInfoSelectRef = useRef("wInfoTypeSelect");
-        this.caTitleSelectRef = useRef("caTitleSelect");
-        this.onDateStartSelect = this.onDateStartSelect.bind(this);
-        this.onDateEndSelect = this.onDateEndSelect.bind(this);
-        this.dataService = useService("dataService");
-        this.notification = useService("notification");
-        this.ca_persona = useState([]);
-        this.ca_persona_parent = useState([]);
-        this.tipo_ente_azienda = useState([]);
-        this.ca_ente_azienda = useState([]);
-        this.work_info_type = useState([]);
-        this.work_info = useState([]);
-        this.titolo_persona = useState([]);
-        this.tags = useState([]);
-        this.tagFilterDomain = useState([]);
-        this.datesCtn = useRef("date-ctn")
-
-        onMounted(() => {
-
-            const $select = $(this.personaSelectRef.el);
-            $select.select2({
-                placeholder: _t("Select a Partner..."),
-                allowClear: true,
-                width: '100%',
-            });
-            $select.on("change.select2", this.onPersonaChange.bind(this));
-
-            const $select2 = $(this.parentSelectRef.el);
-            $select2.select2({
-                placeholder: _t("Select a representative..."),
-                allowClear: true,
-                width: '100%'
-            });
-
-            const $select3 = $(this.tagSelectRef.el);
-            $select3.select2({
-                placeholder: _t("Select a badge..."),
-                allowClear: true,
-                width: '100%'
-            });
-            $select3.on("change.select2", this.OnTagChange.bind(this));
-
-            const $wInfoSelect = $(this.workInfoSelectRef.el);
-            $wInfoSelect.select2({
-                placeholder: _t("Select a work info type..."),
-                allowClear: true,
-                width: '100%'
-            });
-            $wInfoSelect.on("change.select2", this.OnWorkInfoChange.bind(this));
-
-            const $caTitleSelectRef = $(this.caTitleSelectRef.el);
-            $caTitleSelectRef.select2({
-                placeholder: _t("Select a title..."),
-                allowClear: true,
-                width: '100%'
-            });
-            $caTitleSelectRef.on("change.select2", this.onTitleChange.bind(this));
-
-            // Imposta a required i field date, siccome non è previsto dal componente...
-            var inputs = this.datesCtn.el.querySelectorAll("input");
-            inputs.forEach(input => {
-                input.setAttribute("required", true);
-                input.classList.add("form-control");
-            });
-        });
-
+        this.onTagChange = this.onTagChange.bind(this);
+        this.onTitleChange = this.onTitleChange.bind(this);
+        this.onDateStartChange = this.onDateStartChange.bind(this);
+        this.onDateEndChange = this.onDateEndChange.bind(this);
+        this.onSubmitClick = this.onSubmitClick.bind(this);
 
         onWillStart(async () => {
-            const res = await Promise.all([
-                this.dataService.loadPersona(),
-                this.dataService.loadPersonaParent(),
-                this.dataService.loadTipoEntiAzienda(),
-                this.dataService.loadTipoEntiAziendaHidden(),
-                this.dataService.loadWorkInfoType(),
-                this.dataService.loadTitoloPersona(),
-                this.dataService.loadEnteAzienda(),
-                this.dataService.loadTags(),
-                this.dataService.loadWorkInfo(),
-                this.dataService.loadTagFilterDomain()
+            const [initData, personas] = await Promise.all([
+                this.dataService.loadBadgeReleaseInitData(),
+                this.dataService.loadPersona()
             ]);
 
-            this.ca_persona = res[0];
-            this.ca_persona_parent = res[1];
-            this.tipo_ente_azienda = res[2];
-            this.tipo_ente_azienda_hidden = res[3];
-            this.work_info_type = res[4];
-            this.titolo_persona = res[5];
-            this.ca_ente_azienda = res[6];
-            this.tags = res[7];
-            this.work_info = res[8];
-            this.tag_filter_domain = res[9];
+            const safeInit = initData || {};
+            const safePersonas = personas || [];
 
-            if (this.props.values.persona_id) {
-                this.state.selectedPersona = this.props.values.persona_id;
-            }
-            if (this.props.values.ca_work_info_type_id) {
-                this.state.formValues.work_info_type = this.props.values.ca_work_info_type_id;
-            }
-            if (this.props.values.ca_title_id) {
-                this.state.formValues.ca_title = this.props.values.ca_title_id;
-            }
-            this.loader.attr('style', 'display: none !important');
-            // FIXME: C'e un problema con autselezione tag perche viene refreshato credo...
-
-        });
-    };
-
-    onPersonaChange(event) {
-        const selectedId = parseInt(event.target.value);
-        const selectedPersona = this.ca_persona.find(persona => persona.id === selectedId) || false;
-        this.populatePersona(selectedPersona);
-    }
-
-    onNameChange(event) {
-        Object.assign(this.state.formValues, {
-            name: event.target.value,
-        });
-    }
-
-    onLastnameChange(event) {
-        Object.assign(this.state.formValues, {
-            lastname: event.target.value,
-        });
-    }
-
-    onEnteNameChange(event) {
-        Object.assign(this.state.formValues, {
-            ca_ente_name: event.target.value,
-        });
-    }
-
-    OnTipoEnteChange(event) {
-        Object.assign(this.state.formValues, {
-            tipo_ente_azienda_id: event.target.value,
-        });
-    }
-
-    OnFreshmanChange(event) {
-        Object.assign(this.state.formValues, {
-            freshman: event.target.value,
-        });
-    }
-
-    onTitleChange(event) {
-        this.state.formValues.ca_title = event.target.value ? parseInt(event.target.value) : null;
-        this.filterAvailableTags();
-    }
-
-    onFiscalcodeChange(event) {
-        Object.assign(this.state.formValues, {
-            fiscalcode: event.target.value,
-        });
-        const selectedPersona = this.ca_persona.find(persona => persona.fiscalcode === event.target.value) || "";
-        if (selectedPersona) {
-            const $select = $(this.personaSelectRef.el);
-            $select.val(selectedPersona.id).trigger("change");
-        }
-    }
-
-    onEmailChange(event) {
-        Object.assign(this.state.formValues, {
-            email: event.target.value,
-        });
-        const selectedPersona = this.ca_persona.find(persona => persona.email === event.target.value) || "";
-        if (selectedPersona) {
-            const $select = $(this.personaSelectRef.el);
-            $select.val(selectedPersona.id).trigger("change");
-        }
-    }
-
-    onMobileChange(event) {
-        Object.assign(this.state.formValues, {
-            mobile: event.target.value,
-        });
-    }
-
-    OnWorkInfoChange(event) {
-        Object.assign(this.state.formValues, {
-            work_info_type: event.target.value,
-        });
-    }
-
-    // onTagChange(event) {
-    //     Object.assign(this.state.formValues, {
-    //         ca_tag_id: event.target.value,
-    //     });
-    // }
-
-    OnTagChange(event) {
-        const tagId = parseInt(event.target.value);
-        const tag = this.tags.find(tag => tag.id === tagId);
-        if (tag?.id !== null && tag.temp && this.state.formValues.date_start === null && this.state.formValues.date_end === null) {
-            const zone = 'Europe/Rome';
-            const now = DateTime.now().setZone(zone);
-            const dateStart = now;
-            const dateEnd = now.set({
-                hour: 19,
-                minute: 30,
-                second: 0,
-                millisecond: 0
+            this.ca_persona = safePersonas;
+            this.ca_persona_parent = safeInit.persona_parent || [];
+            this.tipo_ente_azienda = safeInit.tipo_enti || [];
+            this.tipo_ente_azienda_hidden = safeInit.tipo_enti_hidden_ids || [];
+            this.work_info_type = safeInit.work_info_types || [];
+            this.titolo_persona = safeInit.titoli || [];
+            this.ca_ente_azienda = safeInit.enti_aziende || [];
+            this.tags = safeInit.tags || [];
+            this.store.tagDomains = safeInit.tag_domains || {}; 
+            
+            this.store.personasMap = Object.fromEntries(safePersonas.map(p => [p.id, p]));
+            this.store.titoliMap = Object.fromEntries(this.titolo_persona.map(t => [t.id, t]));
+            this.store.entiMap = Object.fromEntries(this.ca_ente_azienda.map(e => [e.id, e]));
+            
+            this.ca_ente_azienda.forEach(e => { if(e.vat) this.store.entiVatMap[e.vat] = e; });
+            (safeInit.work_infos || []).forEach(w => { 
+                if(w.ca_persona_id) this.store.workInfosMap[w.ca_persona_id[0]] = w; 
             });
-            this.state.formValues.date_start = dateStart;
-            this.state.formValues.date_end = dateEnd;
-        }
+
+            if (this.values.persona_id) this.state.selectedPersonaId = parseInt(this.values.persona_id);
+            if (this.values.ca_work_info_type_id) this.state.formValues.work_info_type = parseInt(this.values.ca_work_info_type_id);
+            if (this.values.ca_title_id) this.state.formValues.ca_title = parseInt(this.values.ca_title_id);
+            if (this.values.ca_tag_id) this.state.formValues.ca_tag_id = parseInt(this.values.ca_tag_id);
+
+            this.evalParentPresent();
+            
+            this.filterAvailableTagsSimple();
+        });
+
+        onMounted(() => {
+            const staticLoader = document.getElementById('static_loader');
+            if (staticLoader) staticLoader.remove();
+            this.initSelect2();
+        });
+
+        onWillUnmount(() => {
+            Object.values(this.refs).forEach(ref => { 
+                if(ref.el) $(ref.el).select2('destroy'); 
+            });
+        });
     }
 
+    initSelect2() {
+        const init = (ref, ph, handler) => {
+            if (!ref.el) return;
+            const $el = $(ref.el);
+            $el.select2({ placeholder: ph, allowClear: true, width: '100%' });
+            if (handler) $el.on("change.select2", handler);
+            
+            const initialVal = $el.val(); 
+            if(initialVal) $el.trigger('change.select2');
+        };
 
-    onVatChange(event) {
-        this.state.formValues.vat = event.target.value;
-        if (this.state.formValues.vat) {
-            const targetAzienda = this.ca_ente_azienda.find(azienda => azienda.vat === this.state.formValues.vat)
-            if (targetAzienda) {
-                this.state.formValues.ca_ente_name = targetAzienda?.name || "";
-                this.state.formValues.tipo_ente_azienda_id = targetAzienda?.tipo_ente_azienda_id?.[0] || "";
-                this.state.formValues.ente_azienda = targetAzienda.id || "";
-            }
-            this.setEnteEsterno(targetAzienda);
-        }
+        init(this.refs.persona, this.texts.selectPartner, this.onPersonaChange);
+        init(this.refs.parent, this.texts.selectRepresentative);
+        init(this.refs.tag, this.texts.selectBadge, this.onTagChange);
+        init(this.refs.workInfo, this.texts.selectWorkInfo, (e) => { 
+            this.state.formValues.work_info_type = e.target.value ? parseInt(e.target.value) : null; 
+        });
+        init(this.refs.title, this.texts.selectTitle, this.onTitleChange);
     }
 
-
-    onRefDomainChange(ev) {
-        this.state.formValues.ref_domain = ev.target.value;
-        this.eval_parent_present();
-    }
-
-    eval_parent_present() {
-        if (this.state.formValues.ref_domain === "present") {
-            this.state.caPersonaParentFiltered = this.ca_persona_parent.filter(
-                persona => persona.present === "yes");
-        } else {
-            this.state.caPersonaParentFiltered = this.ca_persona_parent;
+    onPersonaChange(ev) {
+        const id = parseInt(ev.target.value);
+        this.state.selectedPersonaId = id || null;
+        this.state.formValues.persona_id = id || null; 
+        
+        if (!id) {
+            this.state.isPersonaInternal = false;
+            this.filterAvailableTagsSimple();
+            return;
         }
+        const persona = this.store.personasMap[id];
+        if (persona) this.populatePersona(persona);
     }
 
     populatePersona(persona) {
-        this.state.selectedPersona = persona.id || "";
-        this.state.isPersonaInternal = persona.is_internal ?? false;
-        const selectedAzienda = this.eval_ente_azienda_id();
-        this.state.isPersonaInternal = persona.is_internal ?? false;
-        const workInfo = this.work_info.find(
-            wkinfo => wkinfo.state === 'active' && wkinfo.ca_persona_id[0] === persona?.id);
-        let dateStart = this.state.formValues.date_start;
-        let dateEnd = this.state.formValues.date_end;
-        if (workInfo) {
-            dateStart = DateTime.fromISO(workInfo.date_start).set({
-                hour: 8,
-                minute: 0,
-                second: 0
-            });
-            dateEnd = DateTime.fromISO(workInfo.date_end).set({
-                hour: 18,
-                minute: 0,
-                second: 0
-            });
+        const wInfo = this.store.workInfosMap[persona.id];
+        let ente = null;
+        if (persona.ca_ente_azienda_ids?.[0]) {
+            ente = this.store.entiMap[persona.ca_ente_azienda_ids[0]];
         }
+
+        this.state.isPersonaInternal = persona.is_internal || false;
+        this.checkEnteInterno(ente);
+        
+        let dStart = this.state.formValues.date_start;
+        let dEnd = this.state.formValues.date_end;
+        if (wInfo) {
+            if(wInfo.date_start) dStart = DateTime.fromISO(wInfo.date_start).set({hour: 8, minute: 0, second: 0});
+            if(wInfo.date_end) dEnd = DateTime.fromISO(wInfo.date_end).set({hour: 18, minute: 0, second: 0});
+        }
+
         Object.assign(this.state.formValues, {
-            name: persona.name || "",
-            lastname: persona.lastname || "",
+            name: persona.name || "", 
+            lastname: persona.lastname || "", 
             fiscalcode: persona.fiscalcode || "",
-            freshman: persona.freshman || "",
-            email: persona.email || "",
+            freshman: persona.freshman || "", 
+            email: persona.email || "", 
             mobile: persona.mobile || "",
-            ente_azienda: selectedAzienda || "",
-            ca_ente_name: selectedAzienda?.name || "",
-            tipo_ente_azienda_id: selectedAzienda?.tipo_ente_azienda_id?.[0] || "",
-            vat: selectedAzienda?.vat || "",
-            work_info_type: workInfo?.ca_work_info_type_id?.[0] || "",
-            ca_title: workInfo?.ca_title_id?.[0] || "",
-            date_start: dateStart || this.state.formValues.date_start,
-            date_end: dateEnd || this.state.formValues.date_end,
+            ente_azienda: ente?.id || "", 
+            ca_ente_name: ente?.name || "",
+            tipo_ente_azienda_id: ente?.tipo_ente_azienda_id?.[0] || "", 
+            vat: ente?.vat || "",
+            work_info_type: wInfo?.ca_work_info_type_id?.[0] || "", 
+            ca_title: wInfo?.ca_title_id?.[0] || "",
+            date_start: dStart, 
+            date_end: dEnd
         });
 
-        const $wInfoSelect = $(this.workInfoSelectRef.el);
-        $wInfoSelect.val(this.state.formValues.work_info_type).trigger("change");
-        const $caTitleSelect = $(this.caTitleSelectRef.el);
-        $caTitleSelect.val(this.state.formValues.ca_title).trigger("change");
-
-        this.state.selectedAzienda = selectedAzienda
-        this.state.formValues.ente_azienda = selectedAzienda?.id || "";
-        this.filterAvailableTags();
+        $(this.refs.workInfo.el).val(this.state.formValues.work_info_type).trigger("change");
+        $(this.refs.title.el).val(this.state.formValues.ca_title).trigger("change");
+        
+        this.filterAvailableTagsSimple(); 
     }
 
-    eval_ente_azienda_id() {
-        let selectedAzienda = null;
-        const selectedPersona = this.ca_persona.find(persona => persona.id === this.state.selectedPersona);
-        if (selectedPersona && selectedPersona.ca_ente_azienda_ids) {
-            const azienda_id = selectedPersona.ca_ente_azienda_ids[0];
-            if (azienda_id) {
-                selectedAzienda = this.ca_ente_azienda.find(azienda => azienda.id === azienda_id) || "";
-            }
+    onVatChange(ev) {
+        const vat = ev.target.value;
+        this.state.formValues.vat = vat;
+        const ente = this.store.entiVatMap[vat];
+        if (ente) {
+             Object.assign(this.state.formValues, {
+                ca_ente_name: ente.name, 
+                ente_azienda: ente.id, 
+                tipo_ente_azienda_id: ente.tipo_ente_azienda_id?.[0]
+             });
+             this.checkEnteInterno(ente);
         }
-        this.setEnteEsterno(selectedAzienda);
-        return selectedAzienda;
     }
 
-    setEnteEsterno(azienda_id) {
-        this.enteInterno = false;
-        if (azienda_id) {
-            const FilterTypeCompany = this.tipo_ente_azienda_hidden.find(tipo => tipo.id === azienda_id?.tipo_ente_azienda_id?.[0]);
-            if (FilterTypeCompany) {
-                this.enteInterno = true;
-            }
+    checkEnteInterno(ente) {
+        this.state.enteInterno = false;
+        if (ente?.tipo_ente_azienda_id?.[0]) {
+             if (this.tipo_ente_azienda_hidden.includes(ente.tipo_ente_azienda_id[0])) {
+                 this.state.enteInterno = true;
+             }
+        }
+    }
+
+    onTitleChange(ev) {
+        this.state.formValues.ca_title = ev.target.value ? parseInt(ev.target.value) : null;
+        // this.filterAvailableTags();
+    }
+
+    filterAvailableTagsSimple() {
+        const persona = this.store.personasMap[this.state.selectedPersonaId];
+        const domains = this.store.tagDomains; 
+
+        if (persona && persona.current_tag && persona.current_tag.length > 0) {
+            const neededIds = domains.visitor || [];
+            this.state.availableTags = this.tags.filter(t => 
+                !t.in_use && !t.revoked && t.ca_proprieta_tag_ids.some(id => neededIds.includes(id))
+            );
+        } else {
+            this.state.availableTags = this.tags.filter(t => !t.in_use && !t.revoked);
         }
     }
 
     filterAvailableTags() {
-        const ca_title = this.titolo_persona.find(titolo => titolo.id === this.state.formValues.ca_title);
-        const selectedPersona = this.ca_persona.find(persona => persona.id === this.state.selectedPersona);
-        this.state.availableTags = [];
-        if (selectedPersona?.current_tag?.length) {
-            this.state.availableTags = this.tags.filter(tag =>
-                !tag.in_use &&
-                !tag.revoked &&
-                tag.ca_proprieta_tag_ids.find(id => this.tag_filter_domain[2].some(tagFilter => tagFilter.id === id))
+        const titleId = this.state.formValues.ca_title;
+        const title = this.store.titoliMap[titleId];
+        const persona = this.store.personasMap[this.state.selectedPersonaId];
+        const domains = this.store.tagDomains; 
+        let neededIds = [];
+
+        if (persona?.current_tag?.length) neededIds = domains.visitor; 
+        else if (title?.structured === false) neededIds = domains.temp; 
+        else if (persona?.is_internal) neededIds = domains.internal; 
+        else {
+            this.state.availableTags = this.tags.filter(t => !t.in_use && !t.revoked);
+            return;
+        }
+
+        if (neededIds && neededIds.length > 0) {
+            this.state.availableTags = this.tags.filter(t => 
+                !t.in_use && !t.revoked && t.ca_proprieta_tag_ids.some(id => neededIds.includes(id))
             );
-        } else if (ca_title?.structured === false) {
-            this.state.availableTags = this.tags.filter(tag =>
-                !tag.in_use &&
-                !tag.revoked &&
-                tag.temp === true &&
-                tag.ca_proprieta_tag_ids.find(id => this.tag_filter_domain[0].some(tagFilter => tagFilter.id === id))
-            );
-        } else if (selectedPersona?.is_internal) {
-            this.state.availableTags = this.tags.filter(tag =>
-                !tag.in_use &&
-                !tag.revoked &&
-                tag.ca_proprieta_tag_ids.find(id => this.tag_filter_domain[1].some(tagFilter => tagFilter.id === id))
-            );
+        } else {
+            this.state.availableTags = [];
         }
     }
 
-    onDateStartSelect(dt) {
-        Object.assign(this.state.formValues, {
-            date_start: dt,
-        });
+    onTagChange(ev) {
+        const id = parseInt(ev.target.value);
+        this.state.formValues.ca_tag_id = id;
+        const tag = this.tags.find(t => t.id === id);
+        if (tag?.temp) {
+             const now = DateTime.now().setZone('Europe/Rome');
+             this.state.formValues.date_start = now;
+             this.state.formValues.date_end = now.set({hour: 19, minute: 30, second: 0});
+        }
     }
 
-    onDateEndSelect(dt) {
-        this.state.formValues.date_end = dt;
+    onRefDomainChange(ev) {
+        this.state.formValues.ref_domain = ev.target.value;
+        this.evalParentPresent();
     }
 
-    validateSelectFields() {
-        var selectToValidate = ["#parent_id", "#ca_tag_id", "#ca_work_info_type_id", "#ca_title_id"];
-        selectToValidate.forEach((selector) => {
-            var $tagInput = $(selector);
-            if ($tagInput.length !== 0) {
-                var $tagSelect2Container = $tagInput
-                    .parent()
-                    .find('.select2-container');
-                $tagSelect2Container.removeClass('is-invalid is-valid');
-                if ($tagInput.is(':invalid')) {
-                    $tagSelect2Container.addClass('is-invalid');
-                } else if ($tagInput.is(':valid')) {
-                    $tagSelect2Container.addClass('is-valid');
-                }
-            }
-        });
+    evalParentPresent() {
+        if (this.state.formValues.ref_domain === "present") {
+            this.state.caPersonaParentFiltered = this.ca_persona_parent.filter(p => p.present === "yes");
+        } else {
+            this.state.caPersonaParentFiltered = this.ca_persona_parent || [];
+        }
+    }
+
+    formatDateForInput(luxonDate) {
+        if (!luxonDate || !luxonDate.isValid) return "";
+        return luxonDate.toFormat("yyyy-MM-dd'T'HH:mm");
+    }
+
+    onDateStartChange(ev) {
+        const val = ev.target.value;
+        this.state.formValues.date_start = val ? DateTime.fromISO(val) : null;
+    }
+
+    onDateEndChange(ev) {
+        const val = ev.target.value;
+        this.state.formValues.date_end = val ? DateTime.fromISO(val) : null;
+    }
+
+    onNameChange(e) { this.state.formValues.name = e.target.value; }
+    onLastnameChange(e) { this.state.formValues.lastname = e.target.value; }
+    onEnteNameChange(e) { this.state.formValues.ca_ente_name = e.target.value; }
+    OnTipoEnteChange(e) { this.state.formValues.tipo_ente_azienda_id = e.target.value; }
+    OnFreshmanChange(e) { this.state.formValues.freshman = e.target.value; }
+    onEmailChange(e) { 
+        this.state.formValues.email = e.target.value; 
+        const found = Object.values(this.store.personasMap).find(p => p.email === e.target.value);
+        if(found) $(this.refs.persona.el).val(found.id).trigger("change");
+    }
+    onMobileChange(e) { this.state.formValues.mobile = e.target.value; }
+    onFiscalcodeChange(ev) {
+        const val = ev.target.value;
+        this.state.formValues.fiscalcode = val;
+        const found = Object.values(this.store.personasMap).find(p => p.fiscalcode === val);
+        if(found) $(this.refs.persona.el).val(found.id).trigger("change");
     }
 
     onSubmitClick(e) {
-        var form = $("form");
-        form.addClass('was-validated');
-
-        this.validateSelectFields();
+        const form = document.querySelector("form");
+        if (form) {
+            form.classList.add('was-validated');
+            if (!form.checkValidity()) {
+                e.preventDefault();
+                e.stopPropagation();
+                const invalid = form.querySelector(":invalid");
+                if(invalid) invalid.scrollIntoView({behavior: "smooth", block: "center"});
+            }
+        }
     }
 }
 
-BadgeRelease.components = {DateTimeInput};
+BadgeRelease.components = {};
 BadgeRelease.template = 'controllo_accessi_portale.BadgeRelease';
 BadgeRelease.props = {
     values: {type: Object, optional: true},
     errors: {type: Object, optional: true},
     error_message: {type: String, optional: true},
+    dataService: {type: Object}
 };
-registry.category("public_components").add("controllo_accessi_portale.BadgeRelease", BadgeRelease);
+
+publicWidget.registry.BadgeReleaseWidget = publicWidget.Widget.extend({
+    selector: '#badge_release_app',
+    
+    start: function () {
+        const serviceInstance = dataServiceFactory.start(null, { rpc: jsonrpc });
+        const serverData = window.odoo_badge_release_data || {};
+
+        const env = {
+            bus: new EventBus(),
+            services: {
+                ui: { isSmall: false, size: 2, bus: new EventBus() },
+                localization: { direction: 'ltr' },
+            }
+        };
+
+        return mount(BadgeRelease, this.el, {
+            templates: templates,
+            props: {
+                dataService: serviceInstance,
+                values: serverData.values || {},
+                errors: serverData.errors || {},
+                error_message: serverData.error_message || ""
+            },
+            env: env,
+            dev: odoo.debug,
+        });
+    }
+});
+
+export default BadgeRelease;
