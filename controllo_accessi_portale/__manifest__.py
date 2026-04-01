@@ -13,6 +13,8 @@
     'data': [
         'security/security.xml',
         'views/partner_portals_views.xml',
+        'views/badge_return_views.xml',
+        'views/badge_release_views.xml',
     ],
      'assets': {
         'web.assets_frontend': [

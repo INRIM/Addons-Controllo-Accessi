@@ -1,109 +1,175 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<templates id="template" xml:space="preserve">
-    <t t-name="controllo_accessi_portale.PartnersPortal" name="Partners Portal"
-       owl="1">
-        <div class="container mt-4 mb-4">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <img src="/logo.png" alt="Company Logo"
-                         style="height: 50px;"/>
-                </div>
+<templates>
+    <t t-name="controllo_accessi_portale.PartnersPortal" owl="1">
+        <div class="container-fluid mt-2 mb-4" style="max-width: 1400px;">
 
-                <div>
-                    <a href="/badge_release" class="btn btn-primary"
-                       style="margin-left: 10px;">Issue Badge</a>
-                    <a href="/badge_return" class="btn btn-primary"
-                       style="margin-left: 10px;">Return Badge</a>
+            <div t-if="state.isLoading" class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" style="background: rgba(255,255,255,0.7); z-index: 1050;">
+                <div class="bg-white p-4 rounded shadow">
+                    <i class="fa fa-refresh fa-spin fa-2x text-primary me-3"/>
+                    <span class="fs-5 text-muted">
+                        <t t-esc="texts.updatingData"/>
+                    </span>
                 </div>
             </div>
 
-            <div class="row form-group mt-3 align-items-center">
-                <div class="col">
-                    <input type="text" class="form-control me-2"
-                           placeholder="Search Partners..."
-                           t-on-change="updateSearch"/>
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 bg-white p-3 rounded shadow-sm border">
+                <div class="d-flex align-items-center mb-2 mb-md-0">
+                    <img src="/logo.png" alt="Logo" style="height: 45px;" class="me-3"/>
+                    <div>
+                        <h4 class="mb-0 text-primary fw-bold">
+                            <t t-esc="texts.accessLog"/>
+                        </h4>
+                    </div>
                 </div>
-                <div class="col-3">
-                    <select t-ref="paCategorySelect" id="pa_category_id" name="pa_category_id">
-                        <option value=""/>
-                        <t t-foreach="ca_punto_accesso_category" t-as="category" t-key="category.id">
-                            <option t-att-value="category.id">
-                                <t t-esc="category.display_name"/>
-                            </option>
-                        </t>
-                    </select>
+                <div class="d-flex gap-2">
+                    <a href="/badge_release" class="btn btn-primary shadow-sm">
+                        <i class="fa fa-id-card me-2"/>
+                        <t t-esc="texts.issueBadge"/>
+                    </a>
+                    <a href="/badge_return" class="btn btn-outline-primary shadow-sm">
+                        <i class="fa fa-undo me-2"/>
+                        <t t-esc="texts.returnBadge"/>
+                    </a>
                 </div>
+            </div>
 
-                <div class="col-auto">
-                    <div class="d-flex flex-column">
-                        <div>
-                            <div class="btn-group me-2" role="group">
-                                <input type="radio" class="btn-check" name="f_int_ext" id="btn_fie_all"
-                                       autocomplete="off" checked="1" t-on-change="setFilterAll"/>
-                                <label class="btn btn-outline-primary" for="btn_fie_all">All</label>
-
-                                <input type="radio" class="btn-check" name="f_int_ext" id="btn_fie_int"
-                                       autocomplete="off" t-on-change="setFilterInternal"/>
-                                <label class="btn btn-outline-primary" for="btn_fie_int">Internals</label>
-
-                                <input type="radio" class="btn-check" name="f_int_ext" id="btn_fie_ext"
-                                       autocomplete="off" t-on-change="setFilterExternal"/>
-                                <label class="btn btn-outline-primary" for="btn_fie_ext">Externals</label>
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-light py-3 border-bottom">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0">
+                                    <i class="fa fa-search text-muted"/>
+                                </span>
+                                <input type="text" class="form-control border-start-0 ps-0" t-att-placeholder="texts.searchName" t-on-input="updateSearch"/>
                             </div>
+                        </div>
+                        <div class="col-md-3">
+                            <select t-ref="paCategorySelect" id="pa_category_id" name="pa_category_id" class="form-control">
+                                <option value=""/>
+                                <t t-foreach="ca_punto_accesso_category" t-as="category" t-key="category.id">
+                                    <option t-att-value="category.id">
+                                        <t t-esc="category.display_name"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="btn-group w-100 shadow-sm" role="group">
+                                <input type="radio" class="btn-check" name="f_int_ext" id="btn_fie_all" autocomplete="off" checked="1" t-on-change="setFilterAll"/>
+                                <label class="btn btn-outline-secondary" for="btn_fie_all">
+                                    <t t-esc="texts.all"/>
+                                </label>
 
-                            <input type="checkbox" class="btn-check" id="is_present" autocomplete="off"
-                                   t-on-change="setFilterIsPresent"/>
-                            <label class="btn btn-outline-success" for="is_present">Presents</label>
+                                <input type="radio" class="btn-check" name="f_int_ext" id="btn_fie_int" autocomplete="off" t-on-change="setFilterInternal"/>
+                                <label class="btn btn-outline-secondary" for="btn_fie_int">
+                                    <t t-esc="texts.internals"/>
+                                </label>
+
+                                <input type="radio" class="btn-check" name="f_int_ext" id="btn_fie_ext" autocomplete="off" t-on-change="setFilterExternal"/>
+                                <label class="btn btn-outline-secondary" for="btn_fie_ext">
+                                    <t t-esc="texts.externals"/>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2 text-end">
+                            <input type="checkbox" class="btn-check" id="is_present" autocomplete="off" t-on-change="setFilterIsPresent"/>
+                            <label class="btn btn-outline-success w-100 shadow-sm" for="is_present">
+                                <i class="fa fa-user-check me-2"/>
+                                <t t-esc="texts.presentOnly"/>
+                            </label>
                         </div>
                     </div>
                 </div>
 
-            </div>
-            <table class="table table-striped mt-3" id="partners_table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Date/Hour Last Event</th>
-                        <th>Direction</th>
-                        <th>Access Point</th>
-                        <th>Attendance</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <t t-foreach="state.ca_persona_data" t-as="record" t-key="record.id">
-                        <tr>
-                            <td>
-                                <t t-esc="record.display_name"/>
-                            </td>
-                            <td>
-                                <t t-esc="record.datetime_event"
-                                   t-options='{"format_datetime": {}}'/>
-                            </td>
-                            <td>
-                                <t t-esc="record.event_direction"/>
-                            </td>
-                            <td>
-                                <t t-esc="record.event_punto_accesso"/>
-                            </td>
-                            <td t-att-class="record.present[0] == 'yes'? 'bg-green' : 'bg-red'">
-                                <t t-esc="record.present[1]"/>
-                            </td>
-                        </tr>
-                    </t>
-                </tbody>
-            </table>
-            <div class="row align-items-center">
-            <div class="col">
-                <Pager offset="state.offset" limit="state.limit"
-                       total="state.total" onUpdate="onPageChange.bind(this)"/>
-            </div>
-                <div class="col-3">
-                    <div class="progress" style="height: 6px;">
-                      <div t-ref="progressbar" id="progressbar"
-                           class="progress-bar progress-bar-striped transition-none progress-bar-animated"
-                           role="progressbar"
-                           aria-valuenow="75"
-                           aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped mb-0 align-middle">
+                            <thead class="bg-light text-secondary">
+                                <tr>
+                                    <th class="ps-4 py-3">
+                                        <t t-esc="texts.name"/>
+                                    </th>
+                                    <th>
+                                        <t t-esc="texts.lastEvent"/>
+                                    </th>
+                                    <th>
+                                        <t t-esc="texts.direction"/>
+                                    </th>
+                                    <th>
+                                        <t t-esc="texts.accessPoint"/>
+                                    </th>
+                                    <th class="text-center">
+                                        <t t-esc="texts.attendanceStatus"/>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="state.ca_persona_data" t-as="record" t-key="record.id">
+                                    <tr>
+                                        <td class="ps-4 fw-bold text-dark">
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar rounded-circle bg-light text-primary d-flex justify-content-center align-items-center me-3" style="width: 35px; height: 35px; font-weight: bold;">
+                                                    <t t-esc="record.display_name.charAt(0)"/>
+                                                </div>
+                                                <t t-esc="record.display_name"/>
+                                            </div>
+                                        </td>
+                                        <td class="text-muted">
+                                            <t t-esc="record.datetime_event"/>
+                                        </td>
+                                        <td>
+                                            <span>
+                                                <t t-esc="record.event_direction"/>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <t t-esc="record.event_punto_accesso"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <t t-if="record.present[0] == 'yes'">
+                                                <i class="fa fa-circle text-success me-1" style="font-size: 8px;"/>
+                                                <span class="text-success fw-bold">
+                                                    <t t-esc="texts.present"/>
+                                                </span>
+                                            </t>
+                                            <t t-else="">
+                                                <span class="text-muted">
+                                                    <t t-esc="texts.absent"/>
+                                                </span>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr t-if="state.ca_persona_data.length === 0">
+                                    <td colspan="5" class="text-center py-5">
+                                        <div class="text-muted">
+                                            <i class="fa fa-folder-open-o fa-3x mb-3"/>
+                                            <br/>
+                                            <t t-esc="texts.noResults"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card-footer bg-white py-3">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <Pager offset="state.offset" limit="state.limit" total="state.total" onUpdate="onPageChange.bind(this)"/>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center justify-content-end">
+                                <small class="text-muted me-3">
+                                    <t t-esc="texts.autoRefresh"/>
+                                </small>
+                                <div class="progress" style="width: 150px; height: 6px;">
+                                    <div id="progressbar" class="progress-bar bg-info" role="progressbar" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

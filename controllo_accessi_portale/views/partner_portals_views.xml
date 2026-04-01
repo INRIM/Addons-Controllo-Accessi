@@ -1,9 +1,44 @@
 <odoo>
-    <template id="portal_partner_view" name="Partners Portal">
-        <t t-call="website.layout">
-            <div class="container">
-                <owl-component
-                        name="controllo_accessi_portale.PartnersPortal"/>
+    <template id="partners_portal_minimal_layout" name="Partners Portal Minimal Layout">
+        &lt;!DOCTYPE html&gt;
+        <html t-att-lang="lang" style="overflow-y: auto !important; height: auto !important;">
+            <head>
+                <meta charset="utf-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                <title>Access Portal</title>
+                <t t-call-assets="web.assets_frontend"/>
+
+                <style>
+                    body {
+                        overflow-y: auto !important;
+                        height: auto !important;
+                        min-height: 100vh;
+                        background-color: #f8f9fa; /* bg-light */
+                    }
+                    
+                    .oi-chevron-left::before { content: "\f053" !important; font-family: FontAwesome !important; }
+                    .oi-chevron-right::before { content: "\f054" !important; font-family: FontAwesome !important; }
+                </style>
+            </head>
+            <body>
+                <main>
+                    <t t-out="0"/>
+                </main>
+            </body>
+        </html>
+    </template>
+
+    <template id="portal_partner_view" name="Partners Portal View">
+        <t t-call="controllo_accessi_portale.partners_portal_minimal_layout">
+            <div class="container-fluid mt-4">
+                <div id="partners_portal_app">
+                    <div id="static_loader" class="d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+                        <div class="text-center">
+                            <i class="fa fa-circle-o-notch fa-spin fa-3x text-primary mb-3"></i>
+                            <h5 class="text-muted">Loading Portal...</h5>
+                        </div>
+                    </div>
+                </div>
             </div>
         </t>
     </template>
@@ -16,8 +51,7 @@
                         <span class="visually-hidden">Loading...</span>
                     </div>
                 </div>
-                <owl-component name="controllo_accessi_portale.BadgeRelease"
-                               t-att-props="json.dumps({'errors': errors, 'error_message': error_message, 'values': values})"/>
+                <owl-component name="controllo_accessi_portale.BadgeRelease" t-att-props="json.dumps({'errors': errors, 'error_message': error_message, 'values': values})"/>
             </div>
         </t>
     </template>
@@ -25,9 +59,7 @@
     <template id="badge_release_docs_view" name="Badge Release">
         <t t-call="website.layout">
             <div class="container">
-                <owl-component
-                        name="controllo_accessi_portale.BadgeReleaseDocs"
-                        t-att-props="json.dumps({'persona_id': persona_id, 'errors': errors, 'error_message': error_message, 'values': values})"/>
+                <owl-component name="controllo_accessi_portale.BadgeReleaseDocs" t-att-props="json.dumps({'persona_id': persona_id, 'errors': errors, 'error_message': error_message, 'values': values})"/>
             </div>
         </t>
     </template>
