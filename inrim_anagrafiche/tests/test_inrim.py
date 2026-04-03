@@ -1,5 +1,6 @@
 import base64
 from datetime import date
+from unittest.mock import patch
 
 from dateutil.relativedelta import relativedelta
 from odoo import fields
@@ -184,6 +185,33 @@ class TestInrim(TestCommon):
                 'date_start': fields.Datetime.now(),
                 'date_end': fields.Datetime.now() + relativedelta(days=2)
             })
+
+    def test_9(self):
+        """
+        Un tag persona schedulato passa automaticamente a to_give_back
+        quando entra nel suo intervallo di validita'.
+        """
+        self.env = self.env(user=self.user_1)
+        self.cr = self.env.cr
+        future_start = fields.Datetime.now() + relativedelta(minutes=10)
+        future_end = future_start + relativedelta(days=1)
+
+        tag_persona = self.env['ca.tag_persona'].create({
+            'ca_persona_id': self.persona_6.id,
+            'ca_tag_id': self.tag_2.id,
+            'date_start': future_start,
+            'date_end': future_end,
+        })
+
+        self.assertEqual(tag_persona.state, 'scheduled')
+
+        with patch(
+            'odoo.addons.inrim_anagrafiche.models.ca_tag_persona.fields.Datetime.now',
+            return_value=future_start + relativedelta(minutes=1),
+        ):
+            tag_persona.check_update_record_by_date_valididty()
+
+        self.assertEqual(tag_persona.state, 'to_give_back')
 
     # Test 9
     # def test_9(self):

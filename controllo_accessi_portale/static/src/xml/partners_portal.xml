@@ -88,10 +88,16 @@
                             <thead class="bg-light text-secondary">
                                 <tr>
                                     <th class="ps-4 py-3">
-                                        <t t-esc="texts.name"/>
+                                        <button type="button" class="btn btn-link p-0 text-reset text-decoration-none fw-semibold d-inline-flex align-items-center" t-on-click="toggleNameSort">
+                                            <t t-esc="texts.name"/>
+                                            <i t-att-class="getSortIconClass('display_name')"/>
+                                        </button>
                                     </th>
                                     <th>
-                                        <t t-esc="texts.lastEvent"/>
+                                        <button type="button" class="btn btn-link p-0 text-reset text-decoration-none fw-semibold d-inline-flex align-items-center" t-on-click="toggleLastEventSort">
+                                            <t t-esc="texts.lastEvent"/>
+                                            <i t-att-class="getSortIconClass('last_event')"/>
+                                        </button>
                                     </th>
                                     <th>
                                         <t t-esc="texts.direction"/>

@@ -99,6 +99,11 @@ class CaTagPersona(models.Model):
         self.state = 'returned'
         self.active = False
 
+    def _get_access_point_model(self):
+        if 'ca.punto_accesso' not in self.env.registry.models:
+            return False
+        return self.env['ca.punto_accesso']
+
     @api.onchange('date_start', 'date_end')
     def check_date(self):
         for record in self:
@@ -108,17 +113,40 @@ class CaTagPersona(models.Model):
         now = fields.Datetime.now()
         self.ensure_one()
         if self.date_start and self.date_end:
+            previous_state = self.state
+            next_state = previous_state
             if self.date_start <= now <= self.date_end:
                 self.ca_tag_id.in_use = True
-                self.state = 'to_give_back'
+                next_state = 'to_give_back'
             elif self.date_start > now:
                 self.ca_tag_id.in_use = True
-                self.state = 'scheduled'
+                next_state = 'scheduled'
+            if previous_state != next_state:
+                self.state = next_state
+                self.env.flush_all()
+                if 'ca.punto_accesso' not in self.env.registry.models:
+                    return
+                access_points = self.env['ca.punto_accesso'].sudo().search([
+                    ('enable_sync', '=', True),
+                ])
+                tag_persona = self.env['ca.tag_persona'].sudo().browse(self.ids)
+                for access_point in access_points:
+                    if (
+                        previous_state == 'scheduled' and
+                        next_state == 'to_give_back' and
+                        access_point.typology == 'stamping'
+                    ):
+                        access_point.stamping_attach_tag_persona(tag_persona)
+                    elif previous_state == 'to_give_back' and next_state != 'to_give_back':
+                        access_point.check_and_detach(tag_persona)
 
     def update_punti_accesso(self):
-        for point in self.env['ca.punto_accesso'].search(
+        access_point_model = self._get_access_point_model()
+        if not access_point_model:
+            return
+        for point in access_point_model.sudo().search(
                 [('enable_sync', '=', True)]):
-            point.check_and_detach(self)
+            point.check_and_detach(self.sudo())
 
     def check_update_by_date_valididty(self):
         for tag_persona in self.search([]):
@@ -139,7 +167,8 @@ class CaTagPersona(models.Model):
                 if ca_tag_id.temp:
                     val['temp'] = ca_tag_id.temp
         res = super(CaTagPersona, self).create(vals)
-        res.check_update_record_by_date_valididty()
+        for record in res:
+            record.check_update_record_by_date_valididty()
         return res
 
     def write(self, vals_list):
@@ -147,6 +176,9 @@ class CaTagPersona(models.Model):
             if self.ca_tag_id.temp:
                 vals_list['temp'] = self.ca_tag_id.temp
         res = super(CaTagPersona, self).write(vals_list)
+        if any(key in vals_list for key in ('date_start', 'date_end', 'ca_tag_id', 'active')):
+            for record in self:
+                record.check_update_record_by_date_valididty()
         return res
 
     def unlink(self):

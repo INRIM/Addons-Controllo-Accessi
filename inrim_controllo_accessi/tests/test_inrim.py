@@ -1,4 +1,5 @@
 from datetime import date, datetime, timedelta
+from unittest.mock import patch
 
 from dateutil.relativedelta import relativedelta
 from odoo import fields
@@ -286,3 +287,69 @@ class TestInrim(TestCommon):
                 'datetime_event': today + timedelta(hours=delta_min_riga_accesso + 0.1)
             })
         )
+
+    def test_92(self):
+        """
+        Un tag persona schedulato, quando entra in validita', viene
+        promosso a to_give_back e sincronizzato sui punti accesso attivi.
+        """
+        lettore_id = self.env['ca.lettore'].with_user(
+            self.user_5).create({
+            'name': 'Lettore Scheduled Sync',
+            'reader_ip': '10.10.10.15',
+            'direction': 'in'
+        })
+
+        punto_accesso_id = self.env['ca.punto_accesso'].with_user(
+            self.user_5).create({
+            'ca_spazio_id': self.spazio_7.id,
+            'ca_lettore_id': lettore_id.id,
+            'typology': 'stamping',
+            'enable_sync': True,
+            'date_start': date.today(),
+            'date_end': date.today() + relativedelta(days=30)
+        })
+
+        future_start = fields.Datetime.now() + relativedelta(minutes=10)
+        future_end = future_start + relativedelta(days=1)
+        tag_persona = self.env['ca.tag_persona'].with_user(
+            self.user_1).create({
+            'ca_persona_id': self.persona_3.id,
+            'ca_tag_id': self.tag_9.id,
+            'date_start': future_start,
+            'date_end': future_end,
+        })
+
+        self.assertEqual(tag_persona.state, 'scheduled')
+        self.assertFalse(self.env['ca.tag_lettore'].search([
+            ('ca_lettore_id', '=', lettore_id.id),
+            ('ca_tag_id', '=', self.tag_9.id),
+            ('ca_punto_accesso_id', '=', punto_accesso_id.id),
+        ], limit=1))
+
+        future_now = future_start + relativedelta(minutes=1)
+        with patch(
+            'odoo.addons.inrim_anagrafiche.models.ca_tag_persona.fields.Datetime.now',
+            return_value=future_now,
+        ), patch(
+            'odoo.addons.inrim_controllo_accessi.models.ca_lettore_persona.fields.Datetime.now',
+            return_value=future_now,
+        ):
+            tag_persona.check_update_record_by_date_valididty()
+
+        self.assertEqual(tag_persona.state, 'to_give_back')
+
+        tag_lettore = self.env['ca.tag_lettore'].search([
+            ('ca_lettore_id', '=', lettore_id.id),
+            ('ca_tag_id', '=', self.tag_9.id),
+            ('ca_punto_accesso_id', '=', punto_accesso_id.id),
+        ], limit=1)
+        self.assertTrue(tag_lettore)
+        self.assertEqual(tag_lettore.state, 'active')
+
+        lettore_persona = self.env['ca.lettore_persona'].search([
+            ('ca_tag_lettore_id', '=', tag_lettore.id),
+            ('ca_tag_persona', '=', tag_persona.id),
+        ], limit=1)
+        self.assertTrue(lettore_persona)
+        self.assertEqual(lettore_persona.state, 'active')

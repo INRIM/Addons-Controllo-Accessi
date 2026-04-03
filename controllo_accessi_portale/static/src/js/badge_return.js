@@ -61,7 +61,7 @@ class BadgeReturn extends Component {
 
     get tagFiltered() {
         if (this.state.temp) {
-            return this.tags.filter(tag => tag.temp === true);
+            return this.tags.filter(tag => tag.temp === true || tag.is_jolly === true);
         }
         return this.tags;
     }

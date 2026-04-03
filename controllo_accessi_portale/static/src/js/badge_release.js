@@ -28,7 +28,7 @@ class BadgeRelease extends Component {
             fiscalCode: _t("Fiscal Code *"),
             vatNumber: _t("VAT Number"),
             companyName: _t("Company Name / Entity *"),
-            entityType: _t("Entity Type *"),
+            entityType: _t("Entity Type"),
             email: _t("Email"),
             mobile: _t("Mobile"),
             idNumber: _t("ID Number"),
@@ -260,14 +260,20 @@ class BadgeRelease extends Component {
         const persona = this.store.personasMap[this.state.selectedPersonaId];
         const domains = this.store.tagDomains; 
 
-        if (persona && persona.current_tag && persona.current_tag.length > 0) {
-            const neededIds = domains.visitor || [];
-            this.state.availableTags = this.tags.filter(t => 
-                !t.in_use && !t.revoked && t.ca_proprieta_tag_ids.some(id => neededIds.includes(id))
-            );
-        } else {
+        if (!persona || !persona.current_tag || persona.current_tag.length === 0) {
             this.state.availableTags = this.tags.filter(t => !t.in_use && !t.revoked);
+            return;
         }
+
+        const neededIds = persona.current_tag_temp === false
+            ? (domains.temp || [])
+            : (domains.visitor || []);
+
+        this.state.availableTags = this.tags.filter(tag =>
+            !tag.in_use &&
+            !tag.revoked &&
+            tag.ca_proprieta_tag_ids.some(id => neededIds.includes(id))
+        );
     }
 
     filterAvailableTags() {

@@ -103,8 +103,9 @@
                             <div class="col-md-6">
                                 <label for="tipo_ente_azienda_id" class="form-label">
                                     <t t-esc="texts.entityType"/>
+                                    <t t-if="!state.selectedPersonaId"> *</t>
                                 </label>
-                                <select id="tipo_ente_azienda_id" name="tipo_ente_azienda_id" class="form-control" required="True" t-on-change="OnTipoEnteChange" t-att-value="state.formValues.tipo_ente_azienda_id">
+                                <select id="tipo_ente_azienda_id" name="tipo_ente_azienda_id" class="form-control" t-att-required="!state.selectedPersonaId" t-on-change="OnTipoEnteChange" t-att-value="state.formValues.tipo_ente_azienda_id">
                                     <option value=""/>
                                     <t t-foreach="tipo_ente_azienda" t-as="ente" t-key="ente.id">
                                         <option t-att-value="ente.id">
