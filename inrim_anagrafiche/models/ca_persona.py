@@ -247,7 +247,7 @@ class CaPersona(models.Model):
         spec = ''
         if winfo:
             spec = winfo.ca_div_uo_code
-        if not spec:
+        if not spec or spec == "False":
             if self.ca_ente_azienda_ids:
                 specs = [r.name for r in self.ca_ente_azienda_ids if r]
                 spec = ", ".join(specs)
