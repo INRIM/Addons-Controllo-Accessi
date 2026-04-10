@@ -94,10 +94,13 @@ class CaTagPersona(models.Model):
                     ])
 
     def set_retuned(self):
-        self.date_end = fields.Datetime.now()
-        self.ca_tag_id.in_use = False
-        self.state = 'returned'
-        self.active = False
+        now = fields.Datetime.now()
+        self.with_context(skip_tag_persona_validity_check=True).write({
+            'date_end': now,
+            'state': 'returned',
+            'active': False,
+        })
+        self.mapped('ca_tag_id').write({'in_use': False})
 
     def _get_access_point_model(self):
         if 'ca.punto_accesso' not in self.env.registry.models:
@@ -176,6 +179,8 @@ class CaTagPersona(models.Model):
             if self.ca_tag_id.temp:
                 vals_list['temp'] = self.ca_tag_id.temp
         res = super(CaTagPersona, self).write(vals_list)
+        if self.env.context.get('skip_tag_persona_validity_check'):
+            return res
         if any(key in vals_list for key in ('date_start', 'date_end', 'ca_tag_id', 'active')):
             for record in self:
                 record.check_update_record_by_date_valididty()

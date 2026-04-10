@@ -16,6 +16,7 @@ class TestCoreTagPersona(TransactionCase):
         super().setUpClass()
         cls.type_internal = cls.env.ref('inrim_anagrafiche.tipo_persona_interno')
         cls.prop_definitive = cls.env.ref('inrim_anagrafiche.proprieta_tag_definitivo')
+        cls.prop_jolly = cls.env.ref('inrim_anagrafiche.proprieta_tag_jolly')
         cls.tipo_ente_azienda = cls.env.ref('inrim_anagrafiche.tipo_ente_azienda_sede')
         cls.tipo_spazio = cls.env.ref('inrim_anagrafiche.tipo_spazio_locale')
         cls.ente_azienda = cls.env['ca.ente_azienda'].create({
@@ -126,3 +127,54 @@ class TestCoreTagPersona(TransactionCase):
         ], limit=1)
         self.assertTrue(lettore_persona)
         self.assertEqual(lettore_persona.state, 'active')
+
+    def test_return_jolly_badge_marks_tag_as_available(self):
+        persona = self._make_person('Core Return Jolly Person')
+        jolly_tag = self.env['ca.tag'].create({
+            'name': 'Core Return Jolly Tag',
+            'tag_code': uuid4().hex[:16].upper(),
+            'ca_proprieta_tag_ids': [(6, 0, [self.prop_jolly.id])],
+        })
+        active_start = fields.Datetime.now() - relativedelta(days=1)
+        active_end = fields.Datetime.now() + relativedelta(days=1)
+        tag_persona = self.env['ca.tag_persona'].create({
+            'ca_persona_id': persona.id,
+            'ca_tag_id': jolly_tag.id,
+            'date_start': active_start,
+            'date_end': active_end,
+        })
+
+        self.assertTrue(jolly_tag.in_use)
+        self.assertEqual(tag_persona.state, 'to_give_back')
+
+        returned_at = fields.Datetime.now()
+        with patch(
+            'odoo.addons.inrim_anagrafiche.models.ca_tag_persona.fields.Datetime.now',
+            return_value=returned_at,
+        ):
+            wizard = self.env['ca.restituisci_badge'].create({
+                'ca_tag_id': tag_persona.id,
+            })
+            wizard.action_confirm()
+
+        tag_persona = self.env['ca.tag_persona'].with_context(
+            active_test=False,
+        ).browse(tag_persona.id)
+        jolly_tag.invalidate_recordset()
+
+        self.assertEqual(tag_persona.state, 'returned')
+        self.assertFalse(tag_persona.active)
+        self.assertFalse(jolly_tag.in_use)
+        self.assertFalse(
+            self.env['ca.tag_persona'].search([
+                ('id', '=', tag_persona.id),
+                ('state', '=', 'to_give_back'),
+            ], limit=1)
+        )
+        self.assertTrue(
+            self.env['ca.tag'].search([
+                ('id', '=', jolly_tag.id),
+                ('in_use', '=', False),
+                ('revoked', '=', False),
+            ], limit=1)
+        )
