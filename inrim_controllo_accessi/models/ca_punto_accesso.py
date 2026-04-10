@@ -349,13 +349,24 @@ class CaPuntoAccesso(models.Model):
             lambda
                 x: x.ca_persona_id.id == tag_persona.ca_persona_id.id and x.ca_tag_persona.id == tag_persona.id
         )
+        if not lettore_persona:
+            logger.info(
+                "No lettore_persona found for tag_persona %s on access point %s",
+                tag_persona.id,
+                self.id,
+            )
+            return True
         logger.info(f"check tag is temp and remove from reader")
         if not tag_persona.ca_tag_id.temp:
             # imposta tag revocato
-            logger.info(f"set {lettore_persona.ca_persona_id.display_name} expired")
-            lettore_persona.ca_tag_lettore_id.detach()
-        lettore_persona.state = 'expired'
-        lettore_persona.active = False
+            logger.info(f"set {', '.join(lettore_persona.mapped('ca_persona_id.display_name'))} expired")
+            for tag_lettore in lettore_persona.mapped('ca_tag_lettore_id'):
+                tag_lettore.detach()
+        lettore_persona.write({
+            'state': 'expired',
+            'active': False,
+        })
+        return True
 
     def stamping_attach(self):
         """

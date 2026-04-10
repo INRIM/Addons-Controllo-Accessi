@@ -130,6 +130,19 @@ class TestCoreTagPersona(TransactionCase):
 
     def test_return_jolly_badge_marks_tag_as_available(self):
         persona = self._make_person('Core Return Jolly Person')
+        lettore = self.env['ca.lettore'].create({
+            'name': 'Core Return Jolly Stamping Reader',
+            'reader_ip': '10.10.10.26',
+            'direction': 'in',
+        })
+        self.env['ca.punto_accesso'].create({
+            'ca_spazio_id': self.space.id,
+            'ca_lettore_id': lettore.id,
+            'typology': 'stamping',
+            'enable_sync': True,
+            'date_start': date.today(),
+            'date_end': date.today() + relativedelta(days=30),
+        })
         jolly_tag = self.env['ca.tag'].create({
             'name': 'Core Return Jolly Tag',
             'tag_code': uuid4().hex[:16].upper(),
