@@ -61,9 +61,8 @@ class CaPuntoAccesso(models.Model):
         except Exception as e:
             logger.info(f"Error: {e}", exc_info=True)
             self.write_log(
-                f"CONNECT", self.ca_lettore_id, msg="Reader is OFFLINE")
-        finally:
-            return reader
+                "CONNECT", self.ca_lettore_id.id, msg="Reader is OFFLINE")
+        return reader
 
     def update_reader_clock(self):
         self.ensure_one()
@@ -82,9 +81,9 @@ class CaPuntoAccesso(models.Model):
         except Exception as e:
             logger.error(f"Error: {e}", exc_info=True)
             self.write_log(
-                f"UPDATECLOCK", self.ca_lettore_id, msg="Error in updating clock")
-        finally:
-            return ret
+                "UPDATECLOCK", self.ca_lettore_id.id,
+                msg="Error in updating clock")
+        return ret
 
     def get_tags_boby(self) -> dict:
         timezone_table = self.env[

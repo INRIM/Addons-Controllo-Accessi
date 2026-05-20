@@ -17,19 +17,22 @@ class CaEnteAzienda(models.Model):
         sede = self.env.ref('inrim_anagrafiche.tipo_ente_azienda_sede')
         sede_distaccata = self.env.ref(
             'inrim_anagrafiche.tipo_ente_azienda_sede_distaccata')
+        config = self.env['ir.config_parameter'].sudo()
         for record in self:
             if record.tipo_ente_azienda_id.id in [sede.id, sede_distaccata.id]:
+                vals = {}
                 if not record.jwt:
-                    record.jwt = self.env['ir.config_parameter'].sudo().get_param(
-                        'service_reader.jwt')
+                    vals['jwt'] = config.get_param('service_reader.jwt')
                 if not record.url_gateway_lettori:
-                    record.url_gateway_lettori = self.env[
-                        'ir.config_parameter'].sudo().get_param('service_reader.url')
+                    vals['url_gateway_lettori'] = config.get_param(
+                        'service_reader.url')
+                if vals:
+                    record.with_context(skip_update_default=True).sudo().write(vals)
 
     @api.model_create_multi
-    def create(self, vals):
-        res = super(CaEnteAzienda, self).create(vals)
-        self.with_context(skip_update_default=True).update_default()
+    def create(self, vals_list):
+        res = super(CaEnteAzienda, self).create(vals_list)
+        res.with_context(skip_update_default=True).update_default()
         return res
 
     def write(self, vals):
