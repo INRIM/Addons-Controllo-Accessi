@@ -1,6 +1,6 @@
 {
     'name': 'Inrim Controllo Accessi Richieste Accesso Inrim',
-    'version': '17.0.1.0.0',
+    'version': '18.0.1.0.0',
     'description': "Inrim Controllo Accessi Richieste Accesso Inrim",
     "author": "Alessio Gerace - Inrim",
     "website": "https://github.com/INRIM",
