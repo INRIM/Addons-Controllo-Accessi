@@ -16,14 +16,14 @@
         <field name="name">ca.ente.azienda.view.tree</field>
         <field name="model">ca.ente_azienda</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="vat"/>
                 <field name="tipo_ente_azienda_id"/>
                 <field name="parent_id"/>
                 <field name="child_ids" widget="many2many_tags"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -116,6 +116,6 @@
     <record id="ca_ente_azienda_action" model="ir.actions.act_window">
         <field name="name">Institution/Company</field>
         <field name="res_model">ca.ente_azienda</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>

@@ -31,7 +31,7 @@
         <field name="name">ca.punto.accesso.view.tree</field>
         <field name="model">ca.punto_accesso</field>
         <field name="arch" type="xml">
-            <tree default_order="ente_azienda_id asc">
+            <list default_order="ente_azienda_id asc">
                 <field name="name"/>
                 <field name="ente_azienda_id" column_invisible="1"/>
                 <field name="ca_lettore_id" column_invisible="1"/>
@@ -48,7 +48,7 @@
                 <field name="date_start"/>
                 <field name="date_end"/>
                 <field name="allowed_users" column_invisible="1"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -139,7 +139,7 @@
                         <notebook>
                             <page name="people" string="People">
                                 <field name="ca_tag_lettore_persona_view">
-                                    <tree default_order="ca_persona_id asc, date_end asc"
+                                    <list default_order="ca_persona_id asc, date_end asc"
                                           options="{'no_create': True}">
                                         <field name="ca_lettore_id"
                                                column_invisible="1"/>
@@ -147,7 +147,7 @@
                                         <field name="date_start"/>
                                         <field name="date_end"/>
                                         <field name="state"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                             <page name="tags" string="Tags">
@@ -261,6 +261,6 @@
     <record id="ca_punto_accesso_action" model="ir.actions.act_window">
         <field name="name">Access Point</field>
         <field name="res_model">ca.punto_accesso</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">kanban,list,form</field>
     </record>
 </odoo>
