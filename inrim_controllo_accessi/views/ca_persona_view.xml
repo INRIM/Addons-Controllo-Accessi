@@ -14,7 +14,7 @@
                             display="always"
                             groups="controllo_accessi.ca_ca"
                             class="btn-primary"
-                            context="{'default_persona_id':active_id}"
+                            context="{'default_persona_id': id}"
                             invisible="ca_tag_ids"
                     />
 
