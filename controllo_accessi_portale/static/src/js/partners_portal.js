@@ -3,8 +3,8 @@ import publicWidget from "@web/legacy/js/public/public_widget";
 import { onWillStart, onWillUnmount, onMounted, onPatched, useState, useRef, mount, EventBus } from '@odoo/owl';
 import { Pager } from "@web/core/pager/pager";
 import { _t } from "@web/core/l10n/translation";
-import { templates } from "@web/core/assets";
-import { jsonrpc } from "@web/core/network/rpc_service"; 
+import { getTemplate } from "@web/core/templates";
+import { rpc as jsonrpc } from "@web/core/network/rpc"; 
 import { dataService as dataServiceFactory } from "./read_data_service"; 
 
 const { Component } = owl;
@@ -284,7 +284,7 @@ publicWidget.registry.PartnersPortalWidget = publicWidget.Widget.extend({
             }
         };
         return mount(PartnersPortal, this.el, {
-            templates: templates,
+            getTemplate: getTemplate,
             props: { dataService: serviceInstance },
             env: env,
             dev: odoo.debug, 

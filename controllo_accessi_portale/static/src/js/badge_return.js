@@ -2,8 +2,8 @@
 import publicWidget from "@web/legacy/js/public/public_widget";
 import { useState, onWillStart, useRef, onMounted, Component, EventBus, mount } from '@odoo/owl';
 import { _t } from "@web/core/l10n/translation";
-import { templates } from "@web/core/assets";
-import { jsonrpc } from "@web/core/network/rpc_service";
+import { getTemplate } from "@web/core/templates";
+import { rpc as jsonrpc } from "@web/core/network/rpc";
 import { dataService as dataServiceFactory } from "./read_data_service";
 
 class BadgeReturn extends Component {
@@ -121,7 +121,7 @@ publicWidget.registry.BadgeReturnWidget = publicWidget.Widget.extend({
         };
 
         return mount(BadgeReturn, this.el, {
-            templates: templates,
+            getTemplate: getTemplate,
             props: {
                 dataService: serviceInstance
             },

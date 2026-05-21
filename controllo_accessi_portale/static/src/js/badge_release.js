@@ -2,8 +2,8 @@
 import publicWidget from "@web/legacy/js/public/public_widget";
 import { onMounted, onWillStart, onWillUnmount, useRef, useState, Component, EventBus, mount } from '@odoo/owl';
 import { _t } from "@web/core/l10n/translation";
-import { templates } from "@web/core/assets";
-import { jsonrpc } from "@web/core/network/rpc_service";
+import { getTemplate } from "@web/core/templates";
+import { rpc as jsonrpc } from "@web/core/network/rpc";
 import { dataService as dataServiceFactory } from "./read_data_service";
 
 const { DateTime } = luxon;
@@ -396,7 +396,7 @@ publicWidget.registry.BadgeReleaseWidget = publicWidget.Widget.extend({
         };
 
         return mount(BadgeRelease, this.el, {
-            templates: templates,
+            getTemplate: getTemplate,
             props: {
                 dataService: serviceInstance,
                 values: serverData.values || {},
