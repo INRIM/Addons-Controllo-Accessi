@@ -78,14 +78,15 @@ class PortalAnagrafiche(http.Controller):
         order_by, order_dir = self._normalize_order(order_by, order_dir)
         access_domain = self._build_access_domain(user, query, filter_values)
 
-        grouped_accesses = access_model.read_group(
+        raw_groups = access_model._read_group(
             access_domain,
-            ['ca_persona_id', 'last_event:max(datetime_event)'],
-            ['ca_persona_id'],
-            lazy=False,
+            groupby=['ca_persona_id'],
+            aggregates=['datetime_event:max'],
         )
         grouped_accesses = [
-            group for group in grouped_accesses if group.get('ca_persona_id')
+            {'ca_persona_id': (persona.id,), 'last_event': max_dt}
+            for persona, max_dt in raw_groups
+            if persona
         ]
         all_person_ids = [group['ca_persona_id'][0] for group in grouped_accesses]
         personas_by_id = {
@@ -208,16 +209,15 @@ class PortalAnagrafiche(http.Controller):
 
     def _get_anagrafiche_access_point_categories(self, env, user):
         access_domain = self._build_access_domain(user, None, {})
-        grouped_accesses = env['ca.anag_registro_accesso'].read_group(
+        raw_groups = env['ca.anag_registro_accesso']._read_group(
             access_domain,
-            ['ca_punto_accesso_category_id'],
-            ['ca_punto_accesso_category_id'],
-            lazy=False,
+            groupby=['ca_punto_accesso_category_id'],
+            aggregates=[],
         )
         category_ids = [
-            group['ca_punto_accesso_category_id'][0]
-            for group in grouped_accesses
-            if group.get('ca_punto_accesso_category_id')
+            category.id
+            for (category,) in raw_groups
+            if category
         ]
         if not category_ids:
             return []
