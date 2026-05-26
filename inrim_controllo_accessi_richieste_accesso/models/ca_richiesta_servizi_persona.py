@@ -97,7 +97,7 @@ class CaRichiestaServiziPersona(models.Model):
                 self.env.user.has_group('controllo_accessi.ca_ru') or
                 self.env.user.has_group('controllo_accessi.ca_spp')
             ):
-                today = fields.date.today()
+                today = fields.Date.today()
                 if stato:
                     record.state = stato
                 if (
@@ -155,7 +155,7 @@ class CaRichiestaServiziPersona(models.Model):
         res = super(CaRichiestaServiziPersona, self).create(vals)
         for record in res:
             if not record.date_start:
-                record.date_start = fields.date.today()
+                record.date_start = fields.Date.today()
             if not record.date_end:
                 date_end = self.env['ir.config_parameter'].sudo().get_param('date_end.forever')
                 record.date_end = datetime.strptime(date_end, '%Y-%m-%d %H:%M:%S')
@@ -165,7 +165,7 @@ class CaRichiestaServiziPersona(models.Model):
         res = super(CaRichiestaServiziPersona, self).write(vals)
         for record in self:
             if not record.date_start:
-                record.date_start = fields.date.today()
+                record.date_start = fields.Date.today()
             if not record.date_end:
                 date_end = self.env['ir.config_parameter'].sudo().get_param('date_end.forever')
                 record.date_end = datetime.strptime(date_end, '%Y-%m-%d %H:%M:%S')
