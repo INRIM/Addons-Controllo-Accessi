@@ -6,7 +6,9 @@ from pytz import UTC
 
 from odoo import http
 from odoo.http import request
-from odoo.orm.domains import AND as expression_AND, OR as expression_OR
+from odoo.orm.domains import Domain as _Domain
+expression_AND = _Domain.AND
+expression_OR = _Domain.OR
 from odoo.tools.misc import format_datetime
 from werkzeug.exceptions import Forbidden, NotFound
 

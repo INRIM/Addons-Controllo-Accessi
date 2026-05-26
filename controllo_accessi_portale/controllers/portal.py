@@ -3,7 +3,9 @@ from typing import Dict
 
 from odoo import http, _
 from odoo.http import request
-from odoo.orm.domains import AND as expression_AND, OR as expression_OR
+from odoo.orm.domains import Domain as _Domain
+expression_AND = _Domain.AND
+expression_OR = _Domain.OR
 from odoo.tools.misc import format_datetime
 from pytz import UTC
 from werkzeug.exceptions import Forbidden, NotFound
