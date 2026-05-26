@@ -3,7 +3,7 @@ from typing import Dict
 
 from odoo import http, _
 from odoo.http import request
-from odoo.osv import expression
+from odoo.orm.domains import AND as expression_AND, OR as expression_OR
 from odoo.tools.misc import format_datetime
 from pytz import UTC
 from werkzeug.exceptions import Forbidden, NotFound
@@ -266,19 +266,19 @@ class CustomPortal(http.Controller):
             ("ca_tag_ids", "!=", False)
         ]
         if query:
-            search_domain = expression.AND([[("display_name", "ilike", query)], search_domain])
+            search_domain = expression_AND([[("display_name", "ilike", query)], search_domain])
 
         if filter:
             if filter.get("internal", False):
-                search_domain = expression.AND([[("is_internal", "=", True)], search_domain])
+                search_domain = expression_AND([[("is_internal", "=", True)], search_domain])
             elif filter.get("external", False):
-                search_domain = expression.AND([[("is_external", "=", True)], search_domain])
+                search_domain = expression_AND([[("is_external", "=", True)], search_domain])
 
             if filter.get("is_present", False):
-                search_domain = expression.AND([[("present", "=", "yes")], search_domain])
+                search_domain = expression_AND([[("present", "=", "yes")], search_domain])
 
             if filter.get("pa_category_id", None):
-                search_domain = expression.AND(
+                search_domain = expression_AND(
                     [[("person_access_ids.ca_punto_accesso_category_id", "=", filter["pa_category_id"])],
                      search_domain])
 
@@ -314,7 +314,7 @@ class CustomPortal(http.Controller):
                     # ("ca_punto_accesso_category_id", "in", category_ids.ids)
                 ]
                 if filter and filter.get("pa_category_id", None):
-                    la_search_domain = expression.AND(
+                    la_search_domain = expression_AND(
                         [[("ca_punto_accesso_category_id", "=", filter["pa_category_id"])], la_search_domain])
 
                 last_access = record.person_access_ids.search(la_search_domain)

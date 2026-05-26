@@ -6,7 +6,7 @@ from pytz import UTC
 
 from odoo import http
 from odoo.http import request
-from odoo.osv import expression
+from odoo.orm.domains import AND as expression_AND, OR as expression_OR
 from odoo.tools.misc import format_datetime
 from werkzeug.exceptions import Forbidden, NotFound
 
@@ -33,27 +33,27 @@ class PortalAnagrafiche(http.Controller):
             ("datetime_event", ">=", self._get_day_start_utc(user)),
         ]
         if query:
-            search_domain = expression.AND([
+            search_domain = expression_AND([
                 search_domain,
                 [("ca_persona_id.display_name", "ilike", query.strip())],
             ])
         if filter_values.get("internal"):
-            search_domain = expression.AND([
+            search_domain = expression_AND([
                 search_domain,
                 [("ca_persona_id.is_internal", "=", True)],
             ])
         elif filter_values.get("external"):
-            search_domain = expression.AND([
+            search_domain = expression_AND([
                 search_domain,
                 [("ca_persona_id.is_external", "=", True)],
             ])
         if filter_values.get("is_present"):
-            search_domain = expression.AND([
+            search_domain = expression_AND([
                 search_domain,
                 [("ca_persona_id.present", "=", "yes")],
             ])
         if filter_values.get("pa_category_id"):
-            search_domain = expression.AND([
+            search_domain = expression_AND([
                 search_domain,
                 [("ca_punto_accesso_category_id", "=", filter_values["pa_category_id"])],
             ])
@@ -128,7 +128,7 @@ class PortalAnagrafiche(http.Controller):
             return data
 
         latest_access_rows = access_model.search_read(
-            expression.AND([access_domain, [('ca_persona_id', 'in', person_ids)]]),
+            expression_AND([access_domain, [('ca_persona_id', 'in', person_ids)]]),
             fields=[
                 'ca_persona_id',
                 'datetime_event',
