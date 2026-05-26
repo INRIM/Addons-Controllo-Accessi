@@ -52,7 +52,7 @@ class CaAnagRegistroAccesso(models.Model):
     ca_ente_azienda_id = fields.Many2one(
         related="ca_spazio_id.ente_azienda_id", store=True, string="Space Office",
         readonly=True)
-    datetime_event = fields.Datetime(default=fields.datetime.now(), required=True)
+    datetime_event = fields.Datetime(default=fields.Datetime.now, required=True)
     typology = fields.Selection(
         related="ca_punto_accesso_id.typology", store=True, string="Ap Type",
         readonly=True)
