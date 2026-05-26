@@ -15,7 +15,7 @@ class InrimApiController(http.Controller):
     def __init__(self):
         super(InrimApiController, self).__init__()
         self.model = None
-        self.env = None
+        # self.env = None
 
     @staticmethod
     def authenticate_token(env, token):
