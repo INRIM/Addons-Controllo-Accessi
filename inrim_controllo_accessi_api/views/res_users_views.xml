@@ -5,8 +5,10 @@
         <field name="model">res.users</field>
         <field name="inherit_id" ref="base.view_users_simple_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='login']" position="after">
-                <field name="api_enabled"/>
+            <xpath expr="//group[@name='access_groups']" position="before">
+                <group>
+                    <field name="api_enabled"/>
+                </group>
             </xpath>
         </field>
     </record>
@@ -16,8 +18,10 @@
         <field name="model">res.users</field>
         <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='lang']" position="after">
-                <field name="api_enabled"/>
+            <xpath expr="//notebook" position="before">
+                <group>
+                    <field name="api_enabled"/>
+                </group>
             </xpath>
         </field>
     </record>
@@ -27,8 +31,10 @@
         <field name="model">res.users</field>
         <field name="inherit_id" ref="base.view_users_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='login']" position="after">
-                <field name="api_enabled"/>
+            <xpath expr="//notebook" position="before">
+                <group>
+                    <field name="api_enabled"/>
+                </group>
             </xpath>
         </field>
     </record>
