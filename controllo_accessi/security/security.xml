@@ -82,6 +82,6 @@
     </record>
 
     <record id="base.user_admin" model="res.users">
-        <field name="groups_id" eval="[(4, ref('controllo_accessi.ca_tech')),(4, ref('controllo_accessi.ca_portineria'))]"/>
+        <field name="group_ids" eval="[(4, ref('controllo_accessi.ca_tech')),(4, ref('controllo_accessi.ca_portineria'))]"/>
     </record>
 </odoo>

@@ -409,7 +409,7 @@ class TestPortalAnagrafiche(TransactionCase):
             'email': f'portal_hidden_{uuid4().hex[:8]}@example.com',
             'company_id': self.env.company.id,
             'company_ids': [(6, 0, [self.env.company.id])],
-            'groups_id': [(6, 0, [
+            'group_ids': [(6, 0, [
                 self.env.ref('base.group_user').id,
                 self.env.ref('controllo_accessi.ca_ca').id,
             ])],
@@ -468,7 +468,7 @@ class TestPortalAnagrafiche(TransactionCase):
             'email': f'portal_hidden_filter_{uuid4().hex[:8]}@example.com',
             'company_id': self.env.company.id,
             'company_ids': [(6, 0, [self.env.company.id])],
-            'groups_id': [(6, 0, [
+            'group_ids': [(6, 0, [
                 self.env.ref('base.group_user').id,
                 self.env.ref('controllo_accessi.ca_ca').id,
                 self.env.ref('controllo_accessi_portale.inrim_access_portal').id,

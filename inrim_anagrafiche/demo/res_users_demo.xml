@@ -15,7 +15,7 @@
                ref="inrim_anagrafiche.res_partner_ca_user_0"/>
         <field name="login">user</field>
         <field name="password">demo</field>
-        <field name="groups_id"
+        <field name="group_ids"
                eval="[(6, 0, [ref('base.group_user'), ref('controllo_accessi.ca_base')])]"/>
     </record>
 
@@ -34,7 +34,7 @@
                ref="inrim_anagrafiche.res_partner_ca_user_1"/>
         <field name="login">user1</field>
         <field name="password">demo1</field>
-        <field name="groups_id"
+        <field name="group_ids"
                eval="[(6, 0, [
                 ref('base.group_user'),
                 ref('controllo_accessi.ca_ca'),
@@ -57,7 +57,7 @@
                ref="inrim_anagrafiche.res_partner_ca_user_2"/>
         <field name="login">user2</field>
         <field name="password">demo2</field>
-        <field name="groups_id"
+        <field name="group_ids"
                eval="[(6, 0, [ref('base.group_user'), ref('controllo_accessi.ca_ru')])]"/>
     </record>
 
@@ -76,7 +76,7 @@
                ref="inrim_anagrafiche.res_partner_ca_user_3"/>
         <field name="login">user3</field>
         <field name="password">demo3</field>
-        <field name="groups_id"
+        <field name="group_ids"
                eval="[(6, 0, [ref('base.group_user'), ref('controllo_accessi.ca_spp')])]"/>
     </record>
 
@@ -95,7 +95,7 @@
                ref="inrim_anagrafiche.res_partner_ca_user_4"/>
         <field name="login">user4</field>
         <field name="password">demo4</field>
-        <field name="groups_id"
+        <field name="group_ids"
                eval="[(6, 0, [ref('base.group_user'), ref('controllo_accessi.ca_portineria')])]"/>
     </record>
 
@@ -114,7 +114,7 @@
                ref="inrim_anagrafiche.res_partner_ca_user_5"/>
         <field name="login">user5</field>
         <field name="password">demo5</field>
-        <field name="groups_id"
+        <field name="group_ids"
                eval="[(6, 0, [ref('base.group_user'), ref('controllo_accessi.ca_tech')])]"/>
     </record>
 </odoo>
