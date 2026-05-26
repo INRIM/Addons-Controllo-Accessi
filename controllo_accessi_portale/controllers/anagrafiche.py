@@ -232,7 +232,7 @@ class PortalAnagrafiche(http.Controller):
             raise NotFound()
         return request.render('controllo_accessi_portale.portal_partner_view', {})
 
-    @http.route('/get/anagrafiche', type='json', auth='user', website=True, csrf=False)
+    @http.route('/get/anagrafiche', type='jsonrpc', auth='user', website=True, csrf=False)
     def get_anagrafiche(
             self, limit: int, offset: int, query: str, filter: Dict,
             order_by: str = 'last_event', order_dir: str = 'desc', **kwargs):
@@ -252,7 +252,7 @@ class PortalAnagrafiche(http.Controller):
 
     @http.route(
         ['/get/anagrafiche/ca_punto_accesso_category', '/get/anagrafiche/ca_punto_accesso'],
-        type='json',
+        type='jsonrpc',
         auth='user',
         website=True,
         csrf=False,

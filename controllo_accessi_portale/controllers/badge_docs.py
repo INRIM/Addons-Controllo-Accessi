@@ -23,7 +23,7 @@ class PortalBadgeDocs(http.Controller):
             "persona_id": persona_obj.id, "errors": {}, "error_message": "", "values": {}
         })
 
-    @http.route('/get/badge_release_docs/tipo_documento', auth='user', type='json', website=True, csrf=False)
+    @http.route('/get/badge_release_docs/tipo_documento', auth='user', type='jsonrpc', website=True, csrf=False)
     def badge_release_tipo_documento(self, **kwargs):
         if not check_access_permission(request.env.user): raise Forbidden()
         return request.env['ca.tipo_doc_ident'].search([]).read()

@@ -253,7 +253,7 @@ class CustomPortal(http.Controller):
         return request.redirect('/badge_return')
 
     # JSON
-    @http.route('/get/anagrafiche', type='json', auth='user', website=True, csrf=False)
+    @http.route('/get/anagrafiche', type='jsonrpc', auth='user', website=True, csrf=False)
     def get_anagrafiche(self, limit: int, offset: int, query: str, filter: Dict, **kwargs):
         user = request.env.user
 
@@ -340,7 +340,7 @@ class CustomPortal(http.Controller):
             data["items"].append(row)
         return data
 
-    @http.route('/get/anagrafiche/ca_punto_accesso_category', type='json', auth='user', website=True, csrf=False)
+    @http.route('/get/anagrafiche/ca_punto_accesso_category', type='jsonrpc', auth='user', website=True, csrf=False)
     def anagrafiche_pa_category(self, **kwargs):
         user = request.env.user
         if (
@@ -355,7 +355,7 @@ class CustomPortal(http.Controller):
 
         return category_ids.read()
 
-    @http.route('/get/badge_release/ca_persona', auth='user', type='json', website=True)
+    @http.route('/get/badge_release/ca_persona', auth='user', type='jsonrpc', website=True)
     def badge_release_ca_persona(self, **kwargs):
         user = request.env.user
         if (
@@ -370,7 +370,7 @@ class CustomPortal(http.Controller):
 
         return ca_persona
 
-    @http.route('/get/badge_release/ca_persona_parent', auth='user', type='json',
+    @http.route('/get/badge_release/ca_persona_parent', auth='user', type='jsonrpc',
                 website=True)
     def badge_release_ca_persona_parent(self, **kwargs):
         user = request.env.user
@@ -387,7 +387,7 @@ class CustomPortal(http.Controller):
 
         return parent_ids.read()
 
-    @http.route('/get/badge_release/tipo_enti_azienda', auth='user', type='json',
+    @http.route('/get/badge_release/tipo_enti_azienda', auth='user', type='jsonrpc',
                 website=True)
     def badge_release_tipo_enti_azienda(self, **kwargs):
         user = request.env.user
@@ -409,7 +409,7 @@ class CustomPortal(http.Controller):
 
         return ente_azienda_ids.read()
 
-    @http.route('/get/badge_release/tipo_enti_azienda_hidden', auth='user', type='json',
+    @http.route('/get/badge_release/tipo_enti_azienda_hidden', auth='user', type='jsonrpc',
                 website=True)
     def badge_release_tipo_enti_azienda_hidden(self, **kwargs):
         user = request.env.user
@@ -431,7 +431,7 @@ class CustomPortal(http.Controller):
 
         return ente_azienda_ids.read()
 
-    @http.route('/get/badge_release/work_info_type', auth='user', type='json',
+    @http.route('/get/badge_release/work_info_type', auth='user', type='jsonrpc',
                 website=True)
     def badge_release_work_info_type(self, **kwargs):
         user = request.env.user
@@ -446,7 +446,7 @@ class CustomPortal(http.Controller):
 
         return work_info_type_ids.read()
 
-    @http.route('/get/badge_release/titolo_persona', auth='user', type='json',
+    @http.route('/get/badge_release/titolo_persona', auth='user', type='jsonrpc',
                 website=True)
     def badge_release_titolo_persona(self, **kwargs):
         user = request.env.user
@@ -461,7 +461,7 @@ class CustomPortal(http.Controller):
 
         return titolo_persona_ids.read()
 
-    @http.route('/get/badge_release/tags', auth='user', type='json', website=True)
+    @http.route('/get/badge_release/tags', auth='user', type='jsonrpc', website=True)
     def badge_release_tags(self, **kwargs):
         user = request.env.user
         if (
@@ -478,7 +478,7 @@ class CustomPortal(http.Controller):
 
         return tag_ids.read()
 
-    @http.route('/get/badge_release/ente_azienda', auth='user', type='json',
+    @http.route('/get/badge_release/ente_azienda', auth='user', type='jsonrpc',
                 website=True, csrf=False)
     def badge_release_ente_azienda(self, **kwargs):
         user = request.env.user
@@ -494,7 +494,7 @@ class CustomPortal(http.Controller):
             return ente_azienda_ids.read()
         return {}
 
-    @http.route('/get/badge_release/work_info', auth='user', type='json', website=True,
+    @http.route('/get/badge_release/work_info', auth='user', type='jsonrpc', website=True,
                 csrf=False)
     def badge_release_work_info(self, **kwargs):
         user = request.env.user
@@ -510,7 +510,7 @@ class CustomPortal(http.Controller):
             return winfo_ids.read()
         return {}
 
-    @http.route('/get/badge_release/tag_filter_domain', auth='user', type='json',
+    @http.route('/get/badge_release/tag_filter_domain', auth='user', type='jsonrpc',
                 website=True, csrf=False)
     def badge_release_tag_filter_domain(self, **kwargs):
         user = request.env.user
@@ -540,7 +540,7 @@ class CustomPortal(http.Controller):
         ])
         return tags1_ids.read(), tags2_ids.read(), tags3_ids.read()
 
-    @http.route('/get/badge_release_docs/tipo_documento', auth='user', type='json',
+    @http.route('/get/badge_release_docs/tipo_documento', auth='user', type='jsonrpc',
                 website=True, csrf=False)
     def badge_release_tipo_documento(self, **kwargs):
         user = request.env.user
@@ -555,7 +555,7 @@ class CustomPortal(http.Controller):
 
         return tipi_doc.read()
 
-    @http.route('/get/badge_return/tags', auth='user', type='json', website=True)
+    @http.route('/get/badge_return/tags', auth='user', type='jsonrpc', website=True)
     def badge_return_tags(self, **kwargs):
         user = request.env.user
         if (
