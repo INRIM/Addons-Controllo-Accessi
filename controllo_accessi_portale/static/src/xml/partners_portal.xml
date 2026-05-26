@@ -46,10 +46,11 @@
                         </div>
                         <div class="col-md-3">
                             <SelectMenu
-                                choices="categoryChoices"
-                                value="state.filterCriteria.pa_category_id"
-                                onSelect.bind="onCategoryChange"
-                                placeholder="texts.filterVarco"
+                                    togglerClass="'form-control'"
+                                    choices="categoryChoices"
+                                    value="state.filterCriteria.pa_category_id"
+                                    onSelect.bind="onCategoryChange"
+                                    placeholder="texts.filterVarco"
                             />
                         </div>
                         <div class="col-md-4">

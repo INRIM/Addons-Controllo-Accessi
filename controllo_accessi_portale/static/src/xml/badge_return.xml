@@ -49,10 +49,11 @@
                             </label>
                             <div class="col-md-6">
                                 <SelectMenu
-                                    choices="tagChoices"
-                                    value="state.selectedTag"
-                                    onSelect.bind="onTagSelect"
-                                    placeholder="texts.selectBadgePlaceholder"
+                                        togglerClass="'form-control'"
+                                        choices="tagChoices"
+                                        value="state.selectedTag"
+                                        onSelect.bind="onTagSelect"
+                                        placeholder="texts.selectBadgePlaceholder"
                                 />
                                 <input type="hidden" name="tag_id" t-att-value="state.selectedTag or ''"/>
                             </div>
