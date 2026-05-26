@@ -14,7 +14,7 @@ class CaPersona(models.Model):
 
     name = fields.Char(required=True)
     lastname = fields.Char(required=True)
-    display_name = fields.Char(compute="_compute_display_name", store=True)
+    display_name = fields.Char(compute="_compute_display_name", store=True, search=False)
     associated_user_id = fields.Many2one('res.users')
     fiscalcode = fields.Char(groups="controllo_accessi.ca_gdpr")
     vat = fields.Char()
