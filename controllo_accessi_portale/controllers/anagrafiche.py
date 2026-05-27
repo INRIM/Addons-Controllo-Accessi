@@ -171,7 +171,7 @@ class PortalAnagrafiche(http.Controller):
             row = {
                 'id': persona.id,
                 'display_name': persona.display_name,
-                'fiscalcode': persona.fiscalcode,
+                'fiscalcode': persona.sudo().fiscalcode,
                 'is_external': persona.is_external,
                 'is_internal': persona.is_internal,
                 'present': (
