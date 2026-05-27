@@ -11,7 +11,7 @@ class TestCommon(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super(TestCommon, cls).setUpClass()
-        cls.failureException = True
+        cls.failureException = AssertionError
         # Tipo Ente Azienda
         cls.tipo_ente_azienda_1 = cls.env.ref('inrim_anagrafiche.tipo_ente_azienda_sede')
         cls.tipo_ente_azienda_2 = cls.env.ref(
