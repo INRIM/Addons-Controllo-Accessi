@@ -5,6 +5,7 @@
     "author": "Alessio Gerace - Inrim",
     "website": "https://github.com/INRIM",
     'depends': [
+        'auth_api_key',
         'inrim_controllo_accessi'
     ],
     'data': [
