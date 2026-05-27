@@ -14,7 +14,7 @@ class InrimApiDocumento(InrimApiController):
             *self.model.rest_get(params), is_list=True)
 
     @http.route('/api/documento', auth="none", type='http', methods=['POST'],
-                csrf=False)
+                csrf=False, readonly=False)
     def api_post_gest_documento(self):
         self.check_token('ca.documento', 'create')
         data = self.check_and_decode_body()
@@ -25,7 +25,7 @@ class InrimApiDocumento(InrimApiController):
             raise BadRequest(str(e))
 
     @http.route('/api/documento', auth="none", type='http', methods=['PUT'],
-                csrf=False)
+                csrf=False, readonly=False)
     def api_put_gest_documento(self):
         self.check_token('ca.documento', 'write')
         data = self.check_and_decode_body()
@@ -36,7 +36,7 @@ class InrimApiDocumento(InrimApiController):
             raise BadRequest(str(e))
 
     @http.route('/api/documento', auth="none", type='http', methods=['DELETE'],
-                csrf=False)
+                csrf=False, readonly=False)
     def api_delete_ca_documento(self):
         self.check_token('ca.documento', 'unlink')
         data = self.check_and_decode_body()
@@ -59,7 +59,7 @@ class InrimApiImgDocumento(InrimApiController):
             *self.model.rest_get(params), is_list=True)
 
     @http.route('/api/immaginedoc', auth="none", type='http', methods=['POST'],
-                csrf=False)
+                csrf=False, readonly=False)
     def api_post_gest_immagine_doc(self):
         self.check_token('ca.img_documento', 'create')
         data = self.check_and_decode_body()
@@ -70,7 +70,7 @@ class InrimApiImgDocumento(InrimApiController):
             raise BadRequest(str(e))
 
     @http.route('/api/immaginedoc', auth="none", type='http', methods=['PUT'],
-                csrf=False)
+                csrf=False, readonly=False)
     def api_put_gest_immagine_doc(self):
         self.check_token('ca.img_documento', 'write')
         data = self.check_and_decode_body()
@@ -81,7 +81,7 @@ class InrimApiImgDocumento(InrimApiController):
             raise BadRequest(str(e))
 
     @http.route('/api/immaginedoc', auth="none", type='http', methods=['DELETE'],
-                csrf=False)
+                csrf=False, readonly=False)
     def api_delete_ca_immagine_doc(self):
         self.check_token('ca.img_documento', 'unlink')
         data = self.check_and_decode_body()

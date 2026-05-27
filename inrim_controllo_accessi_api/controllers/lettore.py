@@ -13,7 +13,7 @@ class InrimApiLettore(InrimApiController):
             *self.model.rest_get(params), is_list=True)
 
     @http.route('/api/lettore', auth="none", type='http', methods=['POST'],
-                csrf=False)
+                csrf=False, readonly=False)
     def api_post_ca_lettore(self):
         self.check_token('ca.lettore', 'create')
         data = self.check_and_decode_body()
@@ -23,7 +23,7 @@ class InrimApiLettore(InrimApiController):
             raise BadRequest(str(e))
 
     @http.route('/api/lettore', auth="none", type='http', methods=['PUT'],
-                csrf=False)
+                csrf=False, readonly=False)
     def api_put_ca_lettore(self):
         self.check_token('ca.lettore', 'write')
         data = self.check_and_decode_body()
@@ -33,7 +33,7 @@ class InrimApiLettore(InrimApiController):
             raise BadRequest(str(e))
 
     @http.route('/api/lettore', auth="none", type='http', methods=['DELETE'],
-                csrf=False)
+                csrf=False, readonly=False)
     def api_delete_ca_lettore(self):
         self.check_token('ca.lettore', 'unlink')
         data = self.check_and_decode_body()
@@ -53,7 +53,7 @@ class InrimApiTagLettore(InrimApiController):
             *self.model.rest_get(params), is_list=True)
 
     @http.route('/api/tag_lettore', auth="none", type='http', methods=['POST'],
-                csrf=False)
+                csrf=False, readonly=False)
     def api_post_ca_tag_lettore(self):
         self.check_token('ca.tag_lettore', 'create')
         data = self.check_and_decode_body()
@@ -63,7 +63,7 @@ class InrimApiTagLettore(InrimApiController):
             raise BadRequest(str(e))
 
     @http.route('/api/tag_lettore', auth="none", type='http', methods=['PUT'],
-                csrf=False)
+                csrf=False, readonly=False)
     def api_put_ca_tag_lettore(self):
         self.check_token('ca.tag_lettore', 'write')
         data = self.check_and_decode_body()

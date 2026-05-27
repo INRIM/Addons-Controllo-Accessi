@@ -8,23 +8,24 @@ from .api_controller_inrim import InrimApiController
 class AuthController(InrimApiController):
 
     @http.route('/token/authenticate', type='http', auth="none", methods=['POST'],
-                csrf=False, save_session=False, cors="*")
+                csrf=False, save_session=False, cors="*", readonly=False)
     def get_token(self, **kwargs):
         data = self.check_and_decode_body()
         username = data.get('username')
         password = data.get('password')
         try:
-            user_id = request.session.authenticate(
-                request.session.db, username, password)
+            credential = {'login': username, 'password': password, 'type': 'password'}
+            auth_info = request.session.authenticate(request.env, credential)
+            user_id = auth_info['uid']
         except Exception as e:
             raise Unauthorized(description='Invalid Credential')
 
         if not user_id:
-            return Unauthorized(description='Invalid Credential')
+            raise Unauthorized(description='Invalid Credential')
         env = request.env(user=user_id)
         user = env['res.users'].browse(user_id)
         if not user.api_enabled:
-            return Unauthorized(description='No Auth for Api')
+            raise Unauthorized(description='No Auth for Api')
 
         auth_api_key_id = env['auth.api.key'].sudo().search([
             ('user_id', '=', user_id)

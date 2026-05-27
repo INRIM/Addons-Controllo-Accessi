@@ -14,7 +14,7 @@ class InrimApiWorkInfo(InrimApiController):
             *self.model.rest_get(params), is_list=True)
 
     @http.route('/api/work_info', auth="none", type='http', methods=['POST'],
-                csrf=False)
+                csrf=False, readonly=False)
     def api_post_work_info(self):
         self.check_token('ca.work_info', 'create')
         data = self.check_and_decode_body()

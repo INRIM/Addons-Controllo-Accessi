@@ -11,14 +11,14 @@ class InrimApiSpazio(http.Controller):
            csrf=False)
     def api_get_ca_spazio(self, **params):
         res = []
-        env = api.Environment(request.cr, SUPERUSER_ID,
+        env = api.Environment(request.env.cr, SUPERUSER_ID,
                                 {'active_test': False})
         if 'token' in request.httprequest.headers:
             token = request.httprequest.headers.get('token')
             user_token = InrimApiController.authenticate_token(env, token)
             user_id = env['res.users'].browse(user_token)
             request.update_env(user=user_id)
-            env.user = user_id
+            env = env(user=user_token)
             if not user_token:
                 return Response(json.dumps({
                     "header": {
@@ -77,16 +77,16 @@ class InrimApiSpazio(http.Controller):
         }, ensure_ascii=False, indent=4), status=200)
     
     @http.route('/api/spazio', auth="none", type='http', methods=['PUT'],
-           csrf=False)
+           csrf=False, readonly=False)
     def api_put_ca_spazio(self):
-        env = api.Environment(request.cr, SUPERUSER_ID,
+        env = api.Environment(request.env.cr, SUPERUSER_ID,
                                 {'active_test': False})
         if 'token' in request.httprequest.headers:
             token = request.httprequest.headers.get('token')
             user_token = InrimApiController.authenticate_token(env, token)
             user_id = env['res.users'].browse(user_token)
             request.update_env(user=user_id)
-            env.user = user_id
+            env = env(user=user_token)
             if not user_token:
                 return Response(json.dumps({
                     "header": {
@@ -470,16 +470,16 @@ class InrimApiSpazio(http.Controller):
             }, ensure_ascii=False, indent=4), status=400)
         
     @http.route('/api/spazio', auth="none", type='http', methods=['POST'],
-           csrf=False)
+           csrf=False, readonly=False)
     def api_post_ca_spazio(self):
-        env = api.Environment(request.cr, SUPERUSER_ID,
+        env = api.Environment(request.env.cr, SUPERUSER_ID,
                                 {'active_test': False})
         if 'token' in request.httprequest.headers:
             token = request.httprequest.headers.get('token')
             user_token = InrimApiController.authenticate_token(env, token)
             user_id = env['res.users'].browse(user_token)
             request.update_env(user=user_id)
-            env.user = user_id
+            env = env(user=user_token)
             if not user_token:
                 return Response(json.dumps({
                     "header": {
@@ -919,17 +919,14 @@ class InrimApiSpazio(http.Controller):
             }, ensure_ascii=False, indent=4), status=400)
         
     @http.route('/api/spazio', auth="none", type='http', methods=['DELETE'],
-           csrf=False)
+           csrf=False, readonly=False)
     def api_delete_ca_spazio(self):
-        env = api.Environment(request.cr, SUPERUSER_ID,
+        env = api.Environment(request.env.cr, SUPERUSER_ID,
                                 {'active_test': False})
-        
-        if 'token' in request.httprequest.headers and request.httprequest.headers.get('active_test') == 'True':
+
+        if 'token' in request.httprequest.headers and request.httprequest.headers.get('active-test') == 'True':
             token = request.httprequest.headers.get('token')
             user_token = InrimApiController.authenticate_token(env, token)
-            user_id = env['res.users'].browse(user_token)
-            request.update_env(user=user_id)
-            env.user = user_id
             if not user_token:
                 return Response(json.dumps({
                     "header": {
@@ -939,6 +936,9 @@ class InrimApiSpazio(http.Controller):
                         'token': 'Token non valido'
                     }
                 }, ensure_ascii=False, indent=4), status=400)
+            user_id = env['res.users'].browse(user_token)
+            request.update_env(user=user_id)
+            env = env(user=user_id)
         else:
             return Response(json.dumps({
                     "header": {
