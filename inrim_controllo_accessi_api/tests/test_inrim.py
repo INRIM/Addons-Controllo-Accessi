@@ -1,7 +1,6 @@
 import json
 from urllib.parse import urlencode, quote_plus
 
-import requests
 from odoo.addons.inrim_controllo_accessi_api.tests.common import TestCommon
 from odoo.tests import tagged
 
@@ -46,13 +45,13 @@ class ApiTestCommon(TestCommon):
             "document_code": "Codice Doc Persona 1"
         }
 
-        response = requests.post(self.api_url + '/api/documento', headers=headers,
+        response = self.opener.post(self.api_url + '/api/documento', headers=headers,
                                  json=data)
         self.assertEqual(response.status_code, 200)
         id_from_post = response.json().get('id')
 
         # get
-        response = requests.get(self.api_url + '/api/documento', headers=headers,
+        response = self.opener.get(self.api_url + '/api/documento', headers=headers,
                                 json=data)
         self.assertEqual(response.status_code, 200)
 
@@ -62,7 +61,7 @@ class ApiTestCommon(TestCommon):
             "validity_end_date": "2024-06-26",
         }
 
-        response = requests.put(self.api_url + '/api/documento', headers=headers,
+        response = self.opener.put(self.api_url + '/api/documento', headers=headers,
                                 json=data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json().get('validity_end_date'), '2024-06-26')
@@ -77,7 +76,7 @@ class ApiTestCommon(TestCommon):
             data = {
                 "id": id_from_post
             }
-            response = requests.delete(self.api_url + '/api/documento', headers=headers,
+            response = self.opener.delete(self.api_url + '/api/documento', headers=headers,
                                        json=data)
             self.assertEqual(response.status_code, 200)
         return id_from_post
@@ -89,7 +88,7 @@ class ApiTestCommon(TestCommon):
             creando un record di test per poi aggiornarlo.
             :return: Status code 200.
         """
-        headers = {'token': self.token}
+        headers = {'token': self.tokentech}
         sede_staccata = self.env.ref(
             "inrim_anagrafiche.tipo_ente_azienda_sede_distaccata")
         ita = self.env.ref("base.it")
@@ -120,7 +119,7 @@ class ApiTestCommon(TestCommon):
             "jwt": "In base al sistema"
         }
 
-        response = requests.post(self.api_url + '/api/ente_azienda', headers=headers,
+        response = self.opener.post(self.api_url + '/api/ente_azienda', headers=headers,
                                  json=data)
         self.assertEqual(response.status_code, 200)
         res_data = response.json()
@@ -156,7 +155,7 @@ class ApiTestCommon(TestCommon):
         self.assertEqual(res_data.get('ca_persona_ids'), data['ca_persona_ids'])
 
         # get
-        response = requests.get(self.api_url + '/api/ente_azienda', headers=headers,
+        response = self.opener.get(self.api_url + '/api/ente_azienda', headers=headers,
                                 json=data)
 
         self.assertEqual(response.status_code, 200)
@@ -167,7 +166,7 @@ class ApiTestCommon(TestCommon):
             'state_id': torino.name
         }
 
-        response = requests.put(self.api_url + '/api/ente_azienda', headers=headers,
+        response = self.opener.put(self.api_url + '/api/ente_azienda', headers=headers,
                                 json=newdata)
         self.assertEqual(response.status_code, 200)
         res_data = response.json()
@@ -181,7 +180,7 @@ class ApiTestCommon(TestCommon):
         data = {
             "id": id_from_post
         }
-        response = requests.delete(
+        response = self.opener.delete(
             self.api_url + '/api/ente_azienda', headers=headers, json=data
         )
         self.assertEqual(response.status_code, 200)
@@ -204,13 +203,13 @@ class ApiTestCommon(TestCommon):
             "date_end": "2024-12-31"
         }
 
-        response = requests.post(self.api_url + '/api/tipo_ente_azienda',
+        response = self.opener.post(self.api_url + '/api/tipo_ente_azienda',
                                  headers=headers, json=data)
         self.assertEqual(response.status_code, 200)
         id_from_post = response.json().get('id')
 
         # get
-        response = requests.get(self.api_url + '/api/tipo_ente_azienda', headers=headers,
+        response = self.opener.get(self.api_url + '/api/tipo_ente_azienda', headers=headers,
                                 json=data)
         self.assertEqual(response.status_code, 200)
 
@@ -229,7 +228,7 @@ class ApiTestCommon(TestCommon):
             "date_end": "2024-12-31"
         }
 
-        response = requests.put(self.api_url + '/api/tipo_ente_azienda', headers=headers,
+        response = self.opener.put(self.api_url + '/api/tipo_ente_azienda', headers=headers,
                                 json=data)
         self.assertEqual(response.status_code, 200)
 
@@ -238,7 +237,7 @@ class ApiTestCommon(TestCommon):
         data = {
             "id": id_from_post
         }
-        response = requests.delete(self.api_url + '/api/tipo_ente_azienda',
+        response = self.opener.delete(self.api_url + '/api/tipo_ente_azienda',
                                    headers=headers, json=data)
         self.assertEqual(response.status_code, 200)
 
@@ -262,7 +261,7 @@ class ApiTestCommon(TestCommon):
             "document_code": "Codice Doc Persona 1"
         }
 
-        response = requests.post(self.api_url + '/api/documento', headers=headers,
+        response = self.opener.post(self.api_url + '/api/documento', headers=headers,
                                  json=data)
 
         self.assertEqual(response.status_code, 200)
@@ -282,13 +281,13 @@ class ApiTestCommon(TestCommon):
             "ca_documento_id": documento_token
         }
 
-        response = requests.post(self.api_url + '/api/immaginedoc', headers=headers,
+        response = self.opener.post(self.api_url + '/api/immaginedoc', headers=headers,
                                  json=data)
         self.assertEqual(response.status_code, 200)
         id_from_post = response.json().get('id')
 
         # get
-        response = requests.get(self.api_url + '/api/immaginedoc', headers=headers,
+        response = self.opener.get(self.api_url + '/api/immaginedoc', headers=headers,
                                 json=data)
         self.assertEqual(response.status_code, 200)
 
@@ -305,7 +304,7 @@ class ApiTestCommon(TestCommon):
             "ca_documento_id": documento_token
         }
 
-        response = requests.put(self.api_url + '/api/immaginedoc', headers=headers,
+        response = self.opener.put(self.api_url + '/api/immaginedoc', headers=headers,
                                 json=data)
         self.assertEqual(response.status_code, 200)
 
@@ -314,20 +313,20 @@ class ApiTestCommon(TestCommon):
         data = {
             "id": response.json().get('id')
         }
-        response = requests.delete(self.api_url + '/api/immaginedoc', headers=headers,
+        response = self.opener.delete(self.api_url + '/api/immaginedoc', headers=headers,
                                    json=data)
         self.assertEqual(response.status_code, 200)
 
         # delete documento
         headers = {
             'token': self.token,
-            'active_test': 'True'
+            'active-test': 'True'
         }
 
         data = {
             "id": documento_id
         }
-        response = requests.delete(self.api_url + '/api/documento', headers=headers,
+        response = self.opener.delete(self.api_url + '/api/documento', headers=headers,
                                    json=data)
         self.assertEqual(response.status_code, 200)
 
@@ -347,14 +346,14 @@ class ApiTestCommon(TestCommon):
             "direction": "in",
         }
 
-        response = requests.post(
+        response = self.opener.post(
             self.api_url + '/api/lettore', headers=headers, json=data)
 
         self.assertEqual(response.status_code, 200)
         id_from_post = response.json().get('id')
 
         # get
-        response = requests.get(
+        response = self.opener.get(
             self.api_url + '/api/lettore', headers=headers, json=data)
         self.assertEqual(response.status_code, 200)
 
@@ -366,7 +365,7 @@ class ApiTestCommon(TestCommon):
             "reader_ip": "127.0.0.2",
         }
 
-        response = requests.put(self.api_url + '/api/lettore', headers=headers,
+        response = self.opener.put(self.api_url + '/api/lettore', headers=headers,
                                 json=data)
         self.assertEqual(response.status_code, 200)
 
@@ -375,7 +374,7 @@ class ApiTestCommon(TestCommon):
         data = {
             "id": response.json().get('id')
         }
-        response = requests.delete(self.api_url + '/api/lettore', headers=headers,
+        response = self.opener.delete(self.api_url + '/api/lettore', headers=headers,
                                    json=data)
         self.assertEqual(response.status_code, 200)
 
@@ -391,7 +390,7 @@ class ApiTestCommon(TestCommon):
         # post
         # data = {}
         #
-        # response = requests.post(self.api_url + '/api/persona', headers=headers,
+        # response = self.opener.post(self.api_url + '/api/persona', headers=headers,
         #                          json=data)
         #
         # self.assertEqual(response.status_code, 200)
@@ -403,7 +402,7 @@ class ApiTestCommon(TestCommon):
         query = [("type_ids", "in", [interno])]
 
         params = urlencode({"domain": json.dumps(query)}, quote_via=quote_plus)
-        response = requests.get(
+        response = self.opener.get(
             self.api_url + '/api/persona', headers=headers, params=params)
         self.assertEqual(response.status_code, 200)
         res = response.json()
@@ -411,7 +410,7 @@ class ApiTestCommon(TestCommon):
         # test get limit = 1
         params = urlencode(
             {"domain": json.dumps(query), "limit": 1}, quote_via=quote_plus)
-        response = requests.get(
+        response = self.opener.get(
             self.api_url + '/api/persona', headers=headers, params=params)
         self.assertEqual(response.status_code, 200)
         res = response.json()
@@ -424,7 +423,7 @@ class ApiTestCommon(TestCommon):
         #     "reader_ip": "127.0.0.1",
         # }
         #
-        # response = requests.put(self.api_url + '/api/persona', headers=headers,
+        # response = self.opener.put(self.api_url + '/api/persona', headers=headers,
         #                         json=data)
         # self.assertEqual(response.status_code, 200)
         #
@@ -433,7 +432,7 @@ class ApiTestCommon(TestCommon):
         # data = {
         #     "id": response.json().get('id')
         # }
-        # response = requests.delete(self.api_url + '/api/persona', headers=headers,
+        # response = self.opener.delete(self.api_url + '/api/persona', headers=headers,
         #                            json=data)
         # self.assertEqual(response.status_code, 200)
 
@@ -444,7 +443,7 @@ class ApiTestCommon(TestCommon):
             creando un record di test che verrà aggiornato e poi eliminato.
             :return: Status code 200.
         """
-        headers = {'token': self.token}
+        headers = {'token': self.tokentech}
 
         # post
         data = {
@@ -453,12 +452,12 @@ class ApiTestCommon(TestCommon):
             "punto_accesso_id": self.punto_accesso_1p001.id,
             "datetime_event": "3333-12-31 00:00:00"
         }
-        response = requests.post(self.api_url + '/api/richiesta_registro_accesso_sede',
+        response = self.opener.post(self.api_url + '/api/richiesta_registro_accesso_sede',
                                  headers=headers, json=data)
         self.assertEqual(response.status_code, 200)
 
         # get
-        response = requests.get(self.api_url + '/api/richiesta_registro_accesso_sede',
+        response = self.opener.get(self.api_url + '/api/richiesta_registro_accesso_sede',
                                 headers=headers, json=data)
         self.assertEqual(response.status_code, 200)
 
@@ -470,7 +469,7 @@ class ApiTestCommon(TestCommon):
             "punto_accesso_id": self.punto_accesso_1p001.id,
             "datetime_event": "3333-12-21 00:00:00"
         }
-        response = requests.put(self.api_url + '/api/richiesta_registro_accesso_sede',
+        response = self.opener.put(self.api_url + '/api/richiesta_registro_accesso_sede',
                                 headers=headers, json=data)
         self.assertEqual(response.status_code, 200)
 
@@ -478,7 +477,7 @@ class ApiTestCommon(TestCommon):
         data = {
             "id": response.json()['body'].get('id')
         }
-        response = requests.delete(self.api_url + '/api/richiesta_registro_accesso_sede',
+        response = self.opener.delete(self.api_url + '/api/richiesta_registro_accesso_sede',
                                    headers=headers, json=data)
         self.assertEqual(response.status_code, 200)
 
@@ -510,14 +509,14 @@ class ApiTestCommon(TestCommon):
             ]
         }
 
-        response = requests.post(self.api_url + '/api/spazio', headers=headers,
+        response = self.opener.post(self.api_url + '/api/spazio', headers=headers,
                                  json=data)
         self.assertEqual(response.status_code, 200)
         id_from_post = response.json()['body'].get('id')
         id_persona_ids = response.json()['body']['righe_persona_ids'][0]['id']
 
         # get
-        response = requests.get(self.api_url + '/api/spazio', headers=headers, json=data)
+        response = self.opener.get(self.api_url + '/api/spazio', headers=headers, json=data)
         self.assertEqual(response.status_code, 200)
 
         # put
@@ -546,18 +545,18 @@ class ApiTestCommon(TestCommon):
             ]
         }
 
-        response = requests.put(self.api_url + '/api/spazio', headers=headers, json=data)
+        response = self.opener.put(self.api_url + '/api/spazio', headers=headers, json=data)
         self.assertEqual(response.status_code, 200)
 
         # delete
         headers = {
             'token': self.tokentech,
-            'active_test': 'True'
+            'active-test': 'True'
         }
 
         data = {
             "id": response.json()['body'].get('id')
         }
-        response = requests.delete(self.api_url + '/api/spazio', headers=headers,
+        response = self.opener.delete(self.api_url + '/api/spazio', headers=headers,
                                    json=data)
         self.assertEqual(response.status_code, 200)
