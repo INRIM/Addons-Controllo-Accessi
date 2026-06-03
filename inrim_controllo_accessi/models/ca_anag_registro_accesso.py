@@ -34,7 +34,7 @@ class CaAnagRegistroAccesso(models.Model):
         related="ca_tag_persona_id.ca_persona_id", string="Person", store=True,
         readonly=True)
     person_display_name = fields.Char(
-        related="ca_persona_id.display_name", store=True,
+        related="ca_persona_id.complete_name", store=True,
         string="Person Name", readonly=True)
 
     person_freshman = fields.Char(

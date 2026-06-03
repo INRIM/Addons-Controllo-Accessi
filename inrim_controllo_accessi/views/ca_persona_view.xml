@@ -34,7 +34,7 @@
         <field name="inherit_id"
                ref="inrim_anagrafiche.ca_persona_tree"/>
         <field name="arch" type="xml">
-            <xpath expr="//list/field[@name='display_name']" position="before">
+            <xpath expr="//list/field[@name='complete_name']" position="before">
                 <header>
                     <button
                             name="inrim_controllo_accessi.ca_registra_persona_action"

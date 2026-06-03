@@ -213,6 +213,11 @@ msgid "Complete"
 msgstr "Completa"
 
 #. module: inrim_anagrafiche
+#: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__complete_name
+msgid "Complete Name"
+msgstr "Nome"
+
+#. module: inrim_anagrafiche
 #: model:ir.ui.menu,name:inrim_anagrafiche.inrim_ca_configuration_menu
 #: model:ir.ui.menu,name:inrim_anagrafiche.inrim_configuration_menu
 msgid "Configuration"

@@ -9,7 +9,7 @@
                         domain="[('type_ids', 'ilike', 'interno')]"/>
                 <filter string="External" name="external"
                         domain="[('type_ids', 'ilike', 'esterno')]"/>
-                <field name="display_name"/>
+                <field name="complete_name"/>
                 <field name="fiscalcode"/>
                 <field name="type_ids"/>
                 <field name="parent_id"/>
@@ -24,9 +24,9 @@
             <list
                     decoration-danger="present == 'no'"
                     decoration-success="present == 'yes'"
-                    default_order="display_name asc"
+                    default_order="complete_name asc"
             >
-                <field name="display_name"/>
+                <field name="complete_name"/>
                 <field name="type_ids" widget="many2many_tags"/>
                 <field name="parent_id"/>
                 <field name="present"/>
