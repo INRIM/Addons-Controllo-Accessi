@@ -1,9 +1,11 @@
 import json
 import logging
+import re
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 import httpx
 import pytz
@@ -151,10 +153,16 @@ class ActionResponse:
 
 class Max5010RfidClient:
     def __init__(
-            self, device_ip, base_url, header_auth_key, header_auth_value, tz):
+            self, device_ip, base_url, header_auth_key, header_auth_value, tz,
+            reader_id=None, reader_name="", access_point_id=None,
+            access_point_name=""):
         self.device_ip = device_ip
         self.base_url = base_url.rstrip("/")
         self.headers = {header_auth_key: header_auth_value}
+        self.reader_id = reader_id
+        self.reader_name = reader_name or ""
+        self.access_point_id = access_point_id
+        self.access_point_name = access_point_name or ""
         self.online = False
         self.connection_error = False
         self.connction_error = False
@@ -176,6 +184,50 @@ class Max5010RfidClient:
     def _build_url(self, path: str) -> str:
         return f"{self.base_url}/{path.lstrip('/')}"
 
+    @staticmethod
+    def _endpoint_from_url(url: str) -> str:
+        parsed = urlparse(url)
+        return parsed.path or url
+
+    @staticmethod
+    def _quote_log_value(value: Any) -> str:
+        if value is None:
+            return "-"
+        text = str(value).replace('"', "'").strip()
+        if not text:
+            return "-"
+        if re.search(r"\s", text):
+            return f'"{text}"'
+        return text
+
+    @staticmethod
+    def _classify_http_error(exc: httpx.HTTPError) -> str:
+        error_text = str(exc).lower()
+        if (
+                "name or service not known" in error_text
+                or "temporary failure in name resolution" in error_text
+                or "gaierror" in error_text):
+            return "DNS"
+        if isinstance(exc, httpx.TimeoutException):
+            return "TIMEOUT"
+        if isinstance(exc, httpx.ConnectError):
+            return "CONNECTION"
+        return exc.__class__.__name__
+
+    def _log_context(self, url: str) -> str:
+        context = {
+            "endpoint": self._endpoint_from_url(url),
+            "reader_ip": self.device_ip,
+            "reader_id": self.reader_id,
+            "reader_name": self.reader_name,
+            "access_point_id": self.access_point_id,
+            "access_point_name": self.access_point_name,
+        }
+        return " ".join(
+            f"{key}={self._quote_log_value(value)}"
+            for key, value in context.items()
+        )
+
     def _reset_errors(self):
         self.connection_error = False
         self.connction_error = False
@@ -194,7 +246,10 @@ class Max5010RfidClient:
             with httpx.Client(timeout=self.timeout, headers=self.headers) as client:
                 response = client.post(path, json=payload)
         except httpx.HTTPError as exc:
-            msg = f"Exception {path}, Error: {exc}"
+            msg = (
+                f"Exception {path}, error_type={self._classify_http_error(exc)} "
+                f"{self._log_context(path)}, Error: {exc}"
+            )
             self.connection_error = True
             self.connction_error = True
             logger.error(msg)
@@ -203,7 +258,8 @@ class Max5010RfidClient:
         if response.status_code != httpx.codes.OK:
             self.response_error = True
             msg = (
-                f"Error {path}, Status Code: {response.status_code}, "
+                f"Error {path}, status_code={response.status_code} "
+                f"{self._log_context(path)}, "
                 f"payload: {payload}"
             )
             logger.info(msg)
@@ -213,7 +269,10 @@ class Max5010RfidClient:
             return response.json(), "OK"
         except ValueError as exc:
             self.response_error = True
-            msg = f"Error {path}, invalid JSON response: {exc}"
+            msg = (
+                f"Error {path}, error_type=INVALID_JSON "
+                f"{self._log_context(path)}, invalid JSON response: {exc}"
+            )
             logger.error(msg)
             return {}, msg
 

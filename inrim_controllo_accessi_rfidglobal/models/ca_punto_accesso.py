@@ -11,6 +11,21 @@ path_files = "/mnt/reader-data"
 class CaPuntoAccesso(models.Model):
     _inherit = 'ca.punto_accesso'
 
+    @staticmethod
+    def _reader_log_value(value):
+        text = str(value or "-").replace('"', "'").strip()
+        return text or "-"
+
+    def _reader_log_context(self):
+        self.ensure_one()
+        return (
+            f"access_point_id={self.id} "
+            f'access_point_name="{self._reader_log_value(self.display_name)}" '
+            f"reader_id={self.ca_lettore_id.id} "
+            f'reader_name="{self._reader_log_value(self.ca_lettore_id.display_name)}" '
+            f"reader_ip={self._reader_log_value(self.ca_lettore_id.reader_ip)}"
+        )
+
     def write_log(
             self, code, lettore_id, expected_events_num=0,
             operation_status="ko", events_read_num=0, error_code=0, msg=""
@@ -34,7 +49,11 @@ class CaPuntoAccesso(models.Model):
             self.ente_azienda_id.url_gateway_lettori or "http://local-host",
             self.ente_azienda_id.nome_chiave_header or "authtoken",
             self.ente_azienda_id.jwt or "key",
-            self.tz
+            self.tz,
+            reader_id=self.ca_lettore_id.id,
+            reader_name=self.ca_lettore_id.display_name,
+            access_point_id=self.id,
+            access_point_name=self.display_name,
         )
         try:
             with self.env.cr.savepoint():
@@ -61,7 +80,8 @@ class CaPuntoAccesso(models.Model):
         except Exception as e:
             logger.info(f"Error: {e}", exc_info=True)
             self.write_log(
-                "CONNECT", self.ca_lettore_id.id, msg="Reader is OFFLINE")
+                "CONNECT", self.ca_lettore_id.id,
+                msg=f"Reader is OFFLINE {self._reader_log_context()}")
         return reader
 
     def update_reader_clock(self):
@@ -72,7 +92,7 @@ class CaPuntoAccesso(models.Model):
         reader = self.load_reader()
         ret = False
         if not reader.online:
-            logger.error("Reader is OFFLINE")
+            logger.error("Reader is OFFLINE %s", self._reader_log_context())
             return False
         try:
             with self.env.cr.savepoint():
@@ -125,7 +145,7 @@ class CaPuntoAccesso(models.Model):
             return False
         reader = self.load_reader()
         if not reader.online:
-            logger.error("Reader is OFFLINE")
+            logger.error("Reader is OFFLINE %s", self._reader_log_context())
             return False
         body = self.get_tags_boby()
         activity_code = self.get_code_activity("ADDTAGS")
@@ -159,7 +179,7 @@ class CaPuntoAccesso(models.Model):
             return False
         reader = self.load_reader()
         if not reader.online:
-            logger.error("Reader is OFFLINE")
+            logger.error("Reader is OFFLINE %s", self._reader_log_context())
             return False
         if isinstance(reader.device.diagnostic, dict):
             logger.error(
