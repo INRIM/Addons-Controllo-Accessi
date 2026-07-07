@@ -147,7 +147,7 @@ class PortalBadgeRelease(http.Controller):
             return request.redirect(f"/badge_release_docs/{wiz.persona_id.id}")
         return request.redirect('/anagrafiche')
 
-    @http.route('/get/badge_release/init_data', auth='user', type='json', website=True)
+    @http.route('/get/badge_release/init_data', auth='user', type='jsonrpc', website=True)
     def get_badge_release_init_data(self, **kwargs):
         user = request.env.user
         if not check_access_permission(user):
@@ -195,7 +195,7 @@ class PortalBadgeRelease(http.Controller):
             'persona_parent': Env['ca.persona'].search_read([('is_internal', '=', True)], ['id', 'display_name', 'present'])
         }
 
-    @http.route('/get/badge_release/ca_persona', auth='user', type='json', website=True)
+    @http.route('/get/badge_release/ca_persona', auth='user', type='jsonrpc', website=True)
     def badge_release_ca_persona(self, **kwargs):
         user = request.env.user
         if not check_access_permission(user):

@@ -44,7 +44,7 @@ class PortalBadgeReturn(http.Controller):
         wiz.action_confirm()
         return request.redirect('/badge_return')
 
-    @http.route('/get/badge_return/tags', auth='user', type='json', website=True)
+    @http.route('/get/badge_return/tags', auth='user', type='jsonrpc', website=True)
     def badge_return_tags(self, **kwargs):
         user = request.env.user
         if not check_access_permission(user):

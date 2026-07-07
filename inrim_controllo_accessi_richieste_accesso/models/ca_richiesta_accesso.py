@@ -54,7 +54,7 @@ class CaRichiestaAccesso(models.Model):
                 self.env.user.has_group('controllo_accessi.ca_ru') or
                 self.env.user.has_group('controllo_accessi.ca_spp')
             ):
-                today = fields.date.today()
+                today = fields.Date.today()
                 if stato:
                     record.state = stato
                 for line in record.ca_richiesta_accesso_persona_ids:

@@ -142,7 +142,7 @@ class CaAnagServizi(models.Model):
                 self.env.ref('inrim_anagrafiche.tipo_persona_interno').id
             ])]
             if not record.date_start:
-                record.date_start = fields.date.today()
+                record.date_start = fields.Date.today()
             if not record.date_end:
                 date_end = self.env['ir.config_parameter'].sudo().get_param('date_end.forever')
                 record.date_end = datetime.strptime(date_end, '%Y-%m-%d %H:%M:%S')
@@ -155,7 +155,7 @@ class CaAnagServizi(models.Model):
                 self.env.ref('inrim_anagrafiche.tipo_persona_interno').id
             ])]
             if not record.date_start:
-                record.date_start = fields.date.today()
+                record.date_start = fields.Date.today()
             if not record.date_end:
                 date_end = self.env['ir.config_parameter'].sudo().get_param('date_end.forever')
                 record.date_end = datetime.strptime(date_end, '%Y-%m-%d %H:%M:%S')

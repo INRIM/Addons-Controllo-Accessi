@@ -18,7 +18,7 @@ class CaEnteAzienda(models.Model):
         sede_distaccata = self.env.ref(
             'inrim_anagrafiche.tipo_ente_azienda_sede_distaccata')
         config = self.env['ir.config_parameter'].sudo()
-        for record in self:
+        for record in self.sudo():
             if record.tipo_ente_azienda_id.id in [sede.id, sede_distaccata.id]:
                 vals = {}
                 if not record.jwt:

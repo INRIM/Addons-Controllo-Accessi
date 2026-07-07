@@ -34,7 +34,7 @@ class CaAnagRegistroAccesso(models.Model):
         related="ca_tag_persona_id.ca_persona_id", string="Person", store=True,
         readonly=True)
     person_display_name = fields.Char(
-        related="ca_persona_id.display_name", store=True,
+        related="ca_persona_id.complete_name", store=True,
         string="Person Name", readonly=True)
 
     person_freshman = fields.Char(
@@ -52,7 +52,7 @@ class CaAnagRegistroAccesso(models.Model):
     ca_ente_azienda_id = fields.Many2one(
         related="ca_spazio_id.ente_azienda_id", store=True, string="Space Office",
         readonly=True)
-    datetime_event = fields.Datetime(default=fields.datetime.now(), required=True)
+    datetime_event = fields.Datetime(default=fields.Datetime.now, required=True)
     typology = fields.Selection(
         related="ca_punto_accesso_id.typology", store=True, string="Ap Type",
         readonly=True)
@@ -71,7 +71,7 @@ class CaAnagRegistroAccesso(models.Model):
     ], string="Insertion Type")
     tz = fields.Selection(
         _tz_get, string='Timezone',
-        default=lambda self: self._context.get('tz'),
+        default=lambda self: self.env.context.get('tz'),
         help="When printing documents and exporting/importing data, time values are computed according to this timezone.\n"
              "If the timezone is not set, UTC (Coordinated Universal Time) is used.\n"
              "Anywhere else, time values are computed according to the time offset of your web client."
@@ -84,7 +84,7 @@ class CaAnagRegistroAccesso(models.Model):
             tz=""
     ):
         if not tz:
-            tz = self._context.get('tz')
+            tz = self.env.context.get('tz')
         now = datetime.now()
         access_conflict = False
         if self.ca_punto_accesso_id.typology == 'local_access':

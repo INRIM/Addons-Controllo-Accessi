@@ -17,7 +17,7 @@ class InrimApiTag(InrimApiController):
             *self.model.rest_get(params), is_list=True)
 
     @http.route('/api/tag', auth="none", type='http', methods=['POST'],
-                csrf=False)
+                csrf=False, readonly=False)
     def api_post_ca_tag(self):
         self.check_token('ca.tag', 'create')
         data = self.check_and_decode_body()
@@ -28,7 +28,7 @@ class InrimApiTag(InrimApiController):
             raise BadRequest(str(e))
 
     @http.route('/api/tag', auth="none", type='http', methods=['PUT'],
-                csrf=False)
+                csrf=False, readonly=False)
     def api_put_ca_tag(self):
         self.check_token('ca.tag', 'write')
         data = self.check_and_decode_body()
@@ -48,7 +48,7 @@ class InrimApiTagPersona(InrimApiController):
             *self.model.rest_get(params), is_list=True)
 
     @http.route('/api/tag_persona', auth="none", type='http', methods=['POST'],
-                csrf=False)
+                csrf=False, readonly=False)
     def api_post_ca_tag_persona(self):
         self.check_token('ca.tag_persona', 'create')
         data = self.check_and_decode_body()

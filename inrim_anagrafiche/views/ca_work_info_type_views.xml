@@ -37,17 +37,17 @@
         <field name="name">ca.work.info.type.view.tree</field>
         <field name="model">ca.work_info_type</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="code"/>
                 <field name="structured"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="ca_work_info_type_action" model="ir.actions.act_window">
         <field name="name">Work Info Type</field>
         <field name="res_model">ca.work_info_type</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>

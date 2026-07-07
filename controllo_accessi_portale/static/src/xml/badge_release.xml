@@ -40,14 +40,14 @@
                                     <t t-esc="texts.existingPartner"/>
                                 </label>
                                 <div class="col-md-10">
-                                    <select t-ref="personaSelect" id="persona_id" name="persona_id" style="width: 100%;">
-                                        <option value=""/>
-                                        <t t-foreach="ca_persona" t-as="partner" t-key="partner.id">
-                                            <option t-att-value="partner.id">
-                                                <t t-esc="partner.display_name"/>
-                                            </option>
-                                        </t>
-                                    </select>
+                                    <SelectMenu
+                                            togglerClass="'form-control'"
+                                            choices="personaChoices"
+                                            value="state.selectedPersonaId"
+                                            onSelect.bind="onPersonaSelect"
+                                            placeholder="texts.selectPartner"
+                                    />
+                                    <input type="hidden" name="persona_id" t-att-value="state.formValues.persona_id or ''"/>
                                     <small class="text-muted">
                                         <t t-esc="texts.selectPartnerHelp"/>
                                     </small>
@@ -179,16 +179,19 @@
                                 <label for="parent_id" class="form-label">
                                     <t t-esc="texts.referencePerson"/>
                                 </label>
-                                <input type="hidden" name="parent_id" t-if="state.isPersonaInternal &amp;&amp; state.formValues.parent_id" t-att-value="state.formValues.parent_id"/>
-
-                                <select t-ref="parentSelect" id="parent_id" name="parent_id" style="width: 100%;" t-att-required="!state.isPersonaInternal" t-att-disabled="state.isPersonaInternal">
-                                    <option value=""/>
-                                    <t t-foreach="state.caPersonaParentFiltered" t-as="parent" t-key="parent.id">
-                                        <option t-att-value="parent.id">
-                                            <t t-esc="parent.display_name"/>
-                                        </option>
-                                    </t>
-                                </select>
+                                <input type="hidden" name="parent_id" t-att-value="state.formValues.parent_id or ''"/>
+                                <div t-att-class="{'pe-none opacity-50': state.isPersonaInternal}">
+                                    <SelectMenu
+                                            togglerClass="'form-control'"
+                                            choices="parentChoices"
+                                            value="state.formValues.parent_id"
+                                            onSelect.bind="onParentSelect"
+                                            placeholder="texts.selectRepresentative"
+                                    />
+                                </div>
+                                <div t-if="state.submitted and !state.isPersonaInternal and !state.formValues.parent_id" class="text-danger small mt-1">
+                                    <t t-esc="texts.fieldRequired"/>
+                                </div>
                             </div>
                         </div>
 
@@ -204,27 +207,33 @@
                                 <label for="ca_work_info_type_id" class="form-label">
                                     <t t-esc="texts.workType"/>
                                 </label>
-                                <select t-ref="wInfoTypeSelect" id="ca_work_info_type_id" name="ca_work_info_type_id" required="true" style="width: 100%;">
-                                    <option value=""/>
-                                    <t t-foreach="work_info_type" t-as="work_info" t-key="work_info.id">
-                                        <option t-att-value="work_info.id">
-                                            <t t-esc="work_info.display_name"/>
-                                        </option>
-                                    </t>
-                                </select>
+                                <SelectMenu
+                                        togglerClass="'form-control'"
+                                        choices="workInfoChoices"
+                                        value="state.formValues.work_info_type"
+                                        onSelect.bind="onWorkInfoSelect"
+                                        placeholder="texts.selectWorkInfo"
+                                />
+                                <input type="hidden" name="ca_work_info_type_id" t-att-value="state.formValues.work_info_type or ''"/>
+                                <div t-if="state.submitted and !state.formValues.work_info_type" class="text-danger small mt-1">
+                                    <t t-esc="texts.fieldRequired"/>
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <label for="ca_title_id" class="form-label">
                                     <t t-esc="texts.titleQualification"/>
                                 </label>
-                                <select t-ref="caTitleSelect" id="ca_title_id" name="ca_title_id" required="true" style="width: 100%;">
-                                    <option value=""/>
-                                    <t t-foreach="titolo_persona" t-as="titolo_pers" t-key="titolo_pers.id">
-                                        <option t-att-value="titolo_pers.id">
-                                            <t t-esc="titolo_pers.display_name"/>
-                                        </option>
-                                    </t>
-                                </select>
+                                <SelectMenu
+                                        togglerClass="'form-control'"
+                                        choices="titleChoices"
+                                        value="state.formValues.ca_title"
+                                        onSelect.bind="onTitleSelect"
+                                        placeholder="texts.selectTitle"
+                                />
+                                <input type="hidden" name="ca_title_id" t-att-value="state.formValues.ca_title or ''"/>
+                                <div t-if="state.submitted and !state.formValues.ca_title" class="text-danger small mt-1">
+                                    <t t-esc="texts.fieldRequired"/>
+                                </div>
                             </div>
                         </div>
 
@@ -233,14 +242,17 @@
                                 <t t-esc="texts.assignBadge"/>
                             </label>
                             <div class="col-md-10">
-                                <select t-ref="tagSelect" id="ca_tag_id" name="ca_tag_id" required="true" style="width: 100%;">
-                                    <option value=""/>
-                                    <t t-foreach="state.availableTags" t-as="tag" t-key="tag.id">
-                                        <option t-att-value="tag.id">
-                                            <t t-esc="tag.display_name"/>
-                                        </option>
-                                    </t>
-                                </select>
+                                <SelectMenu
+                                        togglerClass="'form-control'"
+                                        choices="tagChoices"
+                                        value="state.formValues.ca_tag_id"
+                                        onSelect.bind="onTagSelect"
+                                        placeholder="texts.selectBadge"
+                                />
+                                <input type="hidden" name="ca_tag_id" t-att-value="state.formValues.ca_tag_id or ''"/>
+                                <div t-if="state.submitted and !state.formValues.ca_tag_id" class="text-danger small mt-1">
+                                    <t t-esc="texts.fieldRequired"/>
+                                </div>
                             </div>
                         </div>
 

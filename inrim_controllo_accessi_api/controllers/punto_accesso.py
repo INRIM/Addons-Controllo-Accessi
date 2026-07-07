@@ -10,7 +10,7 @@ class InrimApiPuntoAccesso(InrimApiController):
 
         
     @http.route('/api/punto_accesso/add_persona_tag', auth="none", type='http', methods=['POST'],
-                csrf=False)
+                csrf=False, readonly=False)
     def api_post_ca_exc_add_persona_tag(self):
         self.check_token('ca.punto_accesso', 'create')
         data = self.check_and_decode_body()

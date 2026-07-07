@@ -6,7 +6,9 @@ from pytz import UTC
 
 from odoo import http
 from odoo.http import request
-from odoo.osv import expression
+from odoo.orm.domains import Domain as _Domain
+expression_AND = _Domain.AND
+expression_OR = _Domain.OR
 from odoo.tools.misc import format_datetime
 from werkzeug.exceptions import Forbidden, NotFound
 
@@ -33,27 +35,27 @@ class PortalAnagrafiche(http.Controller):
             ("datetime_event", ">=", self._get_day_start_utc(user)),
         ]
         if query:
-            search_domain = expression.AND([
+            search_domain = expression_AND([
                 search_domain,
                 [("ca_persona_id.display_name", "ilike", query.strip())],
             ])
         if filter_values.get("internal"):
-            search_domain = expression.AND([
+            search_domain = expression_AND([
                 search_domain,
                 [("ca_persona_id.is_internal", "=", True)],
             ])
         elif filter_values.get("external"):
-            search_domain = expression.AND([
+            search_domain = expression_AND([
                 search_domain,
                 [("ca_persona_id.is_external", "=", True)],
             ])
         if filter_values.get("is_present"):
-            search_domain = expression.AND([
+            search_domain = expression_AND([
                 search_domain,
                 [("ca_persona_id.present", "=", "yes")],
             ])
         if filter_values.get("pa_category_id"):
-            search_domain = expression.AND([
+            search_domain = expression_AND([
                 search_domain,
                 [("ca_punto_accesso_category_id", "=", filter_values["pa_category_id"])],
             ])
@@ -76,14 +78,15 @@ class PortalAnagrafiche(http.Controller):
         order_by, order_dir = self._normalize_order(order_by, order_dir)
         access_domain = self._build_access_domain(user, query, filter_values)
 
-        grouped_accesses = access_model.read_group(
+        raw_groups = access_model._read_group(
             access_domain,
-            ['ca_persona_id', 'last_event:max(datetime_event)'],
-            ['ca_persona_id'],
-            lazy=False,
+            groupby=['ca_persona_id'],
+            aggregates=['datetime_event:max'],
         )
         grouped_accesses = [
-            group for group in grouped_accesses if group.get('ca_persona_id')
+            {'ca_persona_id': (persona.id,), 'last_event': max_dt}
+            for persona, max_dt in raw_groups
+            if persona
         ]
         all_person_ids = [group['ca_persona_id'][0] for group in grouped_accesses]
         personas_by_id = {
@@ -128,7 +131,7 @@ class PortalAnagrafiche(http.Controller):
             return data
 
         latest_access_rows = access_model.search_read(
-            expression.AND([access_domain, [('ca_persona_id', 'in', person_ids)]]),
+            expression_AND([access_domain, [('ca_persona_id', 'in', person_ids)]]),
             fields=[
                 'ca_persona_id',
                 'datetime_event',
@@ -168,7 +171,7 @@ class PortalAnagrafiche(http.Controller):
             row = {
                 'id': persona.id,
                 'display_name': persona.display_name,
-                'fiscalcode': persona.fiscalcode,
+                'fiscalcode': persona.sudo().fiscalcode,
                 'is_external': persona.is_external,
                 'is_internal': persona.is_internal,
                 'present': (
@@ -206,16 +209,15 @@ class PortalAnagrafiche(http.Controller):
 
     def _get_anagrafiche_access_point_categories(self, env, user):
         access_domain = self._build_access_domain(user, None, {})
-        grouped_accesses = env['ca.anag_registro_accesso'].read_group(
+        raw_groups = env['ca.anag_registro_accesso']._read_group(
             access_domain,
-            ['ca_punto_accesso_category_id'],
-            ['ca_punto_accesso_category_id'],
-            lazy=False,
+            groupby=['ca_punto_accesso_category_id'],
+            aggregates=[],
         )
         category_ids = [
-            group['ca_punto_accesso_category_id'][0]
-            for group in grouped_accesses
-            if group.get('ca_punto_accesso_category_id')
+            category.id
+            for (category,) in raw_groups
+            if category
         ]
         if not category_ids:
             return []
@@ -232,7 +234,7 @@ class PortalAnagrafiche(http.Controller):
             raise NotFound()
         return request.render('controllo_accessi_portale.portal_partner_view', {})
 
-    @http.route('/get/anagrafiche', type='json', auth='user', website=True, csrf=False)
+    @http.route('/get/anagrafiche', type='jsonrpc', auth='user', website=True, csrf=False)
     def get_anagrafiche(
             self, limit: int, offset: int, query: str, filter: Dict,
             order_by: str = 'last_event', order_dir: str = 'desc', **kwargs):
@@ -252,7 +254,7 @@ class PortalAnagrafiche(http.Controller):
 
     @http.route(
         ['/get/anagrafiche/ca_punto_accesso_category', '/get/anagrafiche/ca_punto_accesso'],
-        type='json',
+        type='jsonrpc',
         auth='user',
         website=True,
         csrf=False,

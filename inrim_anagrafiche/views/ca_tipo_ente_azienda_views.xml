@@ -3,7 +3,7 @@
     <record id="ca_tipo_ente_azienda_action" model="ir.actions.act_window">
         <field name="name">Company Entity Type</field>
         <field name="res_model">ca.tipo_ente_azienda</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <record id="ca_tipo_ente_azienda_view_search" model="ir.ui.view">
@@ -23,10 +23,10 @@
         <field name="name">ca.tipo.ente.azienda.view.tree</field>
         <field name="model">ca.tipo_ente_azienda</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="is_internal"/>
-            </tree>
+            </list>
         </field>
     </record>
 

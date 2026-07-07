@@ -1,11 +1,11 @@
 {
     'name': 'Inrim Controllo Accessi API',
-    'version': '17.0.1.0.0',
+    'version': '19.0.1.0.0',
     'description': "Inrim Controllo Accessi API",
     "author": "Alessio Gerace - Inrim",
     "website": "https://github.com/INRIM",
     'depends': [
-        'auth_api_key_server_env',
+        'auth_api_key',
         'inrim_controllo_accessi'
     ],
     'data': [

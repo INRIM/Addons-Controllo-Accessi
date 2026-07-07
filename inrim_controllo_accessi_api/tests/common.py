@@ -1,31 +1,13 @@
-import json
-
-import requests
 from odoo.tests import tagged
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import HttpCase
 
 
 @tagged("post_install", "-at_install")
-class TestCommon(TransactionCase):
+class TestCommon(HttpCase):
     @classmethod
     def setUpClass(cls):
         super(TestCommon, cls).setUpClass()
-        cls.failureException = True
-
-        # Token
-        def get_token(clz, user, passw):
-            token_url = clz.env['ir.config_parameter'].sudo().get_param(
-                'web.base.url') + '/token/authenticate'
-            data = {
-                "username": user,
-                "password": passw
-            }
-            response = requests.post(token_url, json=data)
-            return json.loads(response.text).get('token')
-
-        cls.token = get_token(cls, "user3", "demo3")
-        cls.tokentech = get_token(cls, "user5", "demo5")
-
+        cls.failureException = AssertionError
         cls.company = cls.env.ref('base.main_company')
         # Persona
         cls.persona_1 = cls.env.ref('inrim_anagrafiche.inrim_demo_ca_persona_1')
@@ -44,6 +26,16 @@ class TestCommon(TransactionCase):
         # Punto Accesso
         cls.punto_accesso_1p001 = cls.env.ref(
             'inrim_controllo_accessi.ca_punto_accesso_1p001')
-        cls.api_url = cls.env[
-            'ir.config_parameter'
-        ].sudo().get_param('web.base.url')
+        cls.api_url = cls.base_url()
+
+    def setUp(self):
+        super().setUp()
+        self.token = self._fetch_token("user3", "demo3")
+        self.tokentech = self._fetch_token("user5", "demo5")
+
+    def _fetch_token(self, username, password):
+        response = self.url_open(
+            '/token/authenticate',
+            json={"username": username, "password": password},
+        )
+        return response.json().get('token')

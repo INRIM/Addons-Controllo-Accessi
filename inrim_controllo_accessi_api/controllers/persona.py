@@ -14,7 +14,7 @@ class InrimApiPersona(InrimApiController):
             *self.model.rest_get(params), is_list=True)
 
     @http.route('/api/persona', auth="none", type='http', methods=['POST'],
-                csrf=False)
+                csrf=False, readonly=False)
     def api_post_persona(self):
         self.check_token('ca.persona', 'create')
         data = self.check_and_decode_body()
@@ -24,7 +24,7 @@ class InrimApiPersona(InrimApiController):
             raise BadRequest(str(e))
 
     @http.route(
-        '/api/persona', auth="none", type='http', methods=['PUT'], csrf=False)
+        '/api/persona', auth="none", type='http', methods=['PUT'], csrf=False, readonly=False)
     def api_put_ca_persona(self):
         self.check_token('ca.persona', 'write')
         data = self.check_and_decode_body()

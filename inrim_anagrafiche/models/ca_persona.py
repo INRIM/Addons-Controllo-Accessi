@@ -9,12 +9,12 @@ class CaPersona(models.Model):
     _name = 'ca.persona'
     _inherit = "ca.model.base.mixin"
     _description = 'Persona'
-    _rec_name = "display_name"
-    _rec_names_search = ['display_name', 'token', 'uid', 'fiscalcode', 'freshman']
+    _rec_name = "complete_name"
+    _rec_names_search = ['complete_name', 'token', 'uid', 'fiscalcode', 'freshman']
 
     name = fields.Char(required=True)
     lastname = fields.Char(required=True)
-    display_name = fields.Char(compute="_compute_display_name", store=True)
+    complete_name = fields.Char(compute="_compute_complete_name", store=True)
     associated_user_id = fields.Many2one('res.users')
     fiscalcode = fields.Char(groups="controllo_accessi.ca_gdpr")
     vat = fields.Char()
@@ -242,7 +242,7 @@ class CaPersona(models.Model):
 
     def compute_name(self):
         self.ensure_one()
-        self.display_name = False
+        self.complete_name = False
         winfo = self.get_current_winfo()
         spec = ''
         if winfo:
@@ -254,10 +254,10 @@ class CaPersona(models.Model):
             else:
                 spec = 'No Spec'
         if self.name and self.lastname:
-            self.display_name = f"{self.lastname} {self.name} ({spec})"
+            self.complete_name = f"{self.lastname} {self.name} ({spec})"
 
     @api.depends('name', 'lastname', "ca_workinfo_ids")
-    def _compute_display_name(self):
+    def _compute_complete_name(self):
         for record in self:
             record.compute_name()
 

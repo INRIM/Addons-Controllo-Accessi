@@ -45,14 +45,13 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <select t-ref="paCategorySelect" id="pa_category_id" name="pa_category_id" class="form-control">
-                                <option value=""/>
-                                <t t-foreach="ca_punto_accesso_category" t-as="category" t-key="category.id">
-                                    <option t-att-value="category.id">
-                                        <t t-esc="category.display_name"/>
-                                    </option>
-                                </t>
-                            </select>
+                            <SelectMenu
+                                    togglerClass="'form-control'"
+                                    choices="categoryChoices"
+                                    value="state.filterCriteria.pa_category_id"
+                                    onSelect.bind="onCategoryChange"
+                                    placeholder="texts.filterVarco"
+                            />
                         </div>
                         <div class="col-md-4">
                             <div class="btn-group w-100 shadow-sm" role="group">

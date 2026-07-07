@@ -28,27 +28,22 @@ class BadgeReleaseDocs extends Component {
                 validity_end_date: this.props.values?.validity_end_date ? DateTime.fromISO(this.props.values.validity_end_date) : null,
             })
         });
-        
-        this.personaSelectRef = useRef("personaSelect");
+
         this.dataService = useService("dataService");
-        
+
         this.ca_persona = [];
         this.tipo_documento = [];
-        this.datesCtn = useRef("date-ctn")
+        this.datesCtn = useRef("date-ctn");
         this.onDateStartSelect = this.onDateStartSelect.bind(this);
         this.onDateEndSelect = this.onDateEndSelect.bind(this);
 
         onMounted(() => {
-            const $select = $(this.personaSelectRef.el);
-            $select.select2({ placeholder: _t("Select a Partner..."), allowClear: true, width: '100%' });
-            $select.select2("readonly", true);
-            
-            if(this.datesCtn.el){
-                var inputs = this.datesCtn.el.querySelectorAll("input");
+            if (this.datesCtn.el) {
+                const inputs = this.datesCtn.el.querySelectorAll("input");
                 inputs.forEach(input => {
                     input.setAttribute("required", true);
                     input.classList.add("form-control");
-                })
+                });
             }
         });
 
@@ -60,14 +55,19 @@ class BadgeReleaseDocs extends Component {
             this.ca_persona = res[0] || [];
             this.tipo_documento = res[1] || [];
         });
-    };
+    }
+
+    get personaDisplayName() {
+        const p = this.ca_persona.find(p => p.id === this.state.formValues.persona_id);
+        return p?.display_name || "";
+    }
 
     onDateStartSelect(dt) { this.state.formValues.validity_start_date = dt; }
     onDateEndSelect(dt) { this.state.formValues.validity_end_date = dt; }
 
     onSubmitClick(e) {
-        var form = $("form");
-        form.addClass('was-validated');
+        const form = document.querySelector("form");
+        if (form) form.classList.add('was-validated');
     }
 }
 

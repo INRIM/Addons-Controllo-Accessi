@@ -1,10 +1,10 @@
 /** @odoo-module */
 import publicWidget from "@web/legacy/js/public/public_widget";
-import { useState, onWillStart, useRef, onMounted, Component, EventBus, mount } from '@odoo/owl';
+import { useState, onWillStart, onMounted, Component, mount } from '@odoo/owl';
+import { SelectMenu } from "@web/core/select_menu/select_menu";
+import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
-import { templates } from "@web/core/assets";
-import { jsonrpc } from "@web/core/network/rpc_service";
-import { dataService as dataServiceFactory } from "./read_data_service";
+import { getTemplate } from "@web/core/templates";
 
 class BadgeReturn extends Component {
     setup() {
@@ -24,6 +24,9 @@ class BadgeReturn extends Component {
             badgeNotFound: _t("Badge non trovato!")
         };
 
+        this.dataService = useService('dataService');
+        this.tags = [];
+
         this.state = useState({
             selectedTag: null,
             selectedPersona: "",
@@ -31,31 +34,13 @@ class BadgeReturn extends Component {
             temp: false,
         });
 
-        this.dataService = this.props.dataService;
-        this.tagSelectRef = useRef("tagSelect");
-        this.tags = [];
-
         onWillStart(async () => {
             this.tags = await this.dataService.loadReturnTags();
         });
 
         onMounted(() => {
             const staticLoader = document.getElementById('static_loader');
-            if (staticLoader) {
-                staticLoader.remove();
-            }
-
-            const $select = $(this.tagSelectRef.el);
-            $select.select2({
-                placeholder: this.texts.selectBadgePlaceholder,
-                allowClear: true,
-                width: '100%',
-                matcher: function (term, text, opt) {
-                    return text.toUpperCase().indexOf(term.toUpperCase()) >= 0
-                        || opt.attr("alt").toUpperCase().indexOf(term.toUpperCase()) >= 0;
-                }
-            });
-            $select.on("change.select2", this.OnTagChange.bind(this));
+            if (staticLoader) staticLoader.remove();
         });
     }
 
@@ -66,35 +51,33 @@ class BadgeReturn extends Component {
         return this.tags;
     }
 
-    OnTagChange(event) {
-        const tagId = parseInt(event.target.value);
-        const tag = this.tags.find(tag => tag.id === tagId);
-        if (tag && tag.ca_persona_id) {
-             this.state.selectedPersona = tag.ca_persona_id[1];
-        } else {
-             this.state.selectedPersona = "";
-        }
-        this.state.selectedTag = tag?.id || null;
+    get tagChoices() {
+        return this.tagFiltered.map(tag => ({ value: tag.id, label: tag.display_name }));
+    }
+
+    onTagSelect(value) {
+        const tagId = value || null;
+        this.state.selectedTag = tagId;
+        const tag = this.tags.find(t => t.id === tagId);
+        this.state.selectedPersona = tag?.ca_persona_id?.[1] || "";
     }
 
     OnTempChange(event) {
         this.state.temp = !this.state.temp;
-        $(this.tagSelectRef.el).val("").trigger("change");
+        this.state.selectedTag = null;
+        this.state.selectedPersona = "";
     }
 
     onKeyDownTagCode(event) {
         if (event.key === "Enter") {
             event.preventDefault();
-
-            const $select = $(this.tagSelectRef.el);
             const val = event.target.value.trim();
             const tag = this.tags.find(tag => tag.tag_code === val);
-
             if (tag) {
-                $select.val(tag.id).trigger("change");
-                this.state.tag_code = ""; 
+                this.onTagSelect(tag.id);
+                this.state.tag_code = "";
             } else {
-                $select.val("").trigger("change");
+                this.onTagSelect(null);
                 alert(this.texts.badgeNotFound);
             }
             event.target.select();
@@ -103,29 +86,17 @@ class BadgeReturn extends Component {
     }
 }
 
-BadgeReturn.components = {};
+BadgeReturn.components = { SelectMenu };
 BadgeReturn.template = 'controllo_accessi_portale.BadgeReturn';
 
 publicWidget.registry.BadgeReturnWidget = publicWidget.Widget.extend({
     selector: '#badge_return_app',
-    
-    start: function () {
-        const serviceInstance = dataServiceFactory.start(null, { rpc: jsonrpc });
-        
-        const env = {
-            bus: new EventBus(),
-            services: {
-                ui: { isSmall: false, size: 2, bus: new EventBus() },
-                localization: { direction: 'ltr' },
-            }
-        };
 
+    start: function () {
         return mount(BadgeReturn, this.el, {
-            templates: templates,
-            props: {
-                dataService: serviceInstance
-            },
-            env: env,
+            getTemplate: getTemplate,
+            props: {},
+            env: Component.env,
             dev: odoo.debug,
         });
     }

@@ -22,14 +22,8 @@
                         <label for="persona_id" class="form-label">Persona</label>
                     </div>
                     <div class="col-md-10">
-                        <select t-ref="personaSelect" id="persona_id" name="persona_id" class="form-control" style="margin-bottom: 10px;" t-model="state.formValues.persona_id" readonly="true">
-                            <option value=""/>
-                            <t t-foreach="ca_persona" t-as="partner" t-key="partner.id">
-                                <option t-att-value="partner.id">
-                                    <t t-esc="partner.display_name"/>
-                                </option>
-                            </t>
-                        </select>
+                        <input class="form-control" style="margin-bottom: 10px;" readonly="true" t-att-value="personaDisplayName"/>
+                        <input type="hidden" name="persona_id" t-att-value="state.formValues.persona_id"/>
                     </div>
                 </div>
 

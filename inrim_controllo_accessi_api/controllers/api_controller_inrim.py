@@ -6,7 +6,7 @@ import string
 import werkzeug
 from odoo import http, api, SUPERUSER_ID
 from odoo.http import request, Response
-from odoo.tools import date_utils
+from odoo.tools.json import json_default
 from werkzeug.exceptions import Unauthorized, Forbidden, NotAcceptable, BadRequest
 
 
@@ -15,7 +15,7 @@ class InrimApiController(http.Controller):
     def __init__(self):
         super(InrimApiController, self).__init__()
         self.model = None
-        self.env = None
+        # self.env = None
 
     @staticmethod
     def authenticate_token(env, token):
@@ -33,26 +33,24 @@ class InrimApiController(http.Controller):
 
     def check_token(self, model, access_type):
         env = api.Environment(
-            request.cr, SUPERUSER_ID,
+            request.env.cr, SUPERUSER_ID,
             {'active_test': False}
         )
         if 'token' in request.httprequest.headers:
             token = request.httprequest.headers.get('token')
             user_token = self.authenticate_token(env, token)
-            user_id = env['res.users'].browse(user_token)
-            request.update_env(user=user_id)
-            env.user = user_id
             if not user_token:
                 raise Unauthorized(description='Token non valido')
+            user_id = env['res.users'].browse(user_token)
+            request.update_env(user=user_id)
+            user_env = env(user=user_id)
         else:
             raise Unauthorized(description='Token non valido')
-        try:
-            env[model].with_user(env.user).check_access_rights(access_type)
-            self.model = env[model]
-        except Exception as e:
+        if not user_env[model].has_access(access_type):
             raise Forbidden(
                 description=f"L'utente {user_id.name} non ha accesso ai record"
             )
+        self.model = user_env[model]
 
     @staticmethod
     def check_and_decode_body():
@@ -63,7 +61,7 @@ class InrimApiController(http.Controller):
 
     @staticmethod
     def success_response(body, headers=None):
-        data = json.dumps(body, ensure_ascii=False, default=date_utils.json_default)
+        data = json.dumps(body, ensure_ascii=False, default=json_default)
         headers = werkzeug.datastructures.Headers(headers)
         headers['Content-Length'] = len(data)
         if 'Content-Type' not in headers:

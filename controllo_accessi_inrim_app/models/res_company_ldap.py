@@ -11,6 +11,5 @@ class CompanyLDAP(models.Model):
 
     user = fields.Many2one(
         'res.users', string='Template User',
-        default=lambda self: self.env.ref('base.default_user').id,
         help="User to copy when creating new users"
     )

@@ -12,7 +12,7 @@ class TestCommon(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super(TestCommon, cls).setUpClass()
-        cls.failureException = True
+        cls.failureException = AssertionError
         # Utenti
 
 

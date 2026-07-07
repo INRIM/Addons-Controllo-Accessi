@@ -1,11 +1,11 @@
 /** @odoo-module */
 import publicWidget from "@web/legacy/js/public/public_widget";
-import { onWillStart, onWillUnmount, onMounted, onPatched, useState, useRef, mount, EventBus } from '@odoo/owl';
+import { onWillStart, onWillUnmount, onMounted, useState, mount } from '@odoo/owl';
 import { Pager } from "@web/core/pager/pager";
+import { SelectMenu } from "@web/core/select_menu/select_menu";
+import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
-import { templates } from "@web/core/assets";
-import { jsonrpc } from "@web/core/network/rpc_service"; 
-import { dataService as dataServiceFactory } from "./read_data_service"; 
+import { getTemplate } from "@web/core/templates";
 
 const { Component } = owl;
 
@@ -43,27 +43,23 @@ class PartnersPortal extends Component {
             autoRefresh: _t("Auto-refresh:")
         };
 
-        this.dataService = this.props.dataService;
+        this.dataService = useService('dataService');
         
-        this.paCategorySelectRef = useRef("paCategorySelect");
-        this.ca_punto_accesso_category = [];
-        this.categorySelectEl = null;
-        this.isSyncingCategorySelect = false;
-
         this.state = useState({
-            isLoading: true, 
+            isLoading: true,
             searchValue: "",
             filterCriteria: { internal: null, external: null, is_present: null, pa_category_id: null },
             sort: { field: "last_event", direction: "desc" },
             offset: this.initOffset,
             limit: this.initLimit,
             total: 0,
-            ca_persona_data: []
+            ca_persona_data: [],
+            ca_punto_accesso_category: [],
         });
 
         onWillStart(async () => {
             const categories = await this.dataService.loadPuntoAccessoCategory();
-            this.ca_punto_accesso_category = categories || [];
+            this.state.ca_punto_accesso_category = categories || [];
         });
 
         onMounted(() => {
@@ -71,76 +67,22 @@ class PartnersPortal extends Component {
             if (staticLoader) {
                 staticLoader.remove();
             }
-
-            this.setupCategorySelect();
             this.fetchData(this.state.limit, this.state.offset);
             this.setupPolling();
-        });
-
-        onPatched(() => {
-            this.setupCategorySelect();
         });
 
         onWillUnmount(() => {
             this.isComponentAlive = false;
             this.clearPolling();
             if (this.searchTimeout) clearTimeout(this.searchTimeout);
-            this.destroyCategorySelect();
         });
     }
 
-    setupCategorySelect() {
-        const selectEl = this.paCategorySelectRef.el;
-        if (!selectEl) {
-            return;
-        }
-        if (this.categorySelectEl && this.categorySelectEl !== selectEl) {
-            this.destroyCategorySelect();
-        }
-        const $select = $(selectEl);
-        if (!$select.data('select2')) {
-            $select.select2({
-                placeholder: this.texts.filterVarco,
-                allowClear: true,
-                width: '100%'
-            });
-        }
-        $select.off('change.portalCategory');
-        $select.on('change.portalCategory', this.onCategoryChange.bind(this));
-        this.categorySelectEl = selectEl;
-        this.syncCategorySelect();
-    }
-
-    destroyCategorySelect() {
-        if (!this.categorySelectEl) {
-            return;
-        }
-        const $select = $(this.categorySelectEl);
-        $select.off('change.portalCategory');
-        if ($select.data('select2')) {
-            $select.select2('destroy');
-        }
-        this.categorySelectEl = null;
-    }
-
-    syncCategorySelect() {
-        if (!this.paCategorySelectRef.el) {
-            return;
-        }
-        const nextValue = this.state.filterCriteria.pa_category_id
-            ? String(this.state.filterCriteria.pa_category_id)
-            : "";
-        const $select = $(this.paCategorySelectRef.el);
-        const currentValue = $select.val() || "";
-        if (currentValue === nextValue) {
-            return;
-        }
-        this.isSyncingCategorySelect = true;
-        $select.val(nextValue);
-        if ($select.data('select2')) {
-            $select.trigger('change.select2');
-        }
-        this.isSyncingCategorySelect = false;
+    get categoryChoices() {
+        return this.state.ca_punto_accesso_category.map(cat => ({
+            value: cat.id,
+            label: cat.display_name,
+        }));
     }
 
     async fetchData(limit, offset, query = null, filter = null, sort = null) {
@@ -188,14 +130,8 @@ class PartnersPortal extends Component {
     async setFilterExternal() { this.state.filterCriteria.internal = null; this.state.filterCriteria.external = true; await this._resetAndFetch(); }
     async setFilterIsPresent(evt) { this.state.filterCriteria.is_present = evt.target.checked ? true : null; await this._resetAndFetch(); }
     
-    async onCategoryChange(event) {
-        if (this.isSyncingCategorySelect) {
-            return;
-        }
-        const selectedValue = event.target.value;
-        this.state.filterCriteria.pa_category_id = selectedValue
-            ? parseInt(selectedValue, 10)
-            : null;
+    async onCategoryChange(value) {
+        this.state.filterCriteria.pa_category_id = value || null;
         await this._resetAndFetch();
     }
 
@@ -268,26 +204,17 @@ class PartnersPortal extends Component {
     }
 }
 
-PartnersPortal.components = { Pager };
+PartnersPortal.components = { Pager, SelectMenu };
 PartnersPortal.template = 'controllo_accessi_portale.PartnersPortal';
 
 publicWidget.registry.PartnersPortalWidget = publicWidget.Widget.extend({
     selector: '#partners_portal_app',
     start: async function () {
-        const serviceInstance = dataServiceFactory.start(null, { rpc: jsonrpc });
-        const env = {
-            bus: new EventBus(),
-            services: {
-                ui: { isSmall: false, size: 2, bus: new EventBus() },
-                localization: { direction: 'ltr' },
-                hotkey: { add: () => {} }
-            }
-        };
         return mount(PartnersPortal, this.el, {
-            templates: templates,
-            props: { dataService: serviceInstance },
-            env: env,
-            dev: odoo.debug, 
+            getTemplate: getTemplate,
+            props: {},
+            env: Component.env,
+            dev: odoo.debug,
         });
     }
 });
