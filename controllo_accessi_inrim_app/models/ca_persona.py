@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 
 import requests
 from odoo import models, api, fields
-from odoo.addons.test_convert.tests.test_env import record
 
 logger = logging.getLogger(__name__)
 

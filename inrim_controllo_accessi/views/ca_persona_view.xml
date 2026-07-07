@@ -14,7 +14,7 @@
                             display="always"
                             groups="controllo_accessi.ca_ca"
                             class="btn-primary"
-                            context="{'default_persona_id':active_id}"
+                            context="{'default_persona_id': id}"
                             invisible="ca_tag_ids"
                     />
 
@@ -34,7 +34,7 @@
         <field name="inherit_id"
                ref="inrim_anagrafiche.ca_persona_tree"/>
         <field name="arch" type="xml">
-            <xpath expr="//tree/field[@name='display_name']" position="before">
+            <xpath expr="//list/field[@name='display_name']" position="before">
                 <header>
                     <button
                             name="inrim_controllo_accessi.ca_registra_persona_action"

@@ -37,9 +37,7 @@ class InrimApiImgDocumento(http.Controller):
                         'token': 'Token non presente'
                     }
                 }, ensure_ascii=False, indent=4), status=400)
-        try:
-            env['ca.img_documento'].with_user(env.user).check_access_rights('read')
-        except Exception as e:
+        if not env['ca.img_documento'].with_user(env.user).has_access('read'):
             return Response(json.dumps({
                     "header": {
                         'response': 401
@@ -116,9 +114,7 @@ class InrimApiImgDocumento(http.Controller):
                         }
                     }
                 }, ensure_ascii=False, indent=4), status=400)
-        try:
-            env['ca.img_documento'].with_user(env.user).check_access_rights('write')
-        except Exception as e:
+        if not env['ca.img_documento'].with_user(env.user).has_access('write'):
             return Response(json.dumps({
                     "header": {
                         'response': 401
@@ -344,9 +340,7 @@ class InrimApiImgDocumento(http.Controller):
                             'ca_documento_id': 1
                         }
                 }, ensure_ascii=False, indent=4), status=400)
-        try:
-            env['ca.img_documento'].with_user(env.user).check_access_rights('create')
-        except Exception as e:
+        if not env['ca.img_documento'].with_user(env.user).has_access('create'):
             return Response(json.dumps({
                 "header": {
                     'response': 401
@@ -549,9 +543,7 @@ class InrimApiImgDocumento(http.Controller):
                         'MissingBody': "Per poter eliminare un record, é necessario che nel body venga specificato l'id del record da eliminare"
                     }
                 }, ensure_ascii=False, indent=4), status=400)
-        try:
-            env['ca.img_documento'].with_user(env.user).check_access_rights('unlink')
-        except Exception as e:
+        if not env['ca.img_documento'].with_user(env.user).has_access('unlink'):
             return Response(json.dumps({
                     "header": {
                         'response': 401

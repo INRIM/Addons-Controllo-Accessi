@@ -6,8 +6,6 @@
             <field name="model_id" ref="model_ca_punto_accesso"/>
             <field name="interval_number">2</field>
             <field name="interval_type">minutes</field>
-            <field name="numbercall">-1</field>
-            <field name="state">code</field>
             <field name="code">model.load_readers_data()</field>
         </record>
 
@@ -16,8 +14,6 @@
             <field name="model_id" ref="model_ca_punto_accesso"/>
             <field name="interval_number">2</field>
             <field name="interval_type">minutes</field>
-            <field name="numbercall">-1</field>
-            <field name="state">code</field>
             <field name="code">model.eval_readers_data()</field>
         </record>
 
@@ -26,8 +22,6 @@
             <field name="model_id" ref="model_ca_punto_accesso"/>
             <field name="interval_number">15</field>
             <field name="interval_type">minutes</field>
-            <field name="numbercall">-1</field>
-            <field name="state">code</field>
             <field name="code">model.update_readers_data()</field>
         </record>
 
@@ -38,8 +32,6 @@
                    eval="(DateTime.now().replace(hour=4, minute=0, second=0, microsecond=0))"/>
             <field name="interval_number">24</field>
             <field name="interval_type">hours</field>
-            <field name="numbercall">-1</field>
-            <field name="state">code</field>
             <field name="code">model.update_clock()</field>
         </record>
     </data>

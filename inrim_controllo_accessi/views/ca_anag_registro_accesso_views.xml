@@ -27,7 +27,7 @@
         <field name="name">ca.anag.registro.accesso.view.tree</field>
         <field name="model">ca.anag_registro_accesso</field>
         <field name="arch" type="xml">
-            <tree duplicate="False" delete="False" create="False"
+            <list duplicate="False" delete="False" create="False"
                   default_order="datetime_event desc">
                 <field name="ca_punto_accesso_id"/>
                 <field name="ca_ente_azienda_id"/>
@@ -38,7 +38,7 @@
                 <field name="access_allowed"/>
                 <field name="system_error"/>
                 <field name="access_conflict"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -79,6 +79,6 @@
     <record id="ca_anag_registro_accesso_action" model="ir.actions.act_window">
         <field name="name">Access Register</field>
         <field name="res_model">ca.anag_registro_accesso</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>

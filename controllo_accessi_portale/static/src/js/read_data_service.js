@@ -1,9 +1,10 @@
 /** @odoo-module */
 import {registry} from "@web/core/registry";
+import { rpc } from "@web/core/network/rpc";
 
 export const dataService = {
-    dependencies: ["rpc"],
-    start(env, {rpc}) {
+    dependencies: [],
+    start(env, {}) {
         return {
             loadAnagrafiche: (limit, offset, query, filter, orderBy, orderDir) => rpc("/get/anagrafiche", {limit, offset, query, filter, order_by: orderBy, order_dir: orderDir}),
             loadPuntoAccessoCategory: () => rpc("/get/anagrafiche/ca_punto_accesso_category"),

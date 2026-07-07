@@ -2,7 +2,6 @@ import logging
 import re
 
 from odoo import SUPERUSER_ID, _, fields, models
-from odoo.tools.pycompat import to_text
 
 _logger = logging.getLogger(__name__)
 
@@ -36,7 +35,8 @@ class CompanyLDAP(models.Model):
         res = super(CompanyLDAP, self)._map_ldap_attributes(
             conf, login, ldap_entry)
         if conf["email_entry"] and conf["email_entry"] in ldap_entry[1]:
-            res['email'] = to_text(ldap_entry[1][conf["email_entry"]][0])
+            val = ldap_entry[1][conf["email_entry"]][0]
+            res['email'] = val.decode('utf-8') if isinstance(val, bytes) else str(val)
         return res
 
     def _get_ldap_dicts(self, idres=0):

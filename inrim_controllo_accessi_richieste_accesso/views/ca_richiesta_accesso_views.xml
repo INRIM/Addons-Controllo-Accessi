@@ -23,7 +23,7 @@
         <field name="name">ca.richiesta.accesso.view.tree</field>
         <field name="model">ca.richiesta_accesso</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="ca_categoria_richiesta_id"/>
                 <field name="ca_categoria_tipo_richiesta_id"/>
                 <field name="categoria_richiesta_id"/>
@@ -31,7 +31,7 @@
                 <field name="anag_tipologie_istanze_id"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -100,6 +100,6 @@
     <record id="ca_richiesta_accesso_action" model="ir.actions.act_window">
         <field name="name">Access Request</field>
         <field name="res_model">ca.richiesta_accesso</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>

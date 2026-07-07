@@ -46,13 +46,11 @@ class InrimApiController(http.Controller):
                 raise Unauthorized(description='Token non valido')
         else:
             raise Unauthorized(description='Token non valido')
-        try:
-            env[model].with_user(env.user).check_access_rights(access_type)
-            self.model = env[model]
-        except Exception as e:
+        if not env[model].with_user(env.user).has_access(access_type):
             raise Forbidden(
                 description=f"L'utente {user_id.name} non ha accesso ai record"
             )
+        self.model = env[model]
 
     @staticmethod
     def check_and_decode_body():

@@ -21,7 +21,7 @@
         <field name="name">ca.persona.tree</field>
         <field name="model">ca.persona</field>
         <field name="arch" type="xml">
-            <tree
+            <list
                     decoration-danger="present == 'no'"
                     decoration-success="present == 'yes'"
                     default_order="display_name asc"
@@ -34,7 +34,7 @@
                 <field name="is_external" optional="hide"/>
                 <field name="is_internal" optional="hide"/>
                 <field name="is_structured" optional="hide"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -246,7 +246,7 @@
                             </page>
                             <page name="work_info" string="List of Work Info">
                                 <field name="ca_workinfo_ids"
-                                       context="{'default_ca_persona_id': active_id, 'no_create': True}">
+                                       context="{'default_ca_persona_id': id, 'no_create': True}">
                                     <form edit="0">
                                         <field name="state" readonly="1"
                                                widget="statusbar"/>
@@ -266,8 +266,7 @@
                                             </group>
                                         </group>
                                     </form>
-                                    <tree default_order="date_end desc"
-                                          editable="false">
+                                    <list default_order="date_end desc">
                                         <field name="ca_persona_id"
                                                column_invisible="1"/>
                                         <field name="work_id_number"/>
@@ -277,7 +276,7 @@
                                         <field name="date_start"/>
                                         <field name="date_end"/>
                                         <field name="state"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                             <page name="person_tags" string="List Tags">
@@ -302,7 +301,7 @@
                                                     name="image_ids"
                                                     context="{'default_ca_tipo_documento_id': tipo_documento_id,'default_name': tipo_documento_name,'default_description': tipo_documento_name}"
                                             >
-                                                <tree editable="bottom">
+                                                <list editable="bottom">
                                                     <field name="name"/>
                                                     <field name="description"/>
                                                     <field name="ca_tipo_documento_id"/>
@@ -312,13 +311,13 @@
                                                            filename="filename"/>
                                                     <field name="filename"
                                                            column_invisible="1"/>
-                                                </tree>
+                                                </list>
                                             </field>
                                             <field name="ca_stato_documento_id"
                                                    force_save="1"/>
                                         </group>
                                     </form>
-                                    <tree>
+                                    <list>
                                         <field name="tipo_documento_id"/>
                                         <field name="validity_start_date"/>
                                         <field name="validity_end_date"/>
@@ -328,7 +327,7 @@
                                         <field name="document_code"/>
                                         <field name="ca_stato_documento_id"
                                                force_save="1"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                         </notebook>
@@ -341,6 +340,6 @@
     <record id="ca_persona_action" model="ir.actions.act_window">
         <field name="name">People</field>
         <field name="res_model">ca.persona</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>

@@ -17,13 +17,13 @@
         <field name="name">ca.lettore.view.tree</field>
         <field name="model">ca.lettore</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="reader_ip"/>
                 <field name="direction"/>
                 <field name="device_id"/>
                 <field name="system_error"/>
-            </tree>
+            </list>
         </field>
     </record>
     
@@ -58,6 +58,6 @@
     <record id="ca_lettore_action" model="ir.actions.act_window">
         <field name="name">Readers</field>
         <field name="res_model">ca.lettore</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>

@@ -18,13 +18,13 @@
         <field name="name">ca.punto.accesso.persona.view.tree</field>
         <field name="model">ca.lettore_persona</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="ca_persona_id"/>
                 <field name="ca_tag_lettore_id"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
                 <field name="state"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -56,7 +56,7 @@
     <record id="ca_punto_accesso_persona_action" model="ir.actions.act_window">
         <field name="name">Reader Person</field>
         <field name="res_model">ca.lettore_persona</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="context">{'default_date': context_today()}</field>
     </record>
 </odoo>

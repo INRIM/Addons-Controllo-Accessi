@@ -5,14 +5,11 @@
         <record id="ir_cron_check_reader_person_validity" model="ir.cron">
             <field name="name">INRIM: Check Reader Person Validity</field>
             <field name="model_id" ref="model_ca_lettore_persona"/>
-            <field name="type">ir.action.server</field>
             <field name="code">model._cron_check_validity_person_reader()
             </field>
             <field name="interval_type">minutes</field>
             <field name="interval_number">10</field>
-            <field name="numbercall">-1</field>
             <field name="priority">5</field>
-            <field name="doall">False</field>
             <field name="active">True</field>
         </record>
 
@@ -20,13 +17,10 @@
         <record id="ir_cron_check_tag_reader_validity" model="ir.cron">
             <field name="name">INRIM: Check Tag Reader Validity</field>
             <field name="model_id" ref="model_ca_tag_lettore"/>
-            <field name="type">ir.action.server</field>
             <field name="code">model._cron_check_validity_tag_reader()</field>
             <field name="interval_type">minutes</field>
             <field name="interval_number">10</field>
-            <field name="numbercall">-1</field>
             <field name="priority">5</field>
-            <field name="doall">False</field>
             <field name="active">True</field>
         </record>
     </data>

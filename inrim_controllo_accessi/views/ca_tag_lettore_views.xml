@@ -19,7 +19,7 @@
         <field name="name">ca.tag.lettore.view.tree</field>
         <field name="model">ca.tag_lettore</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="ca_lettore_id"/>
                 <field name="ca_tag_id"/>
@@ -27,7 +27,7 @@
                 <field name="date_start"/>
                 <field name="date_end"/>
                 <field name="state"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -118,6 +118,6 @@
     <record id="ca_tag_lettore_action" model="ir.actions.act_window">
         <field name="name">Reader Tag</field>
         <field name="res_model">ca.tag_lettore</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">list,kanban,form</field>
     </record>
 </odoo>

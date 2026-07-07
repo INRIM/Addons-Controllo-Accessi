@@ -48,14 +48,13 @@
                                 <t t-esc="texts.selectBadgeLabel"/>
                             </label>
                             <div class="col-md-6">
-                                <select t-ref="tagSelect" id="tag_id" name="tag_id" class="form-control" required="true">
-                                    <option value=""/>
-                                    <t t-foreach="tagFiltered" t-as="tag" t-key="tag.id">
-                                        <option t-att-value="tag.id" t-att-alt="tag.tag_code">
-                                            <t t-esc="tag.display_name"/>
-                                        </option>
-                                    </t>
-                                </select>
+                                <SelectMenu
+                                    choices="tagChoices"
+                                    value="state.selectedTag"
+                                    onSelect.bind="onTagSelect"
+                                    placeholder="texts.selectBadgePlaceholder"
+                                />
+                                <input type="hidden" name="tag_id" t-att-value="state.selectedTag or ''"/>
                             </div>
 
                             <div class="col-md-3 d-flex align-items-center justify-content-end">
