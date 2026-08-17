@@ -238,7 +238,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_ente_azienda_form
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
 msgid "Country"
-msgstr "Provincia"
+msgstr "Nazione"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_codice_locale__create_uid
@@ -423,7 +423,7 @@ msgstr "Città Domicilio"
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__domicile_country_id
 msgid "Domicile Country"
-msgstr "Provincia Domicilio"
+msgstr "Nazione Domicilio"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__domicile_other_than_residence
@@ -433,7 +433,7 @@ msgstr "Residenza Diverso Da Domicilio"
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__domicile_state_id
 msgid "Domicile State"
-msgstr "Nazione Domicilio"
+msgstr "Provincia Domicilio"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__domicile_street
@@ -992,12 +992,12 @@ msgstr "Città Residenza"
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__residence_country_id
 msgid "Residence Country"
-msgstr "Provincia Residenza"
+msgstr "Nazione Residenza"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__residence_state_id
 msgid "Residence State"
-msgstr "Nazione Residenza"
+msgstr "Provincia Residenza"
 
 #. module: inrim_anagrafiche
 #: model:ir.model.fields,field_description:inrim_anagrafiche.field_ca_persona__residence_street
@@ -1077,7 +1077,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_ente_azienda_form
 #: model_terms:ir.ui.view,arch_db:inrim_anagrafiche.ca_persona_form
 msgid "State"
-msgstr "Nazione"
+msgstr "Provincia"
 
 #. module: inrim_anagrafiche
 #: model:ir.model,name:inrim_anagrafiche.model_ca_stato_anag
