@@ -212,6 +212,49 @@ class TestInrim(TestCommon):
 
         self.assertEqual(tag_persona.state, 'to_give_back')
 
+    def test_name_search_without_gdpr_access(self):
+        """
+        Utente senza il gruppo GDPR cerca una Persona per nome
+
+        :return: Nessun AccessError su fiscalcode, la Persona viene trovata
+        """
+        self.assertFalse(self.user_5.has_group('controllo_accessi.ca_gdpr'))
+        persona_model = self.env['ca.persona'].with_user(self.user_5)
+
+        self.assertNotIn('fiscalcode', persona_model._rec_names_search)
+
+        res = persona_model.name_search(
+            name=self.persona_1.complete_name, operator='=')
+        self.assertEqual([rec_id for rec_id, _name in res], [self.persona_1.id])
+
+        self.assertTrue(
+            persona_model.search([
+                ('display_name', 'ilike', self.persona_1.complete_name)
+            ])
+        )
+        # fiscalcode non e' leggibile: non deve essere un criterio di ricerca
+        self.assertFalse(
+            persona_model.search([
+                ('display_name', '=', self.persona_1.fiscalcode)
+            ])
+        )
+
+    def test_name_search_with_gdpr_access(self):
+        """
+        Utente con il gruppo GDPR cerca una Persona per codice fiscale
+
+        :return: fiscalcode resta un criterio di ricerca, la Persona
+        viene trovata
+        """
+        self.assertTrue(self.user_1.has_group('controllo_accessi.ca_gdpr'))
+        persona_model = self.env['ca.persona'].with_user(self.user_1)
+
+        self.assertIn('fiscalcode', persona_model._rec_names_search)
+
+        res = persona_model.name_search(
+            name=self.persona_1.fiscalcode, operator='=')
+        self.assertEqual([rec_id for rec_id, _name in res], [self.persona_1.id])
+
     # Test 9
     # def test_9(self):
     #     """

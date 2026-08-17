@@ -10,7 +10,23 @@ class CaPersona(models.Model):
     _inherit = "ca.model.base.mixin"
     _description = 'Persona'
     _rec_name = "complete_name"
-    _rec_names_search = ['complete_name', 'token', 'uid', 'fiscalcode', 'freshman']
+    _search_fnames = ['complete_name', 'token', 'uid', 'fiscalcode', 'freshman']
+
+    @property
+    def _rec_names_search(self):
+        """Only keep the fields readable by the current user.
+
+        Since 19.0 the ORM checks field access rights while converting a
+        domain to SQL (``Domain._to_sql`` -> ``_check_field_access``), so
+        keeping ``fiscalcode`` (restricted to ``controllo_accessi.ca_gdpr``)
+        in the list would make any search on ``display_name`` raise an
+        ``AccessError`` for users without that group.
+        """
+        return [
+            fname
+            for fname in self._search_fnames
+            if self._has_field_access(self._fields[fname], 'read')
+        ]
 
     name = fields.Char(required=True)
     lastname = fields.Char(required=True)
