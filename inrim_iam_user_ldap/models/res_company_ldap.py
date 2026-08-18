@@ -123,7 +123,10 @@ class CompanyLDAP(models.Model):
                     )
                     % conf["ldap_filter"]
                 )
-            login = result[1][login_attr][0].lower().strip()
+            val = result[1][login_attr][0]
+            if isinstance(val, bytes):
+                val = val.decode("utf-8")
+            login = val.lower().strip()
             user_id = self.with_context(
                 no_reset_password=True
             )._get_or_create_user(conf, login, result)
