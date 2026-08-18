@@ -1,7 +1,7 @@
 <odoo>
     <template id="partners_portal_minimal_layout" name="Partners Portal Minimal Layout">
         &lt;!DOCTYPE html&gt;
-        <html t-att-lang="lang" style="overflow-y: auto !important; height: auto !important;">
+        <html t-att-lang="lang" style="height: auto !important;">
             <head>
                 <meta charset="utf-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
