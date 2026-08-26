@@ -88,5 +88,31 @@
             sequence="20"
     />
 
+    <menuitem
+            id="ca_gestione_badge_generico_menu"
+            name="Manage Generic Badge"
+            action="ca_gestione_badge_generico_action"
+            groups="controllo_accessi.ca_ca,controllo_accessi.ca_portineria"
+            parent="ca_punto_accesso_menu"
+            sequence="25"
+    />
+
+    <menuitem
+            id="ca_importa_badge_generico_menu"
+            name="Import Generic Badges"
+            action="ca_importa_badge_generico_action"
+            groups="controllo_accessi.ca_ca,controllo_accessi.ca_portineria"
+            parent="ca_punto_accesso_menu"
+            sequence="26"
+    />
+
+    <menuitem
+            id="ca_tipo_badge_generico_menu"
+            name="Generic Badge Type"
+            action="ca_tipo_badge_generico_action"
+            groups="controllo_accessi.ca_config"
+            parent="inrim_anagrafiche.inrim_ca_configuration_menu"
+            sequence="25"
+    />
 
 </odoo>

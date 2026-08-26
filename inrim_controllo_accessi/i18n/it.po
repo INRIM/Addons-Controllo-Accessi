@@ -18,7 +18,6 @@ msgstr ""
 #. module: inrim_controllo_accessi
 #. odoo-python
 #: code:addons/inrim_controllo_accessi/models/ca_tag_lettore.py:0
-#, python-format
 msgid "A reader tag already exists with the same tag and reader"
 msgstr "Esiste già un tag lettore con stesso tag e lettore"
 
@@ -61,13 +60,13 @@ msgstr "Gestione Dati Accesso"
 #: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_punto_accesso_action
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_abilita_persona_locale__punto_accesso_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__ca_punto_accesso
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__ca_punto_accesso_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore__punto_accesso_ids
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__ca_punto_accesso_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_category__ca_access_point_ids
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_richiesta_riga_accesso_sede__punto_accesso_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__ca_punto_accesso_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__ca_punto_accesso_id
-#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__ca_punto_accesso_id
 #: model:ir.ui.menu,name:inrim_controllo_accessi.ca_base_punto_accesso_menu
 msgid "Access Point"
 msgstr "Punto Accesso"
@@ -80,6 +79,8 @@ msgid "Access Points"
 msgstr "Punti Accesso"
 
 #. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/models/ca_richiesta_riga_accesso_sede.py:0
 #: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_anag_registro_accesso_action
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_righe_accesso__registro_accesso_id
 #: model:ir.ui.menu,name:inrim_controllo_accessi.ca_anag_registro_accesso_menu
@@ -89,7 +90,6 @@ msgstr "Registro Accesso"
 #. module: inrim_controllo_accessi
 #. odoo-python
 #: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
-#, python-format
 msgid "Access Rejected Today"
 msgstr "Accessi Rifiutati Oggi"
 
@@ -97,7 +97,6 @@ msgstr "Accessi Rifiutati Oggi"
 #. odoo-python
 #: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
-#, python-format
 msgid "Accessed Today"
 msgstr "Accessi Oggi"
 
@@ -107,6 +106,7 @@ msgstr "Accessi Oggi"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__active
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_category__active
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__active
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tipo_badge_generico__active
 #: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_lettore_persona__state__active
 #: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_tag_lettore__state__active
 msgid "Active"
@@ -135,7 +135,6 @@ msgstr "Aggiungi Badge Persona"
 #: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_persona_tree_inherit
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_persona_view_ca_form_inherit
-#, python-format
 msgid "Add Card Person"
 msgstr "Aggiungi Badge Persona"
 
@@ -143,7 +142,6 @@ msgstr "Aggiungi Badge Persona"
 #. odoo-python
 #: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
-#, python-format
 msgid "Add person in local"
 msgstr "Aggiungi Persona Locale"
 
@@ -189,6 +187,7 @@ msgid "Available Tags"
 msgstr "Tag Disponibili"
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_gestione_badge_generico__ca_tag_id
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_persona_form
 msgid "Badge"
 msgstr ""
@@ -225,6 +224,7 @@ msgstr "Tipo Info Lavorative"
 
 #. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_abilita_persona_locale_form
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_gestione_badge_generico_form
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_persona_form
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_restituisci_badge_form
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_sposta_punto_accesso_view_form
@@ -232,6 +232,7 @@ msgid "Cancel"
 msgstr "Chiudi"
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__ca_punto_accesso_category_id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__ca_category
 msgid "Cluster"
 msgstr "Raggruppamento"
@@ -266,6 +267,7 @@ msgstr "Completa"
 
 #. module: inrim_controllo_accessi
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_aggiungi_movimento_accesso_view_form
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_gestione_badge_generico_form
 msgid "Confirm"
 msgstr "Conferma"
 
@@ -273,6 +275,8 @@ msgstr "Conferma"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_abilita_persona_locale__create_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__create_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__create_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_gestione_badge_generico__create_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_importa_badge_generico__create_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__create_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__create_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__create_uid
@@ -284,6 +288,7 @@ msgstr "Conferma"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_righe_accesso__create_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__create_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__create_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tipo_badge_generico__create_uid
 msgid "Created by"
 msgstr ""
 
@@ -291,6 +296,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_abilita_persona_locale__create_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__create_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__create_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_gestione_badge_generico__create_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_importa_badge_generico__create_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__create_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__create_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__create_date
@@ -302,6 +309,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_righe_accesso__create_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__create_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__create_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tipo_badge_generico__create_date
 msgid "Created on"
 msgstr ""
 
@@ -341,14 +349,12 @@ msgstr "Data Inizio:"
 #. odoo-python
 #: code:addons/inrim_controllo_accessi/wizard/ca_abilita_persona_locale.py:0
 #: code:addons/inrim_controllo_accessi/wizard/ca_registra_persona.py:0
-#, python-format
 msgid "Date end must be after date start"
 msgstr "La fine della data deve essere successiva alla data di inizio"
 
 #. module: inrim_controllo_accessi
 #. odoo-python
 #: code:addons/inrim_controllo_accessi/wizard/ca_abilita_persona_locale.py:0
-#, python-format
 msgid "Date start and date end must be beetween a valid period"
 msgstr ""
 "La data di inizio e la data di fine devono essere comprese tra un periodo "
@@ -373,6 +379,7 @@ msgstr "Data/Ora Evento"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_category__description
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tipo_badge_generico__description
 msgid "Description"
 msgstr "Descrizione"
 
@@ -397,8 +404,12 @@ msgstr "Disabilitati"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_abilita_persona_locale__display_name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__display_name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__display_name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_gestione_badge_generico__display_name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_importa_badge_generico__display_name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore__display_name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__display_name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__display_name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_persona__display_name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__display_name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_category__display_name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_doc_persona__display_name
@@ -408,6 +419,7 @@ msgstr "Disabilitati"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_righe_accesso__display_name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__display_name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__display_name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tipo_badge_generico__display_name
 msgid "Display Name"
 msgstr "Nome completo"
 
@@ -477,7 +489,6 @@ msgstr "Abilitato:"
 #: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
 #: code:addons/inrim_controllo_accessi/models/ca_tag_lettore.py:0
 #: code:addons/inrim_controllo_accessi/wizard/ca_registra_doc_persona.py:0
-#, python-format
 msgid "End date must be greater than start date"
 msgstr "Data fine deve essere maggiore della data di inizio"
 
@@ -523,7 +534,6 @@ msgstr "Matricola"
 #. odoo-python
 #: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_category_view_form
-#, python-format
 msgid "Give Back Badge"
 msgstr "Restituisci Badge"
 
@@ -541,8 +551,12 @@ msgstr "Posizione Sede:"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_abilita_persona_locale__id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_gestione_badge_generico__id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_importa_badge_generico__id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore__id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_persona__id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_category__id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_doc_persona__id
@@ -552,10 +566,12 @@ msgstr "Posizione Sede:"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_righe_accesso__id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__id
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tipo_badge_generico__id
 msgid "ID"
 msgstr ""
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_gestione_badge_generico__default_id_number
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__work_id_number
 msgid "ID Number"
 msgstr "Numero ID"
@@ -588,6 +604,7 @@ msgstr "Tipo Inserimento"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__ente_interno
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_tipo_badge_generico__person_type__internal
 msgid "Internal"
 msgstr "Interno"
 
@@ -625,6 +642,8 @@ msgstr "Ultimo Agg. Lettore"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_abilita_persona_locale__write_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__write_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__write_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_gestione_badge_generico__write_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_importa_badge_generico__write_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__write_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__write_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__write_uid
@@ -636,6 +655,7 @@ msgstr "Ultimo Agg. Lettore"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_righe_accesso__write_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__write_uid
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__write_uid
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tipo_badge_generico__write_uid
 msgid "Last Updated by"
 msgstr ""
 
@@ -643,6 +663,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_abilita_persona_locale__write_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_aggiungi_movimento_accesso__write_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__write_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_gestione_badge_generico__write_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_importa_badge_generico__write_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__write_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_log_integrazione_lettori__write_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__write_date
@@ -654,6 +676,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_righe_accesso__write_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_sposta_punto_accesso__write_date
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__write_date
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tipo_badge_generico__write_date
 msgid "Last Updated on"
 msgstr ""
 
@@ -726,6 +749,7 @@ msgstr "Sposta Punto Accesso"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_category__name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__name
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__name
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tipo_badge_generico__name
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_registra_persona_form
 msgid "Name"
 msgstr "Nome"
@@ -750,7 +774,6 @@ msgstr "Avanti"
 #. module: inrim_controllo_accessi
 #. odoo-python
 #: code:addons/inrim_controllo_accessi/models/ca_lettore.py:0
-#, python-format
 msgid "No more than 1 access point"
 msgstr "Non più di 1 punto di accesso"
 
@@ -824,7 +847,6 @@ msgstr "Nome"
 #. module: inrim_controllo_accessi
 #. odoo-python
 #: code:addons/inrim_controllo_accessi/wizard/ca_abilita_persona_locale.py:0
-#, python-format
 msgid "Person alredy allowed to access"
 msgstr "Persona già autorizzata ad accedere"
 
@@ -878,7 +900,6 @@ msgstr ""
 #. module: inrim_controllo_accessi
 #. odoo-python
 #: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
-#, python-format
 msgid "Qualified People"
 msgstr "Persone Qualificate"
 
@@ -917,7 +938,6 @@ msgstr "Log Integrazione Lettori"
 #: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
 #: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_punto_accesso_persona_action
 #: model:ir.ui.menu,name:inrim_controllo_accessi.ca_punto_accesso_persona_menu
-#, python-format
 msgid "Reader Person"
 msgstr "Lettore Persona"
 
@@ -932,7 +952,6 @@ msgstr "Tag Lettore"
 #. module: inrim_controllo_accessi
 #. odoo-python
 #: code:addons/inrim_controllo_accessi/models/ca_punto_accesso.py:0
-#, python-format
 msgid "Reader already in use in another location"
 msgstr "Lettore già in uso in un'altra posizione"
 
@@ -1055,6 +1074,7 @@ msgid "Stamping"
 msgstr "Timbratura"
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_importa_badge_generico__state
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_lettore_persona__state
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__state
 msgid "State"
@@ -1072,6 +1092,7 @@ msgid "Tag"
 msgstr "Badge"
 
 #. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_gestione_badge_generico__tag_code
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tag_lettore__ca_tag_code
 msgid "Tag Code"
 msgstr "Codice Badge"
@@ -1122,17 +1143,6 @@ msgstr "Temporaneo"
 #: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_tag_lettore_view_kanban
 msgid "Temp:"
 msgstr "Temporaneo:"
-
-#. module: inrim_controllo_accessi
-#. odoo-python
-#: code:addons/inrim_controllo_accessi/models/ca_lettore_persona.py:0
-#, python-format
-msgid ""
-"There can only be one configuration for reader tag, person tag, date, in "
-"active state"
-msgstr ""
-"Puo’ esistere solo una configurazione per tag lettore, tag persona, data, in"
-" stato attivo"
 
 #. module: inrim_controllo_accessi
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_anag_registro_accesso__tz
@@ -1198,3 +1208,382 @@ msgstr "Ieri"
 #: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_registra_persona__parent_id_domain
 msgid "parent id domain"
 msgstr ""
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_importa_badge_generico.py:0
+msgid "%s generic badges created"
+msgstr "%s badge generici creati"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_importa_badge_generico.py:0
+msgid "%s rows skipped, code column empty"
+msgstr "%s righe saltate, colonna codice vuota"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/models/ca_tipo_badge_generico.py:0
+msgid "A generic badge type already exists with this tag property"
+msgstr "Esiste già un tipo badge generico con questa proprietà tag"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_gestione_badge_generico__mode__add
+msgid "Add Generic Badge"
+msgstr "Aggiungi Badge Generico"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso__allowed_users
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_punto_accesso_category__allowed_users
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_category_view_form
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_punto_accesso_view_form
+msgid "Allowed Users"
+msgstr "Utenti Abilitati"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_gestione_badge_generico__name
+msgid "Badge Name"
+msgstr "Nome Badge"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tipo_badge_generico__badge_prefix
+msgid "Badge Name Prefix"
+msgstr "Prefisso Nome Badge"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_gestione_badge_generico.py:0
+msgid "Badge is required"
+msgstr "Il badge è obbligatorio"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_gestione_badge_generico.py:0
+msgid "Badge name and tag code are required"
+msgstr "Nome badge e codice tag sono obbligatori"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_gestione_badge_generico_form
+msgid "Badge to Revoke"
+msgstr "Badge da Revocare"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_importa_badge_generico__quantity
+msgid "Badges to Create"
+msgstr "Badge da Creare"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_tipo_badge_generico__person_type__both
+msgid "Both"
+msgstr "Entrambi"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_importa_badge_generico__file_format__csv
+msgid "CSV"
+msgstr "CSV"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_importa_badge_generico.py:0
+msgid "Cannot build the badge names for this type, check the badge name prefix"
+msgstr "Impossibile comporre i nomi dei badge per questo tipo, controllare il prefisso nome badge"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_importa_badge_generico_form
+msgid "Close"
+msgstr "Chiudi"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_importa_badge_generico__created_tag_ids
+msgid "Created Tag"
+msgstr "Badge Creati"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_gestione_badge_generico__ca_persona_id
+msgid "Currently Assigned To"
+msgstr "Attualmente Assegnato A"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tipo_badge_generico__ca_proprieta_tag_default_ids
+msgid "Default Tag Properties"
+msgstr "Proprietà Tag Predefinite"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_importa_badge_generico_form
+msgid "Download the file, write the code of every badge in\n                            the Codice column, then load it back here."
+msgstr "Scaricare il file, scrivere il codice di ogni badge nella colonna Codice, poi ricaricarlo qui."
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_importa_badge_generico__file_format__xlsx
+msgid "Excel (xlsx)"
+msgstr "Excel (xlsx)"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_tipo_badge_generico__person_type__external
+msgid "External"
+msgstr "Esterno"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_importa_badge_generico_form
+msgid "Fill the Code Column"
+msgstr "Compilare la Colonna Codice"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_importa_badge_generico__import_file
+msgid "Filled File"
+msgstr "File Compilato"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_importa_badge_generico_form
+msgid "Generate File"
+msgstr "Genera File"
+
+#. module: inrim_controllo_accessi
+#: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_tipo_badge_generico_action
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_gestione_badge_generico__tipo_badge_id
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_importa_badge_generico__tipo_badge_id
+#: model:ir.ui.menu,name:inrim_controllo_accessi.ca_tipo_badge_generico_menu
+msgid "Generic Badge Type"
+msgstr "Tipo Badge Generico"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_gestione_badge_generico.py:0
+msgid "Generic badge type is required"
+msgstr "Il tipo badge generico è obbligatorio"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_importa_badge_generico_form
+msgid "Import Badges"
+msgstr "Importa Badge"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_importa_badge_generico__import_filename
+msgid "Import Filename"
+msgstr "Nome File Importato"
+
+#. module: inrim_controllo_accessi
+#: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_importa_badge_generico_action
+#: model:ir.model,name:inrim_controllo_accessi.model_ca_importa_badge_generico
+#: model:ir.ui.menu,name:inrim_controllo_accessi.ca_importa_badge_generico_menu
+msgid "Import Generic Badges"
+msgstr "Importa Badge Generici"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_importa_badge_generico__state__done
+msgid "Imported"
+msgstr "Importato"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_importa_badge_generico_form
+msgid "Load the Filled File"
+msgstr "Caricare il File Compilato"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_importa_badge_generico.py:0
+msgid "Load the filled file first"
+msgstr "Caricare prima il file compilato"
+
+#. module: inrim_controllo_accessi
+#: model:ir.actions.act_window,name:inrim_controllo_accessi.ca_gestione_badge_generico_action
+#: model:ir.model,name:inrim_controllo_accessi.model_ca_gestione_badge_generico
+#: model:ir.ui.menu,name:inrim_controllo_accessi.ca_gestione_badge_generico_menu
+msgid "Manage Generic Badge"
+msgstr "Gestione Badge Generico"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_gestione_badge_generico__mode
+msgid "Mode"
+msgstr "Modalità"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_gestione_badge_generico_form
+msgid "New Badge Data"
+msgstr "Dati Nuovo Badge"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_importa_badge_generico.py:0
+msgid "No badge code found in the file"
+msgstr "Nessun codice badge trovato nel file"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/models/ca_tipo_badge_generico.py:0
+msgid "No stamping access point configured"
+msgstr "Nessun punto accesso di timbratura configurato"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,help:inrim_controllo_accessi.field_ca_tipo_badge_generico__person_type
+msgid "People allowed to get a badge of this type"
+msgstr "Persone che possono ricevere un badge di questo tipo"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tipo_badge_generico__person_type
+msgid "Person Type"
+msgstr "Tipo Persona"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,help:inrim_controllo_accessi.field_ca_tipo_badge_generico__badge_prefix
+msgid "Prefix used to propose the name of a new badge of this type, the name is built as '<prefix> - <progressive>'. Empty means the type name is used"
+msgstr "Prefisso usato per proporre il nome di un nuovo badge di questo tipo, il nome è composto come '<prefisso> - <progressivo>'. Se vuoto viene usato il nome del tipo"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,help:inrim_controllo_accessi.field_ca_tipo_badge_generico__ca_proprieta_tag_default_ids
+msgid "Properties added to every tag created with this type (Valido is always added)"
+msgstr "Proprietà aggiunte ad ogni tag creato con questo tipo (Valido è sempre aggiunta)"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,help:inrim_controllo_accessi.field_ca_tipo_badge_generico__ca_proprieta_tag_id
+msgid "Property written on the tag to mark it as this generic badge type"
+msgstr "Proprietà scritta sul tag per identificarlo come badge generico di questo tipo"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_importa_badge_generico_form
+msgid "Result"
+msgstr "Risultato"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_importa_badge_generico__result_message
+msgid "Result Message"
+msgstr "Messaggio Risultato"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_gestione_badge_generico__revocable_tag_ids
+msgid "Revocable Tag"
+msgstr "Badge Revocabili"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_gestione_badge_generico__mode__revoke
+msgid "Revoke Generic Badge"
+msgstr "Revoca Badge Generico"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_importa_badge_generico.py:0
+msgid "Row %s: the badge name %s already exists with code %s"
+msgstr "Riga %s: il nome badge %s esiste già con codice %s"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_importa_badge_generico.py:0
+msgid "Row %s: the badge name %s is already used on row %s of the file"
+msgstr "Riga %s: il nome badge %s è già usato alla riga %s del file"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_importa_badge_generico.py:0
+msgid "Row %s: the code %s already exists on badge %s"
+msgstr "Riga %s: il codice %s esiste già sul badge %s"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_importa_badge_generico.py:0
+msgid "Row %s: the code %s has no badge name"
+msgstr "Riga %s: il codice %s non ha un nome badge"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_importa_badge_generico.py:0
+msgid "Row %s: the code %s is already used on row %s of the file"
+msgstr "Riga %s: il codice %s è già usato alla riga %s del file"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_importa_badge_generico.py:0
+msgid "Row %s: the code %s is not 16 hexadecimal characters, format the code column as text and write it again"
+msgstr "Riga %s: il codice %s non è di 16 caratteri esadecimali, formattare la colonna codice come testo e riscriverlo"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tipo_badge_generico__same_day_default
+msgid "Same Day Assignment"
+msgstr "Assegnazione in Giornata"
+
+#. module: inrim_controllo_accessi
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_tipo_badge_generico_view_form
+msgid "Same as the type name"
+msgstr "Uguale al nome del tipo"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tipo_badge_generico__sequence
+msgid "Sequence"
+msgstr "Sequenza"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_gestione_badge_generico__punto_accesso_ids
+#: model_terms:ir.ui.view,arch_db:inrim_controllo_accessi.ca_gestione_badge_generico_form
+msgid "Stamping Access Points"
+msgstr "Punti Accesso di Timbratura"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_tipo_badge_generico__ca_proprieta_tag_id
+msgid "Tag Property"
+msgstr "Proprietà Tag"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_importa_badge_generico__template_file
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_importa_badge_generico__state__draft
+msgid "Template"
+msgstr "Modello"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_importa_badge_generico__template_filename
+msgid "Template Filename"
+msgstr "Nome File Modello"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,field_description:inrim_controllo_accessi.field_ca_importa_badge_generico__file_format
+msgid "Template Format"
+msgstr "Formato Modello"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields.selection,name:inrim_controllo_accessi.selection__ca_importa_badge_generico__state__template
+msgid "Template Ready"
+msgstr "Modello Pronto"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_importa_badge_generico.py:0
+msgid "The file cannot be imported, no badge has been created:"
+msgstr "Il file non può essere importato, nessun badge è stato creato:"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_importa_badge_generico.py:0
+msgid "The number of badges must be greater than zero"
+msgstr "Il numero di badge deve essere maggiore di zero"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_importa_badge_generico.py:0
+msgid "The old .xls format is not supported, save the file as .xlsx or .csv"
+msgstr "Il vecchio formato .xls non è supportato, salvare il file come .xlsx o .csv"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/models/ca_lettore_persona.py:0
+msgid "There can only be one configuration for reader tag, "
+msgstr "Può esistere una sola configurazione per tag lettore, "
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/models/ca_tipo_badge_generico.py:0
+msgid "These badge codes are not 16 hexadecimal characters: %s"
+msgstr "Questi codici badge non sono di 16 caratteri esadecimali: %s"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/models/ca_tipo_badge_generico.py:0
+msgid "These badge names already exist: %s"
+msgstr "Questi nomi badge esistono già: %s"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model,name:inrim_controllo_accessi.model_ca_tipo_badge_generico
+msgid "Tipo Badge Generico"
+msgstr "Tipo Badge Generico"
+
+#. module: inrim_controllo_accessi
+#: model:ir.model.fields,help:inrim_controllo_accessi.field_ca_tipo_badge_generico__same_day_default
+msgid "When assigning this badge to a person the wizard proposes an assignment ending the same day at 19:30. Disable it for long stay badges, the dates are then left to the operator"
+msgstr "Assegnando questo badge ad una persona il wizard propone una assegnazione che termina lo stesso giorno alle 19:30. Disabilitarlo per i badge di lunga durata, in quel caso le date sono lasciate all'operatore"

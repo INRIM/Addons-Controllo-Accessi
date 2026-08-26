@@ -386,6 +386,24 @@ class CaPuntoAccesso(models.Model):
                 tag)
             if tag_persona:
                 self.stamping_attach_tag_persona(tag_persona)
+        self.stamping_attach_generic_tags()
+
+    def stamping_attach_generic_tags(self):
+        """
+        I badge generici non hanno un tag_persona, vanno comunque sempre
+        presenti sui lettori di sede: li riallinea tutti.
+        """
+        self.ensure_one()
+        generic_proprieta_ids = self.env[
+            'ca.tipo_badge_generico'].get_proprieta_tag_ids()
+        if not generic_proprieta_ids:
+            return
+        generic_tags = self.env['ca.tag'].search([
+            ('revoked', '=', False),
+            ('ca_proprieta_tag_ids', 'in', generic_proprieta_ids)
+        ])
+        for tag in generic_tags:
+            self.generic_tag_attach(tag)
 
     def stamping_attach_tag_persona(self, tag_persona):
         """
@@ -415,6 +433,58 @@ class CaPuntoAccesso(models.Model):
             })
 
         res = self.env['ca.lettore_persona'].elabora_persone_tag_lettore(tag_lettore)
+
+    def generic_tag_attach(self, tag):
+        """
+        Badge generico: il tag non e' legato ad una persona, va comunque
+        scritto sul lettore fisico del punto accesso di timbratura.
+        - crea il legame Tag - Lettore ( questo attiva il flag di sync )
+        - se il tag risulta gia' consegnato ad una persona aggiorna
+          anche il legame Lettore - Persona
+        """
+        self.ensure_one()
+        if self.typology != 'stamping':
+            return False
+        logger.info(f"Generic Tag Attach {tag.name} on {self.name}")
+        tag_lettore = self.env['ca.tag_lettore'].search([
+            ('ca_tag_id', '=', tag.id),
+            ('ca_lettore_id', '=', self.ca_lettore_id.id),
+            ('state', 'not in', ['expired']),
+            ('active', '=', True)
+        ], limit=1)
+        if not tag_lettore:
+            tag_lettore = self.env['ca.tag_lettore'].create({
+                'ca_lettore_id': self.ca_lettore_id.id,
+                'ca_tag_id': tag.id,
+                'date_start': self.date_start,
+                'date_end': self.date_end,
+                'ca_punto_accesso_id': self.id
+            })
+        self.env['ca.lettore_persona'].elabora_persone_tag_lettore(tag_lettore)
+        return tag_lettore
+
+    def generic_tag_detach(self, tag):
+        """
+        Badge generico: rimuove il tag dal lettore fisico del punto accesso
+        e chiude le eventuali abilitazioni Lettore - Persona residue.
+        """
+        self.ensure_one()
+        logger.info(f"Generic Tag Detach {tag.name} on {self.name}")
+        tag_lettore_ids = self.env['ca.tag_lettore'].search([
+            ('ca_tag_id', '=', tag.id),
+            ('ca_lettore_id', '=', self.ca_lettore_id.id)
+        ])
+        for tag_lettore in tag_lettore_ids:
+            lettore_persona_ids = self.env['ca.lettore_persona'].search([
+                ('ca_tag_lettore_id', '=', tag_lettore.id)
+            ])
+            if lettore_persona_ids:
+                lettore_persona_ids.write({
+                    'state': 'expired',
+                    'active': False,
+                })
+            tag_lettore.detach()
+        return True
 
     def check_and_attach_tag_persona(self, tag_persona):
         for record in self:

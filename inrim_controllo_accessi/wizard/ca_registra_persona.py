@@ -138,27 +138,35 @@ class CaRegistraPersona(models.TransientModel):
 
     def compute_available_tags(self):
         self.ensure_one()
+        tipo_badge_model = self.env['ca.tipo_badge_generico']
         logger.info(f"seacrh tag external {self.ca_title_id.structured}")
         if not self.ca_title_id.structured:
             logger.info("seacrh tag external")
+            generic_proprieta_ids = tipo_badge_model.get_proprieta_tag_ids(
+                'external')
             self.available_tags_ids = self.env['ca.tag'].search([
                 ('in_use', '=', False),
                 ('revoked', '=', False),
+                '|',
+                '&',
                 ('temp', '=', True),
                 ('ca_proprieta_tag_ids', 'in', [
                     self.env.ref('inrim_anagrafiche.proprieta_tag_visitatore').id,
                     self.env.ref('inrim_anagrafiche.proprieta_tag_servizio').id
-                ])
+                ]),
+                ('ca_proprieta_tag_ids', 'in', generic_proprieta_ids)
             ])
             logger.info(self.available_tags_ids)
         elif self.persona_id.is_internal:
+            generic_proprieta_ids = tipo_badge_model.get_proprieta_tag_ids(
+                'internal')
             self.available_tags_ids = self.env['ca.tag'].search([
                 ('in_use', '=', False),
                 ('revoked', '=', False),
                 ('ca_proprieta_tag_ids', 'in', [
                     self.env.ref('inrim_anagrafiche.proprieta_tag_jolly').id,
                     self.env.ref('inrim_anagrafiche.proprieta_tag_definitivo').id,
-                ])
+                ] + generic_proprieta_ids)
             ])
 
 
@@ -182,6 +190,12 @@ class CaRegistraPersona(models.TransientModel):
         for record in self:
             record.work_id_number = record.ca_tag_id.default_id_number
             if record.ca_tag_id.temp and not record.date_start and not record.date_end:
+                tipo_badge = self.env['ca.tipo_badge_generico'].get_tipo_by_tag(
+                    record.ca_tag_id)
+                # i badge generici di lunga durata non hanno una scadenza
+                # di default, le date le imposta l'operatore
+                if tipo_badge and not tipo_badge.same_day_default:
+                    continue
                 now = fields.Datetime.now()
                 # Costruisce oggi alle 19:30
                 today_1930 = datetime.combine(now.date(), time(19, 30))

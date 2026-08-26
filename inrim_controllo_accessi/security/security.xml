@@ -185,5 +185,31 @@
         <field name="active" eval="True"/>
     </record>
 
+    <!-- Tipo Badge Generico -->
+    <record id="inrim_utente_ca_tipo_badge_generico_rule" model="ir.rule">
+        <field name="name">INRIM Utente: Tipo Badge Generico</field>
+        <field name="model_id" ref="model_ca_tipo_badge_generico"/>
+        <field name="global" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('controllo_accessi.ca_utente'))]"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="inrim_controllo_accesso_ca_tipo_badge_generico_rule" model="ir.rule">
+        <field name="name">INRIM Controllo Accesso: Tipo Badge Generico</field>
+        <field name="model_id" ref="model_ca_tipo_badge_generico"/>
+        <field name="global" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('controllo_accessi.ca_ca'))]"/>
+        <field name="active" eval="True"/>
+    </record>
 
 </odoo>

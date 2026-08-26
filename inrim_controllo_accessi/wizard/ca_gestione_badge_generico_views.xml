@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ca_gestione_badge_generico_form" model="ir.ui.view">
+        <field name="name">ca.gestione.badge.generico.view.form</field>
+        <field name="model">ca.gestione_badge_generico</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="mode" widget="radio"/>
+                        </group>
+                        <group>
+                            <field name="tipo_badge_id"
+                                   options="{'no_create': True, 'no_quick_create': True}"
+                                   required="mode == 'add'"/>
+                        </group>
+                    </group>
+
+                    <group invisible="mode != 'add'">
+                        <group>
+                            <separator string="New Badge Data"/>
+                            <field name="name" required="mode == 'add'"/>
+                            <field name="tag_code" required="mode == 'add'"/>
+                        </group>
+                        <group>
+                            <field name="default_id_number"/>
+                        </group>
+                    </group>
+
+                    <group invisible="mode != 'revoke'">
+                        <group>
+                            <separator string="Badge to Revoke"/>
+                            <field name="revocable_tag_ids" invisible="1"/>
+                            <field name="ca_tag_id"
+                                   options="{'no_create': True, 'no_quick_create': True}"
+                                   domain="[('id', 'in', revocable_tag_ids)]"
+                                   required="mode == 'revoke'"/>
+                        </group>
+                        <group>
+                            <field name="ca_persona_id" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <separator string="Stamping Access Points"/>
+                    <field name="punto_accesso_ids" readonly="1">
+                        <list>
+                            <field name="name"/>
+                            <field name="ca_lettore_id"/>
+                            <field name="enable_sync"/>
+                        </list>
+                    </field>
+                </sheet>
+                <footer>
+                    <button
+                            name="action_confirm"
+                            string="Confirm"
+                            class="btn-primary"
+                            type="object"
+                    />
+                    <button
+                            string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="ca_gestione_badge_generico_action"
+            model="ir.actions.act_window">
+        <field name="name">Manage Generic Badge</field>
+        <field name="res_model">ca.gestione_badge_generico</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
