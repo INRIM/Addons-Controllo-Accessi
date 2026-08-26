@@ -4,15 +4,15 @@ env:
   ODOO_RC: odoo.cfg
   ADDONS_PATH: /opt/odoo/addons,/mnt/server-auth,/mtn/partner-contact,/mnt/server-env,/mnt/Addons-Controllo-Accessi
   TESTTAGS: inrim
-  OE_VER: "17.0"
+  OE_VER: "19.0"
 
 on:
   pull_request:
     branches:
-      - "17.0*"
+      - "19.0*"
   push:
     branches:
-      - "17.0"
+      - "19.0"
 
 concurrency:
   group: ${{ github.ref }}
