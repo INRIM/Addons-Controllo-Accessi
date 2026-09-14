@@ -1,1 +1,5 @@
 httpx
+# odoo:19.0 is ubuntu noble based: typing_extensions 4.10 comes from apt and has
+# no RECORD file, so pip cannot replace it. anyio >= 4.15.0 requires
+# typing_extensions >= 4.16.0, which makes the install fail.
+anyio<4.15
