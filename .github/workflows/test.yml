@@ -4,6 +4,9 @@ env:
   ODOO_RC: odoo.cfg
   ADDONS_PATH: /opt/odoo/addons,/mnt/server-auth,/mtn/partner-contact,/mnt/server-env,/mnt/Addons-Controllo-Accessi
   TESTTAGS: inrim
+  # Every pip run on the runner honours this; the Tests step passes the
+  # in-container path explicitly.
+  PIP_CONSTRAINT: ${{ github.workspace }}/Addons-Controllo-Accessi/ci-constraints.txt
   OE_VER: "19.0"
 
 on:
@@ -90,4 +93,4 @@ jobs:
       - name: Init Data
         run: ${PWD}/oqa/bin/init_repo.sh
       - name: Tests
-        run: docker run --rm --user root -v ${PWD}/reader-data:/mnt/reader-data:rw -v ${PWD}/run_tests.sh:/mnt/tests/runtests.sh -v ${PWD}/partner-contact:/mtn/partner-contact -v ${PWD}/server-auth:/mnt/server-auth -v ${PWD}/server-env:/mnt/server-env -v ${PWD}/${{ env.REPO_NAME }}:/mnt/${{ env.REPO_NAME }} -v ${PWD}/${ODOO_RC}:/etc/odoo/odoo.conf --network=host odoo:${{ env.OE_VER }} /mnt/tests/runtests.sh
+        run: docker run --rm --user root -e PIP_CONSTRAINT=/mnt/${{ env.REPO_NAME }}/ci-constraints.txt -v ${PWD}/reader-data:/mnt/reader-data:rw -v ${PWD}/run_tests.sh:/mnt/tests/runtests.sh -v ${PWD}/partner-contact:/mtn/partner-contact -v ${PWD}/server-auth:/mnt/server-auth -v ${PWD}/server-env:/mnt/server-env -v ${PWD}/${{ env.REPO_NAME }}:/mnt/${{ env.REPO_NAME }} -v ${PWD}/${ODOO_RC}:/etc/odoo/odoo.conf --network=host odoo:${{ env.OE_VER }} /mnt/tests/runtests.sh
