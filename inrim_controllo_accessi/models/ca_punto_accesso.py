@@ -259,6 +259,51 @@ class CaPuntoAccesso(models.Model):
                 record.enable_sync = True
                 self.check_and_attach()
 
+    def detach_tag_persona_stack(self, tag_persona, detach_tag_lettore=True):
+        """
+        Rimuove il badge da tutto lo stack del lettore di questo punto
+        accesso.
+
+        La ricerca parte dal badge, con la stessa chiave usata in fase di
+        attach (tag + lettore): partire da ca_tag_lettore_persona_ids lascia
+        indietro i link tag-lettore in stato scheduled, che non hanno ancora
+        una riga lettore-persona, e quelli gia' archiviati.
+
+        :param detach_tag_lettore: False per i badge temporanei in timbratura,
+            dove il link tag-lettore viene riusato.
+        :return: i record ca.tag_lettore trovati per il badge
+        """
+        self.ensure_one()
+        tag_lettore = self.env['ca.tag_lettore'].with_context(
+            active_test=False
+        ).search([
+            ('ca_tag_id', '=', tag_persona.ca_tag_id.id),
+            ('ca_lettore_id', '=', self.ca_lettore_id.id),
+        ])
+        lettore_persona = self.env['ca.lettore_persona'].with_context(
+            active_test=False
+        ).search([
+            ('ca_tag_persona', '=', tag_persona.id),
+            '|',
+            ('ca_tag_lettore_id', 'in', tag_lettore.ids),
+            ('ca_punto_accesso_id', '=', self.id),
+        ])
+        if detach_tag_lettore:
+            for record in tag_lettore:
+                record.detach()
+                logger.info(f"set  {record} state {record.state} ")
+            if tag_lettore:
+                # il badge non deve piu' finire nel payload del lettore
+                self.remote_update = True
+        if lettore_persona:
+            logger.info(
+                f"set {', '.join(lettore_persona.mapped('ca_persona_id.name'))} set expired")
+            lettore_persona.write({
+                'state': 'expired',
+                'active': False,
+            })
+        return tag_lettore
+
     def local_access_detach(self, tag_persona):
         """
         Rimuovo Lettore-Persona
@@ -266,19 +311,18 @@ class CaPuntoAccesso(models.Model):
         rimuove link tag - lettore
         sync
         """
+        self.ensure_one()
         logger.info("local_access_detach")
-        lettore_persona = self.ca_tag_lettore_persona_ids.filtered(
-            lambda x: x.ca_persona_id.id == tag_persona.ca_persona_id.id
-        )
-        if lettore_persona:
-            lettore_persona.ca_tag_lettore_id.detach()
+        tag_lettore = self.detach_tag_persona_stack(tag_persona)
+        if not tag_lettore:
             logger.info(
-                f"set  {lettore_persona.ca_tag_lettore_id} state {lettore_persona.ca_tag_lettore_id.state} ")
-            logger.info(f"set {lettore_persona.ca_persona_id.name} set expired")
-            lettore_persona.state = 'expired'
-            lettore_persona.active = False
-            self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
-            return True
+                "No tag_lettore found for tag_persona %s on access point %s",
+                tag_persona.id,
+                self.id,
+            )
+        # dopo il detach: elabora_persone ricrea lettore-persona per ogni
+        # tag_lettore che risulta active, e i nostri ora sono expired
+        self.env['ca.lettore_persona'].elabora_persone(self.ca_lettore_id)
         return True
 
     def local_access_attach(self, tag):
@@ -345,27 +389,18 @@ class CaPuntoAccesso(models.Model):
 
         :return:
         """
-        lettore_persona = self.ca_tag_lettore_persona_ids.filtered(
-            lambda
-                x: x.ca_persona_id.id == tag_persona.ca_persona_id.id and x.ca_tag_persona.id == tag_persona.id
+        self.ensure_one()
+        logger.info(f"check tag is temp and remove from reader")
+        tag_lettore = self.detach_tag_persona_stack(
+            tag_persona,
+            detach_tag_lettore=not tag_persona.ca_tag_id.temp,
         )
-        if not lettore_persona:
+        if not tag_lettore:
             logger.info(
-                "No lettore_persona found for tag_persona %s on access point %s",
+                "No tag_lettore found for tag_persona %s on access point %s",
                 tag_persona.id,
                 self.id,
             )
-            return True
-        logger.info(f"check tag is temp and remove from reader")
-        if not tag_persona.ca_tag_id.temp:
-            # imposta tag revocato
-            logger.info(f"set {', '.join(lettore_persona.mapped('ca_persona_id.display_name'))} expired")
-            for tag_lettore in lettore_persona.mapped('ca_tag_lettore_id'):
-                tag_lettore.detach()
-        lettore_persona.write({
-            'state': 'expired',
-            'active': False,
-        })
         return True
 
     def stamping_attach(self):
