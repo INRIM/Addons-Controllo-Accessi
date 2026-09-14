@@ -357,6 +357,18 @@ class CaPuntoAccesso(models.Model):
             return True
 
     @api.model
+    def load_update_reader_device(self):
+        """Read events from every enabled reader and, when the access point is
+        flagged for remote update, push the tags in the same run."""
+        with self.env.cr.savepoint():
+            for point in self.env['ca.punto_accesso'].search(
+                    [('enable_sync', '=', True)]):
+                point.save_events_to_json()
+                if point.remote_update:
+                    point.update_reader_tags()
+            return True
+
+    @api.model
     def eval_readers_data(self):
         res = super().eval_readers_data()
         with self.env.cr.savepoint():

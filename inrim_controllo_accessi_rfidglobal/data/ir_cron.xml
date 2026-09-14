@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-        <record id="access_data_from_readers" model="ir.cron">
-            <field name="name">INRiM: Read Data from Reades</field>
+        <record id="load_update_reader_device" model="ir.cron">
+            <field name="name">INRiM: Read Data and Update Tags from Readers</field>
             <field name="model_id" ref="model_ca_punto_accesso"/>
-            <field name="interval_number">2</field>
+            <field name="interval_number">5</field>
             <field name="interval_type">minutes</field>
-            <field name="code">model.load_readers_data()</field>
+            <field name="code">model.load_update_reader_device()</field>
         </record>
 
         <record id="acess_decode_data_access" model="ir.cron">
@@ -15,14 +15,6 @@
             <field name="interval_number">2</field>
             <field name="interval_type">minutes</field>
             <field name="code">model.eval_readers_data()</field>
-        </record>
-
-        <record id="acces_update_readers_tags" model="ir.cron">
-            <field name="name">INRiM:Update Readers Tags</field>
-            <field name="model_id" ref="model_ca_punto_accesso"/>
-            <field name="interval_number">15</field>
-            <field name="interval_type">minutes</field>
-            <field name="code">model.update_readers_data()</field>
         </record>
 
         <record id="acces_update_readers_clock" model="ir.cron">
