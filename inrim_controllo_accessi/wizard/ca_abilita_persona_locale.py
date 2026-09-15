@@ -29,23 +29,25 @@ class CaAbilitaPersonaLocale(models.TransientModel):
     date_start = fields.Datetime(required=True, default=fields.Datetime.now)
     date_end = fields.Datetime(required=True)
 
-    @api.onchange('persona_id')
+    @api.depends('persona_id')
     def _compute_tag_persona(self):
         for record in self:
-            if not record.persona_id:
-                return
-            ca_tag_persona_id = self.env['ca.tag_persona'].get_current_by_pesona(
+            record.ca_tag_persona_id = self.env['ca.tag_persona'].get_current_by_pesona(
                 record.persona_id
-            )
+            ) if record.persona_id else False
+
+    @api.onchange('persona_id')
+    def _onchange_persona_id(self):
+        for record in self:
+            if not record.persona_id or not record.ca_tag_persona_id:
+                continue
             lettore_persona = self.env['ca.tag_lettore'].search([
-                ('ca_lettore_id', "=", self.punto_accesso_id.ca_lettore_id.id),
-                ('ca_tag_id', '=', ca_tag_persona_id.ca_tag_id.id,)
+                ('ca_lettore_id', "=", record.punto_accesso_id.ca_lettore_id.id),
+                ('ca_tag_id', '=', record.ca_tag_persona_id.ca_tag_id.id)
             ], limit=1)
             if lettore_persona:
                 raise UserError(
                     _('Person alredy allowed to access'))
-            if ca_tag_persona_id:
-                record.ca_tag_persona_id = ca_tag_persona_id
 
     @api.constrains('date_start', 'date_end')
     def _check_date(self):
@@ -54,6 +56,8 @@ class CaAbilitaPersonaLocale(models.TransientModel):
                 if record.date_end < record.date_start:
                     raise UserError(
                         _('Date end must be after date start'))
+                if not record.allowed_date_start or not record.allowed_date_end:
+                    continue
                 if (
                         record.date_end < record.allowed_date_start or
                         record.date_start > record.allowed_date_end or
