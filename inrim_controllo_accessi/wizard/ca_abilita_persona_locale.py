@@ -53,7 +53,7 @@ class CaAbilitaPersonaLocale(models.TransientModel):
     def _check_date(self):
         for record in self:
             if record.date_end and record.date_start:
-                if record.date_end < record.date_start:
+                if record.date_end > record.date_start:
                     raise UserError(
                         _('Date end must be after date start'))
                 if not record.allowed_date_start or not record.allowed_date_end:
