@@ -15,7 +15,8 @@
                                    options="{'no_create': True, 'no_quick_create': True}"
                                    required="1"
                             />
-                            <field name="ca_tag_persona_id" required="1"/>
+                            <field name="ca_tag_persona_id" required="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
                         </group>
                     </group>
 

@@ -1587,3 +1587,21 @@ msgstr "Tipo Badge Generico"
 #: model:ir.model.fields,help:inrim_controllo_accessi.field_ca_tipo_badge_generico__same_day_default
 msgid "When assigning this badge to a person the wizard proposes an assignment ending the same day at 19:30. Disable it for long stay badges, the dates are then left to the operator"
 msgstr "Assegnando questo badge ad una persona il wizard propone una assegnazione che termina lo stesso giorno alle 19:30. Disabilitarlo per i badge di lunga durata, in quel caso le date sono lasciate all'operatore"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_abilita_persona_locale.py:0
+msgid "Tag %s already allowed on this access point, select another tag of the person"
+msgstr "Tag %s già abilitato su questo punto di accesso, selezionare un altro tag della persona"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_abilita_persona_locale.py:0
+msgid "Tag %s already allowed on this access point"
+msgstr "Tag %s già abilitato su questo punto di accesso"
+
+#. module: inrim_controllo_accessi
+#. odoo-python
+#: code:addons/inrim_controllo_accessi/wizard/ca_abilita_persona_locale.py:0
+msgid "Select a valid tag for the person"
+msgstr "Selezionare un tag valido per la persona"
