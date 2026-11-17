@@ -96,6 +96,19 @@ class TestPortalBadgeRelease(TransactionCase):
         self.assertEqual(vals['ca_ente_name'], self.ente_azienda.name)
         self.assertEqual(vals['tipo_ente_azienda_id'], self.tipo_ente_azienda.id)
 
+    def test_internal_persona_without_company_uses_default_internal_ente(self):
+        persona = self._make_person('Portal No Company')
+        persona.ca_ente_azienda_ids = [(5, 0, 0)]
+        default_ente = self.env['ca.registra_persona'].get_default_internal_ente()
+        self.assertTrue(default_ente)
+
+        vals = self.controller._populate_company_vals_from_persona(
+            {'persona_id': persona.id, 'ca_ente_name': '', 'vat': ''}, persona)
+
+        self.assertEqual(vals['ente_azienda'], default_ente.id)
+        self.assertEqual(vals['ca_ente_name'], default_ente.name)
+        self.assertEqual(vals['tipo_ente_azienda_id'], self.tipo_ente_azienda.id)
+
     def test_parse_portal_datetime_prefers_iso_with_offset(self):
         parsed = self.controller._parse_portal_datetime(
             self.env,

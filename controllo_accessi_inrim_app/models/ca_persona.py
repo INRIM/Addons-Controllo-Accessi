@@ -433,6 +433,10 @@ class CaPersona(models.Model):
                         persona_id.action_completed()
 
                 else:
+                    if azienda_ids and not persona_id.ca_ente_azienda_ids:
+                        logger.info(
+                            f"set ente persona {record.get('matricola')} ")
+                        persona_id.ca_ente_azienda_ids = [(6, 0, azienda_ids)]
                     if resp_id and (
                             not persona_id.parent_id or
                             persona_id.parent_id.freshman != resp_id.freshman

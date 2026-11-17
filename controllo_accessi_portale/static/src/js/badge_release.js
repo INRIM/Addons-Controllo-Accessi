@@ -59,6 +59,7 @@ class BadgeRelease extends Component {
         this.titolo_persona = [];
         this.ca_ente_azienda = [];
         this.tags = [];
+        this.defaultInternalEnte = null;
 
         this.store = {
             workInfosMap: {},
@@ -108,6 +109,7 @@ class BadgeRelease extends Component {
             this.titolo_persona = safeInit.titoli || [];
             this.ca_ente_azienda = safeInit.enti_aziende || [];
             this.tags = safeInit.tags || [];
+            this.defaultInternalEnte = safeInit.default_internal_ente || null;
             this.store.tagDomains = safeInit.tag_domains || {};
 
             this.store.personasMap = Object.fromEntries(safePersonas.map(p => [p.id, p]));
@@ -204,6 +206,10 @@ class BadgeRelease extends Component {
         let ente = null;
         if (persona.ca_ente_azienda_ids?.[0]) {
             ente = this.store.entiMap[persona.ca_ente_azienda_ids[0]];
+        }
+        // Persona interna senza ente associato: si usa la sede principale
+        if (!ente && persona.is_internal) {
+            ente = this.defaultInternalEnte;
         }
 
         this.state.isPersonaInternal = persona.is_internal || false;

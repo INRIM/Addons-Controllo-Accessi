@@ -79,6 +79,15 @@ class CaRegistraPersona(models.TransientModel):
             self.env.ref('inrim_anagrafiche.tipo_ente_azienda_sede_distaccata').id,
         ]
 
+    @api.model
+    def get_default_internal_ente(self):
+        """Sede principale, usata per le persone interne senza ente associato."""
+        ente = self.env['ca.ente_azienda'].sudo().search([
+            ('tipo_ente_azienda_id', '=',
+             self.env.ref('inrim_anagrafiche.tipo_ente_azienda_sede').id)
+        ], order='id', limit=1)
+        return self.env['ca.ente_azienda'].browse(ente.id)
+
     def reset_ente_azienda_id(self, ):
         self.ente_azienda = False
         self.ca_ente_name = ""
@@ -110,6 +119,8 @@ class CaRegistraPersona(models.TransientModel):
         self.email = rec.email
         self.persona_id = rec.id
         ent_az_id = rec.ca_ente_azienda_ids.ids[0] if rec.ca_ente_azienda_ids else []
+        if not ent_az_id and rec.is_internal:
+            ent_az_id = self.get_default_internal_ente().id or []
         self.eval_ente_azienda_id(ent_az_id)
         current_winfo = self.persona_id.get_current_winfo()
         if current_winfo:

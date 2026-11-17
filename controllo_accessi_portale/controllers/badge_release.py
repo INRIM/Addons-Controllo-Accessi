@@ -64,6 +64,9 @@ class PortalBadgeRelease(http.Controller):
         if not persona:
             return vals
         ente = persona.ca_ente_azienda_ids[:1]
+        if not ente and persona.is_internal:
+            # persona interna senza ente associato: si usa la sede principale
+            ente = persona.env['ca.registra_persona'].get_default_internal_ente().sudo()
         if not ente:
             return vals
         if not vals.get('ente_azienda'):
@@ -183,7 +186,12 @@ class PortalBadgeRelease(http.Controller):
             ['id', 'name', 'display_name']
         )
 
+        default_internal_ente = Env['ca.registra_persona'].get_default_internal_ente().sudo()
+
         return {
+            'default_internal_ente': default_internal_ente.read(
+                ['id', 'name', 'display_name', 'vat', 'tipo_ente_azienda_id'])[0]
+            if default_internal_ente else False,
             'tags': tags,
             'tag_domains': tag_domains,
             'work_infos': work_infos,
