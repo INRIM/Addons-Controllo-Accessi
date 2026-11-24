@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Attesa minima dopo l'attivazione prima di verificare il popolamento
+             di un lettore stamping (il cron di sync gira ogni 5 minuti) -->
+        <record id="ir_config_parameter_provisioning_stamping_wait" model="ir.config_parameter">
+            <field name="key">provisioning_lettore.stamping_wait_minutes</field>
+            <field name="value">10</field>
+        </record>
+        <!-- Scarto massimo tollerato tra orologio del lettore e del server -->
+        <record id="ir_config_parameter_provisioning_clock_drift" model="ir.config_parameter">
+            <field name="key">provisioning_lettore.max_clock_drift_seconds</field>
+            <field name="value">120</field>
+        </record>
+    </data>
+</odoo>

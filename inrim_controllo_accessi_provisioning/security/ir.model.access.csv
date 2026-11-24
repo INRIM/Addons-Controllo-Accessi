@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ca_provisioning_lettore_tech,access_ca_provisioning_lettore_tech,model_ca_provisioning_lettore,controllo_accessi.ca_tech,1,1,1,0
+access_ca_provisioning_lettore_log_tech,access_ca_provisioning_lettore_log_tech,model_ca_provisioning_lettore_log,controllo_accessi.ca_tech,1,0,1,0
