@@ -8,7 +8,13 @@ logger = logging.getLogger(__name__)
 
 class InrimApiPuntoAccesso(InrimApiController):
 
-        
+    @http.route('/api/punto_accesso', auth="none", type='http', methods=['GET'],
+                csrf=False)
+    def api_get_ca_punto_accesso(self, **params):
+        self.check_token('ca.punto_accesso', 'read')
+        return self.handle_response(
+            *self.model.rest_get(params), is_list=True)
+
     @http.route('/api/punto_accesso/add_persona_tag', auth="none", type='http', methods=['POST'],
                 csrf=False, readonly=False)
     def api_post_ca_exc_add_persona_tag(self):

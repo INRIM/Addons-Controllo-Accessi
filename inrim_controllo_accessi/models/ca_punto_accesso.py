@@ -149,7 +149,8 @@ class CaPuntoAccesso(models.Model):
             "direction": self.f_selection("direction", self.direction),
             "enable_sync": self.enable_sync,
             "remote_update": self.remote_update,
-            "system_error": self.system_error
+            "system_error": self.system_error,
+            "active": self.active
         }
         return vals
 

@@ -9,6 +9,11 @@ class CaPuntoAccesso(models.Model):
         string='GRUM Reader Code',
     )
 
+    def rest_get_record(self):
+        vals = super().rest_get_record()
+        vals["codice_lettore_grum"] = self.codice_lettore_grum
+        return vals
+
     @api.constrains('codice_lettore_grum', 'typology')
     def _check_codice_lettore_grum(self):
         for record in self:
