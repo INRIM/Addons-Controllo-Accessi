@@ -15,6 +15,16 @@ class InrimApiPuntoAccesso(InrimApiController):
         return self.handle_response(
             *self.model.rest_get(params), is_list=True)
 
+    @http.route('/api/punto_accesso', auth="none", type='http', methods=['PUT'],
+                csrf=False, readonly=False)
+    def api_put_ca_punto_accesso(self):
+        self.check_token('ca.punto_accesso', 'write')
+        data = self.check_and_decode_body()
+        try:
+            return self.handle_response(*self.model.rest_put(data))
+        except Exception as e:
+            raise BadRequest(str(e))
+
     @http.route('/api/punto_accesso/add_persona_tag', auth="none", type='http', methods=['POST'],
                 csrf=False, readonly=False)
     def api_post_ca_exc_add_persona_tag(self):
